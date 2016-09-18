@@ -1,0 +1,500 @@
+$$ Defect detected @ default to utf8 for mysql
+
+change default charset to utf8 and default collation order to
+utf8_unicode_ci to align with upstream defaults.
+
+change-id: i2aa59fd868476f599019e3029af36aa707139fe1
+closes-bug: #1302088
+
+$$ Defect detected @ fix report_interval configuration
+
+report_interval parameter was documented and parametrized but not
+actually configured in nova.
+
+change-id: i28c0373b7f846ea24a5f33273c4ae49b23fb7eca
+closes-bug: #1303453
+
+$$ Defect detected @ test bug #1278452 with real node definitions
+
+this test makes sure the bug #1278452 is fixed by reproducing
+the actual use case where both nova::consoleauth and
+nova::spicehtml5proxy are defined on the same node.
+
+change-id: idcd3d3722cd834bdafea1cf39e1deaf4213fb9a9
+related-bug: #1278452
+
+$$ Defect detected @ fix consoleauth/spice duplicates on rh (#1278452)
+
+on redhat, consoleauth and spicehtml5proxy packages has the same name
+(« openstack-nova-console »), so we have a duplicate resource (see: #1278452).
+in this context we can't use ensure_package of stdlib because we loose
+notify/names attributes.)
+
+closes-bug: #1278452
+
+change-id: i0141ca0233aead072a06796759d211cf1b6dc657
+
+$$ Defect detected @ update nova::config example description.
+
+the original example in nova::config is syntax invalid.
+besides fixing that, this patch also gives an example in yaml format.
+
+change-id: i2f044392becd9e46cc8346030095a029464c5ea0
+closes-bug: #1301700
+
+$$ Defect detected @ introduce nova::config
+
+add a new class nova::config which allows the creation and
+management of arbitrary nova_config and nova_api_paste_ini resources.
+
+this will add the ability for the end user to use hiera to manage
+those resources.
+
+change-id: iad7a2b764884887a75f5f6db3e1660644e07c5c0
+closes-bug: #1290634
+
+$$ Defect detected @ add ability to disable installation of nova utilities
+
+install them by default, preserving previous behavior.
+
+change-id: i01ab67330b4a66f0af44a0c83c81dc9601cf57b5
+closes-bug: #1281392
+
+$$ Defect detected @ allow log_dir to be set to false in order to disable file logging
+
+this commit allows a user to disable logging to a directory (for
+example if syslog is enabled) in order not to login twice.
+
+change-id: i0e64cf62f556d40d9243b05b4d0253dddc42b686
+closes-bug: #1282296
+
+$$ Defect detected @ deprecate logdir parameter (use log_dir instead)
+
+the logdir parameter is deprecated since grizzly, we now use log_dir
+instead. (the retro-compatibility is kept)
+cosmetics: align all parameters of nova class.
+
+closes-bug: #1282295
+change-id: i20b3dee628205d53779afc4db7506a0701ad1bd4
+
+$$ Defect detected @ ensure that pip is installed before using it.
+
+we need to ensure that pip is available before
+trying to install xenapi with it.
+
+change-id: i97ccbabe6e77205e516cc3b7e17bac8824a19520
+closes-bug: #1183060
+
+$$ Defect detected @ deprecates old libvirt config
+
+icehouse brings a new way to configure libvirt with a dedicated section.
+this patch aims to configure libvirt in that way and fails when using
+old method.
+
+implement blueprint sync-libvirt-config
+closes-bug #1259331
+
+change-id: i57438e10d207da7df9c7912c311bac1e7fdfe8aa
+signed-off-by: emilien macchi <emilien.macchi@enovance.com>
+
+$$ Defect detected @ deprecates old libvirt config
+
+icehouse brings a new way to configure libvirt with a dedicated section.
+this patch aims to configure libvirt in that way and fails when using
+old method.
+
+implement blueprint sync-libvirt-config
+closes-bug #1259331
+
+change-id: i57438e10d207da7df9c7912c311bac1e7fdfe8aa
+signed-off-by: emilien macchi <emilien.macchi@enovance.com>
+
+$$ Defect detected @ add ability to disable endpoint configuration
+
+it is possible to disable endpoint configuration by setting the value
+of the configure_endpoint parameter to false.
+
+the default value is true, preserving default behavior.
+
+change-id: ib8b5ac67a1004807faf8dd82becad4522339bddf
+closes-bug: #1278554
+
+$$ Defect detected @ fix vncproxy package/service name on debian
+
+this commit fix vncproxy on debian os, we have now a duplicate
+between nova::vncproxy and nova::spicehtml5proxy packages on debian
+but install both have no sense…
+
+closes-bug: #1267645
+
+change-id: ib0a769ba91221d1ebc14df01f24579c8fe58db26
+
+$$ Defect detected @ fix configuring libvirt before installation
+
+when enabling nova::migration::libvirt, it will try to configure
+libvirtd.conf before installing libvirt package. this patchset adds
+a dependency to make sure libvirt package has been installed when
+running nova::migration::libvirt.
+
+change-id: i981217c2bbecb276f25fa98d897e1da93d7e02a7
+closes-bug: #1254372
+
+$$ Defect detected @ remove novnc from vncproxy packages list for ubuntu
+
+package resources can no longer have array for name since puppet 3.4.
+
+since the package nova-novncproxy already requires novnc,
+we can safely remove it from the list of packages to install.
+
+closes-bug: #1263293
+change-id: iba7ff0b7aedd750a54d931e0e8cbe37418ed6aed
+
+$$ Defect detected @ fix wrong vif driver by default
+
+some changes have been done in nova to have generic drivers:
+http://tinyurl.com/vifdriver
+
+this patchs aims to change default driver.
+
+closes-bug #1259139
+signed-off-by: emilien macchi <emilien.macchi@enovance.com>
+change-id: i38ab21b7a3ae0f5b9ec4f08f5e30d2da58381cf1
+
+$$ Defect detected @ remove duplicate libvirt virtio bridge definition
+
+change-id: i33c8e25d824c26b50b3b5d79c6f4ac9ebdaaa2f7
+closes-bug: #1259545
+
+$$ Defect detected @ fix package name for nova-spiceproxy on ubuntu
+
+package name is nova-spiceproxy, not nova-spicehtml5proxy for ubuntu.
+
+change-id: ica1e85f723c3deb1ec24134010de6c25c5f05e35
+closes-bug: #1257984
+
+$$ Defect detected @ pm-utils needed by compute nodes for the power operations of vms
+
+fixes: bug# 1208974
+
+change-id: id499cdf5d74a548a7319bcc5a47d2916434ea157
+
+$$ Defect detected @ install bridge-utils only if needed
+
+the package bridge-utils is useful only if we have nova-network.
+if we use neutron, we don't have to install it.
+
+this patch provides a condition "neutron_enabled" to check before the
+installation of the package.
+
+fix bug #1176087
+
+change-id: iee2ecbf2023ab211d67cb9bfeb3dbc5b4bb3eb89
+
+$$ Defect detected @ add nova::scheduler::filter for managing scheduler.filter
+
+this patch is aim to add a new class to manage the filter
+params in nova.scheduler.the most useable params are the
+resource allocation ratio options.
+
+fix bug #1201062
+
+change-id: iab2c76fdd07768471f6bab61aaf8c7eff6445a22
+
+$$ Defect detected @ update allowed_hosts conditional statement
+
+in the origin nova::db::mysql, if the value of $allowed_hosts
+contains or equals to $host, then puppet will complain duplicate
+declaration error. this patch is aim to update the allowed_hosts
+conditonal statement in nova::db::mysql.
+
+there are two cases to pass $allowed_hosts to $real_allowed_hosts:
+
+   - if $allowed_hosts is array,then remove $host from $allowed_hosts;
+   - elsif $allowed_hosts is string and not equivalent to $host;
+
+at last, if $real_allowed_hosts is not undef, then run
+nova::db::mysql::host_access
+
+fix bug 1206444
+change-id: if018321095e62e1196e0c2e6b623b30acb535020
+
+$$ Defect detected @ allow to hide config values from puppet logs
+
+hide configuration value from puppet logs if the secret parameter
+is set to true.
+
+fixes: bug #1173322
+change-id: i0815c3a1b84201fc7c39d221ff7f07fbd22fbcd4
+
+$$ Defect detected @ allow to hide config values from puppet logs
+
+hide configuration value from puppet logs if the secret parameter
+is set to true.
+
+fixes: bug #1173322
+change-id: i0815c3a1b84201fc7c39d221ff7f07fbd22fbcd4
+
+$$ Defect detected @ fix the nova-consoleauth package name on debian os
+
+it should be nova-consoleauth. nova-console is a package for the xcp
+console.
+
+fixes bug 1171849
+
+change-id: ief008f423076b706c7a41ac164f665089e08a1da
+
+$$ Defect detected @ don't require flat_inferface.
+
+the nova default for flat_interface is none but our puppet modules
+currently require it to be set. this patch updates the flatdhcp
+module so that it defaults to undef thus making it possible to use
+nova::network w/ flatdhcp when no flat_interface(private_interface) is
+defined.
+
+fixes lp bug #1170569.
+
+change-id: i62b91d9aef652c9d6b0a9e344832f6bef2bc3f27
+
+$$ Defect detected @ set hasstatus => true for nova services
+
+fix bug 1170671
+
+notifies to nova services on rhel were not causing a restart of the service
+
+change-id: i5fc91e1c519425e96677796d9de5222ab9d7f105
+
+$$ Defect detected @ fix nova::quota param quota_ram misspelling.
+
+fix bug #1167093
+
+change-id: i4d2c4b11e4497f3c70987602902e25c7b207981d
+
+$$ Defect detected @ remove $::nova::params::libvirt_type_kvm package
+
+i am not sure where this code came from.
+
+it is a bug, it refers to a params value that has never
+existed in the projects history.
+
+$$ Defect detected @ update vnc support
+
+require git from vncproxy
+
+fix bug in service name
+
+move novncproxy_base_url to be a class param of vncproxy
+
+$$ Defect detected @ update vnc support
+
+require git from vncproxy
+
+fix bug in service name
+
+move novncproxy_base_url to be a class param of vncproxy
+
+$$ Defect detected @ workaround for rabbitmq-server hostname bug  (lp #653405)
+
+$$ Defect detected @ bug fixes for canonical::all to work.
+
+$$ Defect detected @ bug fixes for canonical::all to work.
+
+$$ Defect detected @ bug fixes for canonical::all to work.
+
+$$ Defect detected @ bug fixes for canonical::all to work.
+
+Performed bug mapping
+len-y:153, len-n:951
+Yes and no classification based on bug evidence
+File currently analyzed:  manifests/api.pp
+Defect involvement count: 10
+--------------------------------------------------
+File currently analyzed:  manifests/availability_zone.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/cells.pp
+Defect involvement count: 3
+--------------------------------------------------
+File currently analyzed:  manifests/client.pp
+Defect involvement count: 2
+--------------------------------------------------
+File currently analyzed:  manifests/compute.pp
+Defect involvement count: 9
+--------------------------------------------------
+File currently analyzed:  manifests/compute/ironic.pp
+Defect involvement count: 2
+--------------------------------------------------
+File currently analyzed:  manifests/compute/libvirt.pp
+Defect involvement count: 9
+--------------------------------------------------
+File currently analyzed:  manifests/compute/neutron.pp
+Defect involvement count: 3
+--------------------------------------------------
+File currently analyzed:  manifests/compute/rbd.pp
+Defect involvement count: 3
+--------------------------------------------------
+File currently analyzed:  manifests/compute/vmware.pp
+Defect involvement count: 2
+--------------------------------------------------
+File currently analyzed:  manifests/compute/xenserver.pp
+Defect involvement count: 3
+--------------------------------------------------
+File currently analyzed:  manifests/conductor.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/config.pp
+Defect involvement count: 2
+--------------------------------------------------
+File currently analyzed:  manifests/consoleauth.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/db.pp
+Defect involvement count: 5
+--------------------------------------------------
+File currently analyzed:  manifests/db/mysql.pp
+Defect involvement count: 3
+--------------------------------------------------
+File currently analyzed:  manifests/db/mysql_api.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/db/postgresql_api.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/db/sync.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/db/sync_api.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/generic_service.pp
+Defect involvement count: 5
+--------------------------------------------------
+File currently analyzed:  manifests/init.pp
+Defect involvement count: 32
+--------------------------------------------------
+File currently analyzed:  manifests/ironic/common.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/keystone/auth.pp
+Defect involvement count: 11
+--------------------------------------------------
+File currently analyzed:  manifests/keystone/authtoken.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/logging.pp
+Defect involvement count: 2
+--------------------------------------------------
+File currently analyzed:  manifests/manage/cells.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/migration/libvirt.pp
+Defect involvement count: 3
+--------------------------------------------------
+File currently analyzed:  manifests/network.pp
+Defect involvement count: 2
+--------------------------------------------------
+File currently analyzed:  manifests/network/flatdhcp.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/network/neutron.pp
+Defect involvement count: 4
+--------------------------------------------------
+File currently analyzed:  manifests/objectstore.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/params.pp
+Defect involvement count: 10
+--------------------------------------------------
+File currently analyzed:  manifests/policy.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/quota.pp
+Defect involvement count: 2
+--------------------------------------------------
+File currently analyzed:  manifests/rabbitmq.pp
+Defect involvement count: 2
+--------------------------------------------------
+File currently analyzed:  manifests/scheduler.pp
+Defect involvement count: 2
+--------------------------------------------------
+File currently analyzed:  manifests/scheduler/filter.pp
+Defect involvement count: 4
+--------------------------------------------------
+File currently analyzed:  manifests/spicehtml5proxy.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/vncproxy.pp
+Defect involvement count: 1
+--------------------------------------------------
+File currently analyzed:  manifests/vncproxy/common.pp
+Defect involvement count: 2
+--------------------------------------------------
+File currently analyzed:  spec/fixtures/manifests/site.pp
+Defect involvement count: 1
+--------------------------------------------------
+**************************************************
+Dumped a CSV file of 6040 bytes
+File currently analyzed:  examples/nova_with_pacemaker.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/manage/network.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/serialproxy.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/cron/archive_deleted_rows.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  examples/nova_wsgi.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/network/bridge.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/deps.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/network/vlan.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/cache.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/wsgi/apache.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/compute/spice.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/cert.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/db/postgresql.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/compute/libvirt/services.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/manage/floating.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/compute/serial.pp
+Defect involvement count: 0
+--------------------------------------------------
+File currently analyzed:  manifests/network/flat.pp
+Defect involvement count: 0
+--------------------------------------------------
+Dumped a CSV file of 2600 bytes
+**************************************************
+Count fo files was: 73
+The puppet to all file ratio was: 0.808219178082
+++++++++++++++++++++++++++++++++++++++++++++++++++
+REPO: /Users/akond/PUPP_REPOS/v2/openstack_puppet_only/puppet-nova
+==================================================
+defected file count:42, no-defected files:17
+==================================================
+Count of all bug messages: 153
+Count of unique bug messages: 114
+--------------------------------------------------
+Ended at: 2016-09-17 19:33:47
+>>> 
