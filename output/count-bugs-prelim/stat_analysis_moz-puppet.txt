@@ -1,0 +1,1262 @@
+[1] "********************************************************************"
+[1] "Max. Nested Depth"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 3.317035
+[1] "Extraction: Mean of non-buggy"
+[1] 3
+[1] "Extraction: S.D of buggy"
+[1] 1.462148
+[1] "Extraction: S.D of non-buggy"
+[1] 1.788854
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Max. Nested Depth"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1976, p-value = 0.8666
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1976, p-value = 0.4333
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1976, p-value = 0.5676
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Max. Nested Depth"
+
+Cliff's Delta
+
+delta estimate: 0.03890641 (negligible)
+95 percent confidence interval:
+       inf        sup 
+-0.4414849  0.5019622 
+[1] "Max. Nested Depth"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.5194532 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "Class Declaration"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.9274448
+[1] "Extraction: Mean of non-buggy"
+[1] 0.8333333
+[1] "Extraction: S.D of buggy"
+[1] 0.4473239
+[1] "Extraction: S.D of non-buggy"
+[1] 0.4082483
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Class Declaration"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2051, p-value = 0.618
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2051, p-value = 0.309
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2051, p-value = 0.6922
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Class Declaration"
+
+Cliff's Delta
+
+delta estimate: 0.07833859 (negligible)
+95 percent confidence interval:
+       inf        sup 
+-0.2276485  0.3702449 
+[1] "Class Declaration"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.5391693 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "Define Declaration"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.115142
+[1] "Extraction: Mean of non-buggy"
+[1] 0
+[1] "Extraction: S.D of buggy"
+[1] 0.3291874
+[1] "Extraction: S.D of non-buggy"
+[1] 0
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Define Declaration"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2115, p-value = 0.3862
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2115, p-value = 0.1931
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2115, p-value = 0.808
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Define Declaration"
+
+Cliff's Delta
+
+delta estimate: 0.1119874 (negligible)
+95 percent confidence interval:
+       inf        sup 
+0.08731314 0.13652430 
+[1] "Define Declaration"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.5559937 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "Package Declaration"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.2460568
+[1] "Extraction: Mean of non-buggy"
+[1] 0.3333333
+[1] "Extraction: S.D of buggy"
+[1] 0.6279624
+[1] "Extraction: S.D of non-buggy"
+[1] 0.5163978
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Package Declaration"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1634, p-value = 0.3708
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1634, p-value = 0.8155
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1634, p-value = 0.1854
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Package Declaration"
+
+Cliff's Delta
+
+delta estimate: -0.1409043 (negligible)
+95 percent confidence interval:
+       inf        sup 
+-0.4880771  0.2447653 
+[1] "Package Declaration"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.4295478 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "File Declaration"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.5725552
+[1] "Extraction: Mean of non-buggy"
+[1] 0
+[1] "Extraction: S.D of buggy"
+[1] 0.992199
+[1] "Extraction: S.D of non-buggy"
+[1] 0
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "File Declaration"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2610, p-value = 0.06669
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2610, p-value = 0.03335
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2610, p-value = 0.9668
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "File Declaration"
+
+Cliff's Delta
+
+delta estimate: 0.3722397 (medium)
+95 percent confidence interval:
+      inf       sup 
+0.3339224 0.4093289 
+[1] "File Declaration"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.6861199 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "Service Declaration"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.09936909
+[1] "Extraction: Mean of non-buggy"
+[1] 0
+[1] "Extraction: S.D of buggy"
+[1] 0.41064
+[1] "Extraction: S.D of non-buggy"
+[1] 0
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Service Declaration"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2037, p-value = 0.5007
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2037, p-value = 0.2503
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2037, p-value = 0.7512
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Service Declaration"
+
+Cliff's Delta
+
+delta estimate: 0.07097792 (negligible)
+95 percent confidence interval:
+       inf        sup 
+0.05091109 0.09098746 
+[1] "Service Declaration"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.535489 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "Exec Declaration"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.1719243
+[1] "Extraction: Mean of non-buggy"
+[1] 0
+[1] "Extraction: S.D of buggy"
+[1] 0.5453527
+[1] "Extraction: S.D of non-buggy"
+[1] 0
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Exec Declaration"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2142, p-value = 0.3544
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2142, p-value = 0.1772
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2142, p-value = 0.8238
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Exec Declaration"
+
+Cliff's Delta
+
+delta estimate: 0.126183 (negligible)
+95 percent confidence interval:
+      inf       sup 
+0.1001888 0.1520050 
+[1] "Exec Declaration"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.5630915 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "Cohesion Per Method"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.9902681
+[1] "Extraction: Mean of non-buggy"
+[1] 1
+[1] "Extraction: S.D of buggy"
+[1] 0.07450579
+[1] "Extraction: S.D of non-buggy"
+[1] 0
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Cohesion Per Method"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1869, p-value = 0.7488
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1869, p-value = 0.6293
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1869, p-value = 0.3744
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Cohesion Per Method"
+
+Cliff's Delta
+
+delta estimate: -0.01735016 (negligible)
+95 percent confidence interval:
+         inf          sup 
+-0.027538948 -0.007157762 
+[1] "Cohesion Per Method"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.4913249 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "Body Text Size"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 1414.427
+[1] "Extraction: Mean of non-buggy"
+[1] 437.3333
+[1] "Extraction: S.D of buggy"
+[1] 2222.394
+[1] "Extraction: S.D of non-buggy"
+[1] 257.8734
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Body Text Size"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 3071, p-value = 0.009536
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 3071, p-value = 0.004768
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 3071, p-value = 0.9953
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Body Text Size"
+
+Cliff's Delta
+
+delta estimate: 0.6146162 (large)
+95 percent confidence interval:
+      inf       sup 
+0.2608048 0.8228698 
+[1] "Body Text Size"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.8073081 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "Lines with comment"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 40.73344
+[1] "Extraction: Mean of non-buggy"
+[1] 14.16667
+[1] "Extraction: S.D of buggy"
+[1] 62.02807
+[1] "Extraction: S.D of non-buggy"
+[1] 8.183316
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Lines with comment"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 3021, p-value = 0.01306
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 3021, p-value = 0.006529
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 3021, p-value = 0.9935
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Lines with comment"
+
+Cliff's Delta
+
+delta estimate: 0.5883281 (large)
+95 percent confidence interval:
+      inf       sup 
+0.2563086 0.7961679 
+[1] "Lines with comment"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.794164 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "Lines without comment"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 36.03943
+[1] "Extraction: Mean of non-buggy"
+[1] 11.66667
+[1] "Extraction: S.D of buggy"
+[1] 59.32461
+[1] "Extraction: S.D of non-buggy"
+[1] 7.174027
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Lines without comment"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2977, p-value = 0.0171
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2977, p-value = 0.008552
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2977, p-value = 0.9915
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Lines without comment"
+
+Cliff's Delta
+
+delta estimate: 0.5651945 (large)
+95 percent confidence interval:
+      inf       sup 
+0.2351038 0.7783937 
+[1] "Lines without comment"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.7825973 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "Outer Elements"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 1.020505
+[1] "Extraction: Mean of non-buggy"
+[1] 0.8333333
+[1] "Extraction: S.D of buggy"
+[1] 0.2993765
+[1] "Extraction: S.D of non-buggy"
+[1] 0.4082483
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Outer Elements"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2231.5, p-value = 0.07831
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2231.5, p-value = 0.03915
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2231.5, p-value = 0.9613
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Outer Elements"
+
+Cliff's Delta
+
+delta estimate: 0.1732387 (small)
+95 percent confidence interval:
+       inf        sup 
+-0.1441320  0.4582943 
+[1] "Outer Elements"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.5866193 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "No. of File Resources"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.5725552
+[1] "Extraction: Mean of non-buggy"
+[1] 0
+[1] "Extraction: S.D of buggy"
+[1] 0.992199
+[1] "Extraction: S.D of non-buggy"
+[1] 0
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "No. of File Resources"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2610, p-value = 0.06669
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2610, p-value = 0.03335
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2610, p-value = 0.9668
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "No. of File Resources"
+
+Cliff's Delta
+
+delta estimate: 0.3722397 (medium)
+95 percent confidence interval:
+      inf       sup 
+0.3339224 0.4093289 
+[1] "No. of File Resources"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.6861199 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "No. of Service Resources"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.09936909
+[1] "Extraction: Mean of non-buggy"
+[1] 0
+[1] "Extraction: S.D of buggy"
+[1] 0.41064
+[1] "Extraction: S.D of non-buggy"
+[1] 0
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "No. of Service Resources"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2037, p-value = 0.5007
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2037, p-value = 0.2503
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2037, p-value = 0.7512
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "No. of Service Resources"
+
+Cliff's Delta
+
+delta estimate: 0.07097792 (negligible)
+95 percent confidence interval:
+       inf        sup 
+0.05091109 0.09098746 
+[1] "No. of Service Resources"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.535489 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "No. of Package Resources"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.2460568
+[1] "Extraction: Mean of non-buggy"
+[1] 0.3333333
+[1] "Extraction: S.D of buggy"
+[1] 0.6279624
+[1] "Extraction: S.D of non-buggy"
+[1] 0.5163978
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "No. of Package Resources"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1634, p-value = 0.3708
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1634, p-value = 0.8155
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1634, p-value = 0.1854
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "No. of Package Resources"
+
+Cliff's Delta
+
+delta estimate: -0.1409043 (negligible)
+95 percent confidence interval:
+       inf        sup 
+-0.4880771  0.2447653 
+[1] "No. of Package Resources"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.4295478 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "No. of Hard Coded Statement"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 4.968454
+[1] "Extraction: Mean of non-buggy"
+[1] 1.5
+[1] "Extraction: S.D of buggy"
+[1] 18.46372
+[1] "Extraction: S.D of non-buggy"
+[1] 1.974842
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "No. of Hard Coded Statement"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2306.5, p-value = 0.3597
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2306.5, p-value = 0.1799
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2306.5, p-value = 0.8207
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "No. of Hard Coded Statement"
+
+Cliff's Delta
+
+delta estimate: 0.2126709 (small)
+95 percent confidence interval:
+       inf        sup 
+-0.2403427  0.5896126 
+[1] "No. of Hard Coded Statement"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.6063354 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "No. of Node Declarations"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.006309148
+[1] "Extraction: Mean of non-buggy"
+[1] 0
+[1] "Extraction: S.D of buggy"
+[1] 0.0792417
+[1] "Extraction: S.D of non-buggy"
+[1] 0
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "No. of Node Declarations"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1914, p-value = 0.8517
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1914, p-value = 0.4259
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 1914, p-value = 0.5805
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "No. of Node Declarations"
+
+Cliff's Delta
+
+delta estimate: 0.006309148 (negligible)
+95 percent confidence interval:
+         inf          sup 
+0.0001291187 0.0124886959 
+[1] "No. of Node Declarations"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.5031546 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "No. of Parent Classes"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 0.05835962
+[1] "Extraction: Mean of non-buggy"
+[1] 0
+[1] "Extraction: S.D of buggy"
+[1] 0.2412471
+[1] "Extraction: S.D of non-buggy"
+[1] 0
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "No. of Parent Classes"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2010, p-value = 0.5501
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2010, p-value = 0.2751
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2010, p-value = 0.7268
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "No. of Parent Classes"
+
+Cliff's Delta
+
+delta estimate: 0.05678233 (negligible)
+95 percent confidence interval:
+       inf        sup 
+0.03870397 0.07482354 
+[1] "No. of Parent Classes"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.5283912 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "Churn for file"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 52.65457
+[1] "Extraction: Mean of non-buggy"
+[1] 18.33333
+[1] "Extraction: S.D of buggy"
+[1] 110.5043
+[1] "Extraction: S.D of non-buggy"
+[1] 18.42462
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "Churn for file"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2848.5, p-value = 0.03579
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2848.5, p-value = 0.0179
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2848.5, p-value = 0.9822
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "Churn for file"
+
+Cliff's Delta
+
+delta estimate: 0.4976341 (large)
+95 percent confidence interval:
+         inf          sup 
+5.205719e-05 7.977019e-01 
+[1] "Churn for file"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.748817 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "No. of developer count"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 2.38959
+[1] "Extraction: Mean of non-buggy"
+[1] 1
+[1] "Extraction: S.D of buggy"
+[1] 2.330772
+[1] "Extraction: S.D of non-buggy"
+[1] 0
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "No. of developer count"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2943, p-value = 0.01438
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2943, p-value = 0.007192
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 2943, p-value = 0.9929
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "No. of developer count"
+
+Cliff's Delta
+
+delta estimate: 0.5473186 (large)
+95 percent confidence interval:
+      inf       sup 
+0.5073161 0.5849675 
+[1] "No. of developer count"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 0.7736593 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "********************************************************************"
+[1] "No. of bug count"
+[1] "---------------"
+[1] "Extraction: Mean of buggy"
+[1] 5.695584
+[1] "Extraction: Mean of non-buggy"
+[1] 0
+[1] "Extraction: S.D of buggy"
+[1] 14.92796
+[1] "Extraction: S.D of non-buggy"
+[1] 0
+[1] "---------------"
+[1] "Statistical Comparison using Wilcoxon rank sum test"
+[1] "No. of bug count"
+[1] "-------------------------"
+[1] "Yes != No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 3804, p-value = 1.681e-05
+alternative hypothesis: true location shift is not equal to 0
+
+[1] "-------------------------"
+[1] "Yes > No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 3804, p-value = 8.404e-06
+alternative hypothesis: true location shift is greater than 0
+
+[1] "-------------------------"
+[1] "Yes < No ?"
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  highParam and lowParam
+W = 3804, p-value = 1
+alternative hypothesis: true location shift is less than 0
+
+[1] "-------------------------"
+[1] ":::::Cliffs-Delta:::::"
+[1] "No. of bug count"
+
+Cliff's Delta
+
+delta estimate: 0.8333333 (large)
+95 percent confidence interval:
+      inf       sup 
+0.6304049 0.9296503 
+[1] "No. of bug count"
+[1] "---------------"
+[1] ":::::VD-A12:::::"
+
+Vargha and Delaney A
+
+A estimate: 1 ()
+[1] "---------------"
+[1] "********************************************************************"
+[1] "Correlation  Started"
+[1] "Correlation  Ended"
