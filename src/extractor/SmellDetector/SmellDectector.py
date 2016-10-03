@@ -208,6 +208,12 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(no_parent_cls_for_file) + ","        
         # second item in the tuple gives parent classes         
         ##Added : Oct 03, 2016 ::: densit/ratio metrics 
+        '''
+         to prevent division by zero , adding a small value (1) to  'no_lines_wo_comm_fil'
+         assuming a file must have at least one line 
+        '''    
+        if (no_lines_wo_comm_fil==0):
+          no_lines_wo_comm_fil = no_lines_wo_comm_fil + 1                      
         # Metric-19
         density_class_dec = float(no_class_dec_for_file)/float(no_lines_wo_comm_fil) 
         metric_str_for_file = metric_str_for_file + str(density_class_dec) + ","      
