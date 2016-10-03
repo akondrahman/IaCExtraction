@@ -84,7 +84,7 @@ all_bug_msgs = bug_git_util.getBugMessages(yes_bug_mapping)
 print "Count of all bug messages:", len(all_bug_msgs)
 unique_bug_msg = np.unique(all_bug_msgs)
 print "Count of unique bug messages:", len(unique_bug_msg)
-msg_file_to_save = repo_path + "/" + "bug_msgs.csv"
+msg_file_to_save = repo_path + "/" + "bug_msgs.txt"
 msgs_as_str=bug_git_util.dumpBugMessageAsStr(unique_bug_msg, msg_file_to_save)
 print "-"*50
 #### For bug message project ::: end ::::

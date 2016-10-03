@@ -240,7 +240,8 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
       print "-"*50
       
 
-      returnDirCommand= " cd /Users/akond/Documents/AkondOneDrive/OneDrive/Fall16-ThesisTopic/Puppeteer/"
+      #returnDirCommand= " cd /Users/akond/Documents/AkondOneDrive/OneDrive/Fall16-ThesisTopic/Puppeteer/"
+      returnDirCommand= " cd ."      
       subprocess.check_output(['bash','-c', returnDirCommand])  
       
 
@@ -295,10 +296,15 @@ def encodeStr(strParam):
 
 
 def dumpBugMessageAsStr( bugListParam, fileParam):
+  indexCount=1   
   #print bugListParam    
   with open(fileParam, "a") as myfile_:
-    for elm in bugListParam:   
-      elm = elm + "\n"  
-      myfile_.write(elm)
+    for elm in bugListParam:  
+      tmpStr = ""      
+      #elm = elm + "\n"  
+      tmpStr = tmpStr + str(indexCount) + ',' + elm  
+      tmpStr = tmpStr + '------------------------------' + '\n'           
+      myfile_.write(tmpStr)
+      indexCount = indexCount + 1      
 
  
