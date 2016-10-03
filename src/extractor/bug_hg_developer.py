@@ -69,11 +69,18 @@ def getBugMessageForFile(file_abs_path, allBugMapping):
   return msg2ret
 
 def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, msgfile_, bugFlag=True): 
-  headerStr1="Filename, max_nest_depth, class_dec, def_dec, pack_dec, file_dec, serv_dec, exec_dec, cohe_meth, body_txt_size,"
-  headerStr2="lines_w_comm, lines_wo_comm, outerelems, file_reso, service_reso, package_reso, hard_coded_stmt, node_decl, parent_class,"
-  headerStr3="churn, devCnt, bugCnt,"  
-  headerStr = headerStr1 + headerStr2 + headerStr3 + "\n"
+  headerStr1="Filename,max_nest_depth,class_dec,def_dec,pack_dec,file_dec,serv_dec,exec_dec,cohe_meth,body_txt_size,"
+  headerStr2="lines_w_comm,lines_wo_comm,outerelems,file_reso,service_reso,package_reso,hard_coded_stmt,node_decl,parent_class,"
+  headerStr3="d_class_dec,d_define_dec,d_pack_dec,d_file_dec,d_serv_dec,d_exec_dec,d_outerlem,d_hardcode,"  
+  headerStr4="churn,devCnt,bugCnt,defectStatus"  
+  headerStr = headerStr1 + headerStr2 + headerStr3 +  headerStr4 + "\n"
   #print file_churn_dict 
+  '''
+    extra header for defect falg, used in predcition modeling 
+  '''
+  defectHeader=""
+  '''
+  '''    
   finalStr= headerStr  
   for uni_file_ in uniqueFileList:
       metric_as_str_for_file=""          
@@ -131,14 +138,25 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
       # Metric -5: timestamp   ::: attempted, but too little for a lot of effort, abadoning .... 
       #timestamp = getListOfTimestamp(uni_file_, repo_abs_path)                
       #print "Commit involvement count:", commit_cnt  
+      # Extra header to faculitatte preition models : Oct 03, 2016
+      if (bugFlag):
+        defectHeader = 'Y'
+      else:
+        defectHeader = 'N'   
+      metric_as_str_for_file = metric_as_str_for_file +  defectHeader + ','                               
+      
 
+
+
+      ##The whole thing 
 
       #print "FULL STR:", metric_as_str_for_file   
       finalStr = finalStr + metric_as_str_for_file + "\n"            
       print "-"*50
 
 
-      returnDirCommand= " cd /Users/akond/Documents/AkondOneDrive/OneDrive/Fall16-ThesisTopic/Puppeteer/"
+      #returnDirCommand= " cd /Users/akond/Documents/AkondOneDrive/OneDrive/Fall16-ThesisTopic/Puppeteer/"
+      returnDirCommand= " cd ."      
       ret_dir_output = subprocess.check_output(['bash','-c', returnDirCommand])    
   return finalStr 
   
@@ -179,15 +197,17 @@ def encodeStr(strParam):
   return text    
 
 
-
 def dumpBugMessageAsStr( bugListParam, fileParam):
+  indexCount=1   
   #print bugListParam    
   with open(fileParam, "a") as myfile_:
-    for elm in bugListParam:   
-      elm = elm + "\n"  
-      myfile_.write(elm)
-
-
+    for elm in bugListParam:  
+      tmpStr = ""      
+      #elm = elm + "\n"  
+      tmpStr = tmpStr + str(indexCount) + ',' + elm  
+      tmpStr = tmpStr + '------------------------------' + '\n'           
+      myfile_.write(tmpStr)
+      indexCount = indexCount + 1 
 
 
 def getBugMessages(bugMappingParam):

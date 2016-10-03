@@ -179,8 +179,8 @@ def getBugMessageForFile(file_abs_path, allBugMapping):
 
 def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, msgfile_, bugFlag=True): 
   file_churn_dict = getGitChurnOfRepo(repo_abs_path) 
-  headerStr1="Filename, max_nest_depth, class_dec, def_dec, pack_dec, file_dec, serv_dec, exec_dec, cohe_meth, body_txt_size,"
-  headerStr2="lines_w_comm, lines_wo_comm, outerelems, file_reso, service_reso, package_reso, hard_coded_stmt, node_decl, parent_class,"
+  headerStr1="Filename,max_nest_depth,class_dec,def_dec,pack_dec,file_dec,serv_dec,exec_dec,cohe_meth,body_txt_size,"
+  headerStr2="lines_w_comm,lines_wo_comm,outerelems,file_reso,service_reso,package_reso,hard_coded_stmt,node_decl,parent_class,"
   headerStr3="d_class_dec,d_define_dec,d_pack_dec,d_file_dec,d_serv_dec,d_exec_dec,d_outerlem,d_hardcode,"  
   headerStr4="churn,devCnt,bugCnt,defectStatus"  
   headerStr = headerStr1 + headerStr2 + headerStr3 +  headerStr4 + "\n"

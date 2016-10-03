@@ -58,7 +58,8 @@ def getPuppetCommitMapping(all_commits_param, legit_files_param):
         #print "Mapping found !!!"
         tmp_tup = (legitFile, commit_hash)
         listToRet.append(tmp_tup)  
-    returnDirCommand= " cd /Users/akond/Documents/AkondOneDrive/OneDrive/Fall16-ThesisTopic/Puppeteer/"
+    #returnDirCommand= " cd /Users/akond/Documents/AkondOneDrive/OneDrive/Fall16-ThesisTopic/Puppeteer/"
+    returnDirCommand= " cd ."      
     ret_dir_output = subprocess.check_output(['bash','-c', returnDirCommand]) 
   return listToRet  
 
@@ -96,7 +97,8 @@ def getPuppetBugMappingList(mappingListParam, repo_abs_path):
       else:
         tup_ = (file_to_save, commit_hash, 'n', diff_output)
     listToRet.append(tup_)            	
-    returnDirCommand= " cd /Users/akond/Documents/AkondOneDrive/OneDrive/Fall16-ThesisTopic/Puppeteer/"
+    #returnDirCommand= " cd /Users/akond/Documents/AkondOneDrive/OneDrive/Fall16-ThesisTopic/Puppeteer/"
+    returnDirCommand= " cd ."      
     ret_dir_output = subprocess.check_output(['bash','-c', returnDirCommand]) 
   return listToRet  
 
@@ -175,7 +177,7 @@ all_bug_msgs = bug_hg_developer.getBugMessages(yes_bug_mapping)
 print "Count of all bug messages:", len(all_bug_msgs)
 unique_bug_msg = np.unique(all_bug_msgs)
 print "Count of unique bug messages:", len(unique_bug_msg)
-msg_file_to_save = repo_path + "/" + "bug_msgs.csv"
+msg_file_to_save = repo_path + "/" + "bug_msgs.txt"
 msgs_as_str=bug_hg_developer.dumpBugMessageAsStr(unique_bug_msg, msg_file_to_save)
 print "-"*50
 #### For bug message project ::: end ::::
