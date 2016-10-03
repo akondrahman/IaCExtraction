@@ -207,7 +207,28 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         no_parent_cls_for_file = len(fileObj.getClassHierarchyInfo()[1]) 
         metric_str_for_file = metric_str_for_file + str(no_parent_cls_for_file) + ","        
         # second item in the tuple gives parent classes         
-        
-        #print "file:{}, parent classes:{}".format(fileObj.fileName, str(lack_cohe_meth_file))
+        ##Added : Oct 03, 2016 ::: densit/ratio metrics 
+        # Metric-19
+        density_class_dec = float(no_class_dec_for_file)/float(no_lines_wo_comm_fil) 
+        metric_str_for_file = metric_str_for_file + str(density_class_dec) + ","      
+
+        # Metric-20
+        density_define_dec = float(no_def_dec_for_file)/float(no_lines_wo_comm_fil) 
+        metric_str_for_file = metric_str_for_file + str(density_define_dec) + ","    
+
+
+        # Metric-21
+        density_pack_dec = float(no_pack_dec_for_file)/float(no_lines_wo_comm_fil) 
+        metric_str_for_file = metric_str_for_file + str(density_pack_dec) + ","                         
+
+
+        # Metric-22
+        density_file_dec = float(no_file_dec_for_file)/float(no_lines_wo_comm_fil) 
+        metric_str_for_file = metric_str_for_file + str(density_file_dec) + ","     
+
+
+        # Metric-22
+        density_serv_dec = float(no_serv_dec_for_file)/float(no_lines_wo_comm_fil) 
+        metric_str_for_file = metric_str_for_file + str(density_serv_dec) + ","             
         str2ret = str2ret + metric_str_for_file   
         return str2ret
