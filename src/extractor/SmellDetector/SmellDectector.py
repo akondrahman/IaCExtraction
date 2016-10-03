@@ -227,8 +227,22 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(density_file_dec) + ","     
 
 
-        # Metric-22
+        # Metric-23
         density_serv_dec = float(no_serv_dec_for_file)/float(no_lines_wo_comm_fil) 
         metric_str_for_file = metric_str_for_file + str(density_serv_dec) + ","             
+
+
+        # Metric-24
+        density_exec_dec = float(no_exec_dec_for_file)/float(no_lines_wo_comm_fil) 
+        metric_str_for_file = metric_str_for_file + str(density_exec_dec) + ","     
+
+        # Metric-25
+        density_outerlem = float(no_outerelem_for_file)/float(no_lines_wo_comm_fil) 
+        metric_str_for_file = metric_str_for_file + str(density_outerlem) + ","      
+
+        # Metric-26
+        density_hardcode = float(no_hard_coded_stmt)/float(no_lines_wo_comm_fil) 
+        metric_str_for_file = metric_str_for_file + str(density_hardcode) + ","                                     
+        
         str2ret = str2ret + metric_str_for_file   
         return str2ret
