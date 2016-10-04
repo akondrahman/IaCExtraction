@@ -182,7 +182,7 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
   headerStr1="Filename,max_nest_depth,class_dec,def_dec,pack_dec,file_dec,serv_dec,exec_dec,cohe_meth,body_txt_size,"
   headerStr2="lines_w_comm,lines_wo_comm,outerelems,file_reso,service_reso,package_reso,hard_coded_stmt,node_decl,parent_class,"
   headerStr3="d_class_dec,d_define_dec,d_pack_dec,d_file_dec,d_serv_dec,d_exec_dec,d_outerlem,d_hardcode,"  
-  headerStr4="churn,devCnt,bugCnt,defectStatus"  
+  headerStr4="churn,NUdevCnt,UdevCnt,bugCnt,defectStatus"  
   headerStr = headerStr1 + headerStr2 + headerStr3 +  headerStr4 + "\n"
   #print file_churn_dict 
   '''
@@ -207,18 +207,23 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
       #print "Churn:", churn_for_file
       metric_as_str_for_file = metric_as_str_for_file + churn_for_file + ","      
 
-      # Metric -2: no of develoeprs involved  
+      # Metric -2 and 3: no of develoeprs involved  
       developerCmd="cd " + repo_abs_path  +" ; git blame -e " + file_relative_path + awkMagic_author
       developer_output = subprocess.check_output(['bash','-c', developerCmd])
       developer_churn_output = developer_output.split('\n')
       developer_churn_output = [x_ for x_ in developer_churn_output if x_!=''] 
+      # Metric -2: no of develoeprs involved  
+      act_dev_cnt = len(developer_churn_output)             
+      metric_as_str_for_file = metric_as_str_for_file + str(act_dev_cnt) + "," 
+      # Metric -3: no of unqiue develoeprs involved        
       developer_churn_output = np.unique(developer_churn_output)      
       #print developer_churn_output
       developer_cnt_for_file = len(developer_churn_output)
       #print "Developer Count:", developer_cnt_for_file 
+      ### developer_cnt_for_file presents the unique number of developers for the file             
       metric_as_str_for_file = metric_as_str_for_file + str(developer_cnt_for_file) + ","       
 
-      # Metric -3: no of bugs involved    
+      # Metric -4: no of bugs involved    
       bug_cnt = getRelevantCommitCount(uni_file_, allBugMapping, bugFlag)  
       # to handle weird values 
       if bug_cnt > churn_for_file:
