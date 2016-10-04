@@ -49,6 +49,17 @@ def getChurnFromStr(splitted_param):
       tmp_ = int(elem) 
     valToRet = valToRet + tmp_          	
   return valToRet	
+
+def getNonUniqueDevelopers(develParamList):
+  list_to_ret = []
+  for elem_ in develParamList:
+    if '\n' in elem_:    
+      splitted_elem  = elem_.split('\n')
+      splitted_elem = [x_ for x_ in splitted_elem if x_!='']    
+      for subElems in splitted_elem:      
+          list_to_ret.append(subElems)            
+  return list_to_ret 
+
 def getUniqueDevelopers(develParamList):
   uni_list_to_ret = []
   for elem_ in develParamList:
@@ -98,7 +109,7 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
       splitted_churn_output = churn_output.split(',')
       #print splitted_churn_output
       churn_for_file = getChurnFromStr(splitted_churn_output)
-      print "Churn:", churn_for_file
+      #print "Churn:", churn_for_file
       metric_as_str_for_file = metric_as_str_for_file + str(churn_for_file) + ","      
 
       # Metric -2 and 3: no of develoeprs involved  
@@ -108,8 +119,9 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
       developer_churn_output = [x_ for x_ in developer_churn_output if x_!='']
       ### active developer count is different from developer count: its non-unique 
       # Metric -2: no of develoeprs involved  
-      act_dev_cnt = len(developer_churn_output)             
-      metric_as_str_for_file = metric_as_str_for_file + str(act_dev_cnt) + "," 
+      non_unique_developer_list = getNonUniqueDevelopers(developer_churn_output) 
+      act_dev_cnt               = len(non_unique_developer_list)                  
+      metric_as_str_for_file    = metric_as_str_for_file + str(act_dev_cnt) + "," 
       # Metric -3: no of unqiue develoeprs involved        
       developer_churn_output = getUniqueDevelopers(developer_churn_output)      
       #print "Developer list for file:", developer_churn_output      
@@ -123,7 +135,7 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
       # to handle weird values 
       if bug_cnt > churn_for_file:
         bug_cnt = bug_cnt - churn_for_file             
-      print "Defect involvement count:", bug_cnt
+      #print "Defect involvement count:", bug_cnt
       metric_as_str_for_file = metric_as_str_for_file + str(bug_cnt) + ","  
 
 

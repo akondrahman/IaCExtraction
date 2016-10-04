@@ -105,6 +105,7 @@ def getPuppetBugMappingList(mappingListParam, repo_abs_path):
 
 
 print "Started at:", giveTimeStamp()
+print "#"*75
 repo_path="/Users/akond/PUPP_REPOS/v2/mozilla_releng_only/relabs-puppet"
 repo_branch="master"
 bashCommand= " cd " + repo_path  +" ; hg log -p -r " 
@@ -166,9 +167,9 @@ else:
   print "Didn't find non-defected files! " 
   print "Wow!"*10  
 print "#"*75
-print "Count fo files was:", len(files)
-print "The puppet to all file ratio was:", pp_to_all_file_ratio
-print "#"*75
+#print "Count fo files was:", len(files)
+#print "The puppet to all file ratio was:", pp_to_all_file_ratio
+#print "#"*75
 print "REPO:", repo_path
 print "#"*75
 print "defected file count:{}, no-defected files:{}".format(len(files_that_have_defects), len(no_deftect_files))
@@ -185,6 +186,6 @@ print "Count of unique bug messages:", len(unique_bug_msg)
 print "#"*75
 msg_file_to_save = repo_path + "/" + "bug_msgs.txt"
 msgs_as_str=bug_hg_developer.dumpBugMessageAsStr(unique_bug_msg, msg_file_to_save)
-print "#"*75
+
 #### For bug message project ::: end ::::
 print "Ended at:", giveTimeStamp()

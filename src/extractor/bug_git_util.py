@@ -228,7 +228,7 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
       # to handle weird values 
       if bug_cnt > churn_for_file:
         bug_cnt = bug_cnt - churn_for_file             
-      print "Defect involvement count:", bug_cnt
+      #print "Defect involvement count:", bug_cnt
       metric_as_str_for_file = metric_as_str_for_file + str(bug_cnt) + ","       
 
       # Extra: message to bug mapping    
