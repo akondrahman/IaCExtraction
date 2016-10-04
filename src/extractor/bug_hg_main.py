@@ -48,7 +48,7 @@ def getPuppetCommitMapping(all_commits_param, legit_files_param):
   for e in  all_commits_param:
     commit_hash = e[1]
     cnt_ = cnt_ + 1 
-    print "Total {} commits analyzed ".format(cnt_)
+    #print "Total {} commits analyzed ".format(cnt_)
     #print commit_hash
     diffCommand = bashCommand + commit_hash
     diff_output = subprocess.check_output(['bash','-c', diffCommand])
@@ -92,7 +92,7 @@ def getPuppetBugMappingList(mappingListParam, repo_abs_path):
     else:
       #if (('bug' in diff_output) or ('fix' in diff_output)):
       if ('bug' in diff_output):      
-        print "$$ Bug detected @", diff_output    
+        #print "$$ Bug detected @", diff_output    
         tup_ = (file_to_save, commit_hash, 'y', diff_output)
       else:
         tup_ = (file_to_save, commit_hash, 'n', diff_output)
@@ -117,13 +117,16 @@ all_commits = repo_complete.log()
 #print "All commit count", len(all_commits)
 puppet_commit_mapping_list = getPuppetCommitMapping(all_commits, pp_files)
 print "Performed commit mapping"
+print "#"*75
 puppet_bug_mapping_list = getPuppetBugMappingList(puppet_commit_mapping_list, repo_path)
 print "Performed bug mapping"
+print "#"*75
 #print puppet_bug_mapping_list
 y_n_bug_mapiing = splitBugMapping(puppet_bug_mapping_list)
 yes_bug_mapping = y_n_bug_mapiing[0]
 no_bug_mapping  = y_n_bug_mapiing[1]
 print "Yes and no classification based on bug evidence"
+print "#"*75
 # junk_bug = [('/Users/akond/PUPP_REPOS/sample-mozilla/manifests/moco-config.pp', '12wer', 'y', 'bug hoga'), 
 #             ('/Users/akond/PUPP_REPOS/sample-mozilla/manifests/moco-config.pp', '34wer', 'n', 'nai'), 
 #             ('/Users/akond/PUPP_REPOS/sample-mozilla/manifests/stages.pp', '39wer', 'n', 'putkey')]
@@ -140,12 +143,13 @@ no_deftect_files = bug_hg_developer.getNoDefectsOnlyFiles(files_that_have_defect
 y_file2bug= repo_path + "/" + "y_bug_msg.csv"
 yf2b = open(y_file2bug, "w")
 y_str_to_dump = bug_hg_developer.getAllDevelopmentMetricList(files_that_have_defects, repo_path, yes_bug_mapping, yf2b)
-print "*"*50
+print "#"*75
 #print str_to_dump
 # dumped yes metrics 
 y_file_to_save = repo_path + "/" + "y_metrics.csv"
 y_dump_status = bug_hg_developer.dumpContentIntoFile(y_str_to_dump, y_file_to_save)
 print "Dumped a CSV file of {} bytes".format(y_dump_status)
+print "#"*75
 if len(no_deftect_files) > 0:
   #print no_bug_mapping  
   # even though I am passing , "n_bug_msg.csv" it will eb ana empty file as no bug messgaes for files that dont have bugs 
@@ -157,28 +161,30 @@ if len(no_deftect_files) > 0:
   n_file_to_save = repo_path + "/" + "n_metrics.csv"
   n_dump_status = bug_hg_developer.dumpContentIntoFile(n_str_to_dump, n_file_to_save)
   print "Dumped a CSV file of {} bytes".format(n_dump_status)
-  
+  print "#"*75  
 else: 
   print "Didn't find non-defected files! " 
   print "Wow!"*10  
-print "*"*50
+print "#"*75
 print "Count fo files was:", len(files)
 print "The puppet to all file ratio was:", pp_to_all_file_ratio
-print "+"*50
+print "#"*75
 print "REPO:", repo_path
-print "="*50
+print "#"*75
 print "defected file count:{}, no-defected files:{}".format(len(files_that_have_defects), len(no_deftect_files))
-print "="*50
+print "#"*75
 
 
 
 #### For bug message project ::: start ::::
 all_bug_msgs = bug_hg_developer.getBugMessages(yes_bug_mapping)
 print "Count of all bug messages:", len(all_bug_msgs)
+print "#"*75
 unique_bug_msg = np.unique(all_bug_msgs)
 print "Count of unique bug messages:", len(unique_bug_msg)
+print "#"*75
 msg_file_to_save = repo_path + "/" + "bug_msgs.txt"
 msgs_as_str=bug_hg_developer.dumpBugMessageAsStr(unique_bug_msg, msg_file_to_save)
-print "-"*50
+print "#"*75
 #### For bug message project ::: end ::::
 print "Ended at:", giveTimeStamp()
