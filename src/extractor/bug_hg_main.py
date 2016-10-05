@@ -106,7 +106,9 @@ def getPuppetBugMappingList(mappingListParam, repo_abs_path):
 
 print "Started at:", giveTimeStamp()
 print "#"*75
-repo_path="/Users/akond/PUPP_REPOS/v2/mozilla_releng_only/puppet"
+# repo_path="/Users/akond/PUPP_REPOS/v2/mozilla_releng_only/puppet"
+# repo_branch="master"
+repo_path="/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet"
 repo_branch="master"
 bashCommand= " cd " + repo_path  +" ; hg log -p -r " 
 repo_complete = hglib.open(repo_path) 

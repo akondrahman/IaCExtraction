@@ -79,7 +79,7 @@ def getPuppRelatedBugInfo(repo_path_param, repo_branch_param, pupp_commits_mappi
       #if (  ('bug' in msg_commit) or ('fix' in msg_commit) ):                
       #if ( getBugIDMatch(msg_commit)or ('fix' in msg_commit) ):
       if ('bug' in msg_commit) :        
-        print "$$ Defect detected @", msg_commit    
+        #print "$$ Defect detected @", msg_commit    
         tup_ = (file_, msg_commit, 'y', msg_commit)
       else:
         tup_ = (file_, msg_commit, 'n', msg_commit)
