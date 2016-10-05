@@ -45,7 +45,8 @@ def getChurnFromStr(splitted_param):
       elem=elem.split('\n')[0]
     else:
       elem = elem 
-    if (elem !='') and (isinstance(elem, int)):      
+    if (elem !=''):      
+    #if (elem !='') and (isinstance(elem, int)):      
       tmp_ = int(elem) 
     valToRet = valToRet + tmp_          	
   return valToRet	
