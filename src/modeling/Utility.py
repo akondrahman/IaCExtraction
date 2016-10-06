@@ -42,4 +42,13 @@ def createSelectedFeatures(allFeatureParam, selectedIndicies):
   ## transpose array 
   feature_dataset_to_ret = feature_dataset_to_ret.transpose()    
 
-  return feature_dataset_to_ret        
+  return feature_dataset_to_ret     
+
+
+
+
+def giveTimeStamp():
+  import time, datetime
+  tsObj = time.time()
+  strToret = datetime.datetime.fromtimestamp(tsObj).strftime('%Y-%m-%d %H:%M:%S')
+  return strToret    
