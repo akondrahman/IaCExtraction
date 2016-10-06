@@ -30,3 +30,16 @@ def assignNumericLabels(labelListParam):
      n_cnt = n_cnt + 1   
   print "before: {}, after:{}, yes:{}, no:{}".format(len(labelListParam), len(label_list), y_cnt, n_cnt)
   return label_list     
+  
+  
+def createSelectedFeatures(allFeatureParam, selectedIndicies):
+  feature_dataset_to_ret = [] 
+  for ind_ in selectedIndicies:
+    features_for_this_index = allFeatureParam[:, ind_]
+    feature_dataset_to_ret.append(features_for_this_index)
+  ## convert to numpy  array    
+  feature_dataset_to_ret = np.array(feature_dataset_to_ret)    
+  ## transpose array 
+  feature_dataset_to_ret = feature_dataset_to_ret.transpose()    
+
+  return feature_dataset_to_ret        
