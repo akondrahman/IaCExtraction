@@ -37,5 +37,5 @@ selected_features = Utility.createSelectedFeatures(all_features, selected_indice
 print "Selected feature dataset size:", np.shape(selected_features)
 print "Glimpse at  selected features (10th entry in label list): \n", selected_features[9]
 print "-"*50
-iterations2perform =10 
-sklearn_models.performModeling(selected_features, formatted_labels, iterations2perform)
+fold2Use =10 
+sklearn_models.performModeling(selected_features, formatted_labels, fold2Use)
