@@ -7,7 +7,12 @@ Created on Thu Oct  6 16:23:09 2016
 
 
 
-import Utility , numpy as np 
+import warnings
+import Utility , numpy as np , sklearn_models
+'''
+Deprecating warnings will be suppressed 
+'''
+warnings.filterwarnings("ignore", category=DeprecationWarning) 
 dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Dataset/LOCKED_WIKIMEDIA_23_REPOS_DATASET.csv"
 full_dataset_from_csv = Utility.getDatasetFromCSV(dataset_file)
 full_rows, full_cols = np.shape(full_dataset_from_csv)
@@ -22,3 +27,5 @@ formatted_labels = Utility.assignNumericLabels(all_labels)
 print "Glimpse at  labels (10th entry in label list):", formatted_labels[9]
 
 ### use randomized logi. regression to get the features 
+selected_indices_for_features = sklearn_models.getElgiibleFeatures(all_features, formatted_labels)
+print "The selected indicies are: \n", selected_indices_for_features
