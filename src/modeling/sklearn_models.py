@@ -13,7 +13,7 @@ from sklearn import cross_validation
 from sklearn.linear_model import RandomizedLogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_error, accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
-
+from sklearn.ensemble import RandomForestClassifier
 
 
 
@@ -107,6 +107,16 @@ def performKNN(featureParam, labelParam, foldParam, infoP):
 
 
 
+def performRF(featureParam, labelParam, foldParam, infoP):
+  theRndForestModel = RandomForestClassifier() 
+  rf_area_under_roc = perform_cross_validation(theRndForestModel, featureParam, labelParam, foldParam, infoP)  
+  print "For {} area under ROC is: {}".format(infoP, rf_area_under_roc)
+  return rf_area_under_roc  
+
+
+
+
+
 def performModeling(features, labels, foldsParam):  
   #r_, c_ = np.shape(features)
   ### lets do CART (decision tree)
@@ -115,11 +125,17 @@ def performModeling(features, labels, foldsParam):
   ### lets do knn (nearest neighbor)
   performKNN(features, labels, foldsParam, "KNN") 
   
+  ### lets do RF (ensemble method: random forest)
+  performRF(features, labels, foldsParam, "RF")   
   
   
+  
+
+
 def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
   holder_cart = []
   holder_knn  = []
+  holder_rf   = []  
   for ind_ in xrange(iterationP):
     ## iterative modeling for CART  
     cart_area_roc = performCART(featureParam, labelParam, foldParam, "CART")
@@ -130,6 +146,13 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
     knn_area_roc = performKNN(featureParam, labelParam, foldParam, "K-NN")
     holder_knn.append(knn_area_roc)
     knn_area_roc = float(0) 
+    
+
+    ## iterative modeling for RF  
+    rf_area_roc = performRF(featureParam, labelParam, foldParam, "Rand. Forest")
+    holder_rf.append(rf_area_roc)
+    rf_area_roc = float(0) 
+    
   print "-"*50      
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("CART", np.mean(holder_cart),
                                                                           np.median(holder_cart), max(holder_cart), 
@@ -138,4 +161,9 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("K-NN", np.mean(holder_knn),
                                                                           np.median(holder_knn), max(holder_knn), 
                                                                           min(holder_knn))  
-  print "-"*50                                                                            
+  print "-"*50                                                                           
+  
+  print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Rand. Forest", np.mean(holder_rf),
+                                                                          np.median(holder_rf), max(holder_rf), 
+                                                                          min(holder_rf))  
+  print "-"*50                                                                             
