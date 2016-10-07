@@ -1,0 +1,81 @@
+'''
+Single iteration: defect prediction model: results 
+Started at: 2016-10-06 23:13:20
+Glimpse at features (10th entry in dataset): 
+[  2.00000000e+00   2.00000000e+00   1.00000000e+00   6.00000000e+00
+   0.00000000e+00   0.00000000e+00   3.00000000e+00   9.00000000e-02
+   4.03500000e+03   1.67000000e+02   1.49000000e+02   1.10000000e+01
+   0.00000000e+00   0.00000000e+00   6.00000000e+00   1.00000000e+01
+   0.00000000e+00   0.00000000e+00   1.34228190e-02   6.71140900e-03
+   4.02684560e-02   0.00000000e+00   0.00000000e+00   2.01342280e-02
+   7.38255030e-02   6.71140940e-02   7.80000000e+01   3.00000000e+00]
+--------------------------------------------------
+Glimpse at  labels (10th entry in dataset): Y
+--------------------------------------------------
+before: 685, after:685, yes:246, no:439
+Glimpse at  labels (10th entry in label list): 1
+--------------------------------------------------
+The selected indicies are: 
+[ 0  5  9 13 21 24 26 27]
+The selected feature names:  ['max_nest_depth', 'serv_dec', 'lines_w_comm', 'service_reso', 'd_file_dec', 'd_outerlem', 'churn', 'UdevCnt']
+--------------------------------------------------
+Selected feature dataset size: (685, 8)
+Glimpse at  selected features (10th entry in label list): 
+[  2.00000000e+00   0.00000000e+00   1.67000000e+02   0.00000000e+00
+   0.00000000e+00   7.38255030e-02   7.80000000e+01   3.00000000e+00]
+--------------------------------------------------
+-----Cross Validation#CART(Start)-----
+Glimpse at  actual:1, and predicted:1 labels(10th entry in label list)
+precison, recall, F-stat
+             precision    recall  f1-score   support
+
+          N       0.75      0.75      0.75       439
+          Y       0.55      0.54      0.55       246
+
+avg / total       0.68      0.68      0.68       685
+
+>>>>>>>>>>
+-----Cross Validation#CART(End)-----
+For CART, area under ROC is: 0.647318369539
+-----Cross Validation#KNN(Start)-----
+Glimpse at  actual:1, and predicted:1 labels(10th entry in label list)
+precison, recall, F-stat
+             precision    recall  f1-score   support
+
+          N       0.72      0.78      0.75       439
+          Y       0.54      0.46      0.50       246
+
+avg / total       0.66      0.67      0.66       685
+
+>>>>>>>>>>
+-----Cross Validation#KNN(End)-----
+For KNN, area under ROC is: 0.621474341167
+-----Cross Validation#RF(Start)-----
+Glimpse at  actual:1, and predicted:1 labels(10th entry in label list)
+precison, recall, F-stat
+             precision    recall  f1-score   support
+
+          N       0.74      0.80      0.77       439
+          Y       0.58      0.49      0.53       246
+
+avg / total       0.68      0.69      0.68       685
+
+>>>>>>>>>>
+-----Cross Validation#RF(End)-----
+For RF area under ROC is: 0.646846121081
+--------------------------------------------------
+--------------------------------------------------
+Ended at: 2016-10-06 23:13:21
+>>> 
+'''
+'''
+1000 iteration: defect prediction model: results 
+--------------------------------------------------
+Summary: AUC, for:CART, mean:0.639776686668, median:0.639836472397, max:0.662036779821, min:0.61421930848
+--------------------------------------------------
+Summary: AUC, for:K-NN, mean:0.621474341167, median:0.621474341167, max:0.621474341167, min:0.621474341167
+--------------------------------------------------
+Summary: AUC, for:Rand. Forest, mean:0.644089259588, median:0.643718632517, max:0.685394558957, min:0.602778858085
+--------------------------------------------------
+--------------------------------------------------
+'''
