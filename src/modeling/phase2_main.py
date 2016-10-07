@@ -30,3 +30,13 @@ print "-"*50
 formatted_labels = Utility.assignNumericLabels(all_labels)
 print "Glimpse at  labels (10th entry in label list):", formatted_labels[9]
 print "-"*50
+### use randomized logi. regression to get the features 
+selected_indices_for_features = sklearn_models.getElgiibleFeatures(all_features, formatted_labels)
+print "The selected indicies are: \n", selected_indices_for_features
+print "The selected feature names: ", Utility.printFeatureName(selected_indices_for_features)
+print "-"*50
+### select the features based on feature indicies, and also perform log transformation 
+selected_features = Utility.createLogTransformedSelectedFeatures(all_features, selected_indices_for_features)
+print "Selected (log-transformed) feature dataset size:", np.shape(selected_features)
+print "Glimpse at  (log-transformed) selected features (10th entry in label list): \n", selected_features[9]
+print "-"*50

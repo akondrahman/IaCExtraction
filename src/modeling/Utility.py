@@ -7,6 +7,7 @@ Created on Thu Oct  6 15:53:19 2016
 
 
 
+import math 
 import numpy as np 
 def getDatasetFromCSV(fileParam, trainFlag=True): 
   if trainFlag:    
@@ -68,4 +69,24 @@ def printFeatureName(indicesParam):
   featureNameToRet=[]  
   for selIndex in indicesParam:
     featureNameToRet.append(headers[selIndex])
-  return featureNameToRet      
+  return featureNameToRet   
+
+
+
+def createLogTransformedSelectedFeatures(allFeatureParam, selectedIndicies): 
+  #exp_coeff = 2.71828182846    
+  log_transformed_feature_dataset_to_ret = [] 
+  for ind_ in selectedIndicies:
+    features_for_this_index = allFeatureParam[:, ind_]
+    ## do the log tranform on the extracted index 
+    ## the following code gives error for 0 values , so using the other 
+    ####log_transformed_features_for_index = [math.log(x_, exp_coeff) for x_ in features_for_this_index]   
+    ## the following code handles the issue for zero values 
+    log_transformed_features_for_index = [math.log1p(x_) for x_ in features_for_this_index]         
+    log_transformed_feature_dataset_to_ret.append(log_transformed_features_for_index)
+  ## convert to numpy  array    
+  log_transformed_feature_dataset_to_ret = np.array(log_transformed_feature_dataset_to_ret)    
+  ## transpose array 
+  log_transformed_feature_dataset_to_ret = log_transformed_feature_dataset_to_ret.transpose()    
+
+  return log_transformed_feature_dataset_to_ret         
