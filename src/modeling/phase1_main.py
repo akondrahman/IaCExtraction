@@ -46,11 +46,20 @@ print "-"*50
     10 fold validation instaed of bootstrap 
 '''  
 fold2Use =10 
+'''
+Single iteration zone : turn off 'performIterativeModeling()'
+while running this 
+'''
 # this method runs the classifiers once
-#sklearn_models.performModeling(selected_features, formatted_labels, fold2Use)
+sklearn_models.performModeling(selected_features, formatted_labels, fold2Use)
 print "-"*50
+'''
+Multiple iteration zone : turn off 'performModeling()'
+while running this 
+'''
 # this method runs the classifiers 'iteration' number of times 
-iteration=1000
-sklearn_models.performIterativeModeling(selected_features, formatted_labels, fold2Use, iteration)
-print "-"*50
+#iteration=1000
+#sklearn_models.performIterativeModeling(selected_features, formatted_labels, fold2Use, iteration)
+#print "-"*50
+
 print "Ended at:", Utility.giveTimeStamp()
