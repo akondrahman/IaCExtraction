@@ -90,17 +90,47 @@ def perform_cross_validation(classiferP, featuresP, labelsP, cross_vali_param, i
 def performCART(featureParam, labelParam, foldParam, infoP):
   theCARTModel = DecisionTreeClassifier()     
   cart_area_under_roc = perform_cross_validation(theCARTModel, featureParam, labelParam, foldParam, infoP)
-  print "For {}, area under ROC is: {}".format(infoP, cart_area_under_roc)  
+  print "For {}, area under ROC is: {}".format(infoP, cart_area_under_roc) 
+  return cart_area_under_roc  
   
+
+
+
+
 def performKNN(featureParam, labelParam, foldParam, infoP):
   theKNNModel = KNeighborsClassifier()    
   knn_area_under_roc = perform_cross_validation(theKNNModel, featureParam, labelParam, foldParam, infoP)
-  print "For {}, area under ROC is: {}".format(infoP, knn_area_under_roc)   
+  print "For {}, area under ROC is: {}".format(infoP, knn_area_under_roc)  
+  return knn_area_under_roc  
+
+
+
+
 
 def performModeling(features, labels, foldsParam):  
-  r_, c_ = np.shape(features)
+  #r_, c_ = np.shape(features)
   ### lets do CART (decision tree)
   performCART(features, labels, foldsParam, "CART")  
 
   ### lets do knn (nearest neighbor)
-  performKNN(features, labels, foldsParam, "KNN")  
+  performKNN(features, labels, foldsParam, "KNN") 
+  
+  
+  
+def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
+  holder_cart = []
+  holder_knn  = []
+  for ind_ in xrange(iterationP):
+    ## iterative modeling for CART  
+    cart_area_roc = performCART(featureParam, labelParam, foldParam, "CART")
+    holder_cart.append(cart_area_roc)
+    cart_area_roc = float(0)
+      
+    ## iterative modeling for KNN  
+    knn_area_roc = performKNN(featureParam, labelParam, foldParam, "KNN")
+    holder_knn.append(knn_area_roc)
+    knn_area_roc = float(0) 
+    
+  print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("CART", np.mean(holder_cart),
+                                                                          np.median(holder_cart), max(holder_cart), 
+                                                                          min(holder_cart))    

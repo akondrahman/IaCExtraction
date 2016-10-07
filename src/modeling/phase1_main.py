@@ -46,7 +46,7 @@ print "-"*50
 '''  
 fold2Use =10 
 # this method runs the classifiers once
-sklearn_models.performModeling(selected_features, formatted_labels, fold2Use)
+#sklearn_models.performModeling(selected_features, formatted_labels, fold2Use)
 print "-"*50
 # this method runs the classifiers 'iteration' number of times 
 iteration=1000
