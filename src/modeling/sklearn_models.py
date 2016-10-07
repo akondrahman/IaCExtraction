@@ -12,6 +12,10 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn import cross_validation
 from sklearn.linear_model import RandomizedLogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_error, accuracy_score
+from sklearn.neighbors import KNeighborsClassifier
+
+
+
 
 def evalClassifier(actualLabels, predictedLabels):  
   '''
@@ -25,7 +29,7 @@ def evalClassifier(actualLabels, predictedLabels):
   print "Glimpse at  actual:{}, and predicted:{} labels(10th entry in label list)".format(actualLabels[9], predictedLabels[9])
   print "precison, recall, F-stat"
   print classification_report(actualLabels, predictedLabels, target_names=target_labels)
-  print"*"*25
+  print">"*25
   # preserve the order first test(real values from dataset), then predcited (from the classifier )
   '''
     are under the curve values .... reff: http://gim.unmc.edu/dxtests/roc3.htm 
@@ -34,7 +38,7 @@ def evalClassifier(actualLabels, predictedLabels):
   area_roc_output = roc_auc_score(actualLabels, predictedLabels)
   # preserve the order first test(real values from dataset), then predcited (from the classifier )  
   print "Area under the ROC curve is ", area_roc_output
-  print"*"*25  
+  print">"*25  
   '''
     mean absolute error (mae) values .... reff: http://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_absolute_error.html
     the smaller the better , ideally expect 0.0 
@@ -42,7 +46,7 @@ def evalClassifier(actualLabels, predictedLabels):
   mae_output = mean_absolute_error(actualLabels, predictedLabels)
   # preserve the order first test(real values from dataset), then predcited (from the classifier )  
   print "Mean absolute errro output  is ", mae_output  
-  print"*"*25    
+  print">"*25    
   '''
   accuracy_score ... reff: http://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter .... percentage of correct predictions 
   ideally 1.0, higher the better 
@@ -50,10 +54,7 @@ def evalClassifier(actualLabels, predictedLabels):
   accuracy_score_output = accuracy_score(actualLabels, predictedLabels)
   # preserve the order first test(real values from dataset), then predcited (from the classifier )  
   print "Accuracy output  is ", accuracy_score_output   
-  print"*"*25  
-
-
-
+  print">"*25  
 
 
 def getElgiibleFeatures(allFeatureParam, allLabelParam):
@@ -71,20 +72,24 @@ def getElgiibleFeatures(allFeatureParam, allLabelParam):
   return eligible_indices  
   
 
-def perform_cross_validation(classiferP, featuresP, labelsP, cross_vali_param):
-  print "-----Performing cross validation(start)-----"  
+def perform_cross_validation(classiferP, featuresP, labelsP, cross_vali_param, infoP):
+  print "-----Cross Validation#{}(Start)-----".format(infoP)  
   predicted_labels = cross_validation.cross_val_predict(classiferP, featuresP , labelsP, cv=cross_vali_param)  
   evalClassifier(labelsP, predicted_labels)
-  print "-----Performing cross validation(end)-----"  
+  print "-----Cross Validation#{}(End)-----".format(infoP)  
 
 
 
 
 
-
-def performCART(featureParam, labelParam, foldParam):
+def performCART(featureParam, labelParam, foldParam, infoP):
   theCARTModel = DecisionTreeClassifier()     
-  perform_cross_validation(theCARTModel, featureParam, labelParam, foldParam)
+  perform_cross_validation(theCARTModel, featureParam, labelParam, foldParam, infoP)
+  
+  
+def performKNN(featureParam, labelParam, foldParam, infoP):
+  theKNNModel = KNeighborsClassifier()    
+  perform_cross_validation(theKNNModel, featureParam, labelParam, foldParam, infoP)  
 
 
 def performModeling(features, labels, foldsParam):
@@ -95,7 +100,7 @@ def performModeling(features, labels, foldsParam):
   '''    
   r_, c_ = np.shape(features)
   ### lets do CART (decision tree)
-  performCART(features, labels, foldsParam)  
+  performCART(features, labels, foldsParam, "CART")  
 
   ### lets do knn (nearest neighbor)
-  performKNN(features, labels, foldsParam)  
+  performKNN(features, labels, foldsParam, "KNN")  
