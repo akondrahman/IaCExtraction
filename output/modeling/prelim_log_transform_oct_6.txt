@@ -1,0 +1,84 @@
+'''
+Multiple iteration output
+'''
+
+--------------------------------------------------
+Summary: AUC, for:CART, mean:0.64022175306, median:0.640327240402, max:0.660652443654, min:0.619668685297
+--------------------------------------------------
+Summary: AUC, for:K-NN, mean:0.657902290868, median:0.657902290868, max:0.657902290868, min:0.657902290868
+--------------------------------------------------
+Summary: AUC, for:Rand. Forest, mean:0.644292733856, median:0.644568216753, max:0.682380502621, min:0.60472341056
+--------------------------------------------------
+
+
+
+'''
+Single iteration output 
+'''
+>>> runfile('/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/IaCExtraction/src/modeling/phase2_main.py', wdir='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/IaCExtraction/src/modeling')
+Reloaded modules: Utility, sklearn_models
+Started at: 2016-10-07 13:43:49
+Glimpse at features (10th entry in dataset): 
+[  2.00000000e+00   2.00000000e+00   1.00000000e+00   6.00000000e+00
+   0.00000000e+00   0.00000000e+00   3.00000000e+00   9.00000000e-02
+   4.03500000e+03   1.67000000e+02   1.49000000e+02   1.10000000e+01
+   0.00000000e+00   0.00000000e+00   6.00000000e+00   1.00000000e+01
+   0.00000000e+00   0.00000000e+00   1.34228190e-02   6.71140900e-03
+   4.02684560e-02   0.00000000e+00   0.00000000e+00   2.01342280e-02
+   7.38255030e-02   6.71140940e-02   7.80000000e+01   3.00000000e+00]
+--------------------------------------------------
+Glimpse at labels (10th entry in dataset): Y
+--------------------------------------------------
+before: 685, after:685, yes:246, no:439
+Glimpse at labels (10th entry in label list): 1
+--------------------------------------------------
+The selected indicies are: 
+[ 0  5  9 13 21 24 26 27]
+The selected feature names:  ['max_nest_depth', 'serv_dec', 'lines_w_comm', 'service_reso', 'd_file_dec', 'd_outerlem', 'churn', 'UdevCnt']
+--------------------------------------------------
+Selected (log-transformed) feature dataset size: (685, 8)
+Glimpse at (log-transformed) selected features(10th entry in label list): 
+[ 1.09861229  0.          5.12396398  0.          0.          0.07122751
+  4.36944785  1.38629436]
+--------------------------------------------------
+-----Cross Validation#CART(Start)-----
+Glimpse at  actual:1, and predicted:1 labels(10th entry in label list)
+precison, recall, F-stat
+             precision    recall  f1-score   support
+
+          N       0.74      0.75      0.75       439
+          Y       0.55      0.54      0.55       246
+
+avg / total       0.67      0.68      0.68       685
+
+>>>>>>>>>>
+-----Cross Validation#CART(End)-----
+For CART, area under ROC is: 0.646179417375
+-----Cross Validation#KNN(Start)-----
+Glimpse at  actual:1, and predicted:1 labels(10th entry in label list)
+precison, recall, F-stat
+             precision    recall  f1-score   support
+
+          N       0.75      0.80      0.77       439
+          Y       0.59      0.52      0.55       246
+
+avg / total       0.69      0.70      0.69       685
+
+>>>>>>>>>>
+-----Cross Validation#KNN(End)-----
+For KNN, area under ROC is: 0.657902290868
+-----Cross Validation#RF(Start)-----
+Glimpse at  actual:1, and predicted:1 labels(10th entry in label list)
+precison, recall, F-stat
+             precision    recall  f1-score   support
+
+          N       0.73      0.80      0.77       439
+          Y       0.58      0.48      0.52       246
+
+avg / total       0.68      0.69      0.68       685
+
+>>>>>>>>>>
+-----Cross Validation#RF(End)-----
+For RF area under ROC is: 0.639854991944
+--------------------------------------------------
+>>> 
