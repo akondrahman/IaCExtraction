@@ -45,5 +45,9 @@ print "-"*50
     10 fold validation instaed of bootstrap 
 '''  
 fold2Use =10 
+# this method runs the classifiers once
 sklearn_models.performModeling(selected_features, formatted_labels, fold2Use)
 print "-"*50
+# this method runs the classifiers 'iteration' number of times 
+iteration=1000
+sklearn_models.performIterativeModeling(selected_features, formatted_labels, fold2Use, iteration)

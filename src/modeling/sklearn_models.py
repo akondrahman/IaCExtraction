@@ -37,24 +37,24 @@ def evalClassifier(actualLabels, predictedLabels):
   '''
   area_roc_output = roc_auc_score(actualLabels, predictedLabels)
   # preserve the order first test(real values from dataset), then predcited (from the classifier )  
-  print "Area under the ROC curve is ", area_roc_output
-  print">"*25  
+  #print "Area under the ROC curve is ", area_roc_output
+  #print">"*25  
   '''
     mean absolute error (mae) values .... reff: http://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_absolute_error.html
     the smaller the better , ideally expect 0.0 
   '''
-  mae_output = mean_absolute_error(actualLabels, predictedLabels)
+  #mae_output = mean_absolute_error(actualLabels, predictedLabels)
   # preserve the order first test(real values from dataset), then predcited (from the classifier )  
-  print "Mean absolute errro output  is ", mae_output  
-  print">"*25    
+  #print "Mean absolute errro output  is ", mae_output  
+  #print">"*25    
   '''
   accuracy_score ... reff: http://scikit-learn.org/stable/modules/model_evaluation.html#scoring-parameter .... percentage of correct predictions 
   ideally 1.0, higher the better 
   '''
-  accuracy_score_output = accuracy_score(actualLabels, predictedLabels)
+  #accuracy_score_output = accuracy_score(actualLabels, predictedLabels)
   # preserve the order first test(real values from dataset), then predcited (from the classifier )  
-  print "Accuracy output  is ", accuracy_score_output   
-  print">"*25  
+  #print "Accuracy output  is ", accuracy_score_output   
+  #print">"*25  
   '''
     this function returns area under the curve , which will be used 
     for D.E. and repated measurements 
@@ -89,13 +89,13 @@ def perform_cross_validation(classiferP, featuresP, labelsP, cross_vali_param, i
 
 def performCART(featureParam, labelParam, foldParam, infoP):
   theCARTModel = DecisionTreeClassifier()     
-  perform_cross_validation(theCARTModel, featureParam, labelParam, foldParam, infoP)
-  
+  cart_area_under_roc = perform_cross_validation(theCARTModel, featureParam, labelParam, foldParam, infoP)
+  print "For {}, area under ROC is: {}".format(infoP, cart_area_under_roc)  
   
 def performKNN(featureParam, labelParam, foldParam, infoP):
   theKNNModel = KNeighborsClassifier()    
-  perform_cross_validation(theKNNModel, featureParam, labelParam, foldParam, infoP)  
-
+  knn_area_under_roc = perform_cross_validation(theKNNModel, featureParam, labelParam, foldParam, infoP)
+  print "For {}, area under ROC is: {}".format(infoP, knn_area_under_roc)   
 
 def performModeling(features, labels, foldsParam):  
   r_, c_ = np.shape(features)
