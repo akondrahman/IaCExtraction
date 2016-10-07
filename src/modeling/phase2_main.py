@@ -25,10 +25,10 @@ print "-"*50
 dataset_for_labels = Utility.getDatasetFromCSV(dataset_file, False)
 label_cols = full_cols - 1
 all_labels  =  dataset_for_labels[:, label_cols]
-print "Glimpse at  labels (10th entry in dataset):", all_labels[9]
+print "Glimpse at labels (10th entry in dataset):", all_labels[9]
 print "-"*50
 formatted_labels = Utility.assignNumericLabels(all_labels)
-print "Glimpse at  labels (10th entry in label list):", formatted_labels[9]
+print "Glimpse at labels (10th entry in label list):", formatted_labels[9]
 print "-"*50
 ### use randomized logi. regression to get the features 
 selected_indices_for_features = sklearn_models.getElgiibleFeatures(all_features, formatted_labels)
@@ -38,5 +38,18 @@ print "-"*50
 ### select the features based on feature indicies, and also perform log transformation 
 selected_features = Utility.createLogTransformedSelectedFeatures(all_features, selected_indices_for_features)
 print "Selected (log-transformed) feature dataset size:", np.shape(selected_features)
-print "Glimpse at  (log-transformed) selected features (10th entry in label list): \n", selected_features[9]
+print "Glimpse at (log-transformed) selected features(10th entry in label list): \n", selected_features[9]
+print "-"*50
+'''
+    thsi paper https://www.cs.utah.edu/~piyush/teaching/cross-validation-kohavi.pdf
+    with 6000+ citations says to use 10 fold validation , so will use 
+    10 fold validation instaed of bootstrap 
+'''  
+fold2Use =10 
+'''
+Single iteration zone : turn off 'performIterativeModeling()'
+while running this 
+'''
+# this method runs the classifiers once
+sklearn_models.performModeling(selected_features, formatted_labels, fold2Use)
 print "-"*50
