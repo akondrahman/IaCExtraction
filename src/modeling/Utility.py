@@ -51,4 +51,21 @@ def giveTimeStamp():
   import time, datetime
   tsObj = time.time()
   strToret = datetime.datetime.fromtimestamp(tsObj).strftime('%Y-%m-%d %H:%M:%S')
-  return strToret    
+  return strToret 
+def printFeatureName(indicesParam):
+#  headers=['max_nest_depth','class_dec','def_dec','pack_dec',
+#           'file_dec','serv_dec','exec_dec','cohe_meth','body_txt_size',
+#           'lines_w_comm','lines_wo_comm','outerelems','file_reso','service_reso',
+#           'package_reso','hard_coded_stmt','node_decl','parent_class','d_class_dec',
+#           'd_define_dec','d_pack_dec','d_file_dec','d_serv_dec','d_exec_dec',
+#           'd_outerlem','d_hardcode','churn','NUdevCnt','UdevCnt']
+  headers=['max_nest_depth','class_dec','def_dec','pack_dec',
+           'file_dec','serv_dec','exec_dec','cohe_meth','body_txt_size',
+           'lines_w_comm','lines_wo_comm','outerelems','file_reso','service_reso',
+           'package_reso','hard_coded_stmt','node_decl','parent_class','d_class_dec',
+           'd_define_dec','d_pack_dec','d_file_dec','d_serv_dec','d_exec_dec',
+           'd_outerlem','d_hardcode','churn','UdevCnt']
+  featureNameToRet=[]  
+  for selIndex in indicesParam:
+    featureNameToRet.append(headers[selIndex])
+  return featureNameToRet      

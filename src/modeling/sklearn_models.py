@@ -55,6 +55,11 @@ def evalClassifier(actualLabels, predictedLabels):
   # preserve the order first test(real values from dataset), then predcited (from the classifier )  
   print "Accuracy output  is ", accuracy_score_output   
   print">"*25  
+  '''
+    this function returns area under the curve , which will be used 
+    for D.E. and repated measurements 
+  '''
+  return area_roc_output
 
 
 def getElgiibleFeatures(allFeatureParam, allLabelParam):
@@ -75,9 +80,9 @@ def getElgiibleFeatures(allFeatureParam, allLabelParam):
 def perform_cross_validation(classiferP, featuresP, labelsP, cross_vali_param, infoP):
   print "-----Cross Validation#{}(Start)-----".format(infoP)  
   predicted_labels = cross_validation.cross_val_predict(classiferP, featuresP , labelsP, cv=cross_vali_param)  
-  evalClassifier(labelsP, predicted_labels)
-  print "-----Cross Validation#{}(End)-----".format(infoP)  
-
+  area_roc_to_ret = evalClassifier(labelsP, predicted_labels)
+  print "-----Cross Validation#{}(End)-----".format(infoP) 
+  return area_roc_to_ret  
 
 
 
@@ -92,12 +97,7 @@ def performKNN(featureParam, labelParam, foldParam, infoP):
   perform_cross_validation(theKNNModel, featureParam, labelParam, foldParam, infoP)  
 
 
-def performModeling(features, labels, foldsParam):
-  '''
-    thsi paper https://www.cs.utah.edu/~piyush/teaching/cross-validation-kohavi.pdf
-    with 6000+ citations says to use 10 fold validation , so will use 
-    10 fodl validation instaed of bootstrap 
-  '''    
+def performModeling(features, labels, foldsParam):  
   r_, c_ = np.shape(features)
   ### lets do CART (decision tree)
   performCART(features, labels, foldsParam, "CART")  
