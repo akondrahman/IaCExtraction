@@ -9,6 +9,7 @@ Created on Thu Oct  6 16:23:09 2016
 
 import warnings
 import Utility , numpy as np , sklearn_models
+print "Started at:", Utility.giveTimeStamp()
 '''
 Deprecating warnings will be suppressed 
 '''
@@ -51,3 +52,5 @@ print "-"*50
 # this method runs the classifiers 'iteration' number of times 
 iteration=1000
 sklearn_models.performIterativeModeling(selected_features, formatted_labels, fold2Use, iteration)
+print "-"*50
+print "Ended at:", Utility.giveTimeStamp()

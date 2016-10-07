@@ -29,7 +29,7 @@ def evalClassifier(actualLabels, predictedLabels):
   print "Glimpse at  actual:{}, and predicted:{} labels(10th entry in label list)".format(actualLabels[9], predictedLabels[9])
   print "precison, recall, F-stat"
   print classification_report(actualLabels, predictedLabels, target_names=target_labels)
-  print">"*25
+  print">"*10
   # preserve the order first test(real values from dataset), then predcited (from the classifier )
   '''
     are under the curve values .... reff: http://gim.unmc.edu/dxtests/roc3.htm 
@@ -38,7 +38,7 @@ def evalClassifier(actualLabels, predictedLabels):
   area_roc_output = roc_auc_score(actualLabels, predictedLabels)
   # preserve the order first test(real values from dataset), then predcited (from the classifier )  
   #print "Area under the ROC curve is ", area_roc_output
-  #print">"*25  
+  #print">"*10  
   '''
     mean absolute error (mae) values .... reff: http://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_absolute_error.html
     the smaller the better , ideally expect 0.0 
@@ -54,7 +54,7 @@ def evalClassifier(actualLabels, predictedLabels):
   #accuracy_score_output = accuracy_score(actualLabels, predictedLabels)
   # preserve the order first test(real values from dataset), then predcited (from the classifier )  
   #print "Accuracy output  is ", accuracy_score_output   
-  #print">"*25  
+  #print">"*10
   '''
     this function returns area under the curve , which will be used 
     for D.E. and repated measurements 
@@ -127,10 +127,15 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
     cart_area_roc = float(0)
       
     ## iterative modeling for KNN  
-    knn_area_roc = performKNN(featureParam, labelParam, foldParam, "KNN")
+    knn_area_roc = performKNN(featureParam, labelParam, foldParam, "K-NN")
     holder_knn.append(knn_area_roc)
     knn_area_roc = float(0) 
-    
+  print "-"*50      
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("CART", np.mean(holder_cart),
                                                                           np.median(holder_cart), max(holder_cart), 
-                                                                          min(holder_cart))    
+                                                                          min(holder_cart))   
+  print "-"*50                                                                          
+  print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("K-NN", np.mean(holder_knn),
+                                                                          np.median(holder_knn), max(holder_knn), 
+                                                                          min(holder_knn))  
+  print "-"*50                                                                            
