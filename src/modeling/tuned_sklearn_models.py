@@ -16,7 +16,6 @@ from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_
 
 
 
-
 def getElgiibleFeatures(allFeatureParam, allLabelParam):
   '''
     reff for paper : 
@@ -42,7 +41,7 @@ def perform_cross_validation(classiferP, featuresP, labelsP, cross_vali_param):
   return area_roc_to_ret  
 
 def performTunedKNN(featureParam, labelParam, foldParam, no_neighbors):
-  theKNNModel = KNeighborsClassifier()    
+  theKNNModel = KNeighborsClassifier(n_neighbors=no_neighbors)    
   knn_area_under_roc = perform_cross_validation(theKNNModel, featureParam, labelParam, foldParam)
   return knn_area_under_roc  
   
@@ -51,6 +50,5 @@ def performTunedKNN(featureParam, labelParam, foldParam, no_neighbors):
 
 
 def performTunedModeling(features, labels, foldsParam):
-  ### lets do knn (nearest neighbor)
-  knn_area_under_roc = performTunedKNN(features, labels, foldsParam, 50)   
-  print "For {}, area under ROC is: {}".format("K-NN", knn_area_under_roc)      
+  no_of_evals = 100     
+  ### lets do knn (nearest neighbor) 
