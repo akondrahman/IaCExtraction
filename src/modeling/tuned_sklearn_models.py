@@ -11,6 +11,11 @@ import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import cross_validation
 from sklearn.linear_model import RandomizedLogisticRegression
+from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_error, accuracy_score
+
+
+
+
 
 def getElgiibleFeatures(allFeatureParam, allLabelParam):
   '''
@@ -27,12 +32,25 @@ def getElgiibleFeatures(allFeatureParam, allLabelParam):
   return eligible_indices  
   
 
-def performTunedKNN(featureParam, labelParam, foldParam, infoP, no_neighbors):
+def getAreaROC(actualLabelsParam, predictedLabelsParam):
+  area_roc_output = roc_auc_score(actualLabelsParam, predictedLabelsParam)
+  return area_roc_output    
+
+def perform_cross_validation(classiferP, featuresP, labelsP, cross_vali_param):
+  predicted_labels = cross_validation.cross_val_predict(classiferP, featuresP , labelsP, cv=cross_vali_param)  
+  area_roc_to_ret = getAreaROC(labelsP, predicted_labels)
+  return area_roc_to_ret  
+
+def performTunedKNN(featureParam, labelParam, foldParam, no_neighbors):
   theKNNModel = KNeighborsClassifier()    
-  knn_area_under_roc = perform_cross_validation(theKNNModel, featureParam, labelParam, foldParam, infoP)
-  print "For {}, area under ROC is: {}".format(infoP, knn_area_under_roc)  
+  knn_area_under_roc = perform_cross_validation(theKNNModel, featureParam, labelParam, foldParam)
   return knn_area_under_roc  
   
+
+
+
+
 def performTunedModeling(features, labels, foldsParam):
   ### lets do knn (nearest neighbor)
-  performTunedKNN(features, labels, foldsParam, "KNN")       
+  knn_area_under_roc = performTunedKNN(features, labels, foldsParam, 50)   
+  print "For {}, area under ROC is: {}".format("K-NN", knn_area_under_roc)      
