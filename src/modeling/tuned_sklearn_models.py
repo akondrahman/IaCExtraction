@@ -12,7 +12,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn import cross_validation
 from sklearn.linear_model import RandomizedLogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score
-
+from sklearn.tree import DecisionTreeClassifier 
 
 
 
@@ -127,9 +127,41 @@ def performKNN(featureParam, labelParam, foldParam, infoP, no_of_neighbor_param)
 
 
 
+def performedTunedCART(featureParam, labelParam, foldParam, paramComboParam):
+  resHolder={} 
+  max_feat_for_cart_param      = paramComboParam[0]
+  min_sam_split_for_cart_param = paramComboParam[1]
+  min_sam_leaf_for_cart_param  = paramComboParam[2]
+  max_depth_for_cart_param     = paramComboParam[3]
+  for max_feat in max_feat_for_cart_param:
+    for  min_sam_split in min_sam_split_for_cart_param:
+      for min_sam_leaf  in min_sam_leaf_for_cart_param:
+        for max_depth_ in max_depth_for_cart_param:
+          theCARTModel = DecisionTreeClassifier(max_features=max_feat, min_samples_split=min_sam_split, min_samples_leaf=min_sam_leaf, max_depth=max_depth_)     
+          cart_area_under_roc = perform_cross_validation(theCARTModel, featureParam, labelParam, foldParam)
+          resHolder[cart_area_under_roc] = (max_feat, min_sam_split, min_sam_leaf, max_depth_) 
+  bestTuple = getBestParamCombo(resHolder)      
+  return bestTuple
+
+
 def performTunedModeling(features, labels, foldsParam):
   ### lets do knn (nearest neighbor) 
-  no_neighbors_to_test = [1, 5, 9, 13, 17]
+  no_neighbors_to_test = [1, 5, 9, 13, 17] ## from Hassan-ICSE'16 Paper
   optimalParam, optimalVal =  performTunedKNN(features, labels, foldsParam, no_neighbors_to_test)  
   print "For kNN, best parameter was:", optimalParam  
   performKNN(features, labels, foldsParam, "kNN", optimalParam)  
+  
+  
+  ### lets do CART
+  # param-1
+  max_feat_for_cart        = [(float(x_)/float(100)) + 0.01 for x_ in xrange(100) ] #from Fu paper 2016 
+  # param-2
+  min_sam_split_for_cart   = [ x_+1                         for x_ in xrange(20)  ] #from Fu paper 2016 
+  min_sam_split_for_cart.remove(1) # remove 1 to get the list [2, 20] from Fu paper 2016 
+  # param-3    
+  min_sam_leaf_for_cart    = [ x_+1                         for x_ in xrange(20)  ] #from Fu paper 2016 
+  # param-4 
+  max_depth_for_cart       = [ x_+1                         for x_ in xrange(50)  ] #from Fu paper 2016  
+  ## supply all param combos as tuple 
+  param_combo_tuple = ( max_feat_for_cart, min_sam_split_for_cart, min_sam_leaf_for_cart, max_depth_for_cart )   
+  optimalParam, optimalVal = performedTunedCART(features , labels, foldsParam,  param_combo_tuple)     
