@@ -138,7 +138,7 @@ def performedTunedCART(featureParam, labelParam, foldParam, paramComboParam):
       for min_sam_leaf  in min_sam_leaf_for_cart_param:
         for max_depth_ in max_depth_for_cart_param:
           theCARTModel = DecisionTreeClassifier(max_features=max_feat, min_samples_split=min_sam_split, min_samples_leaf=min_sam_leaf, max_depth=max_depth_)     
-          cart_area_under_roc = perform_cross_validation(theCARTModel, featureParam, labelParam, foldParam)
+          cart_area_under_roc = perform_cross_validation_for_tuning(theCARTModel, featureParam, labelParam, foldParam)
           resHolder[cart_area_under_roc] = (max_feat, min_sam_split, min_sam_leaf, max_depth_) 
   bestTuple = getBestParamCombo(resHolder)      
   return bestTuple
@@ -148,9 +148,11 @@ def performTunedModeling(features, labels, foldsParam):
   ### lets do knn (nearest neighbor) 
   no_neighbors_to_test = [1, 5, 9, 13, 17] ## from Hassan-ICSE'16 Paper
   optimalParam, optimalVal =  performTunedKNN(features, labels, foldsParam, no_neighbors_to_test)  
-  print "For kNN, best parameter was:", optimalParam  
-  performKNN(features, labels, foldsParam, "kNN", optimalParam)  
-  
+  print "For kNN, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal)  
+  print "-"*50  
+  #performKNN(features, labels, foldsParam, "kNN", optimalParam)
+  optimalParam, optimalVal = 0, 0  
+  print "-"*50  
   
   ### lets do CART
   # param-1
@@ -164,4 +166,6 @@ def performTunedModeling(features, labels, foldsParam):
   max_depth_for_cart       = [ x_+1                         for x_ in xrange(50)  ] #from Fu paper 2016  
   ## supply all param combos as tuple 
   param_combo_tuple = ( max_feat_for_cart, min_sam_split_for_cart, min_sam_leaf_for_cart, max_depth_for_cart )   
-  optimalParam, optimalVal = performedTunedCART(features , labels, foldsParam,  param_combo_tuple)     
+  optimalParam, optimalVal = performedTunedCART(features , labels, foldsParam,  param_combo_tuple)  
+  print "For CART, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal) 
+  print "-"*50    

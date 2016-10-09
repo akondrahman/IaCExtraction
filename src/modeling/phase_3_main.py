@@ -30,8 +30,8 @@ print "-"*50
 dataset_for_labels = Utility.getDatasetFromCSV(dataset_file, False)
 label_cols = full_cols - 1
 all_labels  =  dataset_for_labels[:, label_cols]
-print "Glimpse at  labels (10th entry in dataset):", all_labels[9]
-print "-"*50
+#print "Glimpse at  labels (10th entry in dataset):", all_labels[9]
+#print "-"*50
 formatted_labels = Utility.assignNumericLabels(all_labels)
 print "Glimpse at  labels (10th entry in label list):", formatted_labels[9]
 print "-"*50
