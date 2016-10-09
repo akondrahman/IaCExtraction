@@ -53,3 +53,14 @@ print "-"*50
     10 fold validation instaed of bootstrap 
 '''  
 fold2Use =10 
+
+
+
+
+'''
+Single iteration zone : turn off 'performIterativeModeling()'
+while running this 
+'''
+# this method runs the classifiers once
+tuned_sklearn_models.performTunedModeling(selected_features, formatted_labels, fold2Use)
+print "-"*50
