@@ -42,3 +42,14 @@ selected_indices_for_features = tuned_sklearn_models.getElgiibleFeatures(all_fea
 print "The selected indicies are: \n", selected_indices_for_features
 print "The selected feature names: ", Utility.printFeatureName(selected_indices_for_features)
 print "-"*50
+### select the features based on feature indicies 
+selected_features = Utility.createSelectedFeatures(all_features, selected_indices_for_features)
+print "Selected feature dataset size:", np.shape(selected_features)
+print "Glimpse at  selected features (10th entry in label list): \n", selected_features[9]
+print "-"*50
+'''
+    thsi paper https://www.cs.utah.edu/~piyush/teaching/cross-validation-kohavi.pdf
+    with 6000+ citations says to use 10 fold validation , so will use 
+    10 fold validation instaed of bootstrap 
+'''  
+fold2Use =10 

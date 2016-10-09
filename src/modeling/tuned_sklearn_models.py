@@ -25,3 +25,5 @@ def getElgiibleFeatures(allFeatureParam, allLabelParam):
   #print "Model score: ", logiRegObj.scores_
   eligible_indices = logiRegObj.get_support(indices=True)
   return eligible_indices  
+  
+  
