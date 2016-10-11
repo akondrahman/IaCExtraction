@@ -185,6 +185,6 @@ def performTunedModeling(features, labels, foldsParam, algoNameParam):
     #optimalParam, optimalVal = performedTunedCART(features , labels, foldsParam,  param_combo_tuple)  
     #print "For CART, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal) 
     print "-"*50 
-    optimalParam = (0.33, 20, 16, 1)
+    optimalParam = (0.33, 20, 16, 1)  ##to skip param tuning experiemnts 
     performCART(features, labels, foldsParam, "CART" , optimalParam)   
     print "-"*50  
