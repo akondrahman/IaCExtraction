@@ -144,13 +144,28 @@ def performedTunedCART(featureParam, labelParam, foldParam, paramComboParam):
   return bestTuple
 
 
+
+
+
+def performCART(featureParam, labelParam, foldParam, infoP, optimalParam_):
+  max_feat      = optimalParam_[0]
+  min_sam_split = optimalParam_[1]      
+  min_sam_leaf  = optimalParam_[2]  
+  max_depth_    = optimalParam_[3]  
+  theCARTModel = DecisionTreeClassifier(max_features=max_feat, min_samples_split=min_sam_split, min_samples_leaf=min_sam_leaf, max_depth=max_depth_)     
+  cart_area_under_roc = perform_cross_validation(theCARTModel, featureParam, labelParam, foldParam, infoP)
+  print "For {}, area under ROC is: {}".format(infoP, cart_area_under_roc) 
+  return cart_area_under_roc  
+
+
 def performTunedModeling(features, labels, foldsParam):
   ### lets do knn (nearest neighbor) 
-  no_neighbors_to_test = [1, 5, 9, 13, 17] ## from Hassan-ICSE'16 Paper
+  #no_neighbors_to_test = [1, 5, 9, 13, 17] ## from Hassan-ICSE'16 Paper
+  no_neighbors_to_test = [x1 + 1 for x1 in xrange(100)] ## just for testing   
   optimalParam, optimalVal =  performTunedKNN(features, labels, foldsParam, no_neighbors_to_test)  
   print "For kNN, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal)  
   print "-"*50  
-  #performKNN(features, labels, foldsParam, "kNN", optimalParam)
+  performKNN(features, labels, foldsParam, "kNN", optimalParam)
   optimalParam, optimalVal = 0, 0  
   print "-"*50  
   
@@ -166,6 +181,9 @@ def performTunedModeling(features, labels, foldsParam):
   max_depth_for_cart       = [ x_+1                         for x_ in xrange(50)  ] #from Fu paper 2016  
   ## supply all param combos as tuple 
   param_combo_tuple = ( max_feat_for_cart, min_sam_split_for_cart, min_sam_leaf_for_cart, max_depth_for_cart )   
-  optimalParam, optimalVal = performedTunedCART(features , labels, foldsParam,  param_combo_tuple)  
-  print "For CART, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal) 
-  print "-"*50    
+  #optimalParam, optimalVal = performedTunedCART(features , labels, foldsParam,  param_combo_tuple)  
+  #print "For CART, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal) 
+  print "-"*50 
+  optimalParam = (0.33, 20, 16, 1)
+  performCART(features, labels, foldsParam, "CART" , optimalParam)   
+  print "-"*50  

@@ -49,8 +49,8 @@ print "Glimpse at  selected features (10th entry in label list): \n", selected_f
 print "-"*50
 '''
     thsi paper https://www.cs.utah.edu/~piyush/teaching/cross-validation-kohavi.pdf
-    with 6000+ citations says to use 10 fold validation , so will use 
-    10 fold validation instaed of bootstrap 
+    with 6000+ citations says bootstrap might have bias in results, and therefore 
+    we select 10 fold cross validation 
 '''  
 fold2Use =10 
 
