@@ -182,8 +182,16 @@ def performTunedRF(featureParam, labelParam, foldParam, paramComboParam):
   
   
   
-def performRF(featureParam, labelParam, foldParam, infoP):
-  theRndForestModel = RandomForestClassifier() 
+def performRF(featureParam, labelParam, foldParam, infoP, optimalParam_):
+  esti           = optimalParam_[0] 
+  maxfeat        = optimalParam_[1] 
+  max_leaf       = optimalParam_[2]
+  minSampleSplit = optimalParam_[3]  
+  minSampleLeaf  = optimalParam_[4]
+  theRndForestModel = RandomForestClassifier(n_estimators=esti, max_features=maxfeat, 
+                                             max_leaf_nodes=max_leaf, 
+                                             min_samples_split=minSampleSplit, 
+                                             min_samples_leaf=minSampleLeaf ) 
   rf_area_under_roc = perform_cross_validation(theRndForestModel, featureParam, labelParam, foldParam, infoP)  
   print "For {} area under ROC is: {}".format(infoP, rf_area_under_roc)
   return rf_area_under_roc    
@@ -236,7 +244,11 @@ def performTunedModeling(features, labels, foldsParam, algoNameParam):
     ## supply all param combos as tuple 
     param_combo_tuple = ( max_feat_for_rf, max_leaf_node_for_rf, min_sam_split_for_rf, min_sam_leaf_for_rf, no_estima_for_rf)    
     ## following used for testing 
-    #param_combo_tuple = ( max_feat_for_rf[0:1], max_leaf_node_for_rf[0:1], min_sam_split_for_rf[0:1], min_sam_leaf_for_rf[0:1], no_estima_for_rf[0:1]  ) 
+    ###param_combo_tuple = ( max_feat_for_rf[0:1], max_leaf_node_for_rf[0:1], min_sam_split_for_rf[0:1], min_sam_leaf_for_rf[0:1], no_estima_for_rf[0:1]  ) 
     optimalParam, optimalVal = performTunedRF(features, labels, foldsParam, param_combo_tuple)
+    ###optimalParam = (50, 0.01, 2, 2, 1) ## for test purpose, skipping tuning function 
     print "For Random Forest, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal) 
-    print "-"*50                  
+    print "-"*50     
+    performRF(features, labels, foldsParam, "RF" , optimalParam)  
+    optimalParam, optimalVal = 0, 0    
+    print "-"*50               
