@@ -62,7 +62,7 @@ Single iteration zone : turn off 'performIterativeModeling()'
 while running this 
 '''
 # this method runs the classifiers once
-algoName="cart"
+algoName="rf"
 tuned_sklearn_models.performTunedModeling(selected_features, formatted_labels, fold2Use, algoName)
 print "-"*50
 

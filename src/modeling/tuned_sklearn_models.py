@@ -186,5 +186,23 @@ def performTunedModeling(features, labels, foldsParam, algoNameParam):
     #print "For CART, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal) 
     print "-"*50 
     optimalParam = (0.33, 20, 16, 1)  ##to skip param tuning experiemnts 
-    performCART(features, labels, foldsParam, "CART" , optimalParam)   
+    performCART(features, labels, foldsParam, "CART" , optimalParam)  
+    optimalParam, optimalVal = 0, 0    
     print "-"*50  
+    
+  elif algoNameParam=='rf':
+    # param-1
+    max_feat_for_rf         = [(float(x_)/float(100)) + 0.01 for x_ in xrange(101) ] #from Fu paper 2016 
+    # param-2   
+    max_leaf_node_for_rf    = [ x_+1                         for x_ in xrange(51)  ] #from Fu paper 2016     
+    # param-3
+    min_sam_split_for_rf    = [ x_+1                         for x_ in xrange(21)  ] #from Fu paper 2016 
+    min_sam_split_for_rf.remove(1) # remove 1 to get the list [2, 20] from Fu paper 2016 
+    # param-4    
+    min_sam_leaf_for_rf     = [ x_+1                         for x_ in xrange(21)  ] #from Fu paper 2016 
+    # param-5 
+    no_estima_for_rf        = [ x_+50                        for x_ in xrange(101)  ] #from Fu paper 2016  
+    ## supply all param combos as tuple 
+    param_combo_tuple = ( max_feat_for_rf, max_leaf_node_for_rf, min_sam_split_for_rf, min_sam_leaf_for_rf, no_estima_for_rf  ) 
+    optimalParam, optimalVal = performTunedRF(, param_combo_tuple)
+                 
