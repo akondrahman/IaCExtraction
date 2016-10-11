@@ -1,0 +1,62 @@
+Last login: Thu Oct  6 12:08:24 on console
+eb2-2206-mac03-4:~ akond$ cd Documents/AkondOneDrive/OneDrive/IaC_Mining/Dataset/ALL_WIKIMEDIA_DEFECT_DATASETS/build/
+eb2-2206-mac03-4:build akond$ cat y_metrics.csv n_metrics.csv > build_dataset.csv 
+eb2-2206-mac03-4:build akond$ cd ../config/
+eb2-2206-mac03-4:config akond$ cat y_metrics.csv n_metrics.csv > config_dataset.csv 
+eb2-2206-mac03-4:config akond$ cd ../hhvm/
+eb2-2206-mac03-4:hhvm akond$ cat y_metrics.csv n_metrics.csv > hhvm_dataset.csv 
+eb2-2206-mac03-4:hhvm akond$ cd ../jenkins-debian-glue/
+eb2-2206-mac03-4:jenkins-debian-glue akond$ cat y_metrics.csv n_metrics.csv > jenkins_debian_glue_dataset.csv 
+cat: n_metrics.csv: No such file or directory
+eb2-2206-mac03-4:jenkins-debian-glue akond$ cd ../jmxtrans/
+eb2-2206-mac03-4:jmxtrans akond$ cat y_metrics.csv n_metrics.csv > jmxtrans_dataset.csv 
+eb2-2206-mac03-4:jmxtrans akond$ cd ../kafka/
+eb2-2206-mac03-4:kafka akond$ cat y_metrics.csv n_metrics.csv > kafka_dataset.csv 
+eb2-2206-mac03-4:kafka akond$ cd ../kafkatee/
+eb2-2206-mac03-4:kafkatee akond$ cat y_metrics.csv n_metrics.csv > kafkatee_dataset.csv 
+eb2-2206-mac03-4:kafkatee akond$ cd ../kraken/ 
+eb2-2206-mac03-4:kraken akond$ cat y_metrics.csv n_metrics.csv > kraken_dataset.csv 
+eb2-2206-mac03-4:kraken akond$ cd ../maps/ 
+eb2-2206-mac03-4:maps akond$ cat y_metrics.csv n_metrics.csv > maps_dataset.csv 
+eb2-2206-mac03-4:maps akond$ cd ../mariadb/
+eb2-2206-mac03-4:mariadb akond$ cat y_metrics.csv n_metrics.csv > mariadb_dataset.csv 
+eb2-2206-mac03-4:mariadb akond$ cd ../mesos/ 
+eb2-2206-mac03-4:mesos akond$ cat y_metrics.csv n_metrics.csv > mesos_dataset.csv 
+eb2-2206-mac03-4:mesos akond$ cd ../nginx/ 
+eb2-2206-mac03-4:nginx akond$ cat y_metrics.csv n_metrics.csv > nginx_dataset.csv 
+eb2-2206-mac03-4:nginx akond$ cd ../private/ 
+eb2-2206-mac03-4:private akond$ cat y_metrics.csv n_metrics.csv > private_dataset.csv 
+eb2-2206-mac03-4:private akond$ cd ../puppet-compiler/
+eb2-2206-mac03-4:puppet-compiler akond$ cat y_metrics.csv n_metrics.csv > puppet-compiler_dataset.csv 
+cat: n_metrics.csv: No such file or directory
+eb2-2206-mac03-4:puppet-compiler akond$ cd ../translatewiki/
+eb2-2206-mac03-4:translatewiki akond$ cat y_metrics.csv n_metrics.csv > translatewiki_dataset.csv 
+eb2-2206-mac03-4:translatewiki akond$ cd ../trunk/
+eb2-2206-mac03-4:trunk akond$ cat y_metrics.csv n_metrics.csv > trunk_dataset.csv 
+eb2-2206-mac03-4:trunk akond$ cd ../varnishkafka/
+eb2-2206-mac03-4:varnishkafka akond$ cat y_metrics.csv n_metrics.csv > varnishkafka_dataset.csv  
+eb2-2206-mac03-4:varnishkafka akond$ cd ../wikimetrics/
+eb2-2206-mac03-4:wikimetrics akond$ cat y_metrics.csv n_metrics.csv > wikimetrics_dataset.csv  
+eb2-2206-mac03-4:wikimetrics akond$ cd ../zookeeper/
+eb2-2206-mac03-4:zookeeper akond$ cat y_metrics.csv n_metrics.csv > zookeeper_dataset.csv  
+eb2-2206-mac03-4:zookeeper akond$ cd ../cdh/ 
+eb2-2206-mac03-4:cdh akond$ cat y_metrics.csv n_metrics.csv > cdh_dataset.csv  
+eb2-2206-mac03-4:cdh akond$ cd ../cdh4/ 
+eb2-2206-mac03-4:cdh4 akond$ cat y_metrics.csv n_metrics.csv > cdh4_dataset.csv  
+eb2-2206-mac03-4:cdh4 akond$ cd ../puppet/
+eb2-2206-mac03-4:puppet akond$ cat y_metrics.csv n_metrics.csv > puppet_dataset.csv  
+eb2-2206-mac03-4:puppet akond$ cd ../vagrant/
+eb2-2206-mac03-4:vagrant akond$ cat y_metrics.csv n_metrics.csv > vagrant_dataset.csv  
+eb2-2206-mac03-4:vagrant akond$ cd ..
+eb2-2206-mac03-4:ALL_WIKIMEDIA_DEFECT_DATASETS akond$ clear 
+
+
+
+
+
+
+
+
+
+eb2-2206-mac03-4:ALL_WIKIMEDIA_DEFECT_DATASETS akond$ cat build/build_dataset.csv config/config_dataset.csv hhvm/hhvm_dataset.csv jenkins-debian-glue/jenkins_debian_glue_dataset.csv jmxtrans/jmxtrans_dataset.csv kafka/kafka_dataset.csv kafkatee/kafkatee_dataset.csv kraken/kraken_dataset.csv maps/maps_dataset.csv mariadb/mariadb_dataset.csv mesos/mesos_dataset.csv nginx/nginx_dataset.csv private/private_dataset.csv puppet-compiler/puppet-compiler_dataset.csv translatewiki/translatewiki_dataset.csv trunk/trunk_dataset.csv varnishkafka/varnishkafka_dataset.csv wikimetrics/wikimetrics_dataset.csv zookeeper/zookeeper_dataset.csv cdh/cdh_dataset.csv cdh4/cdh4_dataset.csv puppet/puppet_dataset.csv vagrant/vagrant_dataset.csv > LOCKED_WIKIMEDIA_23_REPOS_DATASET.csv 
+eb2-2206-mac03-4:ALL_WIKIMEDIA_DEFECT_DATASETS akond$ 

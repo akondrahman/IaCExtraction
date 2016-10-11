@@ -1,0 +1,516 @@
+########### Mozilla Release Engineering #############
+Last login: Mon Oct  3 10:17:29 on ttys000
+eb2-2206-mac03-4:extractor akond$ python pupp_file_cnt_summary.py 
+The name of the repo is: dxr
+The puppet-to-all-file ratio is: 0.000374475733972
+**************************************************
+The name of the repo is: mozillapulse
+The puppet-to-all-file ratio is: 0.0357142857143
+**************************************************
+The name of the repo is: puppet
+The puppet-to-all-file ratio is: 0.171104666491
+**************************************************
+The name of the repo is: relabs-puppet
+The puppet-to-all-file ratio is: 0.166622019823
+**************************************************
+The name of the repo is: tbpl
+The puppet-to-all-file ratio is: 0.00898203592814
+**************************************************
+Dumped a file of 161 bytes
+eb2-2206-mac03-4:extractor akond$ 
+
+
+
+
+########### Openstack #############
+Last login: Mon Oct  3 10:47:09 on ttys001
+eb2-2206-mac03-4:extractor akond$ python pupp_file_cnt_summary.py 
+The name of the repo is: app-catalog
+The puppet-to-all-file ratio is: 0.0185185185185
+**************************************************
+The name of the repo is: browbeat
+The puppet-to-all-file ratio is: 0.00550964187328
+**************************************************
+The name of the repo is: ci-cd-pipeline-app-murano
+The puppet-to-all-file ratio is: 0.0807291666667
+**************************************************
+The name of the repo is: deb-murano
+The puppet-to-all-file ratio is: 0.00109289617486
+**************************************************
+The name of the repo is: fuel-library
+The puppet-to-all-file ratio is: 0.326877934272
+**************************************************
+The name of the repo is: fuel-noop-fixtures
+The puppet-to-all-file ratio is: 0.025974025974
+**************************************************
+The name of the repo is: fuel-octane
+The puppet-to-all-file ratio is: 0.103004291845
+**************************************************
+The name of the repo is: fuel-plugin-6wind-virtual-accelerator
+The puppet-to-all-file ratio is: 0.150684931507
+**************************************************
+The name of the repo is: fuel-plugin-astara
+The puppet-to-all-file ratio is: 0.13768115942
+**************************************************
+The name of the repo is: fuel-plugin-availability-zones
+The puppet-to-all-file ratio is: 0.0327868852459
+**************************************************
+The name of the repo is: fuel-plugin-bgpvpn
+The puppet-to-all-file ratio is: 0.0175438596491
+**************************************************
+The name of the repo is: fuel-plugin-bigswitch
+The puppet-to-all-file ratio is: 0.184782608696
+**************************************************
+The name of the repo is: fuel-plugin-block-device
+The puppet-to-all-file ratio is: 0.0379746835443
+**************************************************
+The name of the repo is: fuel-plugin-calamari
+The puppet-to-all-file ratio is: 0.0920245398773
+**************************************************
+The name of the repo is: fuel-plugin-ceilometer-redis
+The puppet-to-all-file ratio is: 0.118421052632
+**************************************************
+The name of the repo is: fuel-plugin-ci
+The puppet-to-all-file ratio is: 0.406451612903
+**************************************************
+The name of the repo is: fuel-plugin-cinder-gcs
+The puppet-to-all-file ratio is: 0.0853658536585
+**************************************************
+The name of the repo is: fuel-plugin-cinder-netapp
+The puppet-to-all-file ratio is: 0.106060606061
+**************************************************
+The name of the repo is: fuel-plugin-cisco-aci
+The puppet-to-all-file ratio is: 0.33
+**************************************************
+The name of the repo is: fuel-plugin-contrail
+The puppet-to-all-file ratio is: 0.245901639344
+**************************************************
+The name of the repo is: fuel-plugin-datera-cinder
+The puppet-to-all-file ratio is: 0.127659574468
+**************************************************
+The name of the repo is: fuel-plugin-dbaas-trove
+The puppet-to-all-file ratio is: 0.2
+**************************************************
+The name of the repo is: fuel-plugin-debug
+The puppet-to-all-file ratio is: 0.0188679245283
+**************************************************
+The name of the repo is: fuel-plugin-designate
+The puppet-to-all-file ratio is: 0.239130434783
+**************************************************
+The name of the repo is: fuel-plugin-detach-database
+The puppet-to-all-file ratio is: 0.0731707317073
+**************************************************
+The name of the repo is: fuel-plugin-detach-haproxy
+The puppet-to-all-file ratio is: 0.03125
+**************************************************
+The name of the repo is: fuel-plugin-detach-keystone
+The puppet-to-all-file ratio is: 0.0952380952381
+**************************************************
+The name of the repo is: fuel-plugin-detach-rabbitmq
+The puppet-to-all-file ratio is: 0.0588235294118
+**************************************************
+The name of the repo is: fuel-plugin-elasticsearch-kibana
+The puppet-to-all-file ratio is: 0.123376623377
+**************************************************
+The name of the repo is: fuel-plugin-external-emc
+The puppet-to-all-file ratio is: 0.123287671233
+**************************************************
+The name of the repo is: fuel-plugin-external-glusterfs
+The puppet-to-all-file ratio is: 0.0434782608696
+**************************************************
+The name of the repo is: fuel-plugin-external-lb
+The puppet-to-all-file ratio is: 0.0441176470588
+**************************************************
+The name of the repo is: fuel-plugin-external-zabbix
+The puppet-to-all-file ratio is: 0.169642857143
+**************************************************
+The name of the repo is: fuel-plugin-glance-nfs
+The puppet-to-all-file ratio is: 0.0454545454545
+**************************************************
+The name of the repo is: fuel-plugin-ha-fencing
+The puppet-to-all-file ratio is: 0.0769230769231
+**************************************************
+The name of the repo is: fuel-plugin-influxdb-grafana
+The puppet-to-all-file ratio is: 0.142857142857
+**************************************************
+The name of the repo is: fuel-plugin-ironic
+The puppet-to-all-file ratio is: 0.205882352941
+**************************************************
+The name of the repo is: fuel-plugin-kafka
+The puppet-to-all-file ratio is: 0.0610687022901
+**************************************************
+The name of the repo is: fuel-plugin-ldap
+The puppet-to-all-file ratio is: 0.0843373493976
+**************************************************
+The name of the repo is: fuel-plugin-lma-collector
+The puppet-to-all-file ratio is: 0.216400911162
+**************************************************
+The name of the repo is: fuel-plugin-lma-infrastructure-alerting
+The puppet-to-all-file ratio is: 0.186666666667
+**************************************************
+The name of the repo is: fuel-plugin-manila
+The puppet-to-all-file ratio is: 0.285714285714
+**************************************************
+The name of the repo is: fuel-plugin-mellanox
+The puppet-to-all-file ratio is: 0.159090909091
+**************************************************
+The name of the repo is: fuel-plugin-midonet
+The puppet-to-all-file ratio is: 0.164705882353
+**************************************************
+The name of the repo is: fuel-plugin-murano
+The puppet-to-all-file ratio is: 0.162162162162
+**************************************************
+The name of the repo is: fuel-plugin-murano-networking-sfc
+The puppet-to-all-file ratio is: 0.0102040816327
+**************************************************
+The name of the repo is: fuel-plugin-network-node
+The puppet-to-all-file ratio is: 0.0185185185185
+**************************************************
+The name of the repo is: fuel-plugin-networking-sfc
+The puppet-to-all-file ratio is: 0.0526315789474
+**************************************************
+The name of the repo is: fuel-plugin-neutron-fwaas
+The puppet-to-all-file ratio is: 0.0483870967742
+**************************************************
+The name of the repo is: fuel-plugin-neutron-lbaas
+The puppet-to-all-file ratio is: 0.0296296296296
+**************************************************
+The name of the repo is: fuel-plugin-neutron-vpnaas
+The puppet-to-all-file ratio is: 0.0921052631579
+**************************************************
+The name of the repo is: fuel-plugin-nova-nfs
+The puppet-to-all-file ratio is: 0.0363636363636
+**************************************************
+The name of the repo is: fuel-plugin-nsx-t
+The puppet-to-all-file ratio is: 0.242857142857
+**************************************************
+The name of the repo is: fuel-plugin-nsxv
+The puppet-to-all-file ratio is: 0.0967741935484
+**************************************************
+The name of the repo is: fuel-plugin-nuage
+The puppet-to-all-file ratio is: 0.402777777778
+**************************************************
+The name of the repo is: fuel-plugin-onos
+The puppet-to-all-file ratio is: 0.203703703704
+**************************************************
+The name of the repo is: fuel-plugin-openbook
+The puppet-to-all-file ratio is: 0.123287671233
+**************************************************
+The name of the repo is: fuel-plugin-opendaylight
+The puppet-to-all-file ratio is: 0.253521126761
+**************************************************
+The name of the repo is: fuel-plugin-openstack-telemetry
+The puppet-to-all-file ratio is: 0.133333333333
+**************************************************
+The name of the repo is: fuel-plugin-ovs
+The puppet-to-all-file ratio is: 0.00512820512821
+**************************************************
+The name of the repo is: fuel-plugin-plumgrid
+The puppet-to-all-file ratio is: 0.189873417722
+**************************************************
+The name of the repo is: fuel-plugin-purestorage-cinder
+The puppet-to-all-file ratio is: 0.118644067797
+**************************************************
+The name of the repo is: fuel-plugin-qemu
+The puppet-to-all-file ratio is: 0.027027027027
+**************************************************
+The name of the repo is: fuel-plugin-scaleio
+The puppet-to-all-file ratio is: 0.15625
+**************************************************
+The name of the repo is: fuel-plugin-scaleio-cinder
+The puppet-to-all-file ratio is: 0.0683760683761
+**************************************************
+The name of the repo is: fuel-plugin-solidfire-cinder
+The puppet-to-all-file ratio is: 0.106382978723
+**************************************************
+The name of the repo is: fuel-plugin-swiftstack
+The puppet-to-all-file ratio is: 0.0454545454545
+**************************************************
+The name of the repo is: fuel-plugin-tacker
+The puppet-to-all-file ratio is: 0.0470588235294
+**************************************************
+The name of the repo is: fuel-plugin-tls
+The puppet-to-all-file ratio is: 0.0671641791045
+**************************************************
+The name of the repo is: fuel-plugin-vmware-dvs
+The puppet-to-all-file ratio is: 0.09375
+**************************************************
+The name of the repo is: fuel-plugin-vxlan
+The puppet-to-all-file ratio is: 0.099173553719
+**************************************************
+The name of the repo is: fuel-plugin-zabbix-monitoring-emc
+The puppet-to-all-file ratio is: 0.0714285714286
+**************************************************
+The name of the repo is: fuel-plugin-zabbix-monitoring-extreme-networks
+The puppet-to-all-file ratio is: 0.0714285714286
+**************************************************
+The name of the repo is: fuel-plugin-zabbix-snmptrapd
+The puppet-to-all-file ratio is: 0.0675675675676
+**************************************************
+The name of the repo is: fuel-plugins
+The puppet-to-all-file ratio is: 0.0119760479042
+**************************************************
+The name of the repo is: heat-templates
+The puppet-to-all-file ratio is: 0.00296735905045
+**************************************************
+The name of the repo is: instack-undercloud
+The puppet-to-all-file ratio is: 0.00925925925926
+**************************************************
+The name of the repo is: murano
+The puppet-to-all-file ratio is: 0.00109289617486
+**************************************************
+The name of the repo is: murano-deployment
+The puppet-to-all-file ratio is: 0.103703703704
+**************************************************
+The name of the repo is: networking-ovs-dpdk
+The puppet-to-all-file ratio is: 0.0957446808511
+**************************************************
+The name of the repo is: packstack
+The puppet-to-all-file ratio is: 0.427046263345
+**************************************************
+The name of the repo is: puppet-aodh
+The puppet-to-all-file ratio is: 0.18018018018
+**************************************************
+The name of the repo is: puppet-autossh
+The puppet-to-all-file ratio is: 0.0281690140845
+**************************************************
+The name of the repo is: puppet-barbican
+The puppet-to-all-file ratio is: 0.223404255319
+**************************************************
+The name of the repo is: puppet-ceilometer
+The puppet-to-all-file ratio is: 0.201550387597
+**************************************************
+The name of the repo is: puppet-ceph
+The puppet-to-all-file ratio is: 0.210084033613
+**************************************************
+The name of the repo is: puppet-cinder
+The puppet-to-all-file ratio is: 0.29387755102
+**************************************************
+The name of the repo is: puppet-congress
+The puppet-to-all-file ratio is: 0.196721311475
+**************************************************
+The name of the repo is: puppet-designate
+The puppet-to-all-file ratio is: 0.222222222222
+**************************************************
+The name of the repo is: puppet-ec2api
+The puppet-to-all-file ratio is: 0.172839506173
+**************************************************
+The name of the repo is: puppet-glance
+The puppet-to-all-file ratio is: 0.206349206349
+**************************************************
+The name of the repo is: puppet-gnocchi
+The puppet-to-all-file ratio is: 0.18487394958
+**************************************************
+The name of the repo is: puppet-heat
+The puppet-to-all-file ratio is: 0.189655172414
+**************************************************
+The name of the repo is: puppet-horizon
+The puppet-to-all-file ratio is: 0.041095890411
+**************************************************
+The name of the repo is: puppet-ironic
+The puppet-to-all-file ratio is: 0.204968944099
+**************************************************
+The name of the repo is: puppet-keystone
+The puppet-to-all-file ratio is: 0.171171171171
+**************************************************
+The name of the repo is: puppet-magnum
+The puppet-to-all-file ratio is: 0.202247191011
+**************************************************
+The name of the repo is: puppet-manila
+The puppet-to-all-file ratio is: 0.255172413793
+**************************************************
+The name of the repo is: puppet-midonet
+The puppet-to-all-file ratio is: 0.169230769231
+**************************************************
+The name of the repo is: puppet-mistral
+The puppet-to-all-file ratio is: 0.177083333333
+**************************************************
+The name of the repo is: puppet-monasca
+The puppet-to-all-file ratio is: 0.348101265823
+**************************************************
+The name of the repo is: puppet-murano
+The puppet-to-all-file ratio is: 0.137096774194
+**************************************************
+The name of the repo is: puppet-n1k-vsm
+The puppet-to-all-file ratio is: 0.08
+**************************************************
+The name of the repo is: puppet-neutron
+The puppet-to-all-file ratio is: 0.181058495822
+**************************************************
+The name of the repo is: puppet-nova
+The puppet-to-all-file ratio is: 0.23137254902
+**************************************************
+The name of the repo is: puppet-octavia
+The puppet-to-all-file ratio is: 0.225352112676
+**************************************************
+The name of the repo is: puppet-openstack-cookiecutter
+The puppet-to-all-file ratio is: 0.190476190476
+**************************************************
+The name of the repo is: puppet-openstack-integration
+The puppet-to-all-file ratio is: 0.441558441558
+**************************************************
+The name of the repo is: puppet-openstack_extras
+The puppet-to-all-file ratio is: 0.0975609756098
+**************************************************
+The name of the repo is: puppet-openstacklib
+The puppet-to-all-file ratio is: 0.106194690265
+**************************************************
+The name of the repo is: puppet-oslo
+The puppet-to-all-file ratio is: 0.204545454545
+**************************************************
+The name of the repo is: puppet-ovn
+The puppet-to-all-file ratio is: 0.0727272727273
+**************************************************
+The name of the repo is: puppet-pacemaker
+The puppet-to-all-file ratio is: 0.260233918129
+**************************************************
+The name of the repo is: puppet-panko
+The puppet-to-all-file ratio is: 0.181818181818
+**************************************************
+The name of the repo is: puppet-qdr
+The puppet-to-all-file ratio is: 0.115384615385
+**************************************************
+The name of the repo is: puppet-rally
+The puppet-to-all-file ratio is: 0.261904761905
+**************************************************
+The name of the repo is: puppet-sahara
+The puppet-to-all-file ratio is: 0.141592920354
+**************************************************
+The name of the repo is: puppet-setproxy
+The puppet-to-all-file ratio is: 0.056338028169
+**************************************************
+The name of the repo is: puppet-swift
+The puppet-to-all-file ratio is: 0.235074626866
+**************************************************
+The name of the repo is: puppet-tacker
+The puppet-to-all-file ratio is: 0.196721311475
+**************************************************
+The name of the repo is: puppet-tempest
+The puppet-to-all-file ratio is: 0.0519480519481
+**************************************************
+The name of the repo is: puppet-tripleo
+The puppet-to-all-file ratio is: 0.7265917603
+**************************************************
+The name of the repo is: puppet-trove
+The puppet-to-all-file ratio is: 0.153846153846
+**************************************************
+The name of the repo is: puppet-vitrage
+The puppet-to-all-file ratio is: 0.234567901235
+**************************************************
+The name of the repo is: puppet-vswitch
+The puppet-to-all-file ratio is: 0.0526315789474
+**************************************************
+The name of the repo is: puppet-watcher
+The puppet-to-all-file ratio is: 0.232876712329
+**************************************************
+The name of the repo is: puppet-zaqar
+The puppet-to-all-file ratio is: 0.191489361702
+**************************************************
+The name of the repo is: solar-resources
+The puppet-to-all-file ratio is: 0.167108753316
+**************************************************
+The name of the repo is: third-party-ci-tools
+The puppet-to-all-file ratio is: 0.0470588235294
+**************************************************
+The name of the repo is: tripleo-heat-templates
+The puppet-to-all-file ratio is: 0.0135135135135
+**************************************************
+Dumped a file of 5329 bytes
+eb2-2206-mac03-4:extractor akond$ 
+
+
+
+
+
+########### Wikimedia #############
+Last login: Mon Oct  3 10:48:13 on ttys002
+eb2-2206-mac03-4:extractor akond$ python pupp_file_cnt_summary.py 
+The name of the repo is: build
+The puppet-to-all-file ratio is: 0.115942028986
+**************************************************
+The name of the repo is: cdh
+The puppet-to-all-file ratio is: 0.448598130841
+**************************************************
+The name of the repo is: cdh4
+The puppet-to-all-file ratio is: 0.413793103448
+**************************************************
+The name of the repo is: config
+The puppet-to-all-file ratio is: 0.0291262135922
+**************************************************
+The name of the repo is: consistency
+The puppet-to-all-file ratio is: 0.0
+**************************************************
+The name of the repo is: hhvm
+The puppet-to-all-file ratio is: 0.000108464281356
+**************************************************
+The name of the repo is: jenkins-debian-glue
+The puppet-to-all-file ratio is: 0.013698630137
+**************************************************
+The name of the repo is: jetty-runner
+The puppet-to-all-file ratio is: 0.0
+**************************************************
+The name of the repo is: jmxtrans
+The puppet-to-all-file ratio is: 0.1
+**************************************************
+The name of the repo is: kafka
+The puppet-to-all-file ratio is: 0.260869565217
+**************************************************
+The name of the repo is: kafkatee
+The puppet-to-all-file ratio is: 0.0357142857143
+**************************************************
+The name of the repo is: kraken
+The puppet-to-all-file ratio is: 0.205128205128
+**************************************************
+The name of the repo is: maps
+The puppet-to-all-file ratio is: 0.0185185185185
+**************************************************
+The name of the repo is: mariadb
+The puppet-to-all-file ratio is: 0.242424242424
+**************************************************
+The name of the repo is: mesos
+The puppet-to-all-file ratio is: 0.140350877193
+**************************************************
+The name of the repo is: migration-assistant
+The puppet-to-all-file ratio is: 0.0
+**************************************************
+The name of the repo is: nginx
+The puppet-to-all-file ratio is: 0.166666666667
+**************************************************
+The name of the repo is: private
+The puppet-to-all-file ratio is: 0.0048309178744
+**************************************************
+The name of the repo is: puppet
+The puppet-to-all-file ratio is: 0.0538957234915
+**************************************************
+The name of the repo is: puppet-compiler
+The puppet-to-all-file ratio is: 0.0188679245283
+**************************************************
+The name of the repo is: puppet-secret
+The puppet-to-all-file ratio is: 0.0
+**************************************************
+The name of the repo is: redactatron
+The puppet-to-all-file ratio is: 0.0
+**************************************************
+The name of the repo is: rescue-pxe
+The puppet-to-all-file ratio is: 0.0
+**************************************************
+The name of the repo is: translatewiki
+The puppet-to-all-file ratio is: 0.0964285714286
+**************************************************
+The name of the repo is: trunk
+The puppet-to-all-file ratio is: 3.80720322851e-05
+**************************************************
+The name of the repo is: vagrant
+The puppet-to-all-file ratio is: 0.367424242424
+**************************************************
+The name of the repo is: varnishkafka
+The puppet-to-all-file ratio is: 0.0810810810811
+**************************************************
+The name of the repo is: wikimetrics
+The puppet-to-all-file ratio is: 0.230769230769
+**************************************************
+The name of the repo is: zookeeper
+The puppet-to-all-file ratio is: 0.046511627907
+**************************************************
+Dumped a file of 822 bytes
+eb2-2206-mac03-4:extractor akond$ 
