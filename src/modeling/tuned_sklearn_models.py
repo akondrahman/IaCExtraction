@@ -158,32 +158,33 @@ def performCART(featureParam, labelParam, foldParam, infoP, optimalParam_):
   return cart_area_under_roc  
 
 
-def performTunedModeling(features, labels, foldsParam):
-  ### lets do knn (nearest neighbor) 
-  #no_neighbors_to_test = [1, 5, 9, 13, 17] ## from Hassan-ICSE'16 Paper
-  no_neighbors_to_test = [x1 + 1 for x1 in xrange(100)] ## just for testing   
-  optimalParam, optimalVal =  performTunedKNN(features, labels, foldsParam, no_neighbors_to_test)  
-  print "For kNN, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal)  
-  print "-"*50  
-  performKNN(features, labels, foldsParam, "kNN", optimalParam)
-  optimalParam, optimalVal = 0, 0  
-  print "-"*50  
-  
-  ### lets do CART
-  # param-1
-  max_feat_for_cart        = [(float(x_)/float(100)) + 0.01 for x_ in xrange(100) ] #from Fu paper 2016 
-  # param-2
-  min_sam_split_for_cart   = [ x_+1                         for x_ in xrange(20)  ] #from Fu paper 2016 
-  min_sam_split_for_cart.remove(1) # remove 1 to get the list [2, 20] from Fu paper 2016 
-  # param-3    
-  min_sam_leaf_for_cart    = [ x_+1                         for x_ in xrange(20)  ] #from Fu paper 2016 
-  # param-4 
-  max_depth_for_cart       = [ x_+1                         for x_ in xrange(50)  ] #from Fu paper 2016  
-  ## supply all param combos as tuple 
-  param_combo_tuple = ( max_feat_for_cart, min_sam_split_for_cart, min_sam_leaf_for_cart, max_depth_for_cart )   
-  #optimalParam, optimalVal = performedTunedCART(features , labels, foldsParam,  param_combo_tuple)  
-  #print "For CART, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal) 
-  print "-"*50 
-  optimalParam = (0.33, 20, 16, 1)
-  performCART(features, labels, foldsParam, "CART" , optimalParam)   
-  print "-"*50  
+def performTunedModeling(features, labels, foldsParam, algoNameParam):
+  if algoNameParam=='knn':    
+    ### lets do knn (nearest neighbor) 
+    #no_neighbors_to_test = [1, 5, 9, 13, 17] ## from Hassan-ICSE'16 Paper
+    no_neighbors_to_test = [x1 + 1 for x1 in xrange(100)] ## just for testing   
+    optimalParam, optimalVal =  performTunedKNN(features, labels, foldsParam, no_neighbors_to_test)  
+    print "For kNN, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal)  
+    print "-"*50  
+    performKNN(features, labels, foldsParam, "kNN", optimalParam)
+    optimalParam, optimalVal = 0, 0  
+    print "-"*50  
+  elif algoNameParam=='cart':  
+    ### lets do CART
+    # param-1
+    max_feat_for_cart        = [(float(x_)/float(100)) + 0.01 for x_ in xrange(100) ] #from Fu paper 2016 
+    # param-2
+    min_sam_split_for_cart   = [ x_+1                         for x_ in xrange(20)  ] #from Fu paper 2016 
+    min_sam_split_for_cart.remove(1) # remove 1 to get the list [2, 20] from Fu paper 2016 
+    # param-3    
+    min_sam_leaf_for_cart    = [ x_+1                         for x_ in xrange(20)  ] #from Fu paper 2016 
+    # param-4 
+    max_depth_for_cart       = [ x_+1                         for x_ in xrange(50)  ] #from Fu paper 2016  
+    ## supply all param combos as tuple 
+    param_combo_tuple = ( max_feat_for_cart, min_sam_split_for_cart, min_sam_leaf_for_cart, max_depth_for_cart )   
+    #optimalParam, optimalVal = performedTunedCART(features , labels, foldsParam,  param_combo_tuple)  
+    #print "For CART, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal) 
+    print "-"*50 
+    optimalParam = (0.33, 20, 16, 1)
+    performCART(features, labels, foldsParam, "CART" , optimalParam)   
+    print "-"*50  

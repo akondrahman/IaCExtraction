@@ -62,7 +62,8 @@ Single iteration zone : turn off 'performIterativeModeling()'
 while running this 
 '''
 # this method runs the classifiers once
-tuned_sklearn_models.performTunedModeling(selected_features, formatted_labels, fold2Use)
+algoName="knn"
+tuned_sklearn_models.performTunedModeling(selected_features, formatted_labels, fold2Use, algoName)
 print "-"*50
 
 
