@@ -178,6 +178,15 @@ def performTunedRF(featureParam, labelParam, foldParam, paramComboParam):
               resHolder[rf_area_under_roc] = (esti, maxfeat, max_leaf, minSampleSplit, minSampleLeaf) 
   bestTuple = getBestParamCombo(resHolder)      
   return bestTuple
+  
+  
+  
+  
+def performRF(featureParam, labelParam, foldParam, infoP):
+  theRndForestModel = RandomForestClassifier() 
+  rf_area_under_roc = perform_cross_validation(theRndForestModel, featureParam, labelParam, foldParam, infoP)  
+  print "For {} area under ROC is: {}".format(infoP, rf_area_under_roc)
+  return rf_area_under_roc    
 
 def performTunedModeling(features, labels, foldsParam, algoNameParam):
   if algoNameParam=='knn':    
@@ -215,7 +224,8 @@ def performTunedModeling(features, labels, foldsParam, algoNameParam):
     # param-1
     max_feat_for_rf         = [(float(x_)/float(100)) + 0.01 for x_ in xrange(101) ] #from Fu paper 2016 
     # param-2   
-    max_leaf_node_for_rf    = [ x_+1                         for x_ in xrange(51)  ] #from Fu paper 2016     
+    max_leaf_node_for_rf    = [ x_+1                         for x_ in xrange(51)  ] #from Fu paper 2016 
+    max_leaf_node_for_rf.remove(1) # remove 1 to make API cpmpatible      
     # param-3
     min_sam_split_for_rf    = [ x_+1                         for x_ in xrange(21)  ] #from Fu paper 2016 
     min_sam_split_for_rf.remove(1) # remove 1 to get the list [2, 20] from Fu paper 2016 
@@ -224,7 +234,9 @@ def performTunedModeling(features, labels, foldsParam, algoNameParam):
     # param-5 
     no_estima_for_rf        = [ x_+50                        for x_ in xrange(101)  ] #from Fu paper 2016  
     ## supply all param combos as tuple 
-    param_combo_tuple = ( max_feat_for_rf, max_leaf_node_for_rf, min_sam_split_for_rf, min_sam_leaf_for_rf, no_estima_for_rf  ) 
+    param_combo_tuple = ( max_feat_for_rf, max_leaf_node_for_rf, min_sam_split_for_rf, min_sam_leaf_for_rf, no_estima_for_rf)    
+    ## following used for testing 
+    #param_combo_tuple = ( max_feat_for_rf[0:1], max_leaf_node_for_rf[0:1], min_sam_split_for_rf[0:1], min_sam_leaf_for_rf[0:1], no_estima_for_rf[0:1]  ) 
     optimalParam, optimalVal = performTunedRF(features, labels, foldsParam, param_combo_tuple)
     print "For Random Forest, best parameter was:{}, AUC was:{}".format(optimalParam, optimalVal) 
     print "-"*50                  
