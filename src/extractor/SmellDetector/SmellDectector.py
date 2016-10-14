@@ -317,7 +317,12 @@ def getMetricsForFile(fully_qualaified_path_to_file):
                                  count_of_consume +  count_of_export +  count_of_sched +  count_of_stage +  count_of_tags +
                                  count_of_noop +   count_of_before +  count_of_audit 
                                 )
-        metric_str_for_file = metric_str_for_file + str(meta_param_total_cnt) + ","                                             
+        metric_str_for_file = metric_str_for_file + str(meta_param_total_cnt) + ","   
+
+        #Metric-42
+        count_of_inheri_usage = fileObj.getOnlyInheritanceUsageCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_inheri_usage) + ","
+
 
         str2ret = str2ret + metric_str_for_file   
         return str2ret
@@ -345,24 +350,26 @@ def hogarbal():
   count_of_before   = fileObj.getOnlyBeforeCount()
   count_of_audit    = fileObj.getOnlyAuditCount()                
 
-  print "Include count:", cnt_includes  
-  print "Require count",  count_of_requires
-  print "Notify count:",  count_of_notifies        
-  print "Ensure count",   count_of_ensures   
-  print "Alias count:",   count_of_aliases 
-  print "Subsc count:",   count_of_subscri  
-  print "Consume count:", count_of_consume  
-  print "Export count:",  count_of_export  
-  print "Schedule cnt:",  count_of_schedu               
-  print "Stages cnt:",    count_of_stages      
-  print "Tags count:",    count_of_tags
-  print "No-op count:",   count_of_noop  
-  print "Before count:",  count_of_before 
-  print "Audit count:",   count_of_audit 
+  # print "Include count:", cnt_includes  
+  # print "Require count",  count_of_requires
+  # print "Notify count:",  count_of_notifies        
+  # print "Ensure count",   count_of_ensures   
+  # print "Alias count:",   count_of_aliases 
+  # print "Subsc count:",   count_of_subscri  
+  # print "Consume count:", count_of_consume  
+  # print "Export count:",  count_of_export  
+  # print "Schedule cnt:",  count_of_schedu               
+  # print "Stages cnt:",    count_of_stages      
+  # print "Tags count:",    count_of_tags
+  # print "No-op count:",   count_of_noop  
+  # print "Before count:",  count_of_before 
+  # print "Audit count:",   count_of_audit 
 
-  meta_param_total_cnt = (     count_of_requires + count_of_notifies  + count_of_aliases + count_of_subscri + 
-                               count_of_consume +  count_of_export +  count_of_schedu +  count_of_stages +  count_of_tags +
-                               count_of_noop +   count_of_before +  count_of_audit  
-                         ) 
-  print "*"*100 
-  print "Total meta usages: ", meta_param_total_cnt                                   
+  # meta_param_total_cnt = (     count_of_requires + count_of_notifies  + count_of_aliases + count_of_subscri + 
+  #                              count_of_consume +  count_of_export +  count_of_schedu +  count_of_stages +  count_of_tags +
+  #                              count_of_noop +   count_of_before +  count_of_audit  
+  #                        ) 
+  # print "*"*100 
+  # print "Total meta usages: ", meta_param_total_cnt
+  count_of_inher    = fileObj.getOnlyInheritanceUsageCount()
+  print "Inheritance use count:", count_of_inher                                       
