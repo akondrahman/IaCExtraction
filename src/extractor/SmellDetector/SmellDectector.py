@@ -348,7 +348,15 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
         #Metric-48
         hiera_incl_count = fileObj.getHieraIncludeCount()
-        metric_str_for_file = metric_str_for_file + str(hiera_incl_count) + ","  
+        metric_str_for_file = metric_str_for_file + str(hiera_incl_count) + "," 
+
+        #Metric-49
+        incl_packs_count = fileObj.getIncludePacksCount()
+        metric_str_for_file = metric_str_for_file + str(incl_packs_count) + "," 
+
+        #Metric-50
+        ensure_packs_count = fileObj.getEnsurePacksCount()
+        metric_str_for_file = metric_str_for_file + str(ensure_packs_count) + ","                  
 
         str2ret = str2ret + metric_str_for_file   
         return str2ret
@@ -405,9 +413,12 @@ def hogarbal():
   #rint "Non puppet usage count:", non_pp_count    
   #mcx_cnt = fileObj.getMCXCount()
   #print "MCX Count:", mcx_cnt  
-  rsysLogCnt = fileObj.getRSysLogCount() 
-  vHashCnt   = fileObj.getValidateHashCount()  
+  #rsysLogCnt = fileObj.getRSysLogCount() 
+  #vHashCnt   = fileObj.getValidateHashCount()  
   reqPackCnt = fileObj.getRequirePackageCount()
-  hierInclCnt  = fileObj.getHieraIncludeCount()      
+  hierInclCnt  = fileObj.getHieraIncludeCount()
+  ensPackCnt   = fileObj.getEnsurePacksCount()
+  #inclPacklCnt  = fileObj.getIncludePacksCount()        
   print "req Package Cnt: ", reqPackCnt 
-  print "hiear include cnt:", hierInclCnt                                      
+  print "hiear include cnt:", hierInclCnt 
+  print "ensure packs cnt: ", ensPackCnt                                       
