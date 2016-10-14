@@ -248,7 +248,22 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
         # Metric-26
         density_hardcode = float(no_hard_coded_stmt)/float(no_lines_wo_comm_fil) 
-        metric_str_for_file = metric_str_for_file + str(density_hardcode) + ","                                     
-        
+        metric_str_for_file = metric_str_for_file + str(density_hardcode) + "," 
+
+
+
+        #More metrics to go ... Oct 14, 2016
+        #Metric-27 
+        count_of_includes = fileObj.getOnlyIncludeClassesCount()                                                            
+        metric_str_for_file = metric_str_for_file + str(count_of_includes) + "," 
+
         str2ret = str2ret + metric_str_for_file   
         return str2ret
+
+
+
+
+
+def hogarbal():
+  fileObj = SourceModel.SM_File.SM_File('paikhana.pp')
+  fileObj.getOnlyIncludeClasses()                
