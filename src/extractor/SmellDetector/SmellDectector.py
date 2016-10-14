@@ -322,7 +322,9 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         #Metric-42
         count_of_inheri_usage = fileObj.getOnlyInheritanceUsageCount()
         metric_str_for_file = metric_str_for_file + str(count_of_inheri_usage) + ","
-
+        #Metric-43
+        count_of_sql_usage = fileObj.getOnlySQLUsageCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_sql_usage) + ","
 
         str2ret = str2ret + metric_str_for_file   
         return str2ret
@@ -332,7 +334,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
 
 def hogarbal():
-  fileObj = SourceModel.SM_File.SM_File('paikhana.pp')
+  fileObj = SourceModel.SM_File.SM_File('paikhana3.pp')
   cnt_includes = fileObj.getOnlyIncludeClassesCount()  
   #####count_of_git_usages = fileObj.getNoOfGitUsages()   
   #print "Git count:", count_of_git_usages 
@@ -371,5 +373,7 @@ def hogarbal():
   #                        ) 
   # print "*"*100 
   # print "Total meta usages: ", meta_param_total_cnt
-  count_of_inher    = fileObj.getOnlyInheritanceUsageCount()
-  print "Inheritance use count:", count_of_inher                                       
+  #count_of_inher    = fileObj.getOnlyInheritanceUsageCount()
+  #print "Inheritance use count:", count_of_inher             
+  count_of_sql_ref    = fileObj.getOnlySQLUsageCount()
+  print "SQL use count:", count_of_sql_ref                                         
