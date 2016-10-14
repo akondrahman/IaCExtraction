@@ -330,6 +330,10 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         non_pp_count = fileObj.getNonPuppetUsageCount()
         metric_str_for_file = metric_str_for_file + str(non_pp_count) + ","
 
+        #Metric-45
+        mcx_count = fileObj.getMCXCount()
+        metric_str_for_file = metric_str_for_file + str(mcx_count) + ","
+
         str2ret = str2ret + metric_str_for_file   
         return str2ret
 
@@ -338,7 +342,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
 
 def hogarbal():
-  fileObj = SourceModel.SM_File.SM_File('paikhana4.pp')
+  fileObj = SourceModel.SM_File.SM_File('paikhana1.pp')
   cnt_includes = fileObj.getOnlyIncludeClassesCount()  
   #####count_of_git_usages = fileObj.getNoOfGitUsages()   
   #print "Git count:", count_of_git_usages 
@@ -381,5 +385,7 @@ def hogarbal():
   #print "Inheritance use count:", count_of_inher             
   #count_of_sql_ref    = fileObj.getOnlySQLUsageCount()
   #print "SQL use count:", count_of_sql_ref        
-  non_pp_count = fileObj.getNonPuppetUsageCount()
-  print "Non puppet usage count:", non_pp_count                                     
+  #non_pp_count = fileObj.getNonPuppetUsageCount()
+  #rint "Non puppet usage count:", non_pp_count    
+  #mcx_cnt = fileObj.getMCXCount()
+  #print "MCX Count:", mcx_cnt                                     
