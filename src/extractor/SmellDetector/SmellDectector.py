@@ -334,6 +334,10 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         mcx_count = fileObj.getMCXCount()
         metric_str_for_file = metric_str_for_file + str(mcx_count) + ","
 
+        #Metric-46
+        rsyslog_count = fileObj.getRSysLogCount()
+        metric_str_for_file = metric_str_for_file + str(rsyslog_count) + ","        
+
         str2ret = str2ret + metric_str_for_file   
         return str2ret
 
@@ -388,4 +392,7 @@ def hogarbal():
   #non_pp_count = fileObj.getNonPuppetUsageCount()
   #rint "Non puppet usage count:", non_pp_count    
   #mcx_cnt = fileObj.getMCXCount()
-  #print "MCX Count:", mcx_cnt                                     
+  #print "MCX Count:", mcx_cnt  
+  rsysLogCnt = fileObj.getRSysLogCount() 
+  vHashCnt   = fileObj.getValidateHashCount()    
+  print "vHash Cnt: ", vHashCnt                                     
