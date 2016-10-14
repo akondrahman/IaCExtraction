@@ -296,7 +296,11 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
         #Metric-37
         count_of_stage = fileObj.getOnlyStageCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_stage) + ","         
+        metric_str_for_file = metric_str_for_file + str(count_of_stage) + ","  
+
+        #Metric-38
+        count_of_tags = fileObj.getOnlyTagCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_tags) + ","                 
 
         str2ret = str2ret + metric_str_for_file   
         return str2ret
@@ -318,7 +322,8 @@ def hogarbal():
   count_of_consume  = fileObj.getOnlyConsumeCount()  
   count_of_export   = fileObj.getOnlyExportCount() 
   count_of_schedu   = fileObj.getOnlyScheduleCount() 
-  count_of_stages   = fileObj.getOnlyStageCount()             
+  count_of_stages   = fileObj.getOnlyStageCount()  
+  count_of_tags     = fileObj.getOnlyTagCount()               
   print "Include count:", cnt_includes  
   print "Require count",  count_of_requires
   print "Notify count:",  count_of_notifies        
@@ -328,4 +333,5 @@ def hogarbal():
   print "Consume count:", count_of_consume  
   print "Export count:",  count_of_export  
   print "Schedule cnt:",  count_of_schedu               
-  print "Stages cnt:",    count_of_stages     
+  print "Stages cnt:",    count_of_stages      
+  print "Tags count:",    count_of_tags
