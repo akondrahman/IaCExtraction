@@ -257,6 +257,30 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         count_of_includes = fileObj.getOnlyIncludeClassesCount()                                                            
         metric_str_for_file = metric_str_for_file + str(count_of_includes) + "," 
 
+        #Metric-28
+        #count_of_git_usages = fileObj.getNoOfGitUsages() 
+        #metric_str_for_file = metric_str_for_file + str(count_of_git_usages) + ","   
+
+        #Metric-29
+        count_of_requi = fileObj.getOnlyRequireCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_requi) + "," 
+
+        #Metric-30
+        count_of_notify = fileObj.getOnlyNotifyCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_notify) + ","                       
+
+        #Metric-31
+        count_of_ensure = fileObj.getOnlyEnsureCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_ensure) + "," 
+
+        #Metric-32
+        count_of_alias = fileObj.getOnlyAliasCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_alias) + "," 
+
+        #Metric-33
+        count_of_subsc = fileObj.getOnlySubscribeCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_subsc) + ","          
+        
         str2ret = str2ret + metric_str_for_file   
         return str2ret
 
@@ -266,4 +290,17 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
 def hogarbal():
   fileObj = SourceModel.SM_File.SM_File('paikhana.pp')
-  fileObj.getOnlyIncludeClasses()                
+  cnt_includes = fileObj.getOnlyIncludeClassesCount()  
+  #####count_of_git_usages = fileObj.getNoOfGitUsages()   
+  #print "Git count:", count_of_git_usages 
+  count_of_requires = fileObj.getOnlyRequireCount()
+  count_of_notifies = fileObj.getOnlyNotifyCount()
+  count_of_ensures  = fileObj.getOnlyEnsureCount() 
+  count_of_aliases  = fileObj.getOnlyAliasCount() 
+  count_of_subscri  = fileObj.getOnlySubscribeCount()       
+  print "Include count:", cnt_includes  
+  print "Require count", count_of_requires
+  print "Notify count:", count_of_notifies        
+  print "Ensure count",  count_of_ensures   
+  print "Alias count:",  count_of_aliases 
+  print "Subsc count:",  count_of_subscri                 
