@@ -336,7 +336,15 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
         #Metric-46
         rsyslog_count = fileObj.getRSysLogCount()
-        metric_str_for_file = metric_str_for_file + str(rsyslog_count) + ","        
+        metric_str_for_file = metric_str_for_file + str(rsyslog_count) + ","  
+
+        #Metric-47
+        valid_hash_count = fileObj.getValidateHashCount()
+        metric_str_for_file = metric_str_for_file + str(valid_hash_count) + ","  
+
+        #Metric-48
+        req_pack_count = fileObj.getRequirePackageCount()
+        metric_str_for_file = metric_str_for_file + str(req_pack_count) + ","                        
 
         str2ret = str2ret + metric_str_for_file   
         return str2ret
@@ -394,5 +402,6 @@ def hogarbal():
   #mcx_cnt = fileObj.getMCXCount()
   #print "MCX Count:", mcx_cnt  
   rsysLogCnt = fileObj.getRSysLogCount() 
-  vHashCnt   = fileObj.getValidateHashCount()    
-  print "vHash Cnt: ", vHashCnt                                     
+  vHashCnt   = fileObj.getValidateHashCount()  
+  reqPackCnt = fileObj.getRequirePackageCount()    
+  print "req Package Cnt: ", reqPackCnt                                     
