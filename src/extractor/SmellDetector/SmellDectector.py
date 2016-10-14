@@ -279,7 +279,11 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
         #Metric-33
         count_of_subsc = fileObj.getOnlySubscribeCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_subsc) + ","          
+        metric_str_for_file = metric_str_for_file + str(count_of_subsc) + "," 
+
+        #Metric-34
+        count_of_consume = fileObj.getOnlyConsumeCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_consume) + ","                  
         
         str2ret = str2ret + metric_str_for_file   
         return str2ret
@@ -297,10 +301,12 @@ def hogarbal():
   count_of_notifies = fileObj.getOnlyNotifyCount()
   count_of_ensures  = fileObj.getOnlyEnsureCount() 
   count_of_aliases  = fileObj.getOnlyAliasCount() 
-  count_of_subscri  = fileObj.getOnlySubscribeCount()       
+  count_of_subscri  = fileObj.getOnlySubscribeCount()
+  count_of_consume  = fileObj.getOnlyConsumeCount()         
   print "Include count:", cnt_includes  
   print "Require count", count_of_requires
   print "Notify count:", count_of_notifies        
   print "Ensure count",  count_of_ensures   
   print "Alias count:",  count_of_aliases 
-  print "Subsc count:",  count_of_subscri                 
+  print "Subsc count:",  count_of_subscri  
+  print "Consume count:", count_of_consume                 
