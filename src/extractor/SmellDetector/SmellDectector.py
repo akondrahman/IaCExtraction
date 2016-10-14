@@ -302,8 +302,12 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         count_of_tags = fileObj.getOnlyTagCount()
         metric_str_for_file = metric_str_for_file + str(count_of_tags) + ","                 
         #Metric-39
-        count_of_noop = fileObj.getOnlyTagCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_noop) + ","   
+        count_of_noop = fileObj.getOnlyNoopCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_noop) + ","  
+
+        #Metric-40
+        count_of_before = fileObj.getOnlyBeforeCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_before) + ","           
 
         str2ret = str2ret + metric_str_for_file   
         return str2ret
@@ -327,7 +331,8 @@ def hogarbal():
   count_of_schedu   = fileObj.getOnlyScheduleCount() 
   count_of_stages   = fileObj.getOnlyStageCount()  
   count_of_tags     = fileObj.getOnlyTagCount()    
-  count_of_noop     = fileObj.getOnlyNoopCount()             
+  count_of_noop     = fileObj.getOnlyNoopCount()
+  count_of_before   = fileObj.getOnlyBeforeCount()               
   print "Include count:", cnt_includes  
   print "Require count",  count_of_requires
   print "Notify count:",  count_of_notifies        
@@ -340,3 +345,4 @@ def hogarbal():
   print "Stages cnt:",    count_of_stages      
   print "Tags count:",    count_of_tags
   print "No-op count:",   count_of_noop  
+  print "Before count:",  count_of_before  
