@@ -390,7 +390,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
 
 def hogarbal():
-  fileObj = SourceModel.SM_File.SM_File('paikhana5.pp')
+  fileObj = SourceModel.SM_File.SM_File('paikhana6.pp')
   cnt_includes = fileObj.getOnlyIncludeClassesCount()  
   count_of_git_usages = fileObj.getNoOfGitUsages()   
   print "Git count:", count_of_git_usages 
@@ -431,8 +431,8 @@ def hogarbal():
   # print "Total meta usages: ", meta_param_total_cnt
   #count_of_inher    = fileObj.getOnlyInheritanceUsageCount()
   #print "Inheritance use count:", count_of_inher             
-  #count_of_sql_ref    = fileObj.getOnlySQLUsageCount()
-  #print "SQL use count:", count_of_sql_ref        
+  count_of_sql_ref    = fileObj.getOnlySQLUsageCount()
+  print "SQL use count:", count_of_sql_ref        
   #non_pp_count = fileObj.getNonPuppetUsageCount()
   #rint "Non puppet usage count:", non_pp_count    
   #mcx_cnt = fileObj.getMCXCount()

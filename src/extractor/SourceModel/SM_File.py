@@ -51,6 +51,11 @@ class SM_File:
     def getNoOfExecDeclarations(self):
         return self.countEntityDeclaration(SMCONSTS.EXEC_REGEX, "exec")
 
+
+    ##Oct 14, 2016 
+    # def getNoOfGitUsages(self):
+    #     return self.countEntityDeclaration(SMCONSTS.ONLY_GIT_REGEX, "git") 
+
     def getLinesOfCode(self):
         counter = self.countEntityDeclaration(SMCONSTS.LOC_REGEX, "newLine")
         if counter > 0:
@@ -200,8 +205,10 @@ class SM_File:
     def getElementList(self, regex):
         compiledRE = re.compile(regex)
         exElementList = []
-        for str in (compiledRE.findall(self.fileText)):
-            elementText, startIndex, endIndex = self.extractElementText(str)
+        for str_ in (compiledRE.findall(self.fileText)):
+            #print str_
+            elementText, startIndex, endIndex = self.extractElementText(str_)
+            #print "txt:{}, start:{}, end:{}".format(elementText, startIndex, endIndex)
             elementObj = self.getElementObject(elementText, regex)
             exElementList.append(ExElement(elementObj, startIndex, endIndex))
 
@@ -209,7 +216,7 @@ class SM_File:
 
 # TODO: Handle variables
 # Unwrap classes from list
-    def getIncludeClasses(self):
+    def getOnlyIncludeClasses(self):
         compiledIncludeRE = re.compile(SMCONSTS.DECLARE_INCLUDE_REGEX)
         compiledResourceRE = re.compile(SMCONSTS.DECLARE_RESOURCE_REGEX)
         declareClassList = []
@@ -266,6 +273,10 @@ class SM_File:
     def extractElementText(self, initialString):
         compiledRE1 = re.compile(r'\{')
         compiledRE2 = re.compile(r'\}')
+        #print initialString 
+        lol1=len(compiledRE1.findall(initialString))  
+        lol2=len(compiledRE2.findall(initialString)) 
+        #####print"1:{}, 1:{}".format(lol1, lol2)              
         curBracketCount = len(compiledRE1.findall(initialString)) - len(compiledRE2.findall(initialString))
         index = self.fileText.find(initialString)
         if index < 0:
@@ -294,8 +305,9 @@ class SM_File:
             if self.fileText[curIndex] == '{':
                 curBracketCount += 1
             curIndex +=1
-
-        return self.fileText[index:curIndex], index, curIndex
+        index2ret , curIndex2ret = index, curIndex
+        index, curIndex = 0, 0         
+        return self.fileText[index2ret:curIndex2ret], index2ret, curIndex2ret
 
     def getElementObject(self, elementText, regex):
         if regex == SMCONSTS.CLASS_REGEX:
@@ -400,6 +412,318 @@ class SM_File:
             nodeResourceList.append(nodeResourceObj)
         return nodeResourceList
 
+
+
+#### Added on Oct 14, 2016 
+    def getOnlyIncludeClassesCount(self):
+        cnt_of_includes = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_INCLUDE_REGEX)
+        declareClassList = []
+        for match in (compiledIncludeRE.findall(self.fileText)):
+            cnt_of_includes = cnt_of_includes + 1            
+            #print match
+            declareClassText = match
+            cleanInclude = re.sub(r'^\s*include \[?(.+)\]?\s*$', r'\1', declareClassText)
+            #print "Clean include: ", cleanInclude
+            class_name = r'(?:Class\[)?\'?\:{0,2}([\w\d\:\-_\$]+)\'?\]?'
+            classRE = re.compile(class_name)
+            if ',' in cleanInclude:
+              classes = cleanInclude.split(',')
+              for c in classes:
+                for m in classRE.findall(c):
+                  # Find a variable value in text
+                  if m.startswith('$'):
+                    #print("Variable: %s" % m)
+                    varRE = r'(?:^|\n)\s*\$[\w\d\-_]+\s?=\s?\'?\"?([\w\d\-_]+)\'?\"?\n'
+                    compiledVarRE = re.compile(varRE)
+                    for v in (compiledVarRE.findall(self.fileText)):
+                      #print(v)
+                      declareClassName = v
+                      #Utilities.myPrint("Extracted include class declaration: " + declareClassText)
+                      declareResourceObj = SourceModel.SM_IncludeResource.SM_IncludeResource(declareClassText, declareClassName)
+                      declareClassList.append(declareResourceObj)
+                      break
+                      #print("Variable %s value)
+                      #print "if block: Extracted class name:", m
+                  else:
+                    declareClassName = m
+                    Utilities.myPrint("Extracted include class declaration: " + declareClassText)
+                    declareResourceObj = SourceModel.SM_IncludeResource.SM_IncludeResource(declareClassText, declareClassName)
+                    declareClassList.append(declareResourceObj)
+            else:
+              for c in classRE.findall(cleanInclude):
+                #print "else block: Extracted class name: ", c
+                declareClassName = c
+                #print("%s" % includeClassText)
+                #Utilities.myPrint("Extracted include class declaration: " + declareClassText)
+                declareResourceObj = SourceModel.SM_IncludeResource.SM_IncludeResource(declareClassText, declareClassName)
+                declareClassList.append(declareResourceObj)  
+        #print "Declre class list contents in the end:", declareClassList
+        #print "Total count of includes: ", cnt_of_includes        
+        return cnt_of_includes 
+
+
+
+    def getOnlyRequireCount(self):
+        cnt_of_requires = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_REQUIRE_REGEX)
+        declareClassList = []
+        for match in (compiledIncludeRE.findall(self.fileText)):
+            cnt_of_requires = cnt_of_requires + 1            
+            #print match
+            declareClassText = match
+            cleanInclude = re.sub(r'^\s*require \[?(.+)\]?\s*$', r'\1', declareClassText)
+            class_name = r'(?:Class\[)?\'?\:{0,2}([\w\d\:\-_\$]+)\'?\]?'
+            classRE = re.compile(class_name)
+            if ',' in cleanInclude:
+              classes = cleanInclude.split(',')
+              for c in classes:
+                for m in classRE.findall(c):
+                  # Find a variable value in text
+                  if m.startswith('$'):
+                    #print("Variable: %s" % m)
+                    varRE = r'(?:^|\n)\s*\$[\w\d\-_]+\s?=\s?\'?\"?([\w\d\-_]+)\'?\"?\n'
+                    compiledVarRE = re.compile(varRE)
+                    for v in (compiledVarRE.findall(self.fileText)):
+                      #print(v)
+                      declareClassName = v
+
+                      declareResourceObj = SourceModel.SM_IncludeResource.SM_IncludeResource(declareClassText, declareClassName)
+                      declareClassList.append(declareResourceObj)
+                      break
+                  else:
+                    declareClassName = m
+                    Utilities.myPrint("Extracted include class declaration: " + declareClassText)
+                    declareResourceObj = SourceModel.SM_IncludeResource.SM_IncludeResource(declareClassText, declareClassName)
+                    declareClassList.append(declareResourceObj)
+            else:
+              for c in classRE.findall(cleanInclude):
+                declareClassName = c
+
+                declareResourceObj = SourceModel.SM_IncludeResource.SM_IncludeResource(declareClassText, declareClassName)
+                declareClassList.append(declareResourceObj)  
+        
+        return cnt_of_requires 
+    def getOnlyNotifyCount(self):
+        cnt_of_notifies = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_NOTIFY_REGEX)
+        for match in (compiledIncludeRE.findall(self.fileText)):
+            cnt_of_notifies = cnt_of_notifies + 1   
+        return cnt_of_notifies                       
+
+    def getOnlyEnsureCount(self):
+        cnt_of_ensures = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_ENSURE_REGEX)
+        for match in (compiledIncludeRE.findall(self.fileText)):
+            cnt_of_ensures = cnt_of_ensures + 1   
+        return cnt_of_ensures                      
+
+
+    def getOnlyAliasCount(self):
+        cnt_of_alias = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_ALIAS_REGEX)
+        cnt_of_alias = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_of_alias   
+    def getOnlySubscribeCount(self):
+        cnt_of_subs = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_SUBSCRIBE_REGEX)
+        cnt_of_subs = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_of_subs                                          
+    def getOnlyConsumeCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_CONSUME_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_                                          
+    def getOnlyExportCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_EXPORT_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_   
+    def getOnlyScheduleCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_SCHEDULE_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_   
+    def getOnlyStageCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_STAGE_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_                                          
+    def getOnlyTagCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_TAG_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_                                          
+    def getOnlyNoopCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_NOOP_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_                                 
+    def getOnlyBeforeCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_BEFORE_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_      
+    def getOnlyAuditCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_AUDIT_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_                                                                                                                    
+    def getOnlyInheritanceUsageCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.CLASS_INH_REGEX)
+        #for match in (compiledIncludeRE.findall(self.fileText)):
+        #   print match
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_  
+
+
+
+    def getOnlySQLUsageCount(self):
+        cnt_ = 0         
+        compiledIncludeRE1 = re.compile(SMCONSTS.ONLY_SQL_REGEX)
+        cnt_1 = len(compiledIncludeRE1.findall(self.fileText))
+
+        compiledIncludeRE2 = re.compile(SMCONSTS.POSTGRES_REGEX)
+        cnt_2 = len(compiledIncludeRE2.findall(self.fileText))        
+        
+        #for match in (compiledIncludeRE2.findall(self.fileText)):
+        #   print match 
+        cnt_ = cnt_1 + cnt_2       
+        return cnt_  
+
+    def getNonPuppetUsageCount(self):
+        cnt_ = 0         
+        usage_type1 = re.compile(SMCONSTS.ONLY_TYPEDEF_REGEX)
+        cnt_1       = len(usage_type1.findall(self.fileText))
+        #usage_type3 = re.compile(SMCONSTS.ONLY_CHAR_REGEX)
+        #cnt_3       = len(usage_type3.findall(self.fileText))        
+        #usage_type4 = re.compile(SMCONSTS.ONLY_INT_REGEX)
+        #cnt_4       = len(usage_type4.findall(self.fileText))        
+        usage_type5 = re.compile(SMCONSTS.ONLY_VOID_REGEX)
+        cnt_5       = len(usage_type5.findall(self.fileText))        
+        usage_type6 = re.compile(SMCONSTS.ONLY_UNSIGN_REGEX)
+        cnt_6       = len(usage_type6.findall(self.fileText))        
+        usage_type7 = re.compile(SMCONSTS.ONLY_CMODE_REGEX)     
+        cnt_7       = len(usage_type7.findall(self.fileText))                                           
+
+        #for match in (compiledIncludeRE.findall(self.fileText)):
+        #   print match  
+        #cnt_ = cnt_1  + cnt_3 + cnt_4 + cnt_5 + cnt_6 + cnt_7 
+        cnt_ = cnt_1  + cnt_5 + cnt_6 + cnt_7         
+        ###print "1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}".format(cnt_1, cnt_2, cnt_3, cnt_4, cnt_5, cnt_6, cnt_7)                     
+        return cnt_  
+
+    def getMCXCount(self):      
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_MCX_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        #for match in (compiledIncludeRE.findall(self.fileText)):
+        #   print match        
+        return cnt_             
+
+
+
+    def getRSysLogCount(self):      
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_RSYSLOG_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        #for match in (compiledIncludeRE.findall(self.fileText)):
+        #   print match        
+        return cnt_             
+    def getValidateHashCount(self):      
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.VALIDATE_HASH_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        #for match in (compiledIncludeRE.findall(self.fileText)):
+        #   print match        
+        return cnt_             
+
+    def getRequirePackageCount(self):      
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.REQUIRE_PACK_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        #for match in (compiledIncludeRE.findall(self.fileText)):
+        #   print match        
+        return cnt_             
+
+    def getHieraIncludeCount(self):      
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.HIERA_INCL_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        #for match in (compiledIncludeRE.findall(self.fileText)):
+        #   print match        
+        return cnt_   
+    def getIncludePacksCount(self):      
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.INCL_PACK_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        #for match in (compiledIncludeRE.findall(self.fileText)):
+        #  print match        
+        return cnt_            
+    def getEnsurePacksCount(self):      
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ENSU_PACK_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        #for match in (compiledIncludeRE.findall(self.fileText)):
+        #  print match        
+        return cnt_  
+
+    def getClassParamCount(self): 
+        import numpy as np          
+        allClassParams = []        
+        compiledIncludeRE = re.compile(SMCONSTS.CLASS_PARAM_REGEX, re.DOTALL)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        for match in (compiledIncludeRE.findall(self.fileText)):
+          str_ = match.strip('(')
+          str_ = match.strip(')')
+          str_ = match.strip('\n')
+          splitted_str = match.split(',')
+          splitted_str = [x_.strip('\n') for x_ in splitted_str]
+          splitted_str = [x_ for x_ in splitted_str if '$' in x_]   
+          splitted_str = [x_ for x_ in splitted_str if '=>' not in x_]  
+          splitted_str = [x_ for x_ in splitted_str if 'if' not in x_] 
+          splitted_str = [x_ for x_ in splitted_str if 'file' not in x_] 
+          splitted_str = [x_ for x_ in splitted_str if '[' not in x_]  
+          splitted_str = [x_ for x_ in splitted_str if ']' not in x_]                                                      
+          splitted_str = np.unique(splitted_str)       
+          #print splitted_str                 
+          #print match 
+          #print"="*25 
+          paramCnt = len(splitted_str)          
+          allClassParams.append(paramCnt)
+        if len(allClassParams) > 0:        
+          stats_ = (np.mean(allClassParams), np.median(allClassParams), max(allClassParams), min(allClassParams))
+        else:
+          stats_ = (float(0), float(0), float(0), float(0))                     
+        return stats_ 
+
+    def getIfElseCount(self):
+        cnt_ = 0         
+        elemList = self.getElementList(SMCONSTS.IF_REGEX)    
+        cnt_ = len(elemList)
+        return cnt_           
+
+                                                                                                         
+
+    def getUndefCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_UNDEF_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_ 
+    def getNoOfGitUsages(self):
+        cnt_ = 0         
+        compiledIncludeRE1 = re.compile(SMCONSTS.ONLY_GIT_REGEX)
+        cnt_1 = len(compiledIncludeRE1.findall(self.fileText))
+
+        compiledIncludeRE2 = re.compile(SMCONSTS.INAVLID_GIT_REGEX)
+        cnt_2 = len(compiledIncludeRE2.findall(self.fileText))   
+
+        if cnt_2 > cnt_1:
+          cnt_ = 0
+        else:
+          cnt_ = cnt_1 - cnt_2                       
+        return cnt_                      
 class ExElement(object):
     def __init__(self, elementObj, startIndex, endIndex):
             self.elementObj = elementObj
