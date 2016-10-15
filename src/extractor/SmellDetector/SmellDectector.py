@@ -258,8 +258,8 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(count_of_includes) + "," 
 
         #Metric-28
-        #count_of_git_usages = fileObj.getNoOfGitUsages() 
-        #metric_str_for_file = metric_str_for_file + str(count_of_git_usages) + ","   
+        count_of_git_usages = fileObj.getNoOfGitUsages() 
+        metric_str_for_file = metric_str_for_file + str(count_of_git_usages) + ","   
 
         #Metric-29
         count_of_requi = fileObj.getOnlyRequireCount()
@@ -360,7 +360,11 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
         #Metric-51
         if_count = fileObj.getIfElseCount()
-        metric_str_for_file = metric_str_for_file + str(if_count) + ","                          
+        metric_str_for_file = metric_str_for_file + str(if_count) + ","  
+
+        #Metric-52
+        undef_count = fileObj.getUndefCount()
+        metric_str_for_file = metric_str_for_file + str(undef_count) + ","                                  
 
         str2ret = str2ret + metric_str_for_file   
         return str2ret
@@ -370,7 +374,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
 
 def hogarbal():
-  fileObj = SourceModel.SM_File.SM_File('paikhana1.pp')
+  fileObj = SourceModel.SM_File.SM_File('paikhana4.pp')
   cnt_includes = fileObj.getOnlyIncludeClassesCount()  
   #####count_of_git_usages = fileObj.getNoOfGitUsages()   
   #print "Git count:", count_of_git_usages 
@@ -424,8 +428,10 @@ def hogarbal():
   ensPackCnt   = fileObj.getEnsurePacksCount()
   #clsParamCnt  = fileObj.getClassParamCount()
   #inclPacklCnt  = fileObj.getIncludePacksCount()  
-  ifelseCnt    = fileObj.getIfElseCount()      
+  ifelseCnt    = fileObj.getIfElseCount()     
+  undefCnt     = fileObj.getUndefCount()   
   print "req Package Cnt: ", reqPackCnt 
   print "hiear include cnt:", hierInclCnt 
   print "ensure packs cnt: ", ensPackCnt   
   print "if else cnt:", ifelseCnt
+  print "undef cnt:", undefCnt  
