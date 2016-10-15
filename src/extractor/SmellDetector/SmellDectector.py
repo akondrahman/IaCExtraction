@@ -346,38 +346,38 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         req_pack_count = fileObj.getRequirePackageCount()
         metric_str_for_file = metric_str_for_file + str(req_pack_count) + ","  
 
-        #Metric-48
+        #Metric-49
         hiera_incl_count = fileObj.getHieraIncludeCount()
         metric_str_for_file = metric_str_for_file + str(hiera_incl_count) + "," 
 
-        #Metric-49
+        #Metric-50
         incl_packs_count = fileObj.getIncludePacksCount()
         metric_str_for_file = metric_str_for_file + str(incl_packs_count) + "," 
 
-        #Metric-50
+        #Metric-51
         ensure_packs_count = fileObj.getEnsurePacksCount()
         metric_str_for_file = metric_str_for_file + str(ensure_packs_count) + "," 
 
-        #Metric-51
+        #Metric-52
         if_count = fileObj.getIfElseCount()
         metric_str_for_file = metric_str_for_file + str(if_count) + ","  
 
-        #Metric-52
+        #Metric-53
         undef_count = fileObj.getUndefCount()
         metric_str_for_file = metric_str_for_file + str(undef_count) + ","
 
 
         clsParamStat  = fileObj.getClassParamCount()
-        #Metric-53
+        #Metric-54
         avg_param_cnt = clsParamStat[0]
         metric_str_for_file = metric_str_for_file + str(avg_param_cnt) + ","
-        #Metric-54
+        #Metric-55
         medi_param_cnt = clsParamStat[1]
         metric_str_for_file = metric_str_for_file + str(medi_param_cnt) + ","
-        #Metric-55
+        #Metric-56
         max_param_cnt = clsParamStat[2] 
         metric_str_for_file = metric_str_for_file + str(max_param_cnt) + ","                       
-        #Metric-56
+        #Metric-57
         min_param_cnt = clsParamStat[3]
         metric_str_for_file = metric_str_for_file + str(min_param_cnt) + "," 
 
