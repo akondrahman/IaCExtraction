@@ -27,6 +27,6 @@ label_cols = full_cols - 2  ## different to phase 1, 2, and 3 : '2' instead of '
 all_labels  =  dataset_for_labels[:, label_cols]
 print "Glimpse at  labels (10th entry in dataset):", all_labels[9]
 print "-"*50
-
-
+sklearn_models.performPenalizedLogiRegression(all_features, all_labels)
+print "-"*50
 print "Ended at:", Utility.giveTimeStamp()

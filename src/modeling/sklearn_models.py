@@ -14,7 +14,7 @@ from sklearn.linear_model import RandomizedLogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_error, accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-
+from sklearn import linear_model
 
 
 def evalClassifier(actualLabels, predictedLabels):  
@@ -166,4 +166,22 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Rand. Forest", np.mean(holder_rf),
                                                                           np.median(holder_rf), max(holder_rf), 
                                                                           min(holder_rf))  
-  print "-"*50                                                                             
+  print "-"*50      
+
+
+
+
+
+def performPenalizedLogiRegression(allFeatureParam, allLabelParam):
+  '''
+    See Hoa MSR 2015 paper for reference 
+  '''  
+  print "<------------ Performing Logistic Regression ------------->"
+
+  logisticRModel = linear_model.LogisticRegression(C=1e5,  penalty='l1')
+  ### if you dont fit , you will get an error 
+  logisticRModel.fit(allFeatureParam, allLabelParam)
+  print "Output of score (mean accuracy of test features and prediction classs) "
+  print logisticRModel.score(allFeatureParam, allLabelParam)
+  print "Output of co-efficients ={}".format(logisticRModel.coef_)
+  print "Output of intercept ={}, n_iter_ = {} ".format(logisticRModel.intercept_, logisticRModel.n_iter_)
