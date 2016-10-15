@@ -88,3 +88,5 @@ CLASS_PARAM_REGEX     = r'class \w*[\:\:]*\w*\(.+\)\s*[\w*|\{]+'
 ONLY_UNDEF_REGEX      = r'\s*undef\s*\=\>\s*'
 ONLY_GIT_REGEX        = r'\w*\s*git\s*\w*'
 INAVLID_GIT_REGEX     = r'\w*\s*.git\s*\w*'
+#### Added Oct 15, 2016 
+VAR_ASSIGN_REGEX = r'\$\w+\s*\=\s*\w+'

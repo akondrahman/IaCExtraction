@@ -723,7 +723,17 @@ class SM_File:
           cnt_ = 0
         else:
           cnt_ = cnt_1 - cnt_2                       
-        return cnt_                      
+        return cnt_  
+
+
+
+    def getVarAssiCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.VAR_ASSIGN_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        #for match in (compiledIncludeRE.findall(self.fileText)):
+        #  print match         
+        return cnt_                             
 class ExElement(object):
     def __init__(self, elementObj, startIndex, endIndex):
             self.elementObj = elementObj
