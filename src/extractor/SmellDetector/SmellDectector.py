@@ -381,6 +381,9 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         min_param_cnt = clsParamStat[3]
         metric_str_for_file = metric_str_for_file + str(min_param_cnt) + "," 
 
+        #Metric-58
+        var_assign_cnt = fileObj.getVarAssiCount()
+        metric_str_for_file = metric_str_for_file + str(var_assign_cnt) + "," 
 
         str2ret = str2ret + metric_str_for_file   
         return str2ret
@@ -390,7 +393,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
 
 def hogarbal():
-  fileObj = SourceModel.SM_File.SM_File('paikhana6.pp')
+  fileObj = SourceModel.SM_File.SM_File('paikhana1.pp')
   cnt_includes = fileObj.getOnlyIncludeClassesCount()  
   count_of_git_usages = fileObj.getNoOfGitUsages()   
   print "Git count:", count_of_git_usages 
@@ -453,3 +456,5 @@ def hogarbal():
   #print "undef cnt:", undefCnt 
   clsParamStat  = fileObj.getClassParamCount()
   print "Param count stats:", clsParamStat     
+  var_assi_cnt =  fileObj.getVarAssiCount()
+  print "Var assignment cnt:", var_assi_cnt    
