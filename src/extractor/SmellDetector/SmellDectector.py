@@ -356,7 +356,11 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
         #Metric-50
         ensure_packs_count = fileObj.getEnsurePacksCount()
-        metric_str_for_file = metric_str_for_file + str(ensure_packs_count) + ","                  
+        metric_str_for_file = metric_str_for_file + str(ensure_packs_count) + "," 
+
+        #Metric-51
+        if_count = fileObj.getIfElseCount()
+        metric_str_for_file = metric_str_for_file + str(if_count) + ","                          
 
         str2ret = str2ret + metric_str_for_file   
         return str2ret
@@ -415,10 +419,13 @@ def hogarbal():
   #print "MCX Count:", mcx_cnt  
   #rsysLogCnt = fileObj.getRSysLogCount() 
   #vHashCnt   = fileObj.getValidateHashCount()  
-  reqPackCnt = fileObj.getRequirePackageCount()
+  reqPackCnt   = fileObj.getRequirePackageCount()
   hierInclCnt  = fileObj.getHieraIncludeCount()
   ensPackCnt   = fileObj.getEnsurePacksCount()
-  #inclPacklCnt  = fileObj.getIncludePacksCount()        
+  #clsParamCnt  = fileObj.getClassParamCount()
+  #inclPacklCnt  = fileObj.getIncludePacksCount()  
+  ifelseCnt    = fileObj.getIfElseCount()      
   print "req Package Cnt: ", reqPackCnt 
   print "hiear include cnt:", hierInclCnt 
-  print "ensure packs cnt: ", ensPackCnt                                       
+  print "ensure packs cnt: ", ensPackCnt   
+  print "if else cnt:", ifelseCnt
