@@ -15,7 +15,7 @@ sys.setdefaultencoding('utf8')
 print "Started at:", bug_git_util.giveTimeStamp()
 
 # do not end path with '/'
-repo_path="/Users/akond/PUPP_REPOS/wikimedia-downloads/trunk"
+repo_path="/Users/akond/PUPP_REPOS/wikimedia-downloads/vagrant"
 repo_branch="master"
 
 # do not end path with '/'
