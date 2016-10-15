@@ -22,7 +22,11 @@ feature_cols = full_cols - 3  ## the last couln is null, and have to skip bug co
 all_features = full_dataset_from_csv[:, 1:feature_cols]
 print "Glimpse at features (10th entry in dataset): \n", all_features[9]
 print "-"*50
-
+dataset_for_labels = Utility.getDatasetFromCSV(dataset_file, False)
+label_cols = full_cols - 2  ## different to phase 1, 2, and 3 : '2' instead of '1' 
+all_labels  =  dataset_for_labels[:, label_cols]
+print "Glimpse at  labels (10th entry in dataset):", all_labels[9]
+print "-"*50
 
 
 print "Ended at:", Utility.giveTimeStamp()
