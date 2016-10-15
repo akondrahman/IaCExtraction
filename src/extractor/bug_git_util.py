@@ -181,9 +181,13 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
   file_churn_dict = getGitChurnOfRepo(repo_abs_path) 
   headerStr1="Filename,max_nest_depth,class_dec,def_dec,pack_dec,file_dec,serv_dec,exec_dec,cohe_meth,body_txt_size,"
   headerStr2="lines_w_comm,lines_wo_comm,outerelems,file_reso,service_reso,package_reso,hard_coded_stmt,node_decl,parent_class,"
-  headerStr3="d_class_dec,d_define_dec,d_pack_dec,d_file_dec,d_serv_dec,d_exec_dec,d_outerlem,d_hardcode,"  
-  headerStr4="churn,NUdevCnt,UdevCnt,bugCnt,defectStatus"  
-  headerStr = headerStr1 + headerStr2 + headerStr3 +  headerStr4 + "\n"
+  headerStr3="d_class_dec,d_define_dec,d_pack_dec,d_file_dec,d_serv_dec,d_exec_dec,d_outerlem,d_hardcode,"
+  headerStr4="cnt_include,cnt_git,cnt_req,cnt_noti,cnt_ensur,cnt_alias,cnt_subsc,cnt_consum,cnt_export,cnt_sched,cnt_of_stage,"
+  headerStr5="cnt_tag,cnt_noop,cnt_before,cnt_audit,meta_param_total_cnt,cnt_inheri,cnt_sql,non_pp_cnt,mcx_cnt,rsyslog_cnt,validhash_cnt,"
+  headerStr6="reqpack_cnt,hieraincl_cnt,inclpacks_cnt,ensurepacks_cnt,if_cnt,undef_cnt,avgparam_cnt,mediparam_cnt,maxparam_cnt,min_param_cnt,"        
+  headerStr7="churn,NUdevCnt,UdevCnt,bugCnt,defectStatus"  
+
+  headerStr = headerStr1 + headerStr2 + headerStr3 +  headerStr4 +  headerStr5 + headerStr6 + headerStr7 + "\n"
   #print file_churn_dict 
   '''
     extra header for defect falg, used in predcition modeling 
