@@ -374,10 +374,10 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
 
 def hogarbal():
-  fileObj = SourceModel.SM_File.SM_File('paikhana4.pp')
+  fileObj = SourceModel.SM_File.SM_File('paikhana1.pp')
   cnt_includes = fileObj.getOnlyIncludeClassesCount()  
-  #####count_of_git_usages = fileObj.getNoOfGitUsages()   
-  #print "Git count:", count_of_git_usages 
+  count_of_git_usages = fileObj.getNoOfGitUsages()   
+  print "Git count:", count_of_git_usages 
   count_of_requires = fileObj.getOnlyRequireCount()
   count_of_notifies = fileObj.getOnlyNotifyCount()
   count_of_ensures  = fileObj.getOnlyEnsureCount() 
@@ -433,5 +433,5 @@ def hogarbal():
   print "req Package Cnt: ", reqPackCnt 
   print "hiear include cnt:", hierInclCnt 
   print "ensure packs cnt: ", ensPackCnt   
-  print "if else cnt:", ifelseCnt
-  print "undef cnt:", undefCnt  
+  #print "if else cnt:", ifelseCnt
+  #print "undef cnt:", undefCnt  
