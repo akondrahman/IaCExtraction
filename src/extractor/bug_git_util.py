@@ -251,11 +251,22 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
       #print "Commit involvement count:", commit_cnt            
       #print "FULL STR:", metric_as_str_for_file 
 
-      # Extra header to faculitatte preition models : Oct 03, 2016
+      # # Extra header to faculitatte preition models : Oct 03, 2016
+      # if (bugFlag):
+      #   defectHeader = 'Y'
+      # else:
+      #   defectHeader = 'N'
+
+      # Extra header to facilitate prediction models : Oct 15, 2016
       if (bugFlag):
-        defectHeader = 'Y'
+        defectHeader = '1'
       else:
-        defectHeader = 'N'   
+        defectHeader = '0'         
+      
+
+
+
+
       metric_as_str_for_file = metric_as_str_for_file +  defectHeader + ','                               
       
 

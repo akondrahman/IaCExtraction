@@ -53,7 +53,9 @@ print "#"*75
 
 
 # dumped yes metrics 
-y_file_to_save = repo_path + "/" + "y_metrics.csv"
+#y_file_to_save = repo_path + "/" + "y_metrics.csv"
+## 60 metrics now 
+y_file_to_save = repo_path + "/" + "y_steroided_metrics.csv"  
 y_dump_status = bug_git_util.dumpContentIntoFile(y_str_to_dump, y_file_to_save)
 print "Dumped a CSV file of {} bytes".format(y_dump_status)
 if len(no_deftect_files) > 0:
@@ -63,7 +65,9 @@ if len(no_deftect_files) > 0:
   n_str_to_dump = bug_git_util.getAllDevelopmentMetricList(no_deftect_files, repo_path, no_bug_mapping, nf2b, False)
   
   # dumped no metrics 
-  n_file_to_save = repo_path + "/" + "n_metrics.csv"
+  #n_file_to_save = repo_path + "/" + "n_metrics.csv"
+  ## 60 metrics now 
+  n_file_to_save = repo_path + "/" + "n_steroided_metrics.csv"  
   n_dump_status = bug_git_util.dumpContentIntoFile(n_str_to_dump, n_file_to_save)
   print "Dumped a CSV file of {} bytes".format(n_dump_status)
   
