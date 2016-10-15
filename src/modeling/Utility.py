@@ -53,7 +53,7 @@ def giveTimeStamp():
   tsObj = time.time()
   strToret = datetime.datetime.fromtimestamp(tsObj).strftime('%Y-%m-%d %H:%M:%S')
   return strToret 
-def printFeatureName(indicesParam):
+def printFeatureName(indicesParam, steroidFlag=False):
 #  headers=['max_nest_depth','class_dec','def_dec','pack_dec',
 #           'file_dec','serv_dec','exec_dec','cohe_meth','body_txt_size',
 #           'lines_w_comm','lines_wo_comm','outerelems','file_reso','service_reso',
@@ -66,6 +66,17 @@ def printFeatureName(indicesParam):
            'package_reso','hard_coded_stmt','node_decl','parent_class','d_class_dec',
            'd_define_dec','d_pack_dec','d_file_dec','d_serv_dec','d_exec_dec',
            'd_outerlem','d_hardcode','churn','UdevCnt']
+  if steroidFlag:
+     headers=[ 'max_nest_depth','class_dec','def_dec','pack_dec','file_dec','serv_dec','exec_dec',
+               'cohe_meth','body_txt_size','lines_w_comm','lines_wo_comm','outerelems','file_reso','service_reso',
+               'package_reso','hard_coded_stmt','node_decl','parent_class',
+               'd_class_dec','d_define_dec','d_pack_dec','d_file_dec','d_serv_dec','d_exec_dec','d_outerlem','d_hardcode',
+               'cnt_include','cnt_git',
+               'cnt_req','cnt_noti','cnt_ensur','cnt_alias','cnt_subsc','cnt_consum','cnt_export','cnt_sched','cnt_of_stage','cnt_tag','cnt_noop','cnt_before','cnt_audit',
+               'meta_param_total_cnt','cnt_inheri','cnt_sql','non_pp_cnt','mcx_cnt','rsyslog_cnt','validhash_cnt','reqpack_cnt','hieraincl_cnt','inclpacks_cnt',
+               'ensurepacks_cnt','if_cnt','undef_cnt','avgparam_cnt','mediparam_cnt','maxparam_cnt','min_param_cnt','var_assi_cnt',
+               'churn','UdevCnt']  
+  #print "Total features:", len(headers)   ## for sanity check, checked: everythign OK                           
   featureNameToRet=[]  
   for selIndex in indicesParam:
     featureNameToRet.append(headers[selIndex])

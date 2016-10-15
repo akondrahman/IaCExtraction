@@ -173,6 +173,8 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
 
 
 def performPenalizedLogiRegression(allFeatureParam, allLabelParam):
+  feat_index_to_ret = [] 
+  index_ = 0   
   '''
     See Hoa MSR 2015 paper for reference 
   '''  
@@ -181,7 +183,13 @@ def performPenalizedLogiRegression(allFeatureParam, allLabelParam):
   logisticRModel = linear_model.LogisticRegression(C=1e5,  penalty='l1')
   ### if you dont fit , you will get an error 
   logisticRModel.fit(allFeatureParam, allLabelParam)
-  print "Output of score (mean accuracy of test features and prediction classs) "
+  print "Output of score (mean accuracy) "
   print logisticRModel.score(allFeatureParam, allLabelParam)
-  print "Output of co-efficients ={}".format(logisticRModel.coef_)
-  print "Output of intercept ={}, n_iter_ = {} ".format(logisticRModel.intercept_, logisticRModel.n_iter_)
+  feature_coeffs = logisticRModel.coef_[0]  ## output from logi. reg is list of lists  
+  print "Output of co-efficients ={}".format(feature_coeffs)
+  for x_ in np.nditer(feature_coeffs):
+    if (x_ != float(0)):
+      feat_index_to_ret.append(index_)  
+    index_ = index_ + 1          
+  #print "Output of intercept ={}, n_iter_ = {} ".format(logisticRModel.intercept_, logisticRModel.n_iter_)
+  return feat_index_to_ret    
