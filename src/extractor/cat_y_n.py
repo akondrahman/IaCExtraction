@@ -27,13 +27,13 @@ def gatherPuppContent(fileParam):
        y_file_name = row[0]
        if len(y_file_name) > 0:
          y_content = giveContents(y_file_name)
-         y_all =  y_all +   y_content + "*"*50 + "\n"       
+         y_all =  y_all + y_file_name + "\n" +  "-"*25 + "\n" + y_content + "*"*50 + "\n"       
        n_file_name = row[1]       
        if len(n_file_name) > 0:       
          n_content = giveContents(n_file_name)
          #print n_content
          #rint "*"*50         
-         n_all =  n_all +   n_content + "="*50 + "\n"       
+         n_all =  n_all + n_file_name + "\n" +  "-"*25 + "\n" + n_content + "*"*50 + "\n"       
 
  dumpContentIntoFile(y_all, "y_all.txt")
  dumpContentIntoFile(n_all, "n_all.txt") 
