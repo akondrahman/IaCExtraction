@@ -40,7 +40,7 @@ selected_features = Utility.createSelectedFeatures(all_features, selected_indice
 print "Selected feature dataset size:", np.shape(selected_features)
 print "Glimpse at  selected features (11th entry in label list): \n", selected_features[glimpseIndex]
 print "-"*50
-fold2Use =10 
+fold2Use =10
 '''
 Single iteration zone : turn off 'performIterativeModeling()'
 while running this 

@@ -9,7 +9,7 @@ Created on Thu Oct  6 17:06:45 2016
 
 import numpy as np 
 from sklearn.tree import DecisionTreeClassifier 
-from sklearn import cross_validation
+from sklearn import cross_validation, svm
 from sklearn.linear_model import RandomizedLogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_error, accuracy_score
 from sklearn.neighbors import KNeighborsClassifier
@@ -117,6 +117,11 @@ def performRF(featureParam, labelParam, foldParam, infoP):
 
 
 
+def performSVC(featureParam, labelParam, foldParam, infoP):
+  theSVMModel = svm.SVC(kernel='rbf').fit(featureParam, labelParam) 
+  svc_area_under_roc = perform_cross_validation(theSVMModel, featureParam, labelParam, foldParam, infoP)  
+  print "For {} area under ROC is: {}".format(infoP, svc_area_under_roc)
+  return svc_area_under_roc  
 def performModeling(features, labels, foldsParam):  
   #r_, c_ = np.shape(features)
   ### lets do CART (decision tree)
@@ -128,9 +133,9 @@ def performModeling(features, labels, foldsParam):
   ### lets do RF (ensemble method: random forest)
   performRF(features, labels, foldsParam, "RF")   
   
+  ### lets do SVC (support vector: support-vector classification)
+  performSVC(features, labels, foldsParam, "SVC")     
   
-  
-
 
 def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
   holder_cart = []
