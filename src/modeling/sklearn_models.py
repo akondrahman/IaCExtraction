@@ -26,7 +26,7 @@ def evalClassifier(actualLabels, predictedLabels):
   '''
     peeking into the labels of the dataset 
   '''
-  print "Glimpse at  actual:{}, and predicted:{} labels(10th entry in label list)".format(actualLabels[9], predictedLabels[9])
+  print "Glimpse at  actual:{}, and predicted:{} labels(10th entry in label list)".format(actualLabels[10], predictedLabels[10])
   print "precison, recall, F-stat"
   print classification_report(actualLabels, predictedLabels, target_names=target_labels)
   print">"*10
@@ -35,6 +35,7 @@ def evalClassifier(actualLabels, predictedLabels):
     are under the curve values .... reff: http://gim.unmc.edu/dxtests/roc3.htm 
     0.80~0.90 -> good, any thing less than 0.70 bad , 0.90~1.00 -> excellent 
   '''
+  #print predictedLabels  
   area_roc_output = roc_auc_score(actualLabels, predictedLabels)
   # preserve the order first test(real values from dataset), then predcited (from the classifier )  
   #print "Area under the ROC curve is ", area_roc_output
