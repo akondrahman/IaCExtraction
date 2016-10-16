@@ -140,7 +140,8 @@ def performModeling(features, labels, foldsParam):
 def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
   holder_cart = []
   holder_knn  = []
-  holder_rf   = []  
+  holder_rf   = [] 
+  holder_svc  = []   
   for ind_ in xrange(iterationP):
     ## iterative modeling for CART  
     cart_area_roc = performCART(featureParam, labelParam, foldParam, "CART")
@@ -157,6 +158,11 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
     rf_area_roc = performRF(featureParam, labelParam, foldParam, "Rand. Forest")
     holder_rf.append(rf_area_roc)
     rf_area_roc = float(0) 
+
+    ## iterative modeling for SVC 
+    svc_area_roc = performSVC(featureParam, labelParam, foldParam, "Supp. Vector Classi.")
+    holder_svc.append(svc_area_roc)
+    svc_area_roc = float(0)     
     
   print "-"*50      
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("CART", np.mean(holder_cart),
@@ -173,7 +179,10 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
                                                                           min(holder_rf))  
   print "-"*50      
 
-
+  print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("S. Vec. Class.", np.mean(holder_svc),
+                                                                          np.median(holder_svc), max(holder_svc), 
+                                                                          min(holder_svc))  
+  print "-"*50      
 
 
 
