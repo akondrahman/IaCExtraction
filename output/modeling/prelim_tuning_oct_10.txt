@@ -1,0 +1,45 @@
+>>> runfile('/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/IaCExtraction/src/modeling/phase_3_main.py', wdir='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/IaCExtraction/src/modeling')
+Started at: 2016-10-10 10:00:30
+Glimpse at features (10th entry in dataset): 
+[  2.00000000e+00   2.00000000e+00   1.00000000e+00   6.00000000e+00
+   0.00000000e+00   0.00000000e+00   3.00000000e+00   9.00000000e-02
+   4.03500000e+03   1.67000000e+02   1.49000000e+02   1.10000000e+01
+   0.00000000e+00   0.00000000e+00   6.00000000e+00   1.00000000e+01
+   0.00000000e+00   0.00000000e+00   1.34228190e-02   6.71140900e-03
+   4.02684560e-02   0.00000000e+00   0.00000000e+00   2.01342280e-02
+   7.38255030e-02   6.71140940e-02   7.80000000e+01   3.00000000e+00]
+--------------------------------------------------
+before: 685, after:685, yes:246, no:439
+Glimpse at  labels (10th entry in label list): 1
+--------------------------------------------------
+The selected indicies are: 
+[ 0  5  9 13 21 24 26 27]
+The selected feature names:  ['max_nest_depth', 'serv_dec', 'lines_w_comm', 'service_reso', 'd_file_dec', 'd_outerlem', 'churn', 'UdevCnt']
+--------------------------------------------------
+Selected feature dataset size: (685, 8)
+Glimpse at  selected features (10th entry in label list): 
+[  2.00000000e+00   0.00000000e+00   1.67000000e+02   0.00000000e+00
+   0.00000000e+00   7.38255030e-02   7.80000000e+01   3.00000000e+00]
+--------------------------------------------------
+For kNN, best parameter was:17, AUC was:0.64612848862
+--------------------------------------------------
+--------------------------------------------------
+For CART, best parameter was:(0.33, 20, 16, 1), AUC was:0.717581532307
+--------------------------------------------------
+-----Cross Validation#CART(Start)-----
+Glimpse at  actual:1, and predicted:1 labels(10th entry in label list)
+precison, recall, F-stat
+             precision    recall  f1-score   support
+
+          N       0.72      0.74      0.73       439
+          Y       0.52      0.49      0.50       246
+
+avg / total       0.65      0.65      0.65       685
+
+>>>>>>>>>>
+-----Cross Validation#CART(End)-----
+For CART, area under ROC is: 0.615200844491
+--------------------------------------------------
+--------------------------------------------------
+Ended at: 2016-10-10 20:44:56
+>>> 
