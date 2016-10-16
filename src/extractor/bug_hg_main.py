@@ -108,7 +108,7 @@ print "Started at:", giveTimeStamp()
 print "#"*75
 # repo_path="/Users/akond/PUPP_REPOS/v2/mozilla_releng_only/puppet"
 # repo_branch="master"
-repo_path="/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet"
+repo_path="/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet"
 repo_branch="master"
 bashCommand= " cd " + repo_path  +" ; hg log -p -r " 
 repo_complete = hglib.open(repo_path) 
@@ -149,7 +149,9 @@ y_str_to_dump = bug_hg_developer.getAllDevelopmentMetricList(files_that_have_def
 print "#"*75
 #print str_to_dump
 # dumped yes metrics 
-y_file_to_save = repo_path + "/" + "y_metrics.csv"
+#y_file_to_save = repo_path + "/" + "y_metrics.csv"
+## 60 metrics now 
+y_file_to_save = repo_path + "/" + "y_steroided_metrics.csv"  
 y_dump_status = bug_hg_developer.dumpContentIntoFile(y_str_to_dump, y_file_to_save)
 print "Dumped a CSV file of {} bytes".format(y_dump_status)
 print "#"*75
@@ -161,7 +163,9 @@ if len(no_deftect_files) > 0:
   nf2b = open(n_file2bug, "w")
   n_str_to_dump = bug_hg_developer.getAllDevelopmentMetricList(no_deftect_files, repo_path, no_bug_mapping , nf2b, False)
   # dumped no metrics 
-  n_file_to_save = repo_path + "/" + "n_metrics.csv"
+  #n_file_to_save = repo_path + "/" + "n_metrics.csv"
+  ## 60 metrics now 
+  n_file_to_save = repo_path + "/" + "n_steroided_metrics.csv"  
   n_dump_status = bug_hg_developer.dumpContentIntoFile(n_str_to_dump, n_file_to_save)
   print "Dumped a CSV file of {} bytes".format(n_dump_status)
   print "#"*75  
