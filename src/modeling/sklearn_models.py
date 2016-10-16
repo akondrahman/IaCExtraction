@@ -26,8 +26,7 @@ def evalClassifier(actualLabels, predictedLabels):
   '''
     peeking into the labels of the dataset 
   '''
-  print "Glimpse at  actual:{}, and predicted:{} labels(10th entry in label list)".format(actualLabels[10], predictedLabels[10])
-  print "precison, recall, F-stat"
+  #print "Glimpse at  actual:{}, and predicted:{} labels(10th entry in label list)".format(actualLabels[10], predictedLabels[10])
   print classification_report(actualLabels, predictedLabels, target_names=target_labels)
   print">"*10
   # preserve the order first test(real values from dataset), then predcited (from the classifier )

@@ -23,12 +23,15 @@ feature_cols = full_cols - 2  ## the last couln is null, and have to skip bug co
 all_features = full_dataset_from_csv[:, 1:feature_cols]
 print "Glimpse at features (11th entry in dataset): \n", all_features[glimpseIndex]
 print "-"*50
-dataset_for_labels = Utility.getDatasetFromCSV(dataset_file)
+dataset_for_labels = Utility.getDatasetFromCSV(dataset_file)  ## unlike phase-1, the labels are '1' and '0', so need to take input as str
 label_cols = full_cols - 1   
 all_labels  =  dataset_for_labels[:, label_cols]
 print "Glimpse at  labels (11th entry in dataset):", all_labels[glimpseIndex]
 print "-"*50
+### use l1-penalized logi. regression to get teh features 
 selected_indices_for_features = sklearn_models.performPenalizedLogiRegression(all_features, all_labels)
+### use randomized logi. regression to get the features ::: as this performs worse then l1-penalized , it wil not be used 
+# selected_indices_for_features = sklearn_models.getElgiibleFeatures(all_features, all_labels)
 print "Total selected feature count:", len(selected_indices_for_features)
 print "The selected feature names: ", Utility.printFeatureName(selected_indices_for_features, True) ##True for enbaling steroid headers
 print "-"*50
