@@ -453,6 +453,14 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         inc_per_file_cnt = float(count_of_includes) / float(no_file_dec_for_file)
         metric_str_for_file = metric_str_for_file + str(inc_per_file_cnt) + ","
         print "inc. per file.:{},include:{}, file:{}".format(inc_per_file_cnt, count_of_includes, no_file_dec_for_file)
+
+        #Metric-69: count of includes : ratio : per resource
+        if total_reso_cnt_per_file==0:
+           total_reso_cnt_per_file = float(total_reso_cnt_per_file) + 0.50
+        inc_per_tot_reso_cnt = float(count_of_includes) / float(total_reso_cnt_per_file)
+        metric_str_for_file = metric_str_for_file + str(inc_per_tot_reso_cnt) + ","
+        print "inc. per file.:{},include:{}, file:{}".format(inc_per_tot_reso_cnt, count_of_includes, total_reso_cnt_per_file)
+
         str2ret = str2ret + metric_str_for_file
         #### reset values
         max_nest_depth_for_file = 0
