@@ -471,7 +471,9 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         cron_per_line = float(crone_cnt) / float(no_lines_wo_comm_fil)
         metric_str_for_file = metric_str_for_file + str(cron_per_line) + ","
         print "cron per lines.:{},cron:{}, line:{}".format(cron_per_line, crone_cnt, no_lines_wo_comm_fil)
-
+        '''
+           Append everyhting !!!
+        '''
         str2ret = str2ret + metric_str_for_file
         #### reset values
         max_nest_depth_for_file = 0
@@ -538,6 +540,16 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         crone_cnt = 0
         reff_cnt = 0
         total_reso_cnt_per_file = 0
+        cron_per_line =  0
+        inc_per_line = 0
+        inc_per_tot_reso_cnt = 0
+        inc_per_file_cnt = 0
+        inc_per_pkg_cnt = 0
+        inc_per_svc_cnt = 0
+        svc_cnt_per_blocks = 0
+        total_reso_cnt_per_lines = 0
+        total_reso_cnt_per_blocks = 0 
+
         return str2ret
 
 
