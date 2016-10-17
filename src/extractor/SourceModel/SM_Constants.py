@@ -92,3 +92,4 @@ INAVLID_GIT_REGEX     = r'\w*\s*.git\s*\w*'
 VAR_ASSIGN_REGEX      = r'\$\w+\s*\=\s*\w+'
 #### Added Oct 16, 2016 
 COLON_REQI_REGEX      = r'(?:^|\n)\s*(?:require) (?:Class)*\[*(?:\$|\')*[\w\d\:\-_\']+(?:\:\:\${0,1}[\w\d\:\-_\']+)*\'*\]*(?:\s*,\s*(?:Class)*\[*(?:\$|\')*[\w\d\:\-_\']+(?:\:\:\${0,1}[\w\d\:\-_\']+)*\'*\]*)*'
+ONLY_ENV_REGEX        = r'\s*env\:\:\s*\w+'

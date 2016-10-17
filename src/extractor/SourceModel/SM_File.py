@@ -747,6 +747,11 @@ class SM_File:
         compiledIncludeRE = re.compile(SMCONSTS.COLON_REQI_REGEX)
         cnt_ = len(compiledIncludeRE.findall(self.fileText))
         return cnt_ 
+    def getEnvCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_ENV_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_         
 class ExElement(object):
     def __init__(self, elementObj, startIndex, endIndex):
             self.elementObj = elementObj
