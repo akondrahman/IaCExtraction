@@ -399,7 +399,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         #Metric-60
         env_cnt = fileObj.getEnvCount()
         metric_str_for_file = metric_str_for_file + str(env_cnt) + ","
-        print "Env count:", env_cnt
+        #print "Env count:", env_cnt
         #Metric-61
         crone_cnt = fileObj.getCronCount()
         metric_str_for_file = metric_str_for_file + str(crone_cnt) + ","
@@ -438,13 +438,21 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         inc_per_svc_cnt = float(count_of_includes) / float(no_serv_dec_for_file)
         metric_str_for_file = metric_str_for_file + str(inc_per_svc_cnt) + ","
         print "inc. per svc.:{},include:{}, service:{}".format(inc_per_svc_cnt, count_of_includes, no_serv_dec_for_file)
-
+        #Metric-67: count of includes : ratio : per package
         if no_pack_dec_for_file==0:
            no_pack_dec_for_file = float(no_pack_dec_for_file) + 0.50
         inc_per_pkg_cnt = float(count_of_includes) / float(no_pack_dec_for_file)
         metric_str_for_file = metric_str_for_file + str(inc_per_pkg_cnt) + ","
         print "inc. per pkg.:{},include:{}, package:{}".format(inc_per_pkg_cnt, count_of_includes, no_pack_dec_for_file)
 
+
+
+        #Metric-68: count of includes : ratio : per file
+        if no_file_dec_for_file==0:
+           no_file_dec_for_file = float(no_file_dec_for_file) + 0.50
+        inc_per_file_cnt = float(count_of_includes) / float(no_file_dec_for_file)
+        metric_str_for_file = metric_str_for_file + str(inc_per_file_cnt) + ","
+        print "inc. per file.:{},include:{}, file:{}".format(inc_per_file_cnt, count_of_includes, no_file_dec_for_file)
         str2ret = str2ret + metric_str_for_file
         #### reset values
         max_nest_depth_for_file = 0
@@ -521,6 +529,7 @@ def hogarbal():
   fileName='paikhana1.pp'
   fileObj = SourceModel.SM_File.SM_File(fileName)
   getMetricsForFile(fileName)
+  print "="*50
   cnt_includes = fileObj.getOnlyIncludeClassesCount()
   # count_of_git_usages = fileObj.getNoOfGitUsages()
   # print "Git count:", count_of_git_usages
