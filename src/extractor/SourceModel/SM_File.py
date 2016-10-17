@@ -751,7 +751,12 @@ class SM_File:
         cnt_ = 0         
         compiledIncludeRE = re.compile(SMCONSTS.ONLY_ENV_REGEX)
         cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_         
+        return cnt_  
+    def getCronCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_CRON_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_                 
 class ExElement(object):
     def __init__(self, elementObj, startIndex, endIndex):
             self.elementObj = elementObj
