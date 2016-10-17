@@ -697,7 +697,6 @@ class SM_File:
         else:
           stats_ = (float(0), float(0), float(0), float(0))                     
         return stats_ 
-
     def getIfElseCount(self):
         cnt_ = 0         
         elemList = self.getElementList(SMCONSTS.IF_REGEX)    
@@ -734,6 +733,20 @@ class SM_File:
         #for match in (compiledIncludeRE.findall(self.fileText)):
         #  print match         
         return cnt_                             
+
+
+
+
+    def getCaseStmtCount(self):
+        cnt_ = 0         
+        elemList = self.getElementList(SMCONSTS.CASE_REGEX)    
+        cnt_ = len(elemList)
+        return cnt_          
+    def getColonizedReqCount(self):
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_UNDEF_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_ 
 class ExElement(object):
     def __init__(self, elementObj, startIndex, endIndex):
             self.elementObj = elementObj

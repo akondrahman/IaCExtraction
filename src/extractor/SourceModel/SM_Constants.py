@@ -89,4 +89,6 @@ ONLY_UNDEF_REGEX      = r'\s*undef\s*\=\>\s*'
 ONLY_GIT_REGEX        = r'\w*\s*git\s*\w*'
 INAVLID_GIT_REGEX     = r'\w*\s*.git\s*\w*'
 #### Added Oct 15, 2016 
-VAR_ASSIGN_REGEX = r'\$\w+\s*\=\s*\w+'
+VAR_ASSIGN_REGEX      = r'\$\w+\s*\=\s*\w+'
+#### Added Oct 16, 2016 
+COLON_REQI_REGEX      = r'(?:^|\n)\s*(?:require) (?:Class)*\[*(?:\$|\')*[\w\d\:\-_\']+(?:\:\:\${0,1}[\w\d\:\-_\']+)*\'*\]*(?:\s*,\s*(?:Class)*\[*(?:\$|\')*[\w\d\:\-_\']+(?:\:\:\${0,1}[\w\d\:\-_\']+)*\'*\]*)*'
