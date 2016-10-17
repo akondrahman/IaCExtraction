@@ -94,3 +94,4 @@ VAR_ASSIGN_REGEX      = r'\$\w+\s*\=\s*\w+'
 COLON_REQI_REGEX      = r'(?:^|\n)\s*(?:require) (?:Class)*\[*(?:\$|\')*[\w\d\:\-_\']+(?:\:\:\${0,1}[\w\d\:\-_\']+)*\'*\]*(?:\s*,\s*(?:Class)*\[*(?:\$|\')*[\w\d\:\-_\']+(?:\:\:\${0,1}[\w\d\:\-_\']+)*\'*\]*)*'
 ONLY_ENV_REGEX        = r'\s*env\:\:\s*\w+'
 ONLY_CRON_REGEX       = r'\s*cron\s*\{'
+ONLY_REFF_REGEX       = r'\w+\s*\=\>\s*.+'  ### gives the count of '=>' s        

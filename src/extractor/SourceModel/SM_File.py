@@ -742,11 +742,11 @@ class SM_File:
         elemList = self.getElementList(SMCONSTS.CASE_REGEX)    
         cnt_ = len(elemList)
         return cnt_          
-    def getColonizedReqCount(self):
-        cnt_ = 0         
-        compiledIncludeRE = re.compile(SMCONSTS.COLON_REQI_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_ 
+    # def getColonizedReqCount(self):
+    #     cnt_ = 0         
+    #     compiledIncludeRE = re.compile(SMCONSTS.COLON_REQI_REGEX)
+    #     cnt_ = len(compiledIncludeRE.findall(self.fileText))
+    #     return cnt_ 
     def getEnvCount(self):
         cnt_ = 0         
         compiledIncludeRE = re.compile(SMCONSTS.ONLY_ENV_REGEX)
@@ -756,6 +756,14 @@ class SM_File:
         cnt_ = 0         
         compiledIncludeRE = re.compile(SMCONSTS.ONLY_CRON_REGEX)
         cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_                 
+    def getReffCount(self):
+        ### gives the count of '=>' s        
+        cnt_ = 0         
+        compiledIncludeRE = re.compile(SMCONSTS.ONLY_REFF_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        #for match in (compiledIncludeRE.findall(self.fileText)):
+        # print match                 
         return cnt_                 
 class ExElement(object):
     def __init__(self, elementObj, startIndex, endIndex):
