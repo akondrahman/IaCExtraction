@@ -385,6 +385,24 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         var_assign_cnt = fileObj.getVarAssiCount()
         metric_str_for_file = metric_str_for_file + str(var_assign_cnt) + "," 
 
+        ### Oct 16, 2016 
+        #Metric-59
+        case_stmt_cnt = fileObj.getCaseStmtCount()
+        metric_str_for_file = metric_str_for_file + str(case_stmt_cnt) + ","  
+
+        #Metric-60
+        env_cnt = fileObj.getEnvCount()
+        metric_str_for_file = metric_str_for_file + str(env_cnt) + "," 
+        #Metric-61
+        crone_cnt = fileObj.getCronCount()
+        metric_str_for_file = metric_str_for_file + str(crone_cnt) + "," 
+
+        #Metric-62
+        ## count of  '=>' 's         
+        reff_cnt = fileObj.getReffCount()
+        metric_str_for_file = metric_str_for_file + str(reff_cnt) + ","         
+
+
         str2ret = str2ret + metric_str_for_file   
         return str2ret
 
@@ -393,7 +411,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
 
 def hogarbal():
-  fileObj = SourceModel.SM_File.SM_File('paikhana1.pp')
+  fileObj = SourceModel.SM_File.SM_File('paikhana4.pp')
   cnt_includes = fileObj.getOnlyIncludeClassesCount()  
   count_of_git_usages = fileObj.getNoOfGitUsages()   
   print "Git count:", count_of_git_usages 
@@ -411,35 +429,11 @@ def hogarbal():
   count_of_before   = fileObj.getOnlyBeforeCount()
   count_of_audit    = fileObj.getOnlyAuditCount()                
 
-  # print "Include count:", cnt_includes  
-  # print "Require count",  count_of_requires
-  # print "Notify count:",  count_of_notifies        
-  # print "Ensure count",   count_of_ensures   
-  # print "Alias count:",   count_of_aliases 
-  # print "Subsc count:",   count_of_subscri  
-  # print "Consume count:", count_of_consume  
-  # print "Export count:",  count_of_export  
-  # print "Schedule cnt:",  count_of_schedu               
-  # print "Stages cnt:",    count_of_stages      
-  # print "Tags count:",    count_of_tags
-  # print "No-op count:",   count_of_noop  
-  # print "Before count:",  count_of_before 
-  # print "Audit count:",   count_of_audit 
 
-  # meta_param_total_cnt = (     count_of_requires + count_of_notifies  + count_of_aliases + count_of_subscri + 
-  #                              count_of_consume +  count_of_export +  count_of_schedu +  count_of_stages +  count_of_tags +
-  #                              count_of_noop +   count_of_before +  count_of_audit  
-  #                        ) 
-  # print "*"*100 
-  # print "Total meta usages: ", meta_param_total_cnt
   #count_of_inher    = fileObj.getOnlyInheritanceUsageCount()
-  #print "Inheritance use count:", count_of_inher             
-  count_of_sql_ref    = fileObj.getOnlySQLUsageCount()
-  print "SQL use count:", count_of_sql_ref        
+  #count_of_sql_ref    = fileObj.getOnlySQLUsageCount()
   #non_pp_count = fileObj.getNonPuppetUsageCount()
-  #rint "Non puppet usage count:", non_pp_count    
   #mcx_cnt = fileObj.getMCXCount()
-  #print "MCX Count:", mcx_cnt  
   #rsysLogCnt = fileObj.getRSysLogCount() 
   #vHashCnt   = fileObj.getValidateHashCount()  
   reqPackCnt   = fileObj.getRequirePackageCount()
@@ -457,4 +451,10 @@ def hogarbal():
   clsParamStat  = fileObj.getClassParamCount()
   print "Param count stats:", clsParamStat     
   var_assi_cnt =  fileObj.getVarAssiCount()
-  print "Var assignment cnt:", var_assi_cnt    
+  print "Var assignment cnt:", var_assi_cnt 
+
+
+
+
+  reff_cnt =  fileObj.getReffCount()
+  print "=> cnt:", reff_cnt 
