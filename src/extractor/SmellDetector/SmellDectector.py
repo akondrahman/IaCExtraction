@@ -431,7 +431,19 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         #Metric-65: count of services : ratio : per block
         svc_cnt_per_blocks = float(no_serv_dec_for_file) / float(cnt_blocks)
         metric_str_for_file = metric_str_for_file + str(svc_cnt_per_blocks) + ","
-        print "service per blocks:{},service:{}, blocks:{}".format(svc_cnt_per_blocks, no_serv_dec_for_file, cnt_blocks)
+        #print "service per blocks:{},service:{}, blocks:{}".format(svc_cnt_per_blocks, no_serv_dec_for_file, cnt_blocks)
+        #Metric-66: count of includes : ratio : per service
+        if no_serv_dec_for_file==0:
+           no_serv_dec_for_file = no_serv_dec_for_file + 0.50
+        inc_per_svc_cnt = float(count_of_includes) / float(no_serv_dec_for_file)
+        metric_str_for_file = metric_str_for_file + str(inc_per_svc_cnt) + ","
+        print "inc. per svc.:{},include:{}, service:{}".format(inc_per_svc_cnt, count_of_includes, no_serv_dec_for_file)
+
+        if no_pack_dec_for_file==0:
+           no_pack_dec_for_file = float(no_pack_dec_for_file) + 0.50
+        inc_per_pkg_cnt = float(count_of_includes) / float(no_pack_dec_for_file)
+        metric_str_for_file = metric_str_for_file + str(inc_per_pkg_cnt) + ","
+        print "inc. per pkg.:{},include:{}, package:{}".format(inc_per_pkg_cnt, count_of_includes, no_pack_dec_for_file)
 
         str2ret = str2ret + metric_str_for_file
         #### reset values
