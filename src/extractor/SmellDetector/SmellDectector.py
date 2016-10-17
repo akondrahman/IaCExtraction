@@ -423,6 +423,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         total_reso_cnt_per_blocks = float(total_reso_cnt_per_file) / float(cnt_blocks)
         metric_str_for_file = metric_str_for_file + str(total_reso_cnt_per_blocks) + ","
         #print "resource per block:{}, count of block:{}, resource per file:{}".format(total_reso_cnt_per_blocks, cnt_blocks, total_reso_cnt_per_file)
+
         #Metric-64 : summation of resources : ratio : per lines withour comment
 
         total_reso_cnt_per_lines = float(total_reso_cnt_per_file) / float(no_lines_wo_comm_fil)
@@ -433,12 +434,14 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         svc_cnt_per_blocks = float(no_serv_dec_for_file) / float(cnt_blocks)
         metric_str_for_file = metric_str_for_file + str(svc_cnt_per_blocks) + ","
         #print "service per blocks:{},service:{}, blocks:{}".format(svc_cnt_per_blocks, no_serv_dec_for_file, cnt_blocks)
+
         #Metric-66: count of includes : ratio : per service
         if no_serv_dec_for_file==0:
            no_serv_dec_for_file = no_serv_dec_for_file + 0.50
         inc_per_svc_cnt = float(count_of_includes) / float(no_serv_dec_for_file)
         metric_str_for_file = metric_str_for_file + str(inc_per_svc_cnt) + ","
         print "inc. per svc.:{},include:{}, service:{}".format(inc_per_svc_cnt, count_of_includes, no_serv_dec_for_file)
+
         #Metric-67: count of includes : ratio : per package
         if no_pack_dec_for_file==0:
            no_pack_dec_for_file = float(no_pack_dec_for_file) + 0.50
@@ -471,6 +474,14 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         cron_per_line = float(crone_cnt) / float(no_lines_wo_comm_fil)
         metric_str_for_file = metric_str_for_file + str(cron_per_line) + ","
         print "cron per lines.:{},cron:{}, line:{}".format(cron_per_line, crone_cnt, no_lines_wo_comm_fil)
+
+        #Metric-72: count of if statements : ratio : per blocks
+        if_cnt_per_block = float(if_count) / float(cnt_blocks)
+        metric_str_for_file = metric_str_for_file + str(if_cnt_per_block) + ","
+        print "if-count per blocks.:{},if-count:{}, block:{}".format(if_cnt_per_block, if_count, cnt_blocks)
+
+
+        
         '''
            Append everyhting !!!
         '''
@@ -548,7 +559,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         inc_per_svc_cnt = 0
         svc_cnt_per_blocks = 0
         total_reso_cnt_per_lines = 0
-        total_reso_cnt_per_blocks = 0 
+        total_reso_cnt_per_blocks = 0
 
         return str2ret
 
