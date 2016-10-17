@@ -744,7 +744,7 @@ class SM_File:
         return cnt_          
     def getColonizedReqCount(self):
         cnt_ = 0         
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_UNDEF_REGEX)
+        compiledIncludeRE = re.compile(SMCONSTS.COLON_REQI_REGEX)
         cnt_ = len(compiledIncludeRE.findall(self.fileText))
         return cnt_ 
 class ExElement(object):
