@@ -410,8 +410,9 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(reff_cnt) + ","
 
         ### Oct 17, 2016
-        #Metric-63 : summation of resources
-        total_reso_cnt_per_file = no_exec_dec_for_file + no_file_dec_for_file + no_pack_dec_for_file + no_serv_dec_for_file
+        #Metric-63 : summation of resources,
+        #cron is also a resource : reff: https://docs.puppet.com/puppet/latest/reference/type.html#about-resource-types
+        total_reso_cnt_per_file = no_exec_dec_for_file + no_file_dec_for_file + no_pack_dec_for_file + no_serv_dec_for_file + crone_cnt
         metric_str_for_file = metric_str_for_file + str(total_reso_cnt_per_file) + ","
 
 
@@ -459,7 +460,17 @@ def getMetricsForFile(fully_qualaified_path_to_file):
            total_reso_cnt_per_file = float(total_reso_cnt_per_file) + 0.50
         inc_per_tot_reso_cnt = float(count_of_includes) / float(total_reso_cnt_per_file)
         metric_str_for_file = metric_str_for_file + str(inc_per_tot_reso_cnt) + ","
-        print "inc. per file.:{},include:{}, file:{}".format(inc_per_tot_reso_cnt, count_of_includes, total_reso_cnt_per_file)
+        print "inc. per total resource.:{},include:{}, reso:{}".format(inc_per_tot_reso_cnt, count_of_includes, total_reso_cnt_per_file)
+
+        #Metric-70: count of includes : ratio : per line
+        inc_per_line = float(count_of_includes) / float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(inc_per_line) + ","
+        print "inc. per lines.:{},include:{}, lines:{}".format(inc_per_line, count_of_includes, no_lines_wo_comm_fil)
+
+        #Metric-71: count of crons : ratio : per line
+        cron_per_line = float(crone_cnt) / float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(cron_per_line) + ","
+        print "cron per lines.:{},cron:{}, line:{}".format(cron_per_line, crone_cnt, no_lines_wo_comm_fil)
 
         str2ret = str2ret + metric_str_for_file
         #### reset values
