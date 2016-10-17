@@ -25,285 +25,285 @@ def detectSmells(folder, outputFile):
     #print str_graph
     dump_status = Utilities.dumpStrToFile(graph_file_to_save, str_graph)
     print "Dumped a file of {} bytes".format(dump_status)
-    
-    
-def extractFileMetrics(folderToLook): 
-  str2ret=""  
+
+
+def extractFileMetrics(folderToLook):
+  str2ret=""
   for root, dirs, files in os.walk(folderToLook):
     for file_ in files:
-      metric_str_for_file=""  
+      metric_str_for_file=""
       if file_.endswith(".pp") and not os.path.islink(os.path.join(root, file_)):
-        fileObj = SourceModel.SM_File.SM_File(os.path.join(root, file_))  
+        fileObj = SourceModel.SM_File.SM_File(os.path.join(root, file_))
         metric_str_for_file = fileObj.fileName + ","
-        # direct metrics 
+        # direct metrics
 
         # Metric-1
         max_nest_depth_for_file  = fileObj.getMaxNestingDepth()
         metric_str_for_file = metric_str_for_file + str(max_nest_depth_for_file) + ","
 
-        # Metric-2        
-        no_class_dec_for_file    = fileObj.getNoOfClassDeclarations() 
+        # Metric-2
+        no_class_dec_for_file    = fileObj.getNoOfClassDeclarations()
         metric_str_for_file = metric_str_for_file + str(no_class_dec_for_file) + ","
-        
+
         # Metric-3
-        no_def_dec_for_file      = fileObj.getNoOfDefineDeclarations()        
-        metric_str_for_file = metric_str_for_file + str(no_def_dec_for_file) + "," 
+        no_def_dec_for_file      = fileObj.getNoOfDefineDeclarations()
+        metric_str_for_file = metric_str_for_file + str(no_def_dec_for_file) + ","
 
-        # Metric-4        
+        # Metric-4
         no_pack_dec_for_file     = fileObj.getNoOfPackageDeclarations()
-        metric_str_for_file = metric_str_for_file + str(no_pack_dec_for_file) + "," 
+        metric_str_for_file = metric_str_for_file + str(no_pack_dec_for_file) + ","
 
-        # Metric-5        
-        no_file_dec_for_file     = fileObj.getNoOfFileDeclarations() 
-        metric_str_for_file = metric_str_for_file + str(no_file_dec_for_file) + "," 
-        
-        # Metric-6        
+        # Metric-5
+        no_file_dec_for_file     = fileObj.getNoOfFileDeclarations()
+        metric_str_for_file = metric_str_for_file + str(no_file_dec_for_file) + ","
+
+        # Metric-6
         no_serv_dec_for_file     = fileObj.getNoOfServiceDeclarations()
-        metric_str_for_file = metric_str_for_file + str(no_serv_dec_for_file) + "," 
+        metric_str_for_file = metric_str_for_file + str(no_serv_dec_for_file) + ","
 
-        # Metric-7        
+        # Metric-7
         no_exec_dec_for_file     = fileObj.getNoOfExecDeclarations()
-        metric_str_for_file = metric_str_for_file + str(no_exec_dec_for_file) + "," 
-        
-        # Metric-8        
+        metric_str_for_file = metric_str_for_file + str(no_exec_dec_for_file) + ","
+
+        # Metric-8
         lack_cohe_meth_file      = fileObj.getLCOM()
-        metric_str_for_file = metric_str_for_file + str(lack_cohe_meth_file) + "," 
-        
-        # Metric-9        
+        metric_str_for_file = metric_str_for_file + str(lack_cohe_meth_file) + ","
+
+        # Metric-9
         body_txt_size_file       = fileObj.getBodyTextSize()[1] # tuple, first:loc, second: size
-        metric_str_for_file = metric_str_for_file + str(body_txt_size_file) + "," 
-        
-        # Metric-10        
+        metric_str_for_file = metric_str_for_file + str(body_txt_size_file) + ","
+
+        # Metric-10
         no_lines_w_comm_file     = fileObj.getLinesOfCode()
-        metric_str_for_file = metric_str_for_file + str(no_lines_w_comm_file) + "," 
-        
-        # Metric-11        
+        metric_str_for_file = metric_str_for_file + str(no_lines_w_comm_file) + ","
+
+        # Metric-11
         no_lines_wo_comm_fil     = fileObj.getLinesOfCodeWithoutComments()
         metric_str_for_file = metric_str_for_file + str(no_lines_wo_comm_fil) + ","
 
-        
+
 
 
         # indirect metrics
-        # Metric-12 
+        # Metric-12
         no_outerelem_for_file = len(fileObj.getOuterElementList())
         metric_str_for_file = metric_str_for_file + str(no_outerelem_for_file) + ","
-        
+
         # Metric-13
         no_file_res_for_file =  len(fileObj.getFileResourceList())
-        metric_str_for_file = metric_str_for_file + str(no_file_res_for_file) + ","        
+        metric_str_for_file = metric_str_for_file + str(no_file_res_for_file) + ","
 
         # Metric-14
         no_ser_res_for_file  =  len(fileObj.getServiceResourceList())
         metric_str_for_file = metric_str_for_file + str(no_ser_res_for_file) + ","
 
-        # Metric-15        
+        # Metric-15
         no_package_res_for_file = len(fileObj.getPackageResourceList())
         metric_str_for_file = metric_str_for_file + str(no_package_res_for_file) + ","
 
         # Metric-16
-        no_hard_coded_stmt  = len(fileObj.getHardCodedStatments())       
+        no_hard_coded_stmt  = len(fileObj.getHardCodedStatments())
         metric_str_for_file = metric_str_for_file + str(no_hard_coded_stmt) + ","
 
         # Metric-17
         no_node_dec_for_file = len(fileObj.getNodeDeclarations())
-        metric_str_for_file = metric_str_for_file + str(no_node_dec_for_file) + "," 
+        metric_str_for_file = metric_str_for_file + str(no_node_dec_for_file) + ","
 
         # Metric-18
-        no_parent_cls_for_file = len(fileObj.getClassHierarchyInfo()[1]) 
-        metric_str_for_file = metric_str_for_file + str(no_parent_cls_for_file) + ","        
-        # second item in the tuple gives parent classes         
-        
+        no_parent_cls_for_file = len(fileObj.getClassHierarchyInfo()[1])
+        metric_str_for_file = metric_str_for_file + str(no_parent_cls_for_file) + ","
+        # second item in the tuple gives parent classes
+
         #print "file:{}, parent classes:{}".format(fileObj.fileName, str(lack_cohe_meth_file))
         str2ret = str2ret + metric_str_for_file + "\n"
-  
-  
-  
-  
-  return str2ret    
 
 
 
-def getMetricsForFile(fully_qualaified_path_to_file): 
+
+  return str2ret
+
+
+
+def getMetricsForFile(fully_qualaified_path_to_file):
         str2ret = ""
         metric_str_for_file=""
-        fileObj = SourceModel.SM_File.SM_File(fully_qualaified_path_to_file)      
+        fileObj = SourceModel.SM_File.SM_File(fully_qualaified_path_to_file)
         #metric_str_for_file = fileObj.fileName + ","
-        # direct metrics 
+        # direct metrics
 
         # Metric-1
         max_nest_depth_for_file  = fileObj.getMaxNestingDepth()
         metric_str_for_file = metric_str_for_file + str(max_nest_depth_for_file) + ","
 
-        # Metric-2        
-        no_class_dec_for_file    = fileObj.getNoOfClassDeclarations() 
+        # Metric-2
+        no_class_dec_for_file    = fileObj.getNoOfClassDeclarations()
         metric_str_for_file = metric_str_for_file + str(no_class_dec_for_file) + ","
-        
+
         # Metric-3
-        no_def_dec_for_file      = fileObj.getNoOfDefineDeclarations()        
-        metric_str_for_file = metric_str_for_file + str(no_def_dec_for_file) + "," 
+        no_def_dec_for_file      = fileObj.getNoOfDefineDeclarations()
+        metric_str_for_file = metric_str_for_file + str(no_def_dec_for_file) + ","
 
-        # Metric-4        
+        # Metric-4
         no_pack_dec_for_file     = fileObj.getNoOfPackageDeclarations()
-        metric_str_for_file = metric_str_for_file + str(no_pack_dec_for_file) + "," 
+        metric_str_for_file = metric_str_for_file + str(no_pack_dec_for_file) + ","
 
-        # Metric-5        
-        no_file_dec_for_file     = fileObj.getNoOfFileDeclarations() 
-        metric_str_for_file = metric_str_for_file + str(no_file_dec_for_file) + "," 
-        
-        # Metric-6        
+        # Metric-5
+        no_file_dec_for_file     = fileObj.getNoOfFileDeclarations()
+        metric_str_for_file = metric_str_for_file + str(no_file_dec_for_file) + ","
+
+        # Metric-6
         no_serv_dec_for_file     = fileObj.getNoOfServiceDeclarations()
-        metric_str_for_file = metric_str_for_file + str(no_serv_dec_for_file) + "," 
+        metric_str_for_file = metric_str_for_file + str(no_serv_dec_for_file) + ","
 
-        # Metric-7        
+        # Metric-7
         no_exec_dec_for_file     = fileObj.getNoOfExecDeclarations()
-        metric_str_for_file = metric_str_for_file + str(no_exec_dec_for_file) + "," 
-        
-        # Metric-8        
+        metric_str_for_file = metric_str_for_file + str(no_exec_dec_for_file) + ","
+
+        # Metric-8
         lack_cohe_meth_file      = fileObj.getLCOM()
-        metric_str_for_file = metric_str_for_file + str(lack_cohe_meth_file) + "," 
-        
-        # Metric-9        
+        metric_str_for_file = metric_str_for_file + str(lack_cohe_meth_file) + ","
+
+        # Metric-9
         body_txt_size_file       = fileObj.getBodyTextSize()[1] # tuple, first:loc, second: size
-        metric_str_for_file = metric_str_for_file + str(body_txt_size_file) + "," 
-        
-        # Metric-10        
+        metric_str_for_file = metric_str_for_file + str(body_txt_size_file) + ","
+
+        # Metric-10
         no_lines_w_comm_file     = fileObj.getLinesOfCode()
-        metric_str_for_file = metric_str_for_file + str(no_lines_w_comm_file) + "," 
-        
-        # Metric-11        
+        metric_str_for_file = metric_str_for_file + str(no_lines_w_comm_file) + ","
+
+        # Metric-11
         no_lines_wo_comm_fil     = fileObj.getLinesOfCodeWithoutComments()
         metric_str_for_file = metric_str_for_file + str(no_lines_wo_comm_fil) + ","
 
-        
+
 
 
         # indirect metrics
-        # Metric-12 
+        # Metric-12
         no_outerelem_for_file = len(fileObj.getOuterElementList())
         metric_str_for_file = metric_str_for_file + str(no_outerelem_for_file) + ","
-        
+
         # Metric-13
         no_file_res_for_file =  len(fileObj.getFileResourceList())
-        metric_str_for_file = metric_str_for_file + str(no_file_res_for_file) + ","        
+        metric_str_for_file = metric_str_for_file + str(no_file_res_for_file) + ","
 
         # Metric-14
         no_ser_res_for_file  =  len(fileObj.getServiceResourceList())
         metric_str_for_file = metric_str_for_file + str(no_ser_res_for_file) + ","
 
-        # Metric-15        
+        # Metric-15
         no_package_res_for_file = len(fileObj.getPackageResourceList())
         metric_str_for_file = metric_str_for_file + str(no_package_res_for_file) + ","
 
         # Metric-16
-        no_hard_coded_stmt  = len(fileObj.getHardCodedStatments())       
+        no_hard_coded_stmt  = len(fileObj.getHardCodedStatments())
         metric_str_for_file = metric_str_for_file + str(no_hard_coded_stmt) + ","
 
         # Metric-17
         no_node_dec_for_file = len(fileObj.getNodeDeclarations())
-        metric_str_for_file = metric_str_for_file + str(no_node_dec_for_file) + "," 
+        metric_str_for_file = metric_str_for_file + str(no_node_dec_for_file) + ","
 
         # Metric-18
-        no_parent_cls_for_file = len(fileObj.getClassHierarchyInfo()[1]) 
-        metric_str_for_file = metric_str_for_file + str(no_parent_cls_for_file) + ","        
-        # second item in the tuple gives parent classes         
-        ##Added : Oct 03, 2016 ::: densit/ratio metrics 
+        no_parent_cls_for_file = len(fileObj.getClassHierarchyInfo()[1])
+        metric_str_for_file = metric_str_for_file + str(no_parent_cls_for_file) + ","
+        # second item in the tuple gives parent classes
+        ##Added : Oct 03, 2016 ::: densit/ratio metrics
         '''
          to prevent division by zero , adding a small value (1) to  'no_lines_wo_comm_fil'
-         assuming a file must have at least one line 
-        '''    
+         assuming a file must have at least one line
+        '''
         if (no_lines_wo_comm_fil==0):
-          no_lines_wo_comm_fil = no_lines_wo_comm_fil + 1                      
+          no_lines_wo_comm_fil = no_lines_wo_comm_fil + 1
         # Metric-19
-        density_class_dec = float(no_class_dec_for_file)/float(no_lines_wo_comm_fil) 
-        metric_str_for_file = metric_str_for_file + str(density_class_dec) + ","      
+        density_class_dec = float(no_class_dec_for_file)/float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(density_class_dec) + ","
 
         # Metric-20
-        density_define_dec = float(no_def_dec_for_file)/float(no_lines_wo_comm_fil) 
-        metric_str_for_file = metric_str_for_file + str(density_define_dec) + ","    
+        density_define_dec = float(no_def_dec_for_file)/float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(density_define_dec) + ","
 
 
         # Metric-21
-        density_pack_dec = float(no_pack_dec_for_file)/float(no_lines_wo_comm_fil) 
-        metric_str_for_file = metric_str_for_file + str(density_pack_dec) + ","                         
+        density_pack_dec = float(no_pack_dec_for_file)/float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(density_pack_dec) + ","
 
 
         # Metric-22
-        density_file_dec = float(no_file_dec_for_file)/float(no_lines_wo_comm_fil) 
-        metric_str_for_file = metric_str_for_file + str(density_file_dec) + ","     
+        density_file_dec = float(no_file_dec_for_file)/float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(density_file_dec) + ","
 
 
         # Metric-23
-        density_serv_dec = float(no_serv_dec_for_file)/float(no_lines_wo_comm_fil) 
-        metric_str_for_file = metric_str_for_file + str(density_serv_dec) + ","             
+        density_serv_dec = float(no_serv_dec_for_file)/float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(density_serv_dec) + ","
 
 
         # Metric-24
-        density_exec_dec = float(no_exec_dec_for_file)/float(no_lines_wo_comm_fil) 
-        metric_str_for_file = metric_str_for_file + str(density_exec_dec) + ","     
+        density_exec_dec = float(no_exec_dec_for_file)/float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(density_exec_dec) + ","
 
         # Metric-25
-        density_outerlem = float(no_outerelem_for_file)/float(no_lines_wo_comm_fil) 
-        metric_str_for_file = metric_str_for_file + str(density_outerlem) + ","      
+        density_outerlem = float(no_outerelem_for_file)/float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(density_outerlem) + ","
 
         # Metric-26
-        density_hardcode = float(no_hard_coded_stmt)/float(no_lines_wo_comm_fil) 
-        metric_str_for_file = metric_str_for_file + str(density_hardcode) + "," 
+        density_hardcode = float(no_hard_coded_stmt)/float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(density_hardcode) + ","
 
 
 
         #More metrics to go ... Oct 14, 2016
-        #Metric-27 
-        count_of_includes = fileObj.getOnlyIncludeClassesCount()                                                            
-        metric_str_for_file = metric_str_for_file + str(count_of_includes) + "," 
+        #Metric-27
+        count_of_includes = fileObj.getOnlyIncludeClassesCount()
+        metric_str_for_file = metric_str_for_file + str(count_of_includes) + ","
 
         #Metric-28
-        count_of_git_usages = fileObj.getNoOfGitUsages() 
-        metric_str_for_file = metric_str_for_file + str(count_of_git_usages) + ","   
+        count_of_git_usages = fileObj.getNoOfGitUsages()
+        metric_str_for_file = metric_str_for_file + str(count_of_git_usages) + ","
 
         #Metric-29
         count_of_requi = fileObj.getOnlyRequireCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_requi) + "," 
+        metric_str_for_file = metric_str_for_file + str(count_of_requi) + ","
 
         #Metric-30
         count_of_notify = fileObj.getOnlyNotifyCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_notify) + ","                       
+        metric_str_for_file = metric_str_for_file + str(count_of_notify) + ","
 
         #Metric-31
         count_of_ensure = fileObj.getOnlyEnsureCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_ensure) + "," 
+        metric_str_for_file = metric_str_for_file + str(count_of_ensure) + ","
 
         #Metric-32
         count_of_alias = fileObj.getOnlyAliasCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_alias) + "," 
+        metric_str_for_file = metric_str_for_file + str(count_of_alias) + ","
 
         #Metric-33
         count_of_subsc = fileObj.getOnlySubscribeCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_subsc) + "," 
+        metric_str_for_file = metric_str_for_file + str(count_of_subsc) + ","
 
         #Metric-34
         count_of_consume = fileObj.getOnlyConsumeCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_consume) + ","                  
+        metric_str_for_file = metric_str_for_file + str(count_of_consume) + ","
 
         #Metric-35
         count_of_export = fileObj.getOnlyExportCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_export) + "," 
+        metric_str_for_file = metric_str_for_file + str(count_of_export) + ","
 
 
         #Metric-36
         count_of_sched = fileObj.getOnlyScheduleCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_sched) + "," 
+        metric_str_for_file = metric_str_for_file + str(count_of_sched) + ","
 
         #Metric-37
         count_of_stage = fileObj.getOnlyStageCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_stage) + ","  
+        metric_str_for_file = metric_str_for_file + str(count_of_stage) + ","
 
         #Metric-38
         count_of_tags = fileObj.getOnlyTagCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_tags) + ","                 
+        metric_str_for_file = metric_str_for_file + str(count_of_tags) + ","
         #Metric-39
         count_of_noop = fileObj.getOnlyNoopCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_noop) + ","  
+        metric_str_for_file = metric_str_for_file + str(count_of_noop) + ","
 
         #Metric-40
         count_of_before = fileObj.getOnlyBeforeCount()
@@ -311,13 +311,13 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
         #Metric-41
         count_of_audit = fileObj.getOnlyAuditCount()
-        metric_str_for_file = metric_str_for_file + str(count_of_audit) + "," 
+        metric_str_for_file = metric_str_for_file + str(count_of_audit) + ","
 
-        meta_param_total_cnt = ( count_of_requi + count_of_notify  + count_of_alias + count_of_subsc + 
+        meta_param_total_cnt = ( count_of_requi + count_of_notify  + count_of_alias + count_of_subsc +
                                  count_of_consume +  count_of_export +  count_of_sched +  count_of_stage +  count_of_tags +
-                                 count_of_noop +   count_of_before +  count_of_audit 
+                                 count_of_noop +   count_of_before +  count_of_audit
                                 )
-        metric_str_for_file = metric_str_for_file + str(meta_param_total_cnt) + ","   
+        metric_str_for_file = metric_str_for_file + str(meta_param_total_cnt) + ","
 
         #Metric-42
         count_of_inheri_usage = fileObj.getOnlyInheritanceUsageCount()
@@ -336,31 +336,31 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
         #Metric-46
         rsyslog_count = fileObj.getRSysLogCount()
-        metric_str_for_file = metric_str_for_file + str(rsyslog_count) + ","  
+        metric_str_for_file = metric_str_for_file + str(rsyslog_count) + ","
 
         #Metric-47
         valid_hash_count = fileObj.getValidateHashCount()
-        metric_str_for_file = metric_str_for_file + str(valid_hash_count) + ","  
+        metric_str_for_file = metric_str_for_file + str(valid_hash_count) + ","
 
         #Metric-48
         req_pack_count = fileObj.getRequirePackageCount()
-        metric_str_for_file = metric_str_for_file + str(req_pack_count) + ","  
+        metric_str_for_file = metric_str_for_file + str(req_pack_count) + ","
 
         #Metric-49
         hiera_incl_count = fileObj.getHieraIncludeCount()
-        metric_str_for_file = metric_str_for_file + str(hiera_incl_count) + "," 
+        metric_str_for_file = metric_str_for_file + str(hiera_incl_count) + ","
 
         #Metric-50
         incl_packs_count = fileObj.getIncludePacksCount()
-        metric_str_for_file = metric_str_for_file + str(incl_packs_count) + "," 
+        metric_str_for_file = metric_str_for_file + str(incl_packs_count) + ","
 
         #Metric-51
         ensure_packs_count = fileObj.getEnsurePacksCount()
-        metric_str_for_file = metric_str_for_file + str(ensure_packs_count) + "," 
+        metric_str_for_file = metric_str_for_file + str(ensure_packs_count) + ","
 
         #Metric-52
         if_count = fileObj.getIfElseCount()
-        metric_str_for_file = metric_str_for_file + str(if_count) + ","  
+        metric_str_for_file = metric_str_for_file + str(if_count) + ","
 
         #Metric-53
         undef_count = fileObj.getUndefCount()
@@ -375,35 +375,39 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         medi_param_cnt = clsParamStat[1]
         metric_str_for_file = metric_str_for_file + str(medi_param_cnt) + ","
         #Metric-56
-        max_param_cnt = clsParamStat[2] 
-        metric_str_for_file = metric_str_for_file + str(max_param_cnt) + ","                       
+        max_param_cnt = clsParamStat[2]
+        metric_str_for_file = metric_str_for_file + str(max_param_cnt) + ","
         #Metric-57
         min_param_cnt = clsParamStat[3]
-        metric_str_for_file = metric_str_for_file + str(min_param_cnt) + "," 
+        metric_str_for_file = metric_str_for_file + str(min_param_cnt) + ","
 
         #Metric-58
         var_assign_cnt = fileObj.getVarAssiCount()
-        metric_str_for_file = metric_str_for_file + str(var_assign_cnt) + "," 
+        metric_str_for_file = metric_str_for_file + str(var_assign_cnt) + ","
 
-        ### Oct 16, 2016 
+        ### Oct 16, 2016
         #Metric-59
         case_stmt_cnt = fileObj.getCaseStmtCount()
-        metric_str_for_file = metric_str_for_file + str(case_stmt_cnt) + ","  
+        metric_str_for_file = metric_str_for_file + str(case_stmt_cnt) + ","
 
         #Metric-60
         env_cnt = fileObj.getEnvCount()
-        metric_str_for_file = metric_str_for_file + str(env_cnt) + "," 
+        metric_str_for_file = metric_str_for_file + str(env_cnt) + ","
         #Metric-61
         crone_cnt = fileObj.getCronCount()
-        metric_str_for_file = metric_str_for_file + str(crone_cnt) + "," 
+        metric_str_for_file = metric_str_for_file + str(crone_cnt) + ","
 
         #Metric-62
-        ## count of  '=>' 's         
+        ## count of  '=>' 's
         reff_cnt = fileObj.getReffCount()
-        metric_str_for_file = metric_str_for_file + str(reff_cnt) + ","         
+        metric_str_for_file = metric_str_for_file + str(reff_cnt) + ","
 
+        ### Oct 17, 2016
+        #Metric-63 : summation
+        total_reso_cnt_per_file = no_exec_dec_for_file + no_file_dec_for_file + no_pack_dec_for_file + no_serv_dec_for_file
+        metric_str_for_file = metric_str_for_file + str(total_reso_cnt_per_file) + ","
 
-        str2ret = str2ret + metric_str_for_file   
+        str2ret = str2ret + metric_str_for_file
         return str2ret
 
 
@@ -412,49 +416,49 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
 def hogarbal():
   fileObj = SourceModel.SM_File.SM_File('paikhana4.pp')
-  cnt_includes = fileObj.getOnlyIncludeClassesCount()  
-  count_of_git_usages = fileObj.getNoOfGitUsages()   
-  print "Git count:", count_of_git_usages 
+  cnt_includes = fileObj.getOnlyIncludeClassesCount()
+  count_of_git_usages = fileObj.getNoOfGitUsages()
+  print "Git count:", count_of_git_usages
   count_of_requires = fileObj.getOnlyRequireCount()
   count_of_notifies = fileObj.getOnlyNotifyCount()
-  count_of_ensures  = fileObj.getOnlyEnsureCount() 
-  count_of_aliases  = fileObj.getOnlyAliasCount() 
+  count_of_ensures  = fileObj.getOnlyEnsureCount()
+  count_of_aliases  = fileObj.getOnlyAliasCount()
   count_of_subscri  = fileObj.getOnlySubscribeCount()
-  count_of_consume  = fileObj.getOnlyConsumeCount()  
-  count_of_export   = fileObj.getOnlyExportCount() 
-  count_of_schedu   = fileObj.getOnlyScheduleCount() 
-  count_of_stages   = fileObj.getOnlyStageCount()  
-  count_of_tags     = fileObj.getOnlyTagCount()    
+  count_of_consume  = fileObj.getOnlyConsumeCount()
+  count_of_export   = fileObj.getOnlyExportCount()
+  count_of_schedu   = fileObj.getOnlyScheduleCount()
+  count_of_stages   = fileObj.getOnlyStageCount()
+  count_of_tags     = fileObj.getOnlyTagCount()
   count_of_noop     = fileObj.getOnlyNoopCount()
   count_of_before   = fileObj.getOnlyBeforeCount()
-  count_of_audit    = fileObj.getOnlyAuditCount()                
+  count_of_audit    = fileObj.getOnlyAuditCount()
 
 
   #count_of_inher    = fileObj.getOnlyInheritanceUsageCount()
   #count_of_sql_ref    = fileObj.getOnlySQLUsageCount()
   #non_pp_count = fileObj.getNonPuppetUsageCount()
   #mcx_cnt = fileObj.getMCXCount()
-  #rsysLogCnt = fileObj.getRSysLogCount() 
-  #vHashCnt   = fileObj.getValidateHashCount()  
+  #rsysLogCnt = fileObj.getRSysLogCount()
+  #vHashCnt   = fileObj.getValidateHashCount()
   reqPackCnt   = fileObj.getRequirePackageCount()
   hierInclCnt  = fileObj.getHieraIncludeCount()
   ensPackCnt   = fileObj.getEnsurePacksCount()
   #clsParamCnt  = fileObj.getClassParamCount()
-  #inclPacklCnt  = fileObj.getIncludePacksCount()  
-  ifelseCnt    = fileObj.getIfElseCount()     
-  undefCnt     = fileObj.getUndefCount()   
-  print "req Package Cnt: ", reqPackCnt 
-  print "hiear include cnt:", hierInclCnt 
-  print "ensure packs cnt: ", ensPackCnt   
+  #inclPacklCnt  = fileObj.getIncludePacksCount()
+  ifelseCnt    = fileObj.getIfElseCount()
+  undefCnt     = fileObj.getUndefCount()
+  print "req Package Cnt: ", reqPackCnt
+  print "hiear include cnt:", hierInclCnt
+  print "ensure packs cnt: ", ensPackCnt
   #print "if else cnt:", ifelseCnt
-  #print "undef cnt:", undefCnt 
+  #print "undef cnt:", undefCnt
   clsParamStat  = fileObj.getClassParamCount()
-  print "Param count stats:", clsParamStat     
+  print "Param count stats:", clsParamStat
   var_assi_cnt =  fileObj.getVarAssiCount()
-  print "Var assignment cnt:", var_assi_cnt 
+  print "Var assignment cnt:", var_assi_cnt
 
 
 
 
   reff_cnt =  fileObj.getReffCount()
-  print "=> cnt:", reff_cnt 
+  print "=> cnt:", reff_cnt
