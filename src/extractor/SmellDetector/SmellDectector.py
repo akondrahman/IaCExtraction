@@ -428,6 +428,11 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(total_reso_cnt_per_lines) + ","
         #print "resource perlines:{},lines:{},resource:{}".format(total_reso_cnt_per_lines, no_lines_wo_comm_fil, total_reso_cnt_per_file)
 
+        #Metric-65: count of services : ratio : per block
+        svc_cnt_per_blocks = float(no_serv_dec_for_file) / float(cnt_blocks)
+        metric_str_for_file = metric_str_for_file + str(svc_cnt_per_blocks) + ","
+        print "service per blocks:{},service:{}, blocks:{}".format(svc_cnt_per_blocks, no_serv_dec_for_file, cnt_blocks)
+
         str2ret = str2ret + metric_str_for_file
         #### reset values
         max_nest_depth_for_file = 0
