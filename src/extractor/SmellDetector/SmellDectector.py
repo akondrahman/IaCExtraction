@@ -466,12 +466,12 @@ def getMetricsForFile(fully_qualaified_path_to_file):
            total_reso_cnt_per_file = float(total_reso_cnt_per_file) + 0.50
         inc_per_tot_reso_cnt = float(count_of_includes) / float(total_reso_cnt_per_file)
         metric_str_for_file = metric_str_for_file + str(inc_per_tot_reso_cnt) + ","
-        print "inc. per total resource:{},include:{}, reso:{}".format(inc_per_tot_reso_cnt, count_of_includes, total_reso_cnt_per_file)
+        #print "inc. per total resource:{},include:{}, reso:{}".format(inc_per_tot_reso_cnt, count_of_includes, total_reso_cnt_per_file)
 
         #Metric-70: count of includes : ratio : per line
         inc_per_line = float(count_of_includes) / float(no_lines_wo_comm_fil)
         metric_str_for_file = metric_str_for_file + str(inc_per_line) + ","
-        print "inc. per lines:{},include:{}, lines:{}".format(inc_per_line, count_of_includes, no_lines_wo_comm_fil)
+        #print "inc. per lines:{},include:{}, lines:{}".format(inc_per_line, count_of_includes, no_lines_wo_comm_fil)
 
         #Metric-71: count of crons : ratio : per line
         cron_per_line = float(crone_cnt) / float(no_lines_wo_comm_fil)
@@ -545,6 +545,13 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(reff_cnt_per_lines) + ","
         print "'=>' counts per lines:{},=>:{}, lines:{}".format(reff_cnt_per_lines, reff_cnt, no_lines_wo_comm_fil)
 
+        #Metric-82: count of reffs (''=>''): ratio : total resources
+        '''
+           total_reso_cnt_per_file represents all resources used in the file 
+        '''
+        reff_cnt2total_reso = float(reff_cnt) / float(total_reso_cnt_per_file)
+        metric_str_for_file = metric_str_for_file + str(reff_cnt2total_reso) + ","
+        print "'=>' counts per lines:{},=>:{}, tot-reso:{}".format(reff_cnt2total_reso, reff_cnt, total_reso_cnt_per_file)
 
         '''
            Append everyhting !!!
