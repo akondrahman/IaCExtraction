@@ -480,8 +480,13 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(if_cnt_per_block) + ","
         print "if-count per blocks.:{},if-count:{}, block:{}".format(if_cnt_per_block, if_count, cnt_blocks)
 
+        #Metric-73: count of include declarations : ratio : per blocks
+        incl_cnt_per_block = float(count_of_includes) / float(cnt_blocks)
+        metric_str_for_file = metric_str_for_file + str(incl_cnt_per_block) + ","
+        print "include-count per blocks.:{},include-count:{}, block:{}".format(incl_cnt_per_block, count_of_includes, cnt_blocks)
 
-        
+
+
         '''
            Append everyhting !!!
         '''
