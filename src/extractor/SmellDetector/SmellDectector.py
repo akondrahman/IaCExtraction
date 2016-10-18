@@ -533,7 +533,12 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         var_to_reffs = float(var_assign_cnt) / float(reff_cnt)
         metric_str_for_file = metric_str_for_file + str(var_to_reffs) + ","
         print "var. to reffs:{},var. assi.:{},reffs:{}".format(var_to_reffs, var_assign_cnt, reff_cnt)
-        
+
+
+        #Metric-80: count of reffs (''=>''): ratio : block (= class + define)
+        reffs_per_block = float(reff_cnt) / float(cnt_blocks)
+        metric_str_for_file = metric_str_for_file + str(reffs_per_block) + ","
+        print "reffs2blocks:{},reffs:{},blocks:{}".format(reffs_per_block, reff_cnt, cnt_blocks)
 
         '''
            Append everyhting !!!
