@@ -525,6 +525,16 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(var_per_lines) + ","
         print "var. assig. per lines:{},var. assi.:{}, lines:{}".format(var_per_lines, var_assign_cnt, no_lines_wo_comm_fil)
 
+        #Metric-79: count of variable assignments  : ratio : ''=>''
+        '''
+            var_assi_cnt refers to '$hagu =  'lol' type Puppet statements
+            reff_cnt            to 'path' => '/usr/bin/' type Puppet statements
+        '''
+        var_to_reffs = float(var_assign_cnt) / float(reff_cnt)
+        metric_str_for_file = metric_str_for_file + str(var_to_reffs) + ","
+        print "var. to reffs:{},var. assi.:{},reffs:{}".format(var_to_reffs, var_assign_cnt, reff_cnt)
+        
+
         '''
            Append everyhting !!!
         '''
