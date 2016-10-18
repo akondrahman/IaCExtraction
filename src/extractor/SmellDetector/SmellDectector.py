@@ -252,8 +252,9 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(density_hardcode) + ","
 
 
-
+        '''
         #More metrics to go ... Oct 14, 2016
+        ''' 
         #Metric-27
         count_of_includes = fileObj.getOnlyIncludeClassesCount()
         metric_str_for_file = metric_str_for_file + str(count_of_includes) + ","
@@ -409,7 +410,9 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         reff_cnt = fileObj.getReffCount()
         metric_str_for_file = metric_str_for_file + str(reff_cnt) + ","
 
+        '''
         ### Oct 17, 2016
+        '''
         #Metric-63 : summation of resources,
         #cron is also a resource : reff: https://docs.puppet.com/puppet/latest/reference/type.html#about-resource-types
         total_reso_cnt_per_file = no_exec_dec_for_file + no_file_dec_for_file + no_pack_dec_for_file + no_serv_dec_for_file + crone_cnt
@@ -463,12 +466,12 @@ def getMetricsForFile(fully_qualaified_path_to_file):
            total_reso_cnt_per_file = float(total_reso_cnt_per_file) + 0.50
         inc_per_tot_reso_cnt = float(count_of_includes) / float(total_reso_cnt_per_file)
         metric_str_for_file = metric_str_for_file + str(inc_per_tot_reso_cnt) + ","
-        print "inc. per total resource.:{},include:{}, reso:{}".format(inc_per_tot_reso_cnt, count_of_includes, total_reso_cnt_per_file)
+        print "inc. per total resource:{},include:{}, reso:{}".format(inc_per_tot_reso_cnt, count_of_includes, total_reso_cnt_per_file)
 
         #Metric-70: count of includes : ratio : per line
         inc_per_line = float(count_of_includes) / float(no_lines_wo_comm_fil)
         metric_str_for_file = metric_str_for_file + str(inc_per_line) + ","
-        print "inc. per lines.:{},include:{}, lines:{}".format(inc_per_line, count_of_includes, no_lines_wo_comm_fil)
+        print "inc. per lines:{},include:{}, lines:{}".format(inc_per_line, count_of_includes, no_lines_wo_comm_fil)
 
         #Metric-71: count of crons : ratio : per line
         cron_per_line = float(crone_cnt) / float(no_lines_wo_comm_fil)
@@ -478,28 +481,48 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         #Metric-72: count of if statements : ratio : per blocks
         if_cnt_per_block = float(if_count) / float(cnt_blocks)
         metric_str_for_file = metric_str_for_file + str(if_cnt_per_block) + ","
-        print "if-count per blocks.:{},if-count:{}, block:{}".format(if_cnt_per_block, if_count, cnt_blocks)
+        print "if-count per blocks:{},if-count:{}, block:{}".format(if_cnt_per_block, if_count, cnt_blocks)
 
         #Metric-73: count of include declarations : ratio : per blocks
         incl_cnt_per_block = float(count_of_includes) / float(cnt_blocks)
         metric_str_for_file = metric_str_for_file + str(incl_cnt_per_block) + ","
-        print "include-count per blocks.:{},include-count:{}, block:{}".format(incl_cnt_per_block, count_of_includes, cnt_blocks)
+        print "include-count per blocks:{},include-count:{}, block:{}".format(incl_cnt_per_block, count_of_includes, cnt_blocks)
 
         #Metric-74: count of req_packs declarations : ratio : per blocks
         req_pack_cnt_per_block = float(req_pack_count) / float(cnt_blocks)
         metric_str_for_file = metric_str_for_file + str(req_pack_cnt_per_block) + ","
-        print "req_pack-count per blocks.:{},req_pack-count:{}, block:{}".format(req_pack_cnt_per_block, req_pack_count, cnt_blocks)
+        print "req_pack-count per blocks:{},req_pack-count:{}, block:{}".format(req_pack_cnt_per_block, req_pack_count, cnt_blocks)
 
         #Metric-75: count of package declarations : ratio : per blocks
         pack_decl_cnt_per_block = float(no_pack_dec_for_file) / float(cnt_blocks)
         metric_str_for_file = metric_str_for_file + str(pack_decl_cnt_per_block) + ","
-        print "pack. decl. count per blocks.:{}, pack. decl. count{}, block:{}".format(pack_decl_cnt_per_block, no_pack_dec_for_file, cnt_blocks)
+        print "pack. decl. count per blocks:{}, pack. decl. count{}, block:{}".format(pack_decl_cnt_per_block, no_pack_dec_for_file, cnt_blocks)
+
+        '''
+           count_of_requi refers to 'require =>'
+           req_pack_count refers to 'require_package()'
+        '''
+        #Metric-76: count of req_packs  : ratio : per lines
+        req_pack_cnt_per_lines = float(req_pack_count) / float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(req_pack_cnt_per_lines) + ","
+        print "req_pack-count per lines:{},req_pack-count:{}, lines:{}".format(req_pack_cnt_per_lines, req_pack_count, no_lines_wo_comm_fil)
+
+        #Metric-77: count of requires  : ratio : per lines
+        '''
+           count_of_requi refers to 'require =>'
+           req_pack_count refers to 'require_package()'
+        '''
+        require_per_lines = float(count_of_requi) / float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(require_per_lines) + ","
+        print "requires per lines:{},requires:{}, lines:{}".format(require_per_lines, count_of_requi, no_lines_wo_comm_fil)
 
         '''
            Append everyhting !!!
         '''
         str2ret = str2ret + metric_str_for_file
-        #### reset values
+        '''
+        reset values
+        '''
         max_nest_depth_for_file = 0
         no_class_dec_for_file = 0
         no_def_dec_for_file = 0
@@ -588,7 +611,8 @@ def hogarbal():
   cnt_includes = fileObj.getOnlyIncludeClassesCount()
   # count_of_git_usages = fileObj.getNoOfGitUsages()
   # print "Git count:", count_of_git_usages
-  # count_of_requires = fileObj.getOnlyRequireCount()
+  count_of_requires = fileObj.getOnlyRequireCount()
+  print "count fo requires:", count_of_requires
   # count_of_notifies = fileObj.getOnlyNotifyCount()
   # count_of_ensures  = fileObj.getOnlyEnsureCount()
   # count_of_aliases  = fileObj.getOnlyAliasCount()
@@ -627,3 +651,4 @@ def hogarbal():
   print "Var assignment cnt:", var_assi_cnt
   reff_cnt =  fileObj.getReffCount()
   print "=> cnt:", reff_cnt
+  print "*"*50
