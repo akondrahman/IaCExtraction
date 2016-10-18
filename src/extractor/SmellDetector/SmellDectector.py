@@ -490,6 +490,11 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(req_pack_cnt_per_block) + ","
         print "req_pack-count per blocks.:{},req_pack-count:{}, block:{}".format(req_pack_cnt_per_block, req_pack_count, cnt_blocks)
 
+        #Metric-75: count of package declarations : ratio : per blocks
+        pack_decl_cnt_per_block = float(no_pack_dec_for_file) / float(cnt_blocks)
+        metric_str_for_file = metric_str_for_file + str(pack_decl_cnt_per_block) + ","
+        print "pack. decl. count per blocks.:{}, pack. decl. count{}, block:{}".format(pack_decl_cnt_per_block, no_pack_dec_for_file, cnt_blocks)
+
         '''
            Append everyhting !!!
         '''
