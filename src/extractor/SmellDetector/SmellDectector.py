@@ -487,7 +487,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         #Metric-74: count of include declarations : ratio : per blocks
         incl_cnt_per_block = float(count_of_includes) / float(cnt_blocks)
         metric_str_for_file = metric_str_for_file + str(incl_cnt_per_block) + ","
-        #print "include-count per blocks:{},include-count:{}, block:{}".format(incl_cnt_per_block, count_of_includes, cnt_blocks)
+        print "include-count per blocks:{},include-count:{}, block:{}".format(incl_cnt_per_block, count_of_includes, cnt_blocks)
 
         #Metric-75: count of req_packs declarations : ratio : per blocks
         req_pack_cnt_per_block = float(req_pack_count) / float(cnt_blocks)
@@ -561,6 +561,15 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         reff_cnt2req_pack = float(reff_cnt) / float(req_pack_count)
         metric_str_for_file = metric_str_for_file + str(reff_cnt2req_pack) + ","
         print "'=>' counts per require_package:{},=>:{}, req_pkg:{}".format(reff_cnt2req_pack, reff_cnt, req_pack_count)
+
+        #Metric-85: count of reffs (''=>''): ratio : required include counts
+        '''
+           count_of_includes refers to 'include::' , not 'include_packages()'
+        '''
+        reff_cnt2incl_cnt = float(reff_cnt) / float(count_of_includes)
+        metric_str_for_file = metric_str_for_file + str(reff_cnt2incl_cnt) + ","
+        print "'=>'counts 2 include count:{},=>:{}, incl:{}".format(reff_cnt2incl_cnt, reff_cnt, count_of_includes)
+
 
 
         '''
