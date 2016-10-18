@@ -440,14 +440,14 @@ def getMetricsForFile(fully_qualaified_path_to_file):
            no_serv_dec_for_file = no_serv_dec_for_file + 0.50
         inc_per_svc_cnt = float(count_of_includes) / float(no_serv_dec_for_file)
         metric_str_for_file = metric_str_for_file + str(inc_per_svc_cnt) + ","
-        print "inc. per svc.:{},include:{}, service:{}".format(inc_per_svc_cnt, count_of_includes, no_serv_dec_for_file)
+        #print "inc. per svc.:{},include:{}, service:{}".format(inc_per_svc_cnt, count_of_includes, no_serv_dec_for_file)
 
         #Metric-67: count of includes : ratio : per package
         if no_pack_dec_for_file==0:
            no_pack_dec_for_file = float(no_pack_dec_for_file) + 0.50
         inc_per_pkg_cnt = float(count_of_includes) / float(no_pack_dec_for_file)
         metric_str_for_file = metric_str_for_file + str(inc_per_pkg_cnt) + ","
-        print "inc. per pkg.:{},include:{}, package:{}".format(inc_per_pkg_cnt, count_of_includes, no_pack_dec_for_file)
+        #print "inc. per pkg.:{},include:{}, package:{}".format(inc_per_pkg_cnt, count_of_includes, no_pack_dec_for_file)
 
 
 
@@ -456,7 +456,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
            no_file_dec_for_file = float(no_file_dec_for_file) + 0.50
         inc_per_file_cnt = float(count_of_includes) / float(no_file_dec_for_file)
         metric_str_for_file = metric_str_for_file + str(inc_per_file_cnt) + ","
-        print "inc. per file.:{},include:{}, file:{}".format(inc_per_file_cnt, count_of_includes, no_file_dec_for_file)
+        #print "inc. per file.:{},include:{}, file:{}".format(inc_per_file_cnt, count_of_includes, no_file_dec_for_file)
 
         #Metric-69: count of includes : ratio : per resource
         if total_reso_cnt_per_file==0:
@@ -473,7 +473,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         #Metric-71: count of crons : ratio : per line
         cron_per_line = float(crone_cnt) / float(no_lines_wo_comm_fil)
         metric_str_for_file = metric_str_for_file + str(cron_per_line) + ","
-        print "cron per lines.:{},cron:{}, line:{}".format(cron_per_line, crone_cnt, no_lines_wo_comm_fil)
+        #print "cron per lines.:{},cron:{}, line:{}".format(cron_per_line, crone_cnt, no_lines_wo_comm_fil)
 
         #Metric-72: count of if statements : ratio : per blocks
         if_cnt_per_block = float(if_count) / float(cnt_blocks)
@@ -485,7 +485,10 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(incl_cnt_per_block) + ","
         print "include-count per blocks.:{},include-count:{}, block:{}".format(incl_cnt_per_block, count_of_includes, cnt_blocks)
 
-
+        #Metric-74: count of req_packs declarations : ratio : per blocks
+        req_pack_cnt_per_block = float(req_pack_count) / float(cnt_blocks)
+        metric_str_for_file = metric_str_for_file + str(req_pack_cnt_per_block) + ","
+        print "req_pack-count per blocks.:{},req_pack-count:{}, block:{}".format(req_pack_cnt_per_block, req_pack_count, cnt_blocks)
 
         '''
            Append everyhting !!!
