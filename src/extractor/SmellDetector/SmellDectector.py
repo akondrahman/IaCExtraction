@@ -254,7 +254,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
 
         '''
         #More metrics to go ... Oct 14, 2016
-        ''' 
+        '''
         #Metric-27
         count_of_includes = fileObj.getOnlyIncludeClassesCount()
         metric_str_for_file = metric_str_for_file + str(count_of_includes) + ","
@@ -515,6 +515,15 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         require_per_lines = float(count_of_requi) / float(no_lines_wo_comm_fil)
         metric_str_for_file = metric_str_for_file + str(require_per_lines) + ","
         print "requires per lines:{},requires:{}, lines:{}".format(require_per_lines, count_of_requi, no_lines_wo_comm_fil)
+
+
+        #Metric-78: count of variable assignments  : ratio : per lines
+        '''
+            var_assi_cnt refers to '$hagu = 'lol' type Puppet statements
+        '''
+        var_per_lines = float(var_assign_cnt) / float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(var_per_lines) + ","
+        print "var. assig. per lines:{},var. assi.:{}, lines:{}".format(var_per_lines, var_assign_cnt, no_lines_wo_comm_fil)
 
         '''
            Append everyhting !!!
