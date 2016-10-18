@@ -540,6 +540,12 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         metric_str_for_file = metric_str_for_file + str(reffs_per_block) + ","
         print "reffs2blocks:{},reffs:{},blocks:{}".format(reffs_per_block, reff_cnt, cnt_blocks)
 
+        #Metric-81: count of reffs (''=>''): ratio : per lines
+        reff_cnt_per_lines = float(reff_cnt) / float(no_lines_wo_comm_fil)
+        metric_str_for_file = metric_str_for_file + str(reff_cnt_per_lines) + ","
+        print "'=>' counts per lines:{},=>:{}, lines:{}".format(reff_cnt_per_lines, reff_cnt, no_lines_wo_comm_fil)
+
+
         '''
            Append everyhting !!!
         '''
