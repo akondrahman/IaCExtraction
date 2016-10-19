@@ -26,6 +26,9 @@ label_cols = full_cols - 2
 all_labels  =  dataset_for_labels[:, label_cols]
 print "Glimpse at  labels (11th entry in dataset):", all_labels[glimpseIndex]
 print "-"*50
-
-
+### use l1-penalized logi. regression to get teh features
+selected_indices_for_features = sklearn_models.performPenalizedLogiRegression(all_features, all_labels)
+print "Total selected feature count:", len(selected_indices_for_features)
+print "The selected feature names: ", Utility.printNinetyMetricFeatureName(selected_indices_for_features) ## different menthod than phase-4
+print "-"*50
 print "Ended at:", Utility.giveTimeStamp()
