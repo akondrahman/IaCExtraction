@@ -31,4 +31,11 @@ selected_indices_for_features = sklearn_models.performPenalizedLogiRegression(al
 print "Total selected feature count:", len(selected_indices_for_features)
 print "The selected feature names: ", Utility.printNinetyMetricFeatureName(selected_indices_for_features) ## different menthod than phase-4
 print "-"*50
+
+### select the features based on feature indicies
+selected_features = Utility.createSelectedFeatures(all_features, selected_indices_for_features)
+print "Selected feature dataset size:", np.shape(selected_features)
+print "Glimpse at  selected features (11th entry in label list): \n", selected_features[glimpseIndex]
+print "-"*50
+fold2Use =10
 print "Ended at:", Utility.giveTimeStamp()
