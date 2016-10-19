@@ -204,11 +204,11 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
   headerStr12="reff_cnt2total_reso,reff_cnt2req_pack,reff_cnt2incl_cnt,"
   # 3 metrics
   headerStr13="churn,UdevCnt,bugCnt,defectStatus"
-  # 4 metrics
+  # 2 metrics
   '''
-    In total we have 90 metrics 
+    In total we have 88 metrics now ... enough ? :-P
   '''
-  headerStr = headerStr1 + headerStr2 + headerStr3 +  headerStr4 +  headerStr5 + headerStr6 + headerStr7 + headerStr8 + "\n"
+  headerStr = headerStr1 + headerStr2 + headerStr3 +  headerStr4 +  headerStr5 + headerStr6 + headerStr7 + headerStr8 + headerStr9 + headerStr10 + headerStr11 + headerStr12 + headerStr13 + "\n"
   #print file_churn_dict
   '''
     extra header for defect falg, used in predcition modeling
@@ -237,9 +237,11 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
       developer_output = subprocess.check_output(['bash','-c', developerCmd])
       developer_churn_output = developer_output.split('\n')
       developer_churn_output = [x_ for x_ in developer_churn_output if x_!='']
-      # Metric -2: no of develoeprs involved
+      '''
+      # Metric -2: no of develoeprs involved .... gives erroneous results, will not be used
       act_dev_cnt = len(developer_churn_output)
       metric_as_str_for_file = metric_as_str_for_file + str(act_dev_cnt) + ","
+      '''
       # Metric -3: no of unqiue develoeprs involved
       developer_churn_output = np.unique(developer_churn_output)
       #print developer_churn_output

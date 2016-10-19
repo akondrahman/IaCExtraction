@@ -7,8 +7,8 @@ Created on Wed Sep  7 10:20:19 2016
 
 
 
-import numpy as np 
-import bug_git_util 
+import numpy as np
+import bug_git_util
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -52,27 +52,27 @@ y_str_to_dump = bug_git_util.getAllDevelopmentMetricList(files_that_have_defects
 print "#"*75
 
 
-# dumped yes metrics 
+# dumped yes metrics
 #y_file_to_save = repo_path + "/" + "y_metrics.csv"
-## 60 metrics now 
-y_file_to_save = repo_path + "/" + "y_steroided_metrics.csv"  
+## 60 metrics now
+y_file_to_save = repo_path + "/" + "y_ninety_metrics.csv"
 y_dump_status = bug_git_util.dumpContentIntoFile(y_str_to_dump, y_file_to_save)
 print "Dumped a CSV file of {} bytes".format(y_dump_status)
 if len(no_deftect_files) > 0:
-  #print no_bug_mapping  
+  #print no_bug_mapping
   n_file2bug= repo_path + "/" + "n_bug_msg.csv"
   nf2b = open(n_file2bug, "w")
   n_str_to_dump = bug_git_util.getAllDevelopmentMetricList(no_deftect_files, repo_path, no_bug_mapping, nf2b, False)
-  
-  # dumped no metrics 
+
+  # dumped no metrics
   #n_file_to_save = repo_path + "/" + "n_metrics.csv"
-  ## 60 metrics now 
-  n_file_to_save = repo_path + "/" + "n_steroided_metrics.csv"  
+  ## 60 metrics now
+  n_file_to_save = repo_path + "/" + "n_ninety_metrics.csv"
   n_dump_status = bug_git_util.dumpContentIntoFile(n_str_to_dump, n_file_to_save)
   print "Dumped a CSV file of {} bytes".format(n_dump_status)
-  
-else: 
-  print "Didn't find non-defected files! WOW!!"    
+
+else:
+  print "Didn't find non-defected files! WOW!!"
 print "#"*75
 print "Count fo files was:", len(all_files)
 print "The puppet to all file ratio was:", pp_to_all_file_ratio
