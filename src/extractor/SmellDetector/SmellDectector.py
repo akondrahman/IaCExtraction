@@ -487,7 +487,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         #Metric-74: count of include declarations : ratio : per blocks
         incl_cnt_per_block = float(count_of_includes) / float(cnt_blocks)
         metric_str_for_file = metric_str_for_file + str(incl_cnt_per_block) + ","
-        print "include-count per blocks:{},include-count:{}, block:{}".format(incl_cnt_per_block, count_of_includes, cnt_blocks)
+        #print "include-count per blocks:{},include-count:{}, block:{}".format(incl_cnt_per_block, count_of_includes, cnt_blocks)
 
         #Metric-75: count of req_packs declarations : ratio : per blocks
         req_pack_cnt_per_block = float(req_pack_count) / float(cnt_blocks)
@@ -506,7 +506,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         #Metric-77: count of req_packs  : ratio : per lines
         req_pack_cnt_per_lines = float(req_pack_count) / float(no_lines_wo_comm_fil)
         metric_str_for_file = metric_str_for_file + str(req_pack_cnt_per_lines) + ","
-        print "req_pack-count per lines:{},req_pack-count:{}, lines:{}".format(req_pack_cnt_per_lines, req_pack_count, no_lines_wo_comm_fil)
+        #print "req_pack-count per lines:{},req_pack-count:{}, lines:{}".format(req_pack_cnt_per_lines, req_pack_count, no_lines_wo_comm_fil)
 
         #Metric-78: count of requires  : ratio : per lines
         '''
@@ -515,7 +515,7 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         '''
         require_per_lines = float(count_of_requi) / float(no_lines_wo_comm_fil)
         metric_str_for_file = metric_str_for_file + str(require_per_lines) + ","
-        print "requires per lines:{},requires:{}, lines:{}".format(require_per_lines, count_of_requi, no_lines_wo_comm_fil)
+        #print "requires per lines:{},requires:{}, lines:{}".format(require_per_lines, count_of_requi, no_lines_wo_comm_fil)
 
 
         #Metric-79: count of variable assignments  : ratio : per lines
@@ -524,54 +524,59 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         '''
         var_per_lines = float(var_assign_cnt) / float(no_lines_wo_comm_fil)
         metric_str_for_file = metric_str_for_file + str(var_per_lines) + ","
-        print "var. assig. per lines:{},var. assi.:{}, lines:{}".format(var_per_lines, var_assign_cnt, no_lines_wo_comm_fil)
+        #print "var. assig. per lines:{},var. assi.:{}, lines:{}".format(var_per_lines, var_assign_cnt, no_lines_wo_comm_fil)
 
         #Metric-80: count of variable assignments  : ratio : ''=>''
         '''
             var_assi_cnt refers to '$hagu =  'lol' type Puppet statements
             reff_cnt            to 'path' => '/usr/bin/' type Puppet statements
         '''
+        if reff_cnt==0:
+           reff_cnt = float(reff_cnt) + 0.50
         var_to_reffs = float(var_assign_cnt) / float(reff_cnt)
         metric_str_for_file = metric_str_for_file + str(var_to_reffs) + ","
-        print "var. to reffs:{},var. assi.:{},reffs:{}".format(var_to_reffs, var_assign_cnt, reff_cnt)
+        #print "var. to reffs:{},var. assi.:{},reffs:{}".format(var_to_reffs, var_assign_cnt, reff_cnt)
 
 
         #Metric-81: count of reffs (''=>''): ratio : block (= class + define)
         reffs_per_block = float(reff_cnt) / float(cnt_blocks)
         metric_str_for_file = metric_str_for_file + str(reffs_per_block) + ","
-        print "reffs2blocks:{},reffs:{},blocks:{}".format(reffs_per_block, reff_cnt, cnt_blocks)
+        #print "reffs2blocks:{},reffs:{},blocks:{}".format(reffs_per_block, reff_cnt, cnt_blocks)
 
         #Metric-82: count of reffs (''=>''): ratio : per lines
         reff_cnt_per_lines = float(reff_cnt) / float(no_lines_wo_comm_fil)
         metric_str_for_file = metric_str_for_file + str(reff_cnt_per_lines) + ","
-        print "'=>' counts per lines:{},=>:{}, lines:{}".format(reff_cnt_per_lines, reff_cnt, no_lines_wo_comm_fil)
+        #print "'=>' counts per lines:{},=>:{}, lines:{}".format(reff_cnt_per_lines, reff_cnt, no_lines_wo_comm_fil)
 
         #Metric-83: count of reffs (''=>''): ratio : total resources
         '''
            total_reso_cnt_per_file represents all resources used in the file
         '''
+        if total_reso_cnt_per_file==0:
+           total_reso_cnt_per_file = float(total_reso_cnt_per_file) + 0.50
         reff_cnt2total_reso = float(reff_cnt) / float(total_reso_cnt_per_file)
         metric_str_for_file = metric_str_for_file + str(reff_cnt2total_reso) + ","
-        print "'=>' counts per lines:{},=>:{}, tot-reso:{}".format(reff_cnt2total_reso, reff_cnt, total_reso_cnt_per_file)
+        #print "'=>' counts per lines:{},=>:{}, tot-reso:{}".format(reff_cnt2total_reso, reff_cnt, total_reso_cnt_per_file)
 
         #Metric-84: count of reffs (''=>''): ratio : required package counts
         '''
            req_pack_count refers to 'require_package()'
         '''
+        if req_pack_count==0:
+           req_pack_count = float(req_pack_count) + 0.50
         reff_cnt2req_pack = float(reff_cnt) / float(req_pack_count)
         metric_str_for_file = metric_str_for_file + str(reff_cnt2req_pack) + ","
-        print "'=>' counts per require_package:{},=>:{}, req_pkg:{}".format(reff_cnt2req_pack, reff_cnt, req_pack_count)
+        #print "'=>' counts per require_package:{},=>:{}, req_pkg:{}".format(reff_cnt2req_pack, reff_cnt, req_pack_count)
 
         #Metric-85: count of reffs (''=>''): ratio : required include counts
         '''
            count_of_includes refers to 'include::' , not 'include_packages()'
         '''
+        if count_of_includes==0:
+           count_of_includes = float(count_of_includes) + 0.50
         reff_cnt2incl_cnt = float(reff_cnt) / float(count_of_includes)
         metric_str_for_file = metric_str_for_file + str(reff_cnt2incl_cnt) + ","
-        print "'=>'counts 2 include count:{},=>:{}, incl:{}".format(reff_cnt2incl_cnt, reff_cnt, count_of_includes)
-
-
-
+        #print "'=>'counts 2 include count:{},=>:{}, incl:{}".format(reff_cnt2incl_cnt, reff_cnt, count_of_includes)
         '''
            Append everyhting !!!
         '''
