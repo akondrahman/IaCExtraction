@@ -9,15 +9,15 @@ Created on Wed Sep  7 10:15:49 2016
 
 from SmellDetector import SmellDectector
 from git import Repo
-import  subprocess, os, time, datetime , numpy as np, re 
+import  subprocess, os, time, datetime , numpy as np, re
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 getCheckFilesFromHashCommand="git diff-tree --no-commit-id --name-only --pretty=tformat:%h -r"
 #getCheckFilesFromHashCommand="git diff-tree --no-commit-id --name-only -r"
-def getPuppetFilesOfRepo(repo_dir_absolute_path): 
-    
-  # unused but improtant command to add strings to bash output: | sed 's/$/,/'  
+def getPuppetFilesOfRepo(repo_dir_absolute_path):
+
+  # unused but improtant command to add strings to bash output: | sed 's/$/,/'
   bashCommand= " find " + repo_dir_absolute_path + "  -type f -name '*.pp' ;"
   pupp_file_output = subprocess.check_output(['bash','-c', bashCommand])
   output_as_list = pupp_file_output.split('\n')
@@ -33,19 +33,19 @@ def getPuppetFilesOfRepo(repo_dir_absolute_path):
 
 
 def getPuppRelatedCommits(repo_dir_absolute_path, ppListinRepo, branchName='master'):
-  mappedPuppetList=[]  
-  track_exec_cnt = 0 
+  mappedPuppetList=[]
+  track_exec_cnt = 0
   repo_  = Repo(repo_dir_absolute_path)
   all_commits = list(repo_.iter_commits(branchName))
   print "Total commits in this branch ", len(all_commits)
   for each_commit in all_commits:
-    track_exec_cnt = track_exec_cnt + 1 
+    track_exec_cnt = track_exec_cnt + 1
     #print "\t \t ***So far {} commits processed*** ".format( track_exec_cnt )
     #tree_for_commit = each_commit.tree  ## this is giivng systematic overshhoting of commits
-    #tree_diff = repo_.git.diff(tree_for_commit)  
-    #print each_commit    
-    # naother apporach 
-    cmd_of_interrest1 = "cd  " + repo_dir_absolute_path + " ; "    
+    #tree_diff = repo_.git.diff(tree_for_commit)
+    #print each_commit
+    # naother apporach
+    cmd_of_interrest1 = "cd  " + repo_dir_absolute_path + " ; "
     cmd_of_interrest2 = "git show --name-status " + str(each_commit)  +  "  | awk '/.pp/ {print $2}'"
     cmd_of_interrest = cmd_of_interrest1 + cmd_of_interrest2
     commit_of_interest  = subprocess.check_output(['bash','-c', cmd_of_interrest])
@@ -58,144 +58,164 @@ def getPuppRelatedCommits(repo_dir_absolute_path, ppListinRepo, branchName='mast
        mappedPuppetList.append(mapped_tuple)
        #print "-"*50
   #print mappedPuppetList
-  print "Total matched puppet commits", len(mappedPuppetList)     
-  return mappedPuppetList 
-  
+  print "Total matched puppet commits", len(mappedPuppetList)
+  return mappedPuppetList
+
 
 
 def getPuppRelatedBugInfo(repo_path_param, repo_branch_param, pupp_commits_mapping):
-  track_exec_cnt = 0 
-  pupp_bug_list = []  
+  track_exec_cnt = 0
+  pupp_bug_list = []
   for tuple_ in pupp_commits_mapping:
-    track_exec_cnt =   track_exec_cnt + 1 
-    #print "\t \t ***So far {} commits processed*** ".format( track_exec_cnt ) 
+    track_exec_cnt =   track_exec_cnt + 1
+    #print "\t \t ***So far {} commits processed*** ".format( track_exec_cnt )
     file_ = tuple_[0]
     commit_ = tuple_[1]
-    msg_commit =  commit_.message.lower() 
+    msg_commit =  commit_.message.lower()
     #if (('fix' in msg_commit)or ('bug' in msg_commit)or ('patch' in msg_commit)):
-    if ('merg' in msg_commit) or ('no bug' in msg_commit) or ('debug' in msg_commit) or ('out' in msg_commit) or ('revert' in msg_commit):    
+    if ('merg' in msg_commit) or ('no bug' in msg_commit) or ('debug' in msg_commit) or ('out' in msg_commit) or ('revert' in msg_commit):
         tup_ = (file_, msg_commit, 'n', msg_commit)
     else:
-      #if (  ('bug' in msg_commit) or ('fix' in msg_commit) ):                
+      #if (  ('bug' in msg_commit) or ('fix' in msg_commit) ):
       #if ( getBugIDMatch(msg_commit)or ('fix' in msg_commit) ):
-      if ('bug' in msg_commit) :        
-        #print "$$ Defect detected @", msg_commit    
+      if ('bug' in msg_commit) :
+        #print "$$ Defect detected @", msg_commit
         tup_ = (file_, msg_commit, 'y', msg_commit)
       else:
         tup_ = (file_, msg_commit, 'n', msg_commit)
-    pupp_bug_list.append(tup_)            
-  #print pupp_bug_list  
+    pupp_bug_list.append(tup_)
+  #print pupp_bug_list
   return pupp_bug_list
 
-def splitBugMapping(bug_map_param): 
+def splitBugMapping(bug_map_param):
   tupToRet = ()
-  y_bug_list = [] 
-  n_bug_list = [] 
+  y_bug_list = []
+  n_bug_list = []
   for elem in bug_map_param:
-    status_ = elem[2] 
+    status_ = elem[2]
     if status_=='y':
       y_bug_list.append(elem)
-    else: 
+    else:
       n_bug_list.append(elem)
-  print "len-y:{}, len-n:{}".format(len(y_bug_list), len(n_bug_list))  
-  tupToRet=(y_bug_list, n_bug_list)    
-  return tupToRet    
+  print "len-y:{}, len-n:{}".format(len(y_bug_list), len(n_bug_list))
+  tupToRet=(y_bug_list, n_bug_list)
+  return tupToRet
 
 
 def getFilesFromMappingInfo(mappingListParam, bugFlag=True):
-  list_of_files = []    
-  for tuple_ in mappingListParam:  
+  list_of_files = []
+  for tuple_ in mappingListParam:
      file_in_tuple = tuple_[0]
      list_of_files.append(file_in_tuple)
-  list_of_files = np.unique(list_of_files)   
-  return list_of_files   
+  list_of_files = np.unique(list_of_files)
+  return list_of_files
 
 
 
 def getRelPathOfFiles(all_pp_param, repo_dir_absolute_path):
-  common_path = repo_dir_absolute_path  
+  common_path = repo_dir_absolute_path
   files_relative_paths = [os.path.relpath(path, common_path) for path in all_pp_param]
-     
+
   #print files_relative_paths
   return files_relative_paths
 def giveTimeStamp():
   tsObj = time.time()
   strToret = datetime.datetime.fromtimestamp(tsObj).strftime('%Y-%m-%d %H:%M:%S')
-  return strToret  
+  return strToret
 def getGitChurnOfRepo(repo_abs_pathP):
-  dictToRet={}    
+  dictToRet={}
   churn_magic_sauce = "git log --all -M -C --name-only --format='format:' $@ | sort | grep -v '^$' | uniq -c | sort -n "
-  awk_magic_sauce = "| awk '{print $1,$2}' | sed -e  's/ /,/g'"   
+  awk_magic_sauce = "| awk '{print $1,$2}' | sed -e  's/ /,/g'"
   churnCmd="cd " + repo_abs_pathP  +" ; " +  churn_magic_sauce  + awk_magic_sauce
   repo_churn_output = subprocess.check_output(['bash','-c', churnCmd])
   repo_churn_output = repo_churn_output.split('\n')
-  repo_churn_output = [x_ for x_ in repo_churn_output if x_!='']  
+  repo_churn_output = [x_ for x_ in repo_churn_output if x_!='']
   #print repo_churn_output
-  for fileElem in repo_churn_output:  
+  for fileElem in repo_churn_output:
     splitted_ = fileElem.split(',')
     cnt_splitted = splitted_[0]
     fileName_Splitted = splitted_[1]
-    if '.pp' in fileName_Splitted:    
+    if '.pp' in fileName_Splitted:
       dictToRet[fileName_Splitted]=cnt_splitted
   #print dictToRet
-  return dictToRet    
-awkMagic_author = "| awk '{ print $2}' ;" 
+  return dictToRet
+awkMagic_author = "| awk '{ print $2}' ;"
 def getRelevantCommitCount(file_abs_path, allBugMapping, bugFlag=True):
-  file_cnt = 0 	
+  file_cnt = 0
   if bugFlag:
     for tuple_ in allBugMapping:
-      #print "asi mama:", tuple_   
-      #print "khaisi:", file_abs_path    	
+      #print "asi mama:", tuple_
+      #print "khaisi:", file_abs_path
       file_ = tuple_[0]
-      if file_==file_abs_path:    	
-        file_cnt = file_cnt + 1 
+      if file_==file_abs_path:
+        file_cnt = file_cnt + 1
   else:
-    file_cnt =  0   
-  return file_cnt  
-  
+    file_cnt =  0
+  return file_cnt
+
 
 
 def getBugIDMatch(messageToSearchParam):
-  valToRet=False  
-  #matched_elems = re.findall(r'[\bbug\b].*[0-9]+', messageToSearchParam) 
-  matched_elems = re.findall(r'[\bbug\b]', messageToSearchParam)   
+  valToRet=False
+  #matched_elems = re.findall(r'[\bbug\b].*[0-9]+', messageToSearchParam)
+  matched_elems = re.findall(r'[\bbug\b]', messageToSearchParam)
   if len(matched_elems) > 0:
-    valToRet = True        
+    valToRet = True
   return valToRet
 
 def getChurnForFile(dictParam, file_rel_pathParam):
   cntToRet = '0'
   if file_rel_pathParam in dictParam:
-    cntToRet = dictParam[file_rel_pathParam]      
-  return cntToRet    
+    cntToRet = dictParam[file_rel_pathParam]
+  return cntToRet
 
 def getBugMessageForFile(file_abs_path, allBugMapping):
-  msg2ret=""  
+  msg2ret=""
   for tuple_ in allBugMapping:
       file_ = tuple_[0]
-      if file_==file_abs_path:    
+      if file_==file_abs_path:
         msg2ret= msg2ret  + tuple_[-1]  + '|'
   return msg2ret
 
-def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, msgfile_, bugFlag=True): 
-  file_churn_dict = getGitChurnOfRepo(repo_abs_path) 
+def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, msgfile_, bugFlag=True):
+  file_churn_dict = getGitChurnOfRepo(repo_abs_path)
   headerStr1="Filename,max_nest_depth,class_dec,def_dec,pack_dec,file_dec,serv_dec,exec_dec,cohe_meth,body_txt_size,"
+  # 9 metrics
   headerStr2="lines_w_comm,lines_wo_comm,outerelems,file_reso,service_reso,package_reso,hard_coded_stmt,node_decl,parent_class,"
+  # 9 metrics
   headerStr3="d_class_dec,d_define_dec,d_pack_dec,d_file_dec,d_serv_dec,d_exec_dec,d_outerlem,d_hardcode,"
+  # 8 metrics
   headerStr4="cnt_include,cnt_git,cnt_req,cnt_noti,cnt_ensur,cnt_alias,cnt_subsc,cnt_consum,cnt_export,cnt_sched,cnt_of_stage,"
+  # 11 metrics
   headerStr5="cnt_tag,cnt_noop,cnt_before,cnt_audit,meta_param_total_cnt,cnt_inheri,cnt_sql,non_pp_cnt,mcx_cnt,rsyslog_cnt,"
-  headerStr6="validhash_cnt,reqpack_cnt,hieraincl_cnt,inclpacks_cnt,ensurepacks_cnt,if_cnt,undef_cnt,"        
-  headerStr7="avgparam_cnt,mediparam_cnt,maxparam_cnt,min_param_cnt,var_assi_cnt,"  
-  headerStr8="churn,NUdevCnt,UdevCnt,bugCnt,defectStatus"  
-
-  headerStr = headerStr1 + headerStr2 + headerStr3 +  headerStr4 +  headerStr5 + headerStr6 + headerStr7 + headerStr8 + "\n"
-  #print file_churn_dict 
+  # 10 metrics
+  headerStr6="validhash_cnt,reqpack_cnt,hieraincl_cnt,inclpacks_cnt,ensurepacks_cnt,if_cnt,undef_cnt,"
+  # 7 metrics
+  headerStr7="avgparam_cnt,mediparam_cnt,maxparam_cnt,min_param_cnt,var_assi_cnt,"
+  # 5 metrics
+  headerStr8="case_stmt_cnt,env_cnt,crone_cnt,reff_cnt,total_reso_cnt_per_file,total_reso_cnt_per_blocks,"
+  # 6 metrics
+  headerStr9="total_reso_cnt_per_lines,svc_cnt_per_blocks,inc_per_svc_cnt,inc_per_pkg_cnt,inc_per_file_cnt,inc_per_tot_reso_cnt,"
+  # 6 metrics
+  headerStr10="inc_per_line,cron_per_line,if_cnt_per_block,incl_cnt_per_block,req_pack_cnt_per_block,pack_decl_cnt_per_block,"
+  # 6 metrics
+  headerStr11="req_pack_cnt_per_lines,require_per_lines,var_per_lines,var_to_reffs,reffs_per_block,reff_cnt_per_lines,"
+  # 6 metrics
+  headerStr12="reff_cnt2total_reso,reff_cnt2req_pack,reff_cnt2incl_cnt,"
+  # 3 metrics
+  headerStr13="churn,UdevCnt,bugCnt,defectStatus"
+  # 4 metrics
   '''
-    extra header for defect falg, used in predcition modeling 
+    In total we have 90 metrics 
+  '''
+  headerStr = headerStr1 + headerStr2 + headerStr3 +  headerStr4 +  headerStr5 + headerStr6 + headerStr7 + headerStr8 + "\n"
+  #print file_churn_dict
+  '''
+    extra header for defect falg, used in predcition modeling
   '''
   defectHeader=""
   '''
-  '''  
+  '''
   finalStr= headerStr
   for uni_file_ in uniqueFileList:
       metric_as_str_for_file=""
@@ -205,52 +225,52 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
 
       puppeteer_metrics_for_file = SmellDectector.getMetricsForFile(uni_file_)
       #print puppeteer_metrics_for_file
-      metric_as_str_for_file = metric_as_str_for_file + puppeteer_metrics_for_file     
+      metric_as_str_for_file = metric_as_str_for_file + puppeteer_metrics_for_file
 
-      # Metric-1: Churn 
+      # Metric-1: Churn
       churn_for_file = getChurnForFile(file_churn_dict, file_relative_path)
       #print "Churn:", churn_for_file
-      metric_as_str_for_file = metric_as_str_for_file + churn_for_file + ","      
+      metric_as_str_for_file = metric_as_str_for_file + churn_for_file + ","
 
-      # Metric -2 and 3: no of develoeprs involved  
+      # Metric -2 and 3: no of develoeprs involved
       developerCmd="cd " + repo_abs_path  +" ; git blame -e " + file_relative_path + awkMagic_author
       developer_output = subprocess.check_output(['bash','-c', developerCmd])
       developer_churn_output = developer_output.split('\n')
-      developer_churn_output = [x_ for x_ in developer_churn_output if x_!=''] 
-      # Metric -2: no of develoeprs involved  
-      act_dev_cnt = len(developer_churn_output)             
-      metric_as_str_for_file = metric_as_str_for_file + str(act_dev_cnt) + "," 
-      # Metric -3: no of unqiue develoeprs involved        
-      developer_churn_output = np.unique(developer_churn_output)      
+      developer_churn_output = [x_ for x_ in developer_churn_output if x_!='']
+      # Metric -2: no of develoeprs involved
+      act_dev_cnt = len(developer_churn_output)
+      metric_as_str_for_file = metric_as_str_for_file + str(act_dev_cnt) + ","
+      # Metric -3: no of unqiue develoeprs involved
+      developer_churn_output = np.unique(developer_churn_output)
       #print developer_churn_output
       developer_cnt_for_file = len(developer_churn_output)
-      #print "Developer Count:", developer_cnt_for_file 
-      ### developer_cnt_for_file presents the unique number of developers for the file             
-      metric_as_str_for_file = metric_as_str_for_file + str(developer_cnt_for_file) + ","       
+      #print "Developer Count:", developer_cnt_for_file
+      ### developer_cnt_for_file presents the unique number of developers for the file
+      metric_as_str_for_file = metric_as_str_for_file + str(developer_cnt_for_file) + ","
 
-      # Metric -4: no of bugs involved    
-      bug_cnt = getRelevantCommitCount(uni_file_, allBugMapping, bugFlag)  
-      # to handle weird values 
+      # Metric -4: no of bugs involved
+      bug_cnt = getRelevantCommitCount(uni_file_, allBugMapping, bugFlag)
+      # to handle weird values
       if bug_cnt > churn_for_file:
-        bug_cnt = bug_cnt - churn_for_file             
+        bug_cnt = bug_cnt - churn_for_file
       #print "Defect involvement count:", bug_cnt
-      metric_as_str_for_file = metric_as_str_for_file + str(bug_cnt) + ","       
+      metric_as_str_for_file = metric_as_str_for_file + str(bug_cnt) + ","
 
-      # Extra: message to bug mapping    
-      bug_msg = getBugMessageForFile(uni_file_, allBugMapping) 
+      # Extra: message to bug mapping
+      bug_msg = getBugMessageForFile(uni_file_, allBugMapping)
       bug_msg = bug_msg.replace('\n', '\t')
-      str2write= uni_file_ + "," + bug_msg 
+      str2write= uni_file_ + "," + bug_msg
       #print "LOL: ", str2write
-      print >> msgfile_, str2write      
-      
-      # Metric -4: no of commmits involved , will not be used as similar to churn   
-      # allCommitMapping doesn't have full path fo file 
-      #commit_cnt = getRelevantCommitCount(uni_file_, allCommitMapping)                
-      #print "Commit involvement count:", commit_cnt      
-      # Metric -5: timestamp   ::: attempted, but too little for a lot of effort, abadoning .... 
-      #timestamp = getListOfTimestamp(uni_file_, repo_abs_path)                
-      #print "Commit involvement count:", commit_cnt            
-      #print "FULL STR:", metric_as_str_for_file 
+      print >> msgfile_, str2write
+
+      # Metric -4: no of commmits involved , will not be used as similar to churn
+      # allCommitMapping doesn't have full path fo file
+      #commit_cnt = getRelevantCommitCount(uni_file_, allCommitMapping)
+      #print "Commit involvement count:", commit_cnt
+      # Metric -5: timestamp   ::: attempted, but too little for a lot of effort, abadoning ....
+      #timestamp = getListOfTimestamp(uni_file_, repo_abs_path)
+      #print "Commit involvement count:", commit_cnt
+      #print "FULL STR:", metric_as_str_for_file
 
       # # Extra header to faculitatte preition models : Oct 03, 2016
       # if (bugFlag):
@@ -262,28 +282,28 @@ def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, ms
       if (bugFlag):
         defectHeader = '1'
       else:
-        defectHeader = '0'         
-      
+        defectHeader = '0'
 
 
 
 
-      metric_as_str_for_file = metric_as_str_for_file +  defectHeader + ','                               
-      
+
+      metric_as_str_for_file = metric_as_str_for_file +  defectHeader + ','
 
 
 
-      ##The whole thing 
-      finalStr = finalStr + metric_as_str_for_file + "\n"      
+
+      ##The whole thing
+      finalStr = finalStr + metric_as_str_for_file + "\n"
       print "-"*50
-      
+
 
       #returnDirCommand= " cd /Users/akond/Documents/AkondOneDrive/OneDrive/Fall16-ThesisTopic/Puppeteer/"
-      returnDirCommand= " cd ."      
-      subprocess.check_output(['bash','-c', returnDirCommand])  
-      
+      returnDirCommand= " cd ."
+      subprocess.check_output(['bash','-c', returnDirCommand])
 
-  return finalStr 
+
+  return finalStr
 
 
 
@@ -291,35 +311,35 @@ def dumpContentIntoFile(strP, fileP):
   fileToWrite = open( fileP, 'w');
   fileToWrite.write(strP );
   fileToWrite.close()
-  return str(os.stat(fileP).st_size)    
-  
-  
-def getNoDefectsOnlyFiles(defected, mixed): 
+  return str(os.stat(fileP).st_size)
+
+
+def getNoDefectsOnlyFiles(defected, mixed):
   defected_set = set(defected)
   mixed_set  = set(mixed)
   diff_set = mixed_set - defected_set
   non_defect_list = list(diff_set)
-  return non_defect_list 
+  return non_defect_list
 
 
 
 
 def getRecursivelyAlFilles(repo_path):
-  all_files = []    
+  all_files = []
   for root, subFolders, _files in os.walk(repo_path):
-    all_files.append(_files)       
-  return all_files    
-  
-  
-  
-  
+    all_files.append(_files)
+  return all_files
+
+
+
+
 def getBugMessages(bugMappingParam):
   list_ =[]
   bug_msg_=""
   for tup_ in bugMappingParam:
     bug_msg_ = tup_[-1]
-    list_.append(bug_msg_)    
-  return list_ 
+    list_.append(bug_msg_)
+  return list_
 
 
 
@@ -328,21 +348,19 @@ def encodeStr(strParam):
   try:
     text = unicode(strParam, 'utf-8')
   except TypeError:
-    text =" " 
-  return text    
+    text =" "
+  return text
 
 
 
 def dumpBugMessageAsStr( bugListParam, fileParam):
-  indexCount=1   
-  #print bugListParam    
+  indexCount=1
+  #print bugListParam
   with open(fileParam, "a") as myfile_:
-    for elm in bugListParam:  
-      tmpStr = ""      
-      #elm = elm + "\n"  
-      tmpStr = tmpStr + str(indexCount) + ',' + elm  
-      tmpStr = tmpStr + '------------------------------' + '\n'           
+    for elm in bugListParam:
+      tmpStr = ""
+      #elm = elm + "\n"
+      tmpStr = tmpStr + str(indexCount) + ',' + elm
+      tmpStr = tmpStr + '------------------------------' + '\n'
       myfile_.write(tmpStr)
-      indexCount = indexCount + 1      
-
- 
+      indexCount = indexCount + 1
