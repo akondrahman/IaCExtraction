@@ -194,4 +194,24 @@ msg_file_to_save = repo_path + "/" + "bug_msgs.txt"
 msgs_as_str=bug_hg_developer.dumpBugMessageAsStr(unique_bug_msg, msg_file_to_save)
 
 #### For bug message project ::: end ::::
+
+
+
+'''
+Oct 19, 2016
+Dump all commit messages for all puppet files
+the method getPuppetMessages will dump all
+messages related to Puppet files in a text file
+The mapping of puppet files to the commit messages
+is available as _bug_msg.csv and n_bug_msg.csv
+'bug_msgs.txt' only represents the messages to
+y_bug_files
+'''
+all_pupp_msgs = bug_git_util.getPuppMessages(yes_bug_mapping, no_bug_mapping)
+unique_pupp_msg = np.unique(all_pupp_msgs)
+print "Count of all unique Puppet messages (both yes and no):", len(unique_pupp_msg)
+print "#"*75
+msg_file_pupp = repo_path + "/" + "pupp_bug_msgs.txt"
+bug_git_util.dumpBugMessageAsStr(unique_pupp_msg, msg_file_pupp)
+print "#"*75
 print "Ended at:", giveTimeStamp()

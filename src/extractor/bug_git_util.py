@@ -366,3 +366,19 @@ def dumpBugMessageAsStr( bugListParam, fileParam):
       tmpStr = tmpStr + '------------------------------' + '\n'
       myfile_.write(tmpStr)
       indexCount = indexCount + 1
+
+'''
+Oct 19, 2016
+This method grabs all the messages for both yes and no defected files
+and dumps them in a aseperate file
+'''
+def getPuppMessages(yesBugMappingParam, noBugMappingParam):
+  list_ =[]
+  bug_msg_=""
+  for tup_ in yesBugMappingParam:
+    bug_msg_ = tup_[-1]
+    list_.append(bug_msg_)
+  for tup_ in noBugMappingParam:
+    bug_msg_ = tup_[-1]
+    list_.append(bug_msg_)
+  return list_

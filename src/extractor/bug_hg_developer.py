@@ -268,3 +268,22 @@ def getBugMessages(bugMappingParam):
     bug_msg_ = tup_[-1]
     list_.append(bug_msg_)
   return list_
+
+
+
+
+'''
+Oct 19, 2016
+This method grabs all the messages for both yes and no defected files
+and dumps them ina aseperate file
+'''
+def getPuppMessages(yesBugMappingParam, noBugMappingParam):
+  list_ =[]
+  bug_msg_=""
+  for tup_ in yesBugMappingParam:
+    bug_msg_ = tup_[-1]
+    list_.append(bug_msg_)
+  for tup_ in noBugMappingParam:
+    bug_msg_ = tup_[-1]
+    list_.append(bug_msg_)
+  return list_
