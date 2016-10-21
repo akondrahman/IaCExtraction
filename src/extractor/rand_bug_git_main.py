@@ -12,7 +12,7 @@ import bug_git_util
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
-def rand_bug_git_main(repo_name_param, branchParam, randRangeParam):
+def rand_bug_git_main(repo_name_param, branchParam, randRangeParam, msgCntP):
   print "Started at:", bug_git_util.giveTimeStamp()
 
   # do not end path with '/'
@@ -132,7 +132,7 @@ def rand_bug_git_main(repo_name_param, branchParam, randRangeParam):
   print "#"*75
   rand_msg_file_pupp = repo_path + "/" + "rand_pupp_bug_msgs.txt"
   qual_coding_file =   repo_path + "/" + "rand_qual_coding.csv"
-  bug_git_util.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam)
+  bug_git_util.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP)
   print "#"*75
   print "Ended at:", bug_git_util.giveTimeStamp()
   print "#"*75
@@ -140,4 +140,5 @@ def rand_bug_git_main(repo_name_param, branchParam, randRangeParam):
 '''
 Call the function
 '''
-rand_bug_git_main('fuel-library', 'master', 322)
+# 1. project name  2. branch name  3.  95% sample  4. all messages 
+rand_bug_git_main('puppet-oslo', 'master', 31, 34)
