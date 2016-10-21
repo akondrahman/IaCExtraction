@@ -10,7 +10,7 @@ Created on Wed Sep  7 10:15:49 2016
 from SmellDetector import SmellDectector
 from git import Repo
 import  subprocess, os, time, datetime , numpy as np, re
-import sys
+import sys, random
 reload(sys)
 sys.setdefaultencoding('utf8')
 getCheckFilesFromHashCommand="git diff-tree --no-commit-id --name-only --pretty=tformat:%h -r"
@@ -382,3 +382,24 @@ def getPuppMessages(yesBugMappingParam, noBugMappingParam):
     bug_msg_ = tup_[-1]
     list_.append(bug_msg_)
   return list_
+'''
+Oct 21, 2016
+'''
+def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qual_coding_file_param, randRangeParam):
+  indexCount=1
+  rand_indices = [x+1 for x in range(randRangeParam)]
+  random.shuffle(rand_indices)
+  qual_mapping_str=""
+  #print bugListParam
+  with open(rand_msg_file_pupp_param, "a") as myfile_:
+    for elm in unique_pupp_msg_papram:
+       if indexCount in rand_indices:
+        tmpStr = ""
+        tmpStr = tmpStr + str(indexCount) + ',' + elm
+        tmpStr = tmpStr + '\n' + '------------------------------' + '\n'
+        myfile_.write(tmpStr)
+        indexCount = indexCount + 1
+        qual_mapping_str = qual_mapping_str + str(indexCount) + "," + "\n"
+
+
+  dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)  

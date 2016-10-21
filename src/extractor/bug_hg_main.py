@@ -108,7 +108,7 @@ print "Started at:", giveTimeStamp()
 print "#"*75
 # repo_path="/Users/akond/PUPP_REPOS/v2/mozilla_releng_only/puppet"
 # repo_branch="master"
-repo_path="/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet"
+repo_path="/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet"
 repo_branch="master"
 bashCommand= " cd " + repo_path  +" ; hg log -p -r "
 repo_complete = hglib.open(repo_path)
@@ -207,11 +207,11 @@ is available as _bug_msg.csv and n_bug_msg.csv
 'bug_msgs.txt' only represents the messages to
 y_bug_files
 '''
-all_pupp_msgs = bug_git_util.getPuppMessages(yes_bug_mapping, no_bug_mapping)
+all_pupp_msgs = bug_hg_developer.getPuppMessages(yes_bug_mapping, no_bug_mapping)
 unique_pupp_msg = np.unique(all_pupp_msgs)
 print "Count of all unique Puppet messages (both yes and no):", len(unique_pupp_msg)
 print "#"*75
 msg_file_pupp = repo_path + "/" + "pupp_bug_msgs.txt"
-bug_git_util.dumpBugMessageAsStr(unique_pupp_msg, msg_file_pupp)
+bug_hg_developer.dumpBugMessageAsStr(unique_pupp_msg, msg_file_pupp)
 print "#"*75
 print "Ended at:", giveTimeStamp()
