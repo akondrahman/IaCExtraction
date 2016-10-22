@@ -10,7 +10,7 @@ Created on Wed Sep  7 10:15:49 2016
 from SmellDetector import SmellDectector
 from git import Repo
 import  subprocess, os, time, datetime , numpy as np, re
-import sys, random
+import sys, random, csv
 reload(sys)
 sys.setdefaultencoding('utf8')
 getCheckFilesFromHashCommand="git diff-tree --no-commit-id --name-only --pretty=tformat:%h -r"
@@ -402,3 +402,20 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
        indexCount = indexCount + 1
 
   dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)
+'''
+Read projects from csv file, for eligible projects
+'''
+def getEligibleProjectsFromCSVForRandAnalysis(fileNameParam):
+  repo_list = []
+  with open(fileNameParam, 'rU') as f:
+    reader = csv.reader(f)
+    for row in reader:
+      subList = []
+      name_ = row[0]
+      subList.append(name_)
+      srs__ = int(row[1])  # coutn of samples determined by 95% CI
+      subList.append(srs__)
+      full_ = int(row[2])  # count of all samples related to puppet
+      subList.append(full_)
+      repo_list.append(subList)
+  return repo_list

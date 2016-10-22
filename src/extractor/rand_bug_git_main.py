@@ -12,11 +12,11 @@ import bug_git_util
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
-def rand_bug_git_main(repo_name_param, branchParam, randRangeParam, msgCntP):
+def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam, msgCntP):
   print "Started at:", bug_git_util.giveTimeStamp()
 
   # do not end path with '/'
-  repo_path="/Users/akond/PUPP_REPOS/openstack-downloads/"+repo_name_param
+  repo_path="/Users/akond/PUPP_REPOS/"+orgParamName+"/"+repo_name_param
   repo_branch=branchParam
 
   # do not end path with '/'
@@ -138,7 +138,18 @@ def rand_bug_git_main(repo_name_param, branchParam, randRangeParam, msgCntP):
   print "#"*75
 
 '''
+get the whole list of eligible projects
+'''
+orgName='openstack-downloads'
+fileName="/Users/akond/PUPP_REPOS/"+orgName+'/'+'eligible_repos.csv'
+elgibleProjects=bug_git_util.getEligibleProjectsFromCSVForRandAnalysis(fileName)
+
+'''
 Call the function
 '''
-# 1. project name  2. branch name  3.  95% sample  4. all messages 
-rand_bug_git_main('puppet-oslo', 'master', 31, 34)
+for proj_ in elgibleProjects:
+  # 0. org name: 1. project name  2. branch name  3.  95% sample  4. all messages
+  #rand_bug_git_main('puppet-oslo', 'master', 31, 34)
+  print "Processing ", proj_
+  rand_bug_git_main(orgName, proj_[0], 'master', proj_[1], proj_[2])
+  print "="*75
