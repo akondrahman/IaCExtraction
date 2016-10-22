@@ -8,7 +8,7 @@ Created on Wed Sep  7 15:30:41 2016
 
 
 from SmellDetector import SmellDectector
-import os , subprocess, numpy as np
+import csv, os , random,  subprocess, numpy as np
 awkMagic_author = "| awk '{ print $1}'   | sed -e 's/ /,/g' ;"
 #only interested in the first field, make outptu ocmma seprated
 awkMagic_churn  = "| awk '{ print $2}'   | sed -e 's/ /,/g' ;"
@@ -287,3 +287,45 @@ def getPuppMessages(yesBugMappingParam, noBugMappingParam):
     bug_msg_ = tup_[-1]
     list_.append(bug_msg_)
   return list_
+'''
+Oct 21, 2016
+'''
+def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qual_coding_file_param, randRangeParam, msgCntParam):
+  indexCount=1
+  rand_indices = [random.randint(1, msgCntParam) for x in xrange(randRangeParam)]
+  #print len(rand_indices)
+  qual_mapping_str=""
+  #print bugListParam
+  with open(rand_msg_file_pupp_param, "a") as myfile_:
+    for elm in unique_pupp_msg_papram:
+       if indexCount in rand_indices:
+          tmpStr = ""
+          tmpStr = tmpStr + str(indexCount) + ',' + elm
+          tmpStr = tmpStr + '\n' + '------------------------------' + '\n'
+          myfile_.write(tmpStr)
+          qual_mapping_str = qual_mapping_str + str(indexCount) + "," + "\n"
+       indexCount = indexCount + 1
+
+  dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)
+
+
+
+
+
+'''
+Read projects from csv file, for eligible projects
+'''
+def getEligibleProjectsFromCSVForRandAnalysis(fileNameParam):
+  repo_list = []
+  with open(fileNameParam, 'rU') as f:
+    reader = csv.reader(f)
+    for row in reader:
+      subList = []
+      name_ = row[0]
+      subList.append(name_)
+      srs__ = int(row[1])  # coutn of samples determined by 95% CI
+      subList.append(srs__)
+      full_ = int(row[2])  # count of all samples related to puppet
+      subList.append(full_)
+      repo_list.append(subList)
+  return repo_list
