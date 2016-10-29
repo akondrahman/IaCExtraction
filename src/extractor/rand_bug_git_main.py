@@ -126,19 +126,20 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   Oct 21, 2016
   get randomly selected bug messages for qual. coding
   '''
-  all_pupp_msgs = bug_git_util.getPuppMessages(yes_bug_mapping, no_bug_mapping)
+  all_pupp_msgs, pupp_to_msgs_dict = bug_git_util.getPuppMessages(yes_bug_mapping, no_bug_mapping)
   unique_pupp_msg = np.unique(all_pupp_msgs)
   print "Count of all unique Puppet messages (both yes and no):", len(unique_pupp_msg)
   print "#"*75
+  # pupp_to_msgs_dict contains puppet files as dict keys, and the values are the corresponding messages
   rand_msg_file_pupp = repo_path + "/" + "rand_pupp_bug_msgs.txt"
   qual_coding_file   = repo_path + "/" + "rand_qual_coding.csv"
   '''
   Added Oct 29, 2016
   '''
-  msg_to_id_fileP =   repo_path + "/" + "msg_to_id_map.txt"
+  msg_to_id_fileP =   repo_path + "/" + "msg_to_id_map.csv"
   '''
   '''
-  bug_git_util.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, msg_to_id_fileP)
+  bug_git_util.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, pupp_to_msgs_dict, msg_to_id_fileP)
   print "#"*75
   print "Ended at:", bug_git_util.giveTimeStamp()
   print "#"*75

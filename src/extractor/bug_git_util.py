@@ -374,18 +374,23 @@ and dumps them in a aseperate file
 '''
 def getPuppMessages(yesBugMappingParam, noBugMappingParam):
   list_ =[]
+  dict2ret={}
   bug_msg_=""
   for tup_ in yesBugMappingParam:
     bug_msg_ = tup_[-1]
     list_.append(bug_msg_)
+    fileName = tup_[0]
+    dict2ret[fileName] = bug_msg_
   for tup_ in noBugMappingParam:
     bug_msg_ = tup_[-1]
     list_.append(bug_msg_)
-  return list_
+    fileName = tup_[0]
+    dict2ret[fileName] = bug_msg_
+  return list_, dict2ret
 '''
 Oct 21, 2016
 '''
-def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qual_coding_file_param, randRangeParam, msgCntParam, msg_to_id_file_param):
+def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qual_coding_file_param, randRangeParam, msgCntParam, pupp_to_msgs_dict_param, msg_to_id_file_param):
   indexCount=1
   rand_indices = [random.randint(1, msgCntParam) for x in xrange(randRangeParam)]
   #print len(rand_indices)
@@ -400,7 +405,7 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
   #print bugListParam
   with open(rand_msg_file_pupp_param, "a") as myfile_:
     for elm in unique_pupp_msg_papram:
-       elm = elm.replace('\n', '')        
+       #elm = elm.replace('\n', '')
        if indexCount in rand_indices:
           tmpStr = ""
           tmpStr = tmpStr + str(indexCount) + ',' + elm
@@ -410,7 +415,10 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
           '''
           added Oct 29, 2016
           '''
-          msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + "~" + elm  + "\n"
+          if elm in pupp_to_msgs_dict_param.values():
+            matchedFileName =  [key for key, value in pupp_to_msgs_dict_param.iteritems() if value == matchedFileName]
+            print "The matching file:" matchedFileName
+            msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + ',' + matchedFileName + ',' + '\n'
        indexCount = indexCount + 1
 
   dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)
