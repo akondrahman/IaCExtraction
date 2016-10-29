@@ -232,7 +232,13 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     print "#"*75
     rand_msg_file_pupp = repo_path + "/" + "rand_pupp_bug_msgs.txt"
     qual_coding_file =   repo_path + "/" + "rand_qual_coding.csv"
-    bug_hg_developer.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP)
+    '''
+    Added Oct 29, 2016
+    '''
+    msg_to_id_fileP =   repo_path + "/" + "msg_to_id_map.txt"
+    '''
+    '''
+    bug_hg_developer.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, msg_to_id_fileP)
     print "#"*75
     print "Ended at:", giveTimeStamp()
 

@@ -400,6 +400,7 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
   #print bugListParam
   with open(rand_msg_file_pupp_param, "a") as myfile_:
     for elm in unique_pupp_msg_papram:
+       elm = elm.replace('\n', '')        
        if indexCount in rand_indices:
           tmpStr = ""
           tmpStr = tmpStr + str(indexCount) + ',' + elm
@@ -409,7 +410,7 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
           '''
           added Oct 29, 2016
           '''
-          msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + "~" + elm + "~" + "\n"
+          msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + "~" + elm  + "\n"
        indexCount = indexCount + 1
 
   dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)
