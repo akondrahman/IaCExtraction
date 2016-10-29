@@ -380,12 +380,28 @@ def getPuppMessages(yesBugMappingParam, noBugMappingParam):
     bug_msg_ = tup_[-1]
     list_.append(bug_msg_)
     fileName = tup_[0]
-    dict2ret[fileName] = bug_msg_
+    if fileName in dict2ret:
+      tmpList = dict2ret[fileName]
+      tmpList.append(bug_msg_)
+      dict2ret[fileName] = tmpList
+      tmpList = []
+    else:
+       tmpList = [bug_msg_]
+       dict2ret[fileName] = tmpList
+       tmpList = []
   for tup_ in noBugMappingParam:
     bug_msg_ = tup_[-1]
     list_.append(bug_msg_)
     fileName = tup_[0]
-    dict2ret[fileName] = bug_msg_
+    if fileName in dict2ret:
+      tmpList = dict2ret[fileName]
+      tmpList.append(bug_msg_)
+      dict2ret[fileName] = tmpList
+      tmpList = []
+    else:
+       tmpList = [bug_msg_]
+       dict2ret[fileName] = tmpList
+       tmpList = []
   return list_, dict2ret
 '''
 Oct 21, 2016
@@ -403,6 +419,7 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
       CCERP End Oct 29
   '''
   #print bugListParam
+  matchedFileName=""
   with open(rand_msg_file_pupp_param, "a") as myfile_:
     for elm in unique_pupp_msg_papram:
        #elm = elm.replace('\n', '')
@@ -415,9 +432,9 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
           '''
           added Oct 29, 2016
           '''
-          if elm in pupp_to_msgs_dict_param.values():
-            matchedFileName =  [key for key, value in pupp_to_msgs_dict_param.iteritems() if value == matchedFileName]
-            print "The matching file:" matchedFileName
+          if checkIfMsgInDict(elm, pupp_to_msgs_dict_param):
+            matchedFileName =  getMatchingMsgName(elm, pupp_to_msgs_dict_param) # need the indexing to get the name of the list
+            print "The matching file:", matchedFileName
             msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + ',' + matchedFileName + ',' + '\n'
        indexCount = indexCount + 1
 
@@ -443,3 +460,22 @@ def getEligibleProjectsFromCSVForRandAnalysis(fileNameParam):
       subList.append(full_)
       repo_list.append(subList)
   return repo_list
+
+
+def checkIfMsgInDict(elemParam, dictToSearchParam):
+   returnVal = False
+   for k_, v_ in dictToSearchParam.items():
+    if elemParam in v_:
+       returnVal = True
+   return returnVal
+
+
+
+
+def getMatchingMsgName(msgParam, dictToSearchParam):
+    fileToRet='None'
+    for k_, v_ in dictToSearchParam.items():
+      if msgParam in v_:
+        fileToRet=k_
+
+    return fileToRet
