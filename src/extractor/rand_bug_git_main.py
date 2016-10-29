@@ -131,8 +131,14 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   print "Count of all unique Puppet messages (both yes and no):", len(unique_pupp_msg)
   print "#"*75
   rand_msg_file_pupp = repo_path + "/" + "rand_pupp_bug_msgs.txt"
-  qual_coding_file =   repo_path + "/" + "rand_qual_coding.csv"
-  bug_git_util.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP)
+  qual_coding_file   = repo_path + "/" + "rand_qual_coding.csv"
+  '''
+  Added Oct 29, 2016
+  '''
+  msg_to_id_fileP =   repo_path + "/" + "msg_to_id_map.txt"
+  '''
+  '''
+  bug_git_util.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, msg_to_id_fileP)
   print "#"*75
   print "Ended at:", bug_git_util.giveTimeStamp()
   print "#"*75

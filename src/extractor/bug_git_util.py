@@ -385,11 +385,18 @@ def getPuppMessages(yesBugMappingParam, noBugMappingParam):
 '''
 Oct 21, 2016
 '''
-def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qual_coding_file_param, randRangeParam, msgCntParam):
+def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qual_coding_file_param, randRangeParam, msgCntParam, msg_to_id_file_param):
   indexCount=1
   rand_indices = [random.randint(1, msgCntParam) for x in xrange(randRangeParam)]
   #print len(rand_indices)
   qual_mapping_str=""
+  ''' ID to message mapping for better data crucnhing
+      CCERP Start Oct 29
+  '''
+  msg_to_id_mapping_str=""
+  ''' ID to message mapping for better data crucnhing
+      CCERP End Oct 29
+  '''
   #print bugListParam
   with open(rand_msg_file_pupp_param, "a") as myfile_:
     for elm in unique_pupp_msg_papram:
@@ -399,9 +406,17 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
           tmpStr = tmpStr + '\n' + '------------------------------' + '\n'
           myfile_.write(tmpStr)
           qual_mapping_str = qual_mapping_str + str(indexCount) + "," + "\n"
+          '''
+          added Oct 29, 2016
+          '''
+          msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + "~" + elm + "~" + "\n"
        indexCount = indexCount + 1
 
   dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)
+  '''
+  added Oct 29, 2016
+  '''
+  dumpContentIntoFile(msg_to_id_mapping_str, msg_to_id_file_param)
 '''
 Read projects from csv file, for eligible projects
 '''
