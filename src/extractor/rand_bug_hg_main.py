@@ -147,7 +147,9 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     # only pass files that have bugs in them , not the whole thing!
 
     # file 2 bug mapping file
-    y_file2bug= repo_path + "/" + "y_bug_msg.csv"
+    y_file2bug= repo_path + "/" + "randFile_y_bug_msg.csv"
+    # doing cleanup tp prevent false appendig
+    bug_hg_developer.performCleanUp(y_file2bug)
     yf2b = open(y_file2bug, "w")
     y_str_to_dump = bug_hg_developer.getAllDevelopmentMetricList(files_that_have_defects, repo_path, yes_bug_mapping, yf2b)
     print "#"*75
@@ -155,7 +157,9 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     # dumped yes metrics
     #y_file_to_save = repo_path + "/" + "y_metrics.csv"
     ## 60 metrics now
-    y_file_to_save = repo_path + "/" + "y_ninety_metrics.csv"
+    y_file_to_save = repo_path + "/" + "randFile_y_ninety_metrics.csv"
+    # doing cleanup tp prevent false appendig
+    bug_hg_developer.performCleanUp(y_file_to_save)
     y_dump_status = bug_hg_developer.dumpContentIntoFile(y_str_to_dump, y_file_to_save)
     print "Dumped a CSV file of {} bytes".format(y_dump_status)
     print "#"*75
@@ -163,13 +167,17 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
       #print no_bug_mapping
       # even though I am passing , "n_bug_msg.csv" it will eb ana empty file as no bug messgaes for files that dont have bugs
       # file 2 bug mapping file
-      n_file2bug= repo_path + "/" + "n_bug_msg.csv"
+      n_file2bug= repo_path + "/" + "randFile_n_bug_msg.csv"
+      # doing cleanup tp prevent false appendig
+      bug_hg_developer.performCleanUp(n_file2bug)
       nf2b = open(n_file2bug, "w")
       n_str_to_dump = bug_hg_developer.getAllDevelopmentMetricList(no_deftect_files, repo_path, no_bug_mapping , nf2b, False)
       # dumped no metrics
       #n_file_to_save = repo_path + "/" + "n_metrics.csv"
       ## 60 metrics now
-      n_file_to_save = repo_path + "/" + "n_ninety_metrics.csv"
+      n_file_to_save = repo_path + "/" + "randFile_n_ninety_metrics.csv"
+      # doing cleanup tp prevent false appendig
+      bug_hg_developer.performCleanUp(n_file_to_save)
       n_dump_status = bug_hg_developer.dumpContentIntoFile(n_str_to_dump, n_file_to_save)
       print "Dumped a CSV file of {} bytes".format(n_dump_status)
       print "#"*75
@@ -194,7 +202,9 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     unique_bug_msg = np.unique(all_bug_msgs)
     print "Count of unique bug messages:", len(unique_bug_msg)
     print "#"*75
-    msg_file_to_save = repo_path + "/" + "bug_msgs.txt"
+    msg_file_to_save = repo_path + "/" + "randFile_bug_msgs.txt"
+    # doing cleanup tp prevent false appendig
+    bug_hg_developer.performCleanUp(msg_file_to_save)
     msgs_as_str=bug_hg_developer.dumpBugMessageAsStr(unique_bug_msg, msg_file_to_save)
 
     #### For bug message project ::: end ::::
@@ -226,19 +236,25 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     Oct 21, 2016
     get randomly selected bug messages for qual. coding
     '''
-    all_pupp_msgs = bug_hg_developer.getPuppMessages(yes_bug_mapping, no_bug_mapping)
+    all_pupp_msgs, pupp_to_msgs_dict = bug_hg_developer.getPuppMessages(yes_bug_mapping, no_bug_mapping)
     unique_pupp_msg = np.unique(all_pupp_msgs)
     print "Count of all unique Puppet messages (both yes and no):", len(unique_pupp_msg)
     print "#"*75
-    rand_msg_file_pupp = repo_path + "/" + "rand_pupp_bug_msgs.txt"
-    qual_coding_file =   repo_path + "/" + "rand_qual_coding.csv"
+    rand_msg_file_pupp = repo_path + "/" + "randFile_pupp_bug_msgs.txt"
+    # doing cleanup tp prevent false appendig
+    bug_hg_developer.performCleanUp(rand_msg_file_pupp)
+    qual_coding_file =   repo_path + "/" + "randFile_qual_coding.csv"
+    # doing cleanup tp prevent false appendig
+    bug_hg_developer.performCleanUp(qual_coding_file)
     '''
     Added Oct 29, 2016
     '''
-    msg_to_id_fileP =   repo_path + "/" + "msg_to_id_map.txt"
+    msg_to_id_fileP =   repo_path + "/" + "randFile_msg_to_file_map.txt"
+    # doing cleanup tp prevent false appendig
+    bug_hg_developer.performCleanUp(msg_to_id_fileP)
     '''
     '''
-    bug_hg_developer.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, msg_to_id_fileP)
+    bug_hg_developer.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, pupp_to_msgs_dict, msg_to_id_fileP)
     print "#"*75
     print "Ended at:", giveTimeStamp()
 
@@ -252,13 +268,13 @@ get the whole list of eligible projects
 orgName='mozilla-releng-downloads'
 fileName="/Users/akond/PUPP_REPOS/"+orgName+'/'+'eligible_repos.csv'
 elgibleProjects=bug_hg_developer.getEligibleProjectsFromCSVForRandAnalysis(fileName)
-print elgibleProjects
+#print elgibleProjects
 '''
 Call the function
 '''
 for proj_ in elgibleProjects:
   # 0. org name: 1. project name  2. branch name  3.  95% sample  4. all messages
-  #rand_bug_git_main('puppet-oslo', 'master', 31, 34)
+  #rand_bug_hg_main('puppet-oslo', 'master', 31, 34)
   print "Processing ", proj_
   rand_bug_hg_main(orgName, proj_[0], 'master', proj_[1], proj_[2])
   print "="*75

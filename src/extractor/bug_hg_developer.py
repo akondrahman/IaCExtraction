@@ -279,23 +279,44 @@ and dumps them ina aseperate file
 '''
 def getPuppMessages(yesBugMappingParam, noBugMappingParam):
   list_ =[]
+  dict2ret={}
   bug_msg_=""
   for tup_ in yesBugMappingParam:
     bug_msg_ = tup_[-1]
     list_.append(bug_msg_)
+    fileName = tup_[0]
+    if fileName in dict2ret:
+      tmpList = dict2ret[fileName]
+      tmpList.append(bug_msg_)
+      dict2ret[fileName] = tmpList
+      tmpList = []
+    else:
+       tmpList = [bug_msg_]
+       dict2ret[fileName] = tmpList
+       tmpList = []
   for tup_ in noBugMappingParam:
     bug_msg_ = tup_[-1]
     list_.append(bug_msg_)
-  return list_
+    fileName = tup_[0]
+    if fileName in dict2ret:
+      tmpList = dict2ret[fileName]
+      tmpList.append(bug_msg_)
+      dict2ret[fileName] = tmpList
+      tmpList = []
+    else:
+       tmpList = [bug_msg_]
+       dict2ret[fileName] = tmpList
+       tmpList = []
+  return list_, dict2ret
 '''
 Oct 21, 2016
 '''
-def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qual_coding_file_param, randRangeParam, msgCntParam):
+def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qual_coding_file_param, randRangeParam, msgCntParam, pupp_to_msgs_dict_param, msg_to_id_file_param):
   indexCount=1
-  rand_indices = [random.randint(1, msgCntParam) for x in xrange(randRangeParam)]
+  ##rand_indices = [random.randint(1, msgCntParam) for x in xrange(randRangeParam)]
+  rand_indices = random.sample(range(1, msgCntParam), randRangeParam)
   #print len(rand_indices)
   qual_mapping_str=""
-  #print bugListParam
   ''' ID to message mapping for better data crucnhing
       CCERP Start Oct 29
   '''
@@ -303,8 +324,12 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
   ''' ID to message mapping for better data crucnhing
       CCERP End Oct 29
   '''
+  #print bugListParam
+  matchedFileName=""
+
   with open(rand_msg_file_pupp_param, "a") as myfile_:
     for elm in unique_pupp_msg_papram:
+       #elm = elm.replace('\n', '')
        if indexCount in rand_indices:
           tmpStr = ""
           tmpStr = tmpStr + str(indexCount) + ',' + elm
@@ -314,13 +339,16 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
           '''
           added Oct 29, 2016
           '''
-          msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + "~" + elm + "~" + "\n"
+          if checkIfMsgInDict(elm, pupp_to_msgs_dict_param):
+            matchedFileName =  getMatchingFileNameForMsg(elm, pupp_to_msgs_dict_param) # need the indexing to get the name of the list
+            #print "The matching file:", matchedFileName
+            msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + ',' + matchedFileName + ',' + '\n'
        indexCount = indexCount + 1
 
   dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)
   '''
   added Oct 29, 2016
-  '''  
+  '''
   dumpContentIntoFile(msg_to_id_mapping_str, msg_to_id_file_param)
 
 
@@ -343,3 +371,31 @@ def getEligibleProjectsFromCSVForRandAnalysis(fileNameParam):
       subList.append(full_)
       repo_list.append(subList)
   return repo_list
+
+
+def checkIfMsgInDict(elemParam, dictToSearchParam):
+   returnVal = False
+   for k_, v_ in dictToSearchParam.items():
+    if elemParam in v_:
+       returnVal = True
+   return returnVal
+
+
+
+
+def getMatchingFileNameForMsg(msgParam, dictToSearchParam):
+    fileToRet='None'
+    for k_, v_ in dictToSearchParam.items():
+      if msgParam in v_:
+        fileToRet=k_
+        #print "msg:{}, listOfMsgs:{}".format(msgParam, v_)
+    return fileToRet
+
+
+def performCleanUp(fileParam):
+  '''
+     Oct 29, 2016
+     deleet the file
+  '''
+  if os.path.isfile(fileParam):
+    os.remove(fileParam)
