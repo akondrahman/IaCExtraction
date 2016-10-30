@@ -10,7 +10,7 @@ Created on Wed Sep  7 10:15:49 2016
 from SmellDetector import SmellDectector
 from git import Repo
 import  subprocess, os, time, datetime , numpy as np, re
-import sys, random, csv
+import sys, random, csv, os
 reload(sys)
 sys.setdefaultencoding('utf8')
 getCheckFilesFromHashCommand="git diff-tree --no-commit-id --name-only --pretty=tformat:%h -r"
@@ -420,6 +420,7 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
   '''
   #print bugListParam
   matchedFileName=""
+
   with open(rand_msg_file_pupp_param, "a") as myfile_:
     for elm in unique_pupp_msg_papram:
        #elm = elm.replace('\n', '')
@@ -433,8 +434,8 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
           added Oct 29, 2016
           '''
           if checkIfMsgInDict(elm, pupp_to_msgs_dict_param):
-            matchedFileName =  getMatchingMsgName(elm, pupp_to_msgs_dict_param) # need the indexing to get the name of the list
-            print "The matching file:", matchedFileName
+            matchedFileName =  getMatchingFileNameForMsg(elm, pupp_to_msgs_dict_param) # need the indexing to get the name of the list
+            #print "The matching file:", matchedFileName
             msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + ',' + matchedFileName + ',' + '\n'
        indexCount = indexCount + 1
 
@@ -472,10 +473,19 @@ def checkIfMsgInDict(elemParam, dictToSearchParam):
 
 
 
-def getMatchingMsgName(msgParam, dictToSearchParam):
+def getMatchingFileNameForMsg(msgParam, dictToSearchParam):
     fileToRet='None'
     for k_, v_ in dictToSearchParam.items():
       if msgParam in v_:
         fileToRet=k_
-
+        #print "msg:{}, listOfMsgs:{}".format(msgParam, v_)
     return fileToRet
+
+
+def performCleanUp(fileParam):
+  '''
+     Oct 29, 2016 
+     deleet the file
+  '''
+  if os.path.isfile(fileParam):
+    os.remove(fileParam)
