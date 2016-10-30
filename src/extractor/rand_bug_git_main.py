@@ -174,3 +174,9 @@ for proj_ in elgibleProjects:
   print "Processing ", proj_
   rand_bug_git_main(orgName, proj_[0], 'master', proj_[1], proj_[2])
   print "="*75
+
+'''
+Seperate function for one project only
+'''
+# rand_bug_git_main(orgName, 'puppet', 'master', 74, 8085)
+# print "="*75

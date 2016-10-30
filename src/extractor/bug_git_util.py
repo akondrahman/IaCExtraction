@@ -408,7 +408,8 @@ Oct 21, 2016
 '''
 def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qual_coding_file_param, randRangeParam, msgCntParam, pupp_to_msgs_dict_param, msg_to_id_file_param):
   indexCount=1
-  rand_indices = [random.randint(1, msgCntParam) for x in xrange(randRangeParam)]
+  ##rand_indices = [random.randint(1, msgCntParam) for x in xrange(randRangeParam)]
+  rand_indices = random.sample(range(1, msgCntParam), randRangeParam)
   #print len(rand_indices)
   qual_mapping_str=""
   ''' ID to message mapping for better data crucnhing
@@ -484,7 +485,7 @@ def getMatchingFileNameForMsg(msgParam, dictToSearchParam):
 
 def performCleanUp(fileParam):
   '''
-     Oct 29, 2016 
+     Oct 29, 2016
      deleet the file
   '''
   if os.path.isfile(fileParam):
