@@ -421,7 +421,6 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
   '''
   #print bugListParam
   matchedFileName=""
-
   with open(rand_msg_file_pupp_param, "a") as myfile_:
     for elm in unique_pupp_msg_papram:
        #elm = elm.replace('\n', '')
@@ -445,6 +444,34 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
   added Oct 29, 2016
   '''
   dumpContentIntoFile(msg_to_id_mapping_str, msg_to_id_file_param)
+
+
+
+'''
+Added Nov 01, 2016
+'''
+def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qual_coding_file_param, pupp_to_msgs_dict_param, msg_to_id_file_param):
+  '''
+  This method creates three files: one for bug messages, one for file mapping, one for qual. coding 
+  '''
+  indexCount=1
+  qual_mapping_str=""
+  msg_to_id_mapping_str=""
+  matchedFileName=""
+  with open(all_msg_file_pupp_param, "a") as myfile_:
+    for elm in unique_pupp_msg_papram:
+          tmpStr = ""
+          tmpStr = tmpStr + str(indexCount) + ',' + elm
+          tmpStr = tmpStr + '\n' + '------------------------------' + '\n'
+          myfile_.write(tmpStr)
+          qual_mapping_str = qual_mapping_str + str(indexCount) + "," + "\n"
+          if checkIfMsgInDict(elm, pupp_to_msgs_dict_param):
+            matchedFileName =  getMatchingFileNameForMsg(elm, pupp_to_msgs_dict_param) # need the indexing to get the name of the list
+            msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + ',' + matchedFileName + ',' + '\n'
+          indexCount = indexCount + 1
+  dumpContentIntoFile(msg_to_id_mapping_str, msg_to_id_file_param)
+  dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)
+
 '''
 Read projects from csv file, for eligible projects
 '''
