@@ -256,8 +256,23 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     '''
     bug_hg_developer.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, pupp_to_msgs_dict, msg_to_id_fileP)
     print "#"*75
+    '''
+    Added Nov 01, 2016
+    '''
+    ## for message to file mapping
+    full_map_fileP =   repo_path + "/" + "fullThrottle_msg_file_map.csv"
+    # doing cleanup tp prevent false appendig
+    bug_hg_developer.performCleanUp(full_map_fileP)
+    ## for qual coding
+    full_qual_fileP =   repo_path + "/" + "fullThrottle_qual_coding.csv"
+    bug_hg_developer.performCleanUp(full_qual_fileP)
+    ## for dumping messages
+    all_msg_file_pupp_param =   repo_path + "/" + "fullThrottle_msgs.txt"
+    bug_hg_developer.performCleanUp(full_qual_fileP)
+    ## call the method
+    bug_hg_developer.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP)
     print "Ended at:", giveTimeStamp()
-
+    print "#"*75
 
 
 
