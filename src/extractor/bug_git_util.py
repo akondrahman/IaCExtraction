@@ -406,7 +406,7 @@ def getPuppMessages(yesBugMappingParam, noBugMappingParam):
 '''
 Oct 21, 2016
 '''
-def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qual_coding_file_param, randRangeParam, msgCntParam, pupp_to_msgs_dict_param, msg_to_id_file_param):
+def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qual_coding_file_param, randRangeParam, msgCntParam, pupp_to_msgs_dict_param, msg_to_id_file_param, repo_path_param):
   indexCount=1
   ##rand_indices = [random.randint(1, msgCntParam) for x in xrange(randRangeParam)]
   rand_indices = random.sample(range(1, msgCntParam), randRangeParam)
@@ -426,6 +426,7 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
        #elm = elm.replace('\n', '')
        if indexCount in rand_indices:
           tmpStr = ""
+          student_str = ""
           tmpStr = tmpStr + str(indexCount) + ',' + elm
           tmpStr = tmpStr + '\n' + '------------------------------' + '\n'
           myfile_.write(tmpStr)
@@ -437,6 +438,16 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
             matchedFileName =  getMatchingFileNameForMsg(elm, pupp_to_msgs_dict_param) # need the indexing to get the name of the list
             #print "The matching file:", matchedFileName
             msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + ',' + matchedFileName + ',' + '\n'
+          '''
+          Added on Nov 07, 2016
+          '''
+          student_file_name = str(indexCount) + '_msg.txt'
+          student_str =   elm + '\n' + '------------------------------' + '\n' + 'CATEGORY:' + '\n' + '------------------------------'
+          student_folder_to_save = repo_path_param + '/' + 'student_rand' + '/'
+          if not os.path.exists(student_folder_to_save):
+             os.makedirs(student_folder_to_save)
+          student_file_to_save   = student_folder_to_save + student_file_name
+          dumpContentIntoFile(student_str, student_file_to_save)
        indexCount = indexCount + 1
 
   dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)
@@ -445,14 +456,12 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
   '''
   dumpContentIntoFile(msg_to_id_mapping_str, msg_to_id_file_param)
 
-
-
 '''
 Added Nov 01, 2016
 '''
-def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qual_coding_file_param, pupp_to_msgs_dict_param, msg_to_id_file_param):
+def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qual_coding_file_param, pupp_to_msgs_dict_param, msg_to_id_file_param, repo_path_param):
   '''
-  This method creates three files: one for bug messages, one for file mapping, one for qual. coding 
+  This method creates three files: one for bug messages, one for file mapping, one for qual. coding
   '''
   indexCount=1
   qual_mapping_str=""
@@ -468,6 +477,16 @@ def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qua
           if checkIfMsgInDict(elm, pupp_to_msgs_dict_param):
             matchedFileName =  getMatchingFileNameForMsg(elm, pupp_to_msgs_dict_param) # need the indexing to get the name of the list
             msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + ',' + matchedFileName + ',' + '\n'
+          '''
+          Added on Nov 07, 2016
+          '''
+          student_file_name = str(indexCount) + '_msg.txt'
+          student_str =   elm + '\n' + '------------------------------' + '\n' + 'CATEGORY:' + '\n' + '------------------------------'
+          student_folder_to_save = repo_path_param + '/' + 'student_full' + '/'
+          if not os.path.exists(student_folder_to_save):
+             os.makedirs(student_folder_to_save)
+          student_file_to_save   = student_folder_to_save + student_file_name
+          dumpContentIntoFile(student_str, student_file_to_save)
           indexCount = indexCount + 1
   dumpContentIntoFile(msg_to_id_mapping_str, msg_to_id_file_param)
   dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)

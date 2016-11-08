@@ -350,6 +350,14 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
   added Oct 29, 2016
   '''
   dumpContentIntoFile(msg_to_id_mapping_str, msg_to_id_file_param)
+  '''
+  Added Nov 07, 2016
+  '''
+  # student_folder_to_save = repo_path_param + '/' + 'student' + '/'
+  # if not os.path.exists(student_folder_to_save):
+  #   os.makedirs(student_folder_to_save)
+  # student_file_to_save   = student_folder_to_save + student_file_name
+  # dumpContentIntoFile(student_str, student_file_to_save)
 
 
 
