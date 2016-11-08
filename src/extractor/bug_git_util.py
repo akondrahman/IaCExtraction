@@ -487,6 +487,9 @@ def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qua
              os.makedirs(student_folder_to_save)
           student_file_to_save   = student_folder_to_save + student_file_name
           dumpContentIntoFile(student_str, student_file_to_save)
+          '''
+          Ended
+          '''
           indexCount = indexCount + 1
   dumpContentIntoFile(msg_to_id_mapping_str, msg_to_id_file_param)
   dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)

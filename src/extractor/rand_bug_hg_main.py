@@ -254,7 +254,7 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     bug_hg_developer.performCleanUp(msg_to_id_fileP)
     '''
     '''
-    bug_hg_developer.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, pupp_to_msgs_dict, msg_to_id_fileP)
+    bug_hg_developer.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, pupp_to_msgs_dict, msg_to_id_fileP, repo_path)
     print "#"*75
     '''
     Added Nov 01, 2016
@@ -270,7 +270,7 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     all_msg_file_pupp_param =   repo_path + "/" + "fullThrottle_msgs.txt"
     bug_hg_developer.performCleanUp(full_qual_fileP)
     ## call the method
-    bug_hg_developer.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP)
+    bug_hg_developer.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path)
     print "Ended at:", giveTimeStamp()
     print "#"*75
 
