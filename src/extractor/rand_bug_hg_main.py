@@ -261,6 +261,8 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     '''
     ## for message to file mapping
     full_map_fileP =   repo_path + "/" + "fullThrottle_msg_file_map.csv"
+    ## for message to id mapping
+    full_map_IDP =   repo_path + "/" + "fullThrottle_msg_ID_map.csv"
     # doing cleanup tp prevent false appendig
     bug_hg_developer.performCleanUp(full_map_fileP)
     ## for qual coding
@@ -270,7 +272,7 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     all_msg_file_pupp_param =   repo_path + "/" + "fullThrottle_msgs.txt"
     bug_hg_developer.performCleanUp(full_qual_fileP)
     ## call the method
-    bug_hg_developer.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path)
+    bug_hg_developer.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path, full_map_IDP)
     print "Ended at:", giveTimeStamp()
     print "#"*75
 

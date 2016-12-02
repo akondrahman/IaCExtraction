@@ -168,8 +168,12 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   ## for dumping messages
   all_msg_file_pupp_param =   repo_path + "/" + "fullThrottle_msgs.txt"
   bug_git_util.performCleanUp(full_qual_fileP)
+  '''
+  Dec 01, 2016
+  '''
+  id2msg_file_ =   repo_path + "/" + "fullThrottle_id_msg_map.csv"
   ## call the method
-  bug_git_util.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path)
+  bug_git_util.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path, id2msg_file_)
   print "Ended at:", bug_git_util.giveTimeStamp()
   print "#"*75
 
@@ -180,7 +184,7 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
 '''
 get the whole list of eligible projects
 '''
-orgName='wikimedia-downloads'
+orgName='openstack-downloads'
 fileName="/Users/akond/PUPP_REPOS/"+orgName+'/'+'eligible_repos.csv'
 elgibleProjects=bug_git_util.getEligibleProjectsFromCSVForRandAnalysis(fileName)
 
