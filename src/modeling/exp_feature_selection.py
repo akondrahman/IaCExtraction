@@ -7,6 +7,7 @@ Created on Sat Dec 04, 2016
 
 
 
+from sklearn.ensemble import ExtraTreesClassifier
 from sklearn import decomposition
 import Utility , numpy as np , sklearn_models
 glimpseIndex=10
@@ -27,18 +28,38 @@ label_cols = full_cols - 1
 all_labels  =  dataset_for_labels[:, label_cols]
 print "Glimpse at  labels (11th entry in dataset):", all_labels[glimpseIndex]
 print "-"*50
+'''
+Which experiment would you conduct? 1 for PCA
+'''
+exp_flag = 2
+selected_features = None
+if exp_flag==1:
+    '''
+    PCA reff:
+    1. http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA.fit
+    2. http://scikit-learn.org/dev/tutorial/statistical_inference/unsupervised_learning.html#principal-component-analysis-pca
+    '''
+    pcaObj = decomposition.PCA()
+    pcaObj.fit(all_features)
+    variance_of_features = pcaObj.explained_variance_
+    print variance_of_features
+    print "-"*50
+    selective_feature_indices = [x_ for x_ in variance_of_features if x_ > float(1) ]
+    no_features_to_use = len(selective_feature_indices)
+    print "Of all the features, we will use:", no_features_to_use
+    pcaObj.n_components=no_features_to_use
+    selected_features = pcaObj.fit_transform(all_features)
+elif exp_flag==2:
+    forestForFeatureSelection = ExtraTreesClassifier()
+    forestForFeatureSelection.fit(all_features, all_labels)
+    importances = forestForFeatureSelection.feature_importances_
+    std = np.std([tree.feature_importances_ for tree in forestForFeatureSelection.estimators_], axis=0)
+    indices = np.argsort(importances)[::-1]
+    print "Feature ranking:"
+    for ind_ in range(all_features.shape[1]):
+      print ("%d. feature %d (%f)" % (ind_ + 1, indices[ind_], importances[indices[ind_]]))
 
-
-pcaObj = decomposition.PCA()
-pcaObj.fit(all_features)
-variance_of_features = pcaObj.explained_variance_
-print variance_of_features
-print "-"*50
-selective_feature_indices = [x_ for x_ in variance_of_features if x_ > float(1) ]
-no_features_to_use = len(selective_feature_indices)
-print "Of all the features, we will use:", no_features_to_use
-pcaObj.n_components=no_features_to_use
-selected_features = pcaObj.fit_transform(all_features)
-print "Shape of transformed data:", selected_features.shape
-print "Transformed features: \n", selected_features
-print "-"*50
+# print "Shape of transformed data:", selected_features.shape
+# print "Transformed features: \n", selected_features
+# print "-"*50
+# sklearn_models.performModeling(selected_features, all_labels, 10)
