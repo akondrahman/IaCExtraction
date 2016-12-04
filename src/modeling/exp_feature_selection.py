@@ -51,6 +51,9 @@ if exp_flag==1:
     selected_features = pcaObj.fit_transform(all_features)
     print "Selected feature dataset size:", np.shape(selected_features)
 elif exp_flag==2:
+    '''
+    Ranking based feature selection 
+    '''
     forestForFeatureSelection = ExtraTreesClassifier()
     forestForFeatureSelection.fit(all_features, all_labels)
     importances = forestForFeatureSelection.feature_importances_
@@ -65,7 +68,8 @@ elif exp_flag==2:
 
 
 print "-"*50
-# print "Shape of transformed data:", selected_features.shape
-# print "Transformed features: \n", selected_features
-# print "-"*50
-# sklearn_models.performModeling(selected_features, all_labels, 10)
+print "Shape of transformed data:", selected_features.shape
+print "Transformed features: \n", selected_features
+print "-"*50
+sklearn_models.performModeling(selected_features, all_labels, 10)
+print "-"*50
