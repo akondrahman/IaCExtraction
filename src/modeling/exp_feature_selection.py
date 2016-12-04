@@ -34,4 +34,11 @@ pcaObj.fit(all_features)
 variance_of_features = pcaObj.explained_variance_
 print variance_of_features
 print "-"*50
-#pcaObj.n_components=2
+selective_feature_indices = [x_ for x_ in variance_of_features if x_ > float(1) ]
+no_features_to_use = len(selective_feature_indices)
+print "Of all the features, we will use:", no_features_to_use
+pcaObj.n_components=no_features_to_use
+selected_features = pcaObj.fit_transform(all_features)
+print "Shape of transformed data:", selected_features.shape
+print "Transformed features: \n", selected_features
+print "-"*50
