@@ -31,7 +31,7 @@ print "-"*50
 '''
 Which experiment would you conduct? 1 for PCA
 '''
-exp_flag = 2
+exp_flag = 1
 selected_features = None
 if exp_flag==1:
     '''
@@ -39,20 +39,30 @@ if exp_flag==1:
     1. http://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html#sklearn.decomposition.PCA.fit
     2. http://scikit-learn.org/dev/tutorial/statistical_inference/unsupervised_learning.html#principal-component-analysis-pca
     '''
-    pcaObj = decomposition.PCA()
+    pcaObj = decomposition.PCA(n_components=25)
     pcaObj.fit(all_features)
+    # variance of features
     variance_of_features = pcaObj.explained_variance_
-    print variance_of_features
+    # how much variance is explained each component
+    variance_ratio_of_features = pcaObj.explained_variance_ratio_
+    print "Explained varaince ratio"
+    for index_ in xrange(len(variance_ratio_of_features)):
+        print "Principal component#{}, explained variance:{}".format(index_+1, variance_ratio_of_features[index_])
+    #print variance_ratio_of_features
     print "-"*50
     selective_feature_indices = [x_ for x_ in variance_of_features if x_ > float(1) ]
     no_features_to_use = len(selective_feature_indices)
+    # see how much explained variance is covered by the number of compoenents , and set the number
+    #no_features_to_use = 1 #using one PCA you get lesser accuracy 
     print "Of all the features, we will use:", no_features_to_use
+    print "-"*50
     pcaObj.n_components=no_features_to_use
     selected_features = pcaObj.fit_transform(all_features)
     print "Selected feature dataset size:", np.shape(selected_features)
+    print "-"*50
 elif exp_flag==2:
     '''
-    Ranking based feature selection 
+    Ranking based feature selection
     '''
     forestForFeatureSelection = ExtraTreesClassifier()
     forestForFeatureSelection.fit(all_features, all_labels)
