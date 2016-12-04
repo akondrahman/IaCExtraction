@@ -49,16 +49,22 @@ if exp_flag==1:
     print "Of all the features, we will use:", no_features_to_use
     pcaObj.n_components=no_features_to_use
     selected_features = pcaObj.fit_transform(all_features)
+    print "Selected feature dataset size:", np.shape(selected_features)
 elif exp_flag==2:
     forestForFeatureSelection = ExtraTreesClassifier()
     forestForFeatureSelection.fit(all_features, all_labels)
     importances = forestForFeatureSelection.feature_importances_
     std = np.std([tree.feature_importances_ for tree in forestForFeatureSelection.estimators_], axis=0)
     indices = np.argsort(importances)[::-1]
-    print "Feature ranking:"
-    for ind_ in range(all_features.shape[1]):
-      print ("%d. feature %d (%f)" % (ind_ + 1, indices[ind_], importances[indices[ind_]]))
+    #print "Feature ranking:"
+    #for ind_ in range(all_features.shape[1]):
+    #  print ("%d. feature %d (%f)" % (ind_ + 1, indices[ind_], importances[indices[ind_]]))
+    selected_indices_for_features = [8, 24, 9, 59, 18, 10, 26, 0, 60, 25, 15, 28, 41, 30, 32, 21, 58, 2, 23, 6]
+    selected_features = Utility.createSelectedFeatures(all_features, selected_indices_for_features)
+    print "Selected feature dataset size:", np.shape(selected_features)
 
+
+print "-"*50
 # print "Shape of transformed data:", selected_features.shape
 # print "Transformed features: \n", selected_features
 # print "-"*50
