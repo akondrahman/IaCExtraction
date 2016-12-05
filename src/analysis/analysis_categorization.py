@@ -17,6 +17,26 @@ def readFile(dirNameParam):
            if len(row) > 0:
              message_ = row[0]
              catego_  = row[1]
+             if 'Build' in catego_:
+                 catego_='B'
+             elif 'Not' in catego_:
+                 catego_='N'
+             elif 'Interface' in catego_:
+                 catego_='I'
+             elif 'Other' in catego_:
+                 catego_='O'
+             elif 'Algorithm' in catego_:
+                 catego_='AL'
+             elif 'Assignment' in catego_:
+                 catego_='AS'
+             elif 'Function' in catego_:
+                 catego_='F'
+             elif 'Checking' in catego_:
+                 catego_='C'
+             elif 'Timing' in catego_:
+                 catego_='T'
+             elif 'Documentation' in catego_:
+                 catego_='D'                                                                    
              if message_ not in messageDict:
                messageDict[message_] = [catego_]
              else:
@@ -108,6 +128,8 @@ def findIDMappingOfStudentMessages(studentDict, idDict):
 def performInterRaterRelaibility(rating1, rating2):
   from sklearn import metrics
   #ref:: http://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html
+  print "Vector-1:", rating1
+  print "Vector-2:", rating2
   kappa_score = metrics.cohen_kappa_score(rating1, rating2)
   return kappa_score
 def getMyCategorization(idDictParam):
