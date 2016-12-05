@@ -1,17 +1,18 @@
 '''
 Akond Rahman: Dec 01, 2016
 '''
-import os, csv
+import os, csv, xlrd
 
 studentsToIgnore = []
 def readFile(dirNameParam):
   messageDict = {}
   for file_ in os.listdir(dirNameParam):
     if file_.endswith(".csv"):
-      print "Analyzing ...", file_
+      #print "Analyzing ...", file_
       fullFileName = dirNameParam + file_
       with open(fullFileName, 'rU') as f:
         reader = csv.reader(f)
+        next(reader, None)  # skip the headers
         for row in reader:
            if len(row) > 0:
              message_ = row[0]
@@ -26,20 +27,35 @@ def readFile(dirNameParam):
 
 def getRepoInfo(repoKey):
     repoPathToRet=''
+    # repoDict={
+    #           'M1':'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet/',
+    #           'M2':'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet/',
+    #           'W1':'/Users/akond/PUPP_REPOS/wikimedia-downloads/cdh/',
+    #           'W2':'/Users/akond/PUPP_REPOS/wikimedia-downloads/cdh4/',
+    #           'W3':'/Users/akond/PUPP_REPOS/wikimedia-downloads/kafka',
+    #           'W4':'/Users/akond/PUPP_REPOS/wikimedia-downloads/kraken/',
+    #           'W5':'/Users/akond/PUPP_REPOS/wikimedia-downloads/mariadb/',
+    #           'W6':'/Users/akond/PUPP_REPOS/wikimedia-downloads/mesos/',
+    #           'W7':'/Users/akond/PUPP_REPOS/wikimedia-downloads/nginx/',
+    #           'W8':'/Users/akond/PUPP_REPOS/wikimedia-downloads/puppet/',
+    #           'W9':'/Users/akond/PUPP_REPOS/wikimedia-downloads/translatewiki/',
+    #           'W10':'/Users/akond/PUPP_REPOS/wikimedia-downloads/vagrant/',
+    #           'W11':'/Users/akond/PUPP_REPOS/wikimedia-downloads/wikimetrics/',
+    #           }
     repoDict={
-              'M1':'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet/',
-              'M2':'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet/',
-              'W1':'/Users/akond/PUPP_REPOS/wikimedia-downloads/cdh/',
-              'W2':'/Users/akond/PUPP_REPOS/wikimedia-downloads/cdh4/',
-              'W3':'/Users/akond/PUPP_REPOS/wikimedia-downloads/kafka',
-              'W4':'/Users/akond/PUPP_REPOS/wikimedia-downloads/kraken/',
-              'W5':'/Users/akond/PUPP_REPOS/wikimedia-downloads/mariadb/',
-              'W6':'/Users/akond/PUPP_REPOS/wikimedia-downloads/mesos/',
-              'W7':'/Users/akond/PUPP_REPOS/wikimedia-downloads/nginx/',
-              'W8':'/Users/akond/PUPP_REPOS/wikimedia-downloads/puppet/',
-              'W9':'/Users/akond/PUPP_REPOS/wikimedia-downloads/translatewiki/',
-              'W10':'/Users/akond/PUPP_REPOS/wikimedia-downloads/vagrant/',
-              'W11':'/Users/akond/PUPP_REPOS/wikimedia-downloads/wikimetrics/',
+              'M1':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/mozila-puppet/',
+              'M2':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/mozila-relabs-puppet/',
+              'W1':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-cdh/',
+              'W2':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-cdh4/',
+              'W3':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-kafka',
+              'W4':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-kraken/',
+              'W5':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-mariadb/',
+              'W6':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-mesos/',
+              'W7':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-nginx/',
+              'W8':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-puppet/',
+              'W9':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-translatewiki/',
+              'W10':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-vagrant/',
+              'W11':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-wikimetrics/',
               }
     if repoKey in repoDict:
         repoPathToRet=repoDict[repoKey]
@@ -54,7 +70,9 @@ def loadMessageMapping(dirNameParam):
       print "Analyzing for mapping ...", file_
       with open(fullFileName, 'rU') as f:
         reader = csv.reader(f)
+        next(reader, None)  # skip the headers
         for row in reader:
+            #print row
             if len(row) > 0:
               message_ = row[0]
               ID_  = row[1]
@@ -87,12 +105,29 @@ def findIDMappingOfStudentMessages(studentDict, idDict):
         dict2ret[k_] = idDict[k_]
    return dict2ret
 
-
 def performInterRaterRelaibility(rating1, rating2):
   from sklearn import metrics
   #ref:: http://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html
   kappa_score = metrics.cohen_kappa_score(rating1, rating2)
   return kappa_score
+def getMyCategorization(idDictParam):
+    dict_return = {}
+    paikhana='     '
+    for k_, v_ in idDictParam.iteritems():
+        if k_ != paikhana:
+          file2read = v_[1] + 'my_full_qual_coding.xls'
+          print "message:={}=, file:{}, ID: {}".format(k_, file2read,  v_[0])
+          id2check = int (v_[0])
+          row2read = id2check # first row is header, and correponds to zero, so no need to add 1
+          workbook2read = xlrd.open_workbook(file2read)
+          sheet2read = workbook2read.sheet_by_index(0)
+          #print "message:{}, file:{}, row: {}".format(k_, file2read,  row2read)
+          cells2read = sheet2read.row_slice(rowx=row2read, start_colx=0, end_colx=10) # we ahve 11 columsn, starting with an index of 0
+    return dict_return
+
+
+
+
 '''
 Step-1: First get the categorization of students
 '''
@@ -118,3 +153,5 @@ print "#"*100
 '''
 Step-4: Next get my mapping of the messages , that are categorized by students
 '''
+my_categorization_of_messages = getMyCategorization(idMappingOfMessages)
+print "#"*100
