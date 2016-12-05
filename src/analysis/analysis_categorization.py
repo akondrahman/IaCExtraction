@@ -67,7 +67,7 @@ def loadMessageMapping(dirNameParam):
   for file_ in os.listdir(dirNameParam):
     if file_.endswith(".csv"):
       fullFileName = dirNameParam + file_
-      print "Analyzing for mapping ...", file_
+      #print "Analyzing for mapping ...", file_
       with open(fullFileName, 'rU') as f:
         reader = csv.reader(f)
         next(reader, None)  # skip the headers
@@ -152,19 +152,51 @@ def getMyCategorization(idDictParam):
                     categorization='O'
                 else:
                     categorization='WTF'
-                dict_return[id2check]=(repo_, id2check, categorization)
+                dict_return[id2check]=(k_, repo_, categorization)
     return dict_return
 
 
 
-
+def performOverallRelaibility(studentCategorization, idMapping, myCategorization):
+    matched= 0
+    mismatched = 0
+    myRating=[]
+    studentRating = []
+    #print idMapping
+    for k_, v_ in studentCategorization.iteritems():
+        #print k_
+        if k_ in idMapping:
+            #print "Matched !!!"
+            matched = matched + 1
+            tmp_ = idMapping[k_][0]# first element of idMapping values fo reach key is ID
+            if tmp_!='':
+              idOfMessage = int(tmp_)
+              my_ctaegory_for_message = myCategorization[idOfMessage][-1] # categorization
+              #print my_ctaegory_for_message
+              student_catgory_for_message = v_[-1] ## same message might be assigned to  multiple people, so lets take the last
+              if ((my_ctaegory_for_message!='WTF') and (student_catgory_for_message!='WTF')):
+                myRating.append(my_ctaegory_for_message)
+                studentRating.append(student_catgory_for_message)
+        else:
+            mismatched = mismatched + 1
+            #print "I am surprised !!!"
+    if (len(myRating)==len(studentRating)):
+        print "Total messages to parse:", len(myRating)
+        #print myRating
+        kapp_score = performInterRaterRelaibility(myRating, studentRating)
+    else:
+        print "Make kappa great again"
+        kapp_score = float(0)
+    print "*** Total matches:{}, total mismatches: {}***".format(matched, mismatched)
+    print "-"*50
+    return kapp_score
 '''
 Step-1: First get the categorization of students
 '''
 dirName='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/StudentStudy/completed/'
-student_summary_dict = readFile(dirName)
-cat_messgae_mapping = summarize(student_summary_dict)
-#print summary_dict
+student_categorization_of_messages = readFile(dirName)
+cat_messgae_mapping = summarize(student_categorization_of_messages)
+#print student_categorization_of_messages
 #print cat_messgae_mapping
 print "#"*100
 '''
@@ -177,12 +209,18 @@ print "#"*100
 '''
 Step-3: Next  get the IDs of messages catgrized by students
 '''
-idMappingOfMessages = findIDMappingOfStudentMessages(student_summary_dict, msgMappingDict)
+idMappingOfMessages = findIDMappingOfStudentMessages(student_categorization_of_messages, msgMappingDict)
 print "Length of unique student derived mapped messages", len(idMappingOfMessages)
 print "#"*100
 '''
 Step-4: Next get my mapping of the messages , that are categorized by students
 '''
 my_categorization_of_messages = getMyCategorization(idMappingOfMessages)
-print my_categorization_of_messages
+print "Lanegth of messages that me and students have categorized:", len(my_categorization_of_messages)
+print "#"*100
+'''
+Step-5: Compare my and student's categories: overall inter rater reilability
+'''
+kapap= performOverallRelaibility(student_categorization_of_messages, idMappingOfMessages, my_categorization_of_messages)
+print "The overal inter rater relaibiliy is:", kapap
 print "#"*100
