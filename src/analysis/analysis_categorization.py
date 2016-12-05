@@ -93,17 +93,28 @@ def performInterRaterRelaibility(rating1, rating2):
   #ref:: http://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html
   kappa_score = metrics.cohen_kappa_score(rating1, rating2)
   return kappa_score
+'''
+Step-1: First get the categorization of students
+'''
 dirName='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/StudentStudy/completed/'
 student_summary_dict = readFile(dirName)
 cat_messgae_mapping = summarize(student_summary_dict)
 #print summary_dict
 #print cat_messgae_mapping
 print "#"*100
-myRatingDir='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/StudentStudy/completed/'
+'''
+Step-2: Next  get the IDs of messages
+'''
 mappingDir='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/StudentStudy/ided/'
 msgMappingDict = loadMessageMapping(mappingDir)
 print "Length of unique messages", len(msgMappingDict)
 print "#"*100
+'''
+Step-3: Next  get the IDs of messages catgrized by students
+'''
 idMappingOfMessages = findIDMappingOfStudentMessages(student_summary_dict, msgMappingDict)
 print "Length of unique student derived mapped messages", len(idMappingOfMessages)
 print "#"*100
+'''
+Step-4: Next get my mapping of the messages , that are categorized by students
+'''
