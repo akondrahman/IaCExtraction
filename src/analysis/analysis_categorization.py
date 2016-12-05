@@ -115,14 +115,44 @@ def getMyCategorization(idDictParam):
     paikhana='     '
     for k_, v_ in idDictParam.iteritems():
         if k_ != paikhana:
-          file2read = v_[1] + 'my_full_qual_coding.xls'
-          print "message:={}=, file:{}, ID: {}".format(k_, file2read,  v_[0])
+          repo_ = v_[1]
+          file2read = repo_ + 'my_full_qual_coding.xls'
+          #print "message:={}=, file:{}, ID: {}".format(k_, file2read,  v_[0])
           id2check = int (v_[0])
           row2read = id2check # first row is header, and correponds to zero, so no need to add 1
           workbook2read = xlrd.open_workbook(file2read)
           sheet2read = workbook2read.sheet_by_index(0)
           #print "message:{}, file:{}, row: {}".format(k_, file2read,  row2read)
           cells2read = sheet2read.row_slice(rowx=row2read, start_colx=0, end_colx=10) # we ahve 11 columsn, starting with an index of 0
+          categorization=''
+          #print file2read
+          #print len(cells2read)
+          if int(cells2read[0].value)==id2check:
+                #print cells2read[1].value
+                if (cells2read[1].value==float(1)):
+                    categorization='N'
+                elif (cells2read[2].value==float(1)):
+                    categorization='F'
+                elif (cells2read[3].value==float(1)):
+                    categorization='AS'
+                elif (cells2read[4].value==float(1)):
+                    categorization='I'
+                elif (cells2read[5].value==float(1)):
+                    categorization='C'
+                elif (cells2read[6].value==float(1)):
+                    categorization='T'
+                elif (cells2read[7].value==float(1)):
+                    categorization='B'
+                elif (cells2read[8].value==float(1)):
+                    categorization='D'
+                elif (cells2read[9].value==float(1)):
+                    categorization='AL'
+                elif (len(cells2read)==11):
+                  if (cells2read[10].value==float(1)):
+                    categorization='O'
+                else:
+                    categorization='WTF'
+                dict_return[id2check]=(repo_, id2check, categorization)
     return dict_return
 
 
@@ -154,4 +184,5 @@ print "#"*100
 Step-4: Next get my mapping of the messages , that are categorized by students
 '''
 my_categorization_of_messages = getMyCategorization(idMappingOfMessages)
+print my_categorization_of_messages
 print "#"*100
