@@ -214,6 +214,53 @@ def performOverallRelaibility(studentCategorization, idMapping, myCategorization
     print "*** Total matches:{}, total mismatches: {}***".format(matched, mismatched)
     print "-"*50
     return kapp_score
+
+
+
+def doPerStudentInterRaterReliability(studentDirParam, msgMappingDictParam):
+  for file_ in os.listdir(studentDirParam):
+    indiStudentDict = {}
+    if file_.endswith(".csv"):
+      #print "Analyzing ...", file_
+      fullFileName = studentDirParam + file_
+      with open(fullFileName, 'rU') as f_:
+        reader = csv.reader(f_)
+        next(reader, None)  # skip the headers
+        for row in reader:
+           if len(row) > 0:
+             message_ = row[0]
+             catego_  = row[1]
+             if 'Build' in catego_:
+                 catego_='B'
+             elif 'Not' in catego_:
+                 catego_='N'
+             elif 'Interface' in catego_:
+                 catego_='I'
+             elif 'Other' in catego_:
+                 catego_='O'
+             elif 'Algorithm' in catego_:
+                 catego_='AL'
+             elif 'Assignment' in catego_:
+                 catego_='AS'
+             elif 'Function' in catego_:
+                 catego_='F'
+             elif 'Checking' in catego_:
+                 catego_='C'
+             elif 'Timing' in catego_:
+                 catego_='T'
+             elif 'Documentation' in catego_:
+                 catego_='D'
+             if message_ not in indiStudentDict:
+               indiStudentDict[message_] = [catego_]
+             else:
+               existingList = indiStudentDict[message_]
+               tmp_ = existingList + [catego_]
+               indiStudentDict[message_] = tmp_
+      idMappingOfMessages = findIDMappingOfStudentMessages(indiStudentDict, msgMappingDictParam)
+      my_categorization_of_messages = getMyCategorization(idMappingOfMessages)
+      kap= performOverallRelaibility(indiStudentDict, idMappingOfMessages, my_categorization_of_messages)
+      print "For {}, the kappa score is:{}".format(file_, kap)
+      print "="*75
 '''
 Step-1: First get the categorization of students
 '''
@@ -240,11 +287,16 @@ print "#"*100
 Step-4: Next get my mapping of the messages , that are categorized by students
 '''
 my_categorization_of_messages = getMyCategorization(idMappingOfMessages)
-print "Lanegth of messages that me and students have categorized:", len(my_categorization_of_messages)
+print "Length of messages that me and students have categorized:", len(my_categorization_of_messages)
 print "#"*100
 '''
 Step-5: Compare my and student's categories: overall inter rater reilability
 '''
 kapap= performOverallRelaibility(student_categorization_of_messages, idMappingOfMessages, my_categorization_of_messages)
 print "The overal inter rater relaibiliy is:", kapap
+print "#"*100
+'''
+Step-6: per student inter rater reliability
+'''
+doPerStudentInterRaterReliability(dirName, msgMappingDict)
 print "#"*100

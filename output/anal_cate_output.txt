@@ -1,10 +1,12 @@
-eb2-2206-mac03-4:analysis akond$ python analysis_categorization.py 
+Last login: Mon Dec  5 20:26:50 on ttys002
+You have mail.
+eb2-2206-mac03-4:analysis akond$ python analysis_categorization.py
 ####################################################################################################
 Length of unique messages 1599
 ####################################################################################################
 Length of unique student derived mapped messages 874
 ####################################################################################################
-Lanegth of messages that me and students have categorized: 698
+Length of messages that me and students have categorized: 698
 ####################################################################################################
 Total messages to parse: 332
 --------------------------------------------------
@@ -14,3 +16,93 @@ Vector-2:::student-rating:::distribution: Counter({'AS': 62, 'F': 58, 'N': 55, '
 --------------------------------------------------
 The overal inter rater relaibiliy is: -0.0156995100708
 ####################################################################################################
+Total messages to parse: 0
+--------------------------------------------------
+Vector-1:::my-rating:::distribution: Counter()
+Vector-2:::student-rating:::distribution: Counter()
+*** Total matches:0, total mismatches: 141***
+--------------------------------------------------
+For Rushikesh_Ghatpande_rsghatpa_ student41.csv.csv, the kappa score is:0.0
+===========================================================================
+Total messages to parse: 73
+--------------------------------------------------
+Vector-1:::my-rating:::distribution: Counter({'AS': 40, 'N': 22, 'F': 4, 'C': 3, 'B': 2, 'I': 2})
+Vector-2:::student-rating:::distribution: Counter({'N': 20, 'I': 12, 'AS': 10, 'AL': 9, 'D': 6, 'F': 6, 'B': 4, 'T': 4, 'C': 1, 'O': 1})
+*** Total matches:129, total mismatches: 12***
+--------------------------------------------------
+For student1.csv, the kappa score is:0.0442437923251
+===========================================================================
+Total messages to parse: 30
+--------------------------------------------------
+Vector-1:::my-rating:::distribution: Counter({'AS': 17, 'N': 9, 'F': 2, 'C': 2})
+Vector-2:::student-rating:::distribution: Counter({'AL': 13, 'AS': 5, 'D': 3, 'F': 3, 'C': 2, 'I': 2, 'O': 1, 'N': 1})
+*** Total matches:79, total mismatches: 62***
+--------------------------------------------------
+For student11.csv, the kappa score is:0.0577889447236
+===========================================================================
+Total messages to parse: 63
+--------------------------------------------------
+Vector-1:::my-rating:::distribution: Counter({'N': 32, 'AS': 22, 'F': 3, 'I': 3, 'T': 2, 'C': 1})
+Vector-2:::student-rating:::distribution: Counter({'AS': 23, 'N': 21, 'I': 8, 'B': 5, 'F': 5, 'O': 1})
+*** Total matches:131, total mismatches: 10***
+--------------------------------------------------
+For student26.csv, the kappa score is:0.0385174418605
+===========================================================================
+Total messages to parse: 63
+--------------------------------------------------
+Vector-1:::my-rating:::distribution: Counter({'N': 30, 'AS': 24, 'F': 3, 'I': 3, 'T': 2, 'C': 1})
+Vector-2:::student-rating:::distribution: Counter({'N': 19, 'B': 10, 'AS': 10, 'I': 9, 'O': 7, 'AL': 5, 'F': 3})
+*** Total matches:131, total mismatches: 10***
+--------------------------------------------------
+For student27.csv, the kappa score is:0.0720461095101
+===========================================================================
+Total messages to parse: 14
+--------------------------------------------------
+Vector-1:::my-rating:::distribution: Counter({'N': 7, 'AS': 6, 'C': 1})
+Vector-2:::student-rating:::distribution: Counter({'AS': 6, 'AL': 4, 'O': 2, 'D': 1, 'N': 1})
+*** Total matches:81, total mismatches: 60***
+--------------------------------------------------
+For student3.csv, the kappa score is:-0.0980392156863
+===========================================================================
+Total messages to parse: 67
+--------------------------------------------------
+Vector-1:::my-rating:::distribution: Counter({'N': 23, 'AS': 18, 'I': 13, 'F': 7, 'B': 2, 'T': 2, 'C': 1, 'AL': 1})
+Vector-2:::student-rating:::distribution: Counter({'AS': 20, 'F': 13, 'D': 8, 'AL': 7, 'N': 7, 'T': 5, 'I': 4, 'B': 3})
+*** Total matches:141, total mismatches: 0***
+--------------------------------------------------
+For student35.csv, the kappa score is:0.013150973172
+===========================================================================
+Total messages to parse: 14
+--------------------------------------------------
+Vector-1:::my-rating:::distribution: Counter({'N': 6, 'AS': 4, 'C': 2, 'F': 2})
+Vector-2:::student-rating:::distribution: Counter({'B': 5, 'O': 4, 'AS': 3, 'AL': 1, 'F': 1})
+*** Total matches:141, total mismatches: 0***
+--------------------------------------------------
+For student4.csv, the kappa score is:-0.0769230769231
+===========================================================================
+Total messages to parse: 30
+--------------------------------------------------
+Vector-1:::my-rating:::distribution: Counter({'AS': 17, 'N': 9, 'F': 2, 'C': 2})
+Vector-2:::student-rating:::distribution: Counter({'N': 26, 'B': 4})
+*** Total matches:79, total mismatches: 62***
+--------------------------------------------------
+For student45.csv, the kappa score is:0.0540540540541
+===========================================================================
+Total messages to parse: 96
+--------------------------------------------------
+Vector-1:::my-rating:::distribution: Counter({'N': 57, 'AS': 37, 'F': 1, 'D': 1})
+Vector-2:::student-rating:::distribution: Counter({'F': 37, 'B': 13, 'I': 12, 'AS': 12, 'C': 7, 'T': 6, 'N': 4, 'AL': 2, 'O': 2, 'D': 1})
+*** Total matches:140, total mismatches: 0***
+--------------------------------------------------
+For student53.csv, the kappa score is:0.00681871620033
+===========================================================================
+Total messages to parse: 14
+--------------------------------------------------
+Vector-1:::my-rating:::distribution: Counter({'N': 10, 'AS': 3, 'F': 1})
+Vector-2:::student-rating:::distribution: Counter({'AS': 5, 'I': 4, 'B': 2, 'T': 2, 'O': 1})
+*** Total matches:141, total mismatches: 0***
+--------------------------------------------------
+For student8.csv, the kappa score is:-0.00552486187845
+===========================================================================
+####################################################################################################
+eb2-2206-mac03-4:analysis akond$
