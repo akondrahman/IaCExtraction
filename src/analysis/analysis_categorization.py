@@ -1,7 +1,7 @@
 '''
 Akond Rahman: Dec 01, 2016
 '''
-import os, csv, xlrd
+import os, csv, xlrd, collections
 
 studentsToIgnore = []
 def readFile(dirNameParam):
@@ -36,7 +36,7 @@ def readFile(dirNameParam):
              elif 'Timing' in catego_:
                  catego_='T'
              elif 'Documentation' in catego_:
-                 catego_='D'                                                                    
+                 catego_='D'
              if message_ not in messageDict:
                messageDict[message_] = [catego_]
              else:
@@ -128,8 +128,10 @@ def findIDMappingOfStudentMessages(studentDict, idDict):
 def performInterRaterRelaibility(rating1, rating2):
   from sklearn import metrics
   #ref:: http://scikit-learn.org/stable/modules/generated/sklearn.metrics.cohen_kappa_score.html
-  print "Vector-1:", rating1
-  print "Vector-2:", rating2
+  #print "Vector-1:", rating1
+  print "Vector-1:::my-rating:::distribution:", collections.Counter(rating1)
+  #print "Vector-2:", rating2
+  print "Vector-2:::student-rating:::distribution:", collections.Counter(rating2)
   kappa_score = metrics.cohen_kappa_score(rating1, rating2)
   return kappa_score
 def getMyCategorization(idDictParam):
@@ -204,7 +206,7 @@ def performOverallRelaibility(studentCategorization, idMapping, myCategorization
             #print "I am surprised !!!"
     if (len(myRating)==len(studentRating)):
         print "Total messages to parse:", len(myRating)
-        #print myRating
+        print '-'*50
         kapp_score = performInterRaterRelaibility(myRating, studentRating)
     else:
         print "Make kappa great again"
