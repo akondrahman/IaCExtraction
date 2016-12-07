@@ -189,6 +189,7 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
                     '/Users/akond/PUPP_REPOS/wikimedia-downloads/kafka':  [5, 50, 12, 45, 100]
                   }
   excludeIDList = excludeDict[repo_path]
+  bug_git_util.performCleanUp(partial_content_file_)  
   bug_git_util.dumpPhaseTwoBugMessageAsStr(unique_pupp_msg, partial_content_file_, pupp_to_msgs_dict, excludeIDList, repo_path)
 
 

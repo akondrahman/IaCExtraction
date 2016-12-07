@@ -205,7 +205,7 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     msg_file_to_save = repo_path + "/" + "randFile_bug_msgs.txt"
     # doing cleanup tp prevent false appendig
     bug_hg_developer.performCleanUp(msg_file_to_save)
-    msgs_as_str=bug_hg_developer.dumpBugMessageAsStr(unique_bug_msg, msg_file_to_save)
+    #msgs_as_str=bug_hg_developer.dumpBugMessageAsStr(unique_bug_msg, msg_file_to_save)
 
     #### For bug message project ::: end ::::
 
@@ -254,7 +254,7 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     bug_hg_developer.performCleanUp(msg_to_id_fileP)
     '''
     '''
-    bug_hg_developer.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, pupp_to_msgs_dict, msg_to_id_fileP, repo_path)
+    #bug_hg_developer.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, pupp_to_msgs_dict, msg_to_id_fileP, repo_path)
     print "#"*75
     '''
     Added Nov 01, 2016
@@ -272,10 +272,23 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     all_msg_file_pupp_param =   repo_path + "/" + "fullThrottle_msgs.txt"
     bug_hg_developer.performCleanUp(full_qual_fileP)
     ## call the method
-    bug_hg_developer.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path, full_map_IDP)
+    #bug_hg_developer.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path, full_map_IDP)
+
+
+
+
+    '''
+    Dec 06, 2016 : preparation for phase 2 qualitative coding
+    '''
+    partial_content_file_ = repo_path + "/" + "phase_two_qual_coding.csv"
+    excludeDict = {  '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet':  [5, 50, 12, 45, 100],
+                    '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet':  [5, 50, 12, 45, 100]
+                  }
+    excludeIDList = excludeDict[repo_path]
+    bug_hg_developer.performCleanUp(partial_content_file_)
+    bug_hg_developer.dumpPhaseTwoBugMessageAsStr(unique_pupp_msg, partial_content_file_, pupp_to_msgs_dict, excludeIDList, repo_path)
     print "Ended at:", giveTimeStamp()
     print "#"*75
-
 
 
 
