@@ -145,16 +145,16 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   qual_coding_file   = repo_path + "/" + "randFile_qual_coding.csv"
   # doing cleanup tp prevent false appendig
   bug_git_util.performCleanUp(qual_coding_file)
-  '''
-  Added Oct 29, 2016
-  '''
-  msg_to_id_fileP =   repo_path + "/" + "randFile_msg_file_map.csv"
-  # doing cleanup tp prevent false appendig
-  bug_git_util.performCleanUp(msg_to_id_fileP)
-  '''
-  '''
-  bug_git_util.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, pupp_to_msgs_dict, msg_to_id_fileP, repo_path)
-  print "#"*75
+  # '''
+  # Added Oct 29, 2016
+  # '''
+  # msg_to_id_fileP =   repo_path + "/" + "randFile_msg_file_map.csv"
+  # # doing cleanup tp prevent false appendig
+  # bug_git_util.performCleanUp(msg_to_id_fileP)
+  # '''
+  # '''
+  # bug_git_util.dumpRandBugMessageAsStr(unique_pupp_msg, rand_msg_file_pupp, qual_coding_file, randRangeParam, msgCntP, pupp_to_msgs_dict, msg_to_id_fileP, repo_path)
+  # print "#"*75
   '''
   Added Nov 01, 2016
   '''
@@ -168,23 +168,34 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   ## for dumping messages
   all_msg_file_pupp_param =   repo_path + "/" + "fullThrottle_msgs.txt"
   bug_git_util.performCleanUp(full_qual_fileP)
+  # '''
+  # Dec 01, 2016
+  # '''
+  # id2msg_file_ =   repo_path + "/" + "fullThrottle_id_msg_map.csv"
+  # ## call the method
+  # bug_git_util.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path, id2msg_file_)
+  # print "Ended at:", bug_git_util.giveTimeStamp()
+  # print "#"*75
+
   '''
-  Dec 01, 2016
+  Dec 06, 2016 : preparation for phase 2 qualitative coding
   '''
-  id2msg_file_ =   repo_path + "/" + "fullThrottle_id_msg_map.csv"
-  ## call the method
-  bug_git_util.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path, id2msg_file_)
-  print "Ended at:", bug_git_util.giveTimeStamp()
-  print "#"*75
-
-
-
+  partial_content_file_ = repo_path + "/" + "phase_two_qual_coding.csv"
+  excludeDict = {  '/Users/akond/PUPP_REPOS/wikimedia-downloads/puppet':  [5, 50, 12, 45, 100],
+                    '/Users/akond/PUPP_REPOS/wikimedia-downloads/vagrant':  [5, 50, 12, 45, 100],
+                    '/Users/akond/PUPP_REPOS/wikimedia-downloads/cdh':  [5, 50, 12, 45, 100],
+                    '/Users/akond/PUPP_REPOS/wikimedia-downloads/cdh4':  [5, 50, 12, 45, 100],
+                    '/Users/akond/PUPP_REPOS/wikimedia-downloads/translatewiki':  [5, 50, 12, 45, 100],
+                    '/Users/akond/PUPP_REPOS/wikimedia-downloads/kafka':  [5, 50, 12, 45, 100]
+                  }
+  excludeIDList = excludeDict[repo_path]
+  bug_git_util.dumpPhaseTwoBugMessageAsStr(unique_pupp_msg, partial_content_file_, pupp_to_msgs_dict, excludeIDList, repo_path)
 
 
 '''
 get the whole list of eligible projects
 '''
-orgName='openstack-downloads'
+orgName='wikimedia-downloads'
 fileName="/Users/akond/PUPP_REPOS/"+orgName+'/'+'eligible_repos.csv'
 elgibleProjects=bug_git_util.getEligibleProjectsFromCSVForRandAnalysis(fileName)
 

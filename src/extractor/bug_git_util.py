@@ -504,6 +504,30 @@ def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qua
   dumpContentIntoFile(msg_to_id_mapping_str, msg_to_id_file_param)
   dumpContentIntoFile(qual_mapping_str, qual_coding_file_param)
   dumpContentIntoFile(id2msg_mapping_str, id2msg_file_param)
+
+
+
+'''
+Added Dec 06, 2016
+Start
+'''
+def dumpPhaseTwoBugMessageAsStr(unique_pupp_msg_papram, partial_content_file_param, pupp_to_msgs_dict_param, excludeIDListParam, repo_path_param):
+  '''
+  This method creates one file: file that contains qual. material
+  '''
+  indexCount=1
+  partial_content_str=""
+  for elm in unique_pupp_msg_papram:
+          if (checkIfMsgInDict(elm, pupp_to_msgs_dict_param) and (indexCount not in excludeIDListParam)):
+             elm = elm.replace('\n', ' ')
+             elm = elm.replace(',', ';')
+             matchedFileName =  getMatchingFileNameForMsg(elm, pupp_to_msgs_dict_param) # need the indexing to get the name of the list
+             partial_content_str = partial_content_str + str(indexCount) + ',' + repo_path_param + ',' + elm + ',' + '\n'
+          indexCount = indexCount + 1
+  dumpContentIntoFile(partial_content_str, partial_content_file_param)
+'''
+End
+'''
 '''
 Read projects from csv file, for eligible projects
 '''
