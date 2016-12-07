@@ -2,7 +2,11 @@
 Akond Rahman: Dec 01, 2016
 '''
 import os, csv, xlrd, collections
-
+def dumpContentIntoFile(strP, fileP):
+  fileToWrite = open( fileP, 'w');
+  fileToWrite.write(strP );
+  fileToWrite.close()
+  return str(os.stat(fileP).st_size)
 studentsToIgnore = []
 def readFile(dirNameParam):
   messageDict = {}
@@ -275,6 +279,37 @@ def getRepoWiseStats(dict_):
            tmp_ = statDict[repo_]
            statDict[repo_] = tmp_ +  [id_]
   return statDict
+
+
+def summarizePhaseOneResults(student_categorization_, idMapping_, fileNameP):
+  phaseOneSummaryStr= ""
+  for k_, v_ in student_categorization_.iteritems():
+    if k_ in idMapping_:
+      agreementFlag = False
+      detailsOfMessage = idMapping_[k_]
+      IDOfMessage = detailsOfMessage[0]
+      RepoOfMessage = detailsOfMessage[1]
+      distOfCatego  = collections.Counter(v_)
+      countOfCategories = len(distOfCatego)
+      if (countOfCategories == 1):
+        agreementFlag = True
+        mostAgreedCategory = distOfCatego.most_common(1)[0][0]
+      else:
+        agreementFlag = False
+        # lets get the category with the highest count ,
+        # output of distOfCatego.most_common(1) is Dist:[('C', 1)]
+        mostAgreedCategory = distOfCatego.most_common(1)[0][0]
+      '''
+      Pre process the message
+      '''
+      elm = k_
+      elm = elm.replace('\n', ' ')
+      elm = elm.replace(',', ';')
+      #print "ID: {}, Repo:{}, Most agreed category:{}, agreed?:{}".format(IDOfMessage, RepoOfMessage, mostAgreedCategory, str(agreementFlag))
+      phaseOneSummaryStr = phaseOneSummaryStr + RepoOfMessage + ',' + str(IDOfMessage) + ',' + str(agreementFlag) + ',' + elm + ',' + mostAgreedCategory + ',' + ','  + '\n'
+  #print phaseOneSummaryStr
+  outputStatus = dumpContentIntoFile(phaseOneSummaryStr, fileNameP)
+  return outputStatus
 '''
 Step-1: First get the categorization of students
 '''
@@ -314,16 +349,6 @@ Step-6: per student inter rater reliability
 '''
 # doPerStudentInterRaterReliability(dirName, msgMappingDict)
 # print "#"*100
-'''
-Step-7: repo wise stats
-'''
-analyzed_so_far=0
-statRepoDict= getRepoWiseStats(idMappingOfMessages)
-for keys, values in statRepoDict.iteritems():
-   analyzed_so_far = analyzed_so_far + len(values)
-   print "Repo name: {}, count of messages: {}".format(keys, len(values))
-print "So far analyzed {} unique messages, from {} repos".format(analyzed_so_far, len(statRepoDict))
-print "#"*100
 print "=====The complete categories of messages====="
 one_count = 0
 mul_count = 0
@@ -337,4 +362,22 @@ for k_, v_ in student_categorization_of_messages.iteritems():
    print "-"*50
 print "#"*100
 print "Messages with one rating: {}, messages with multiple rating: {}".format(one_count, mul_count)
+print "#"*100
+'''
+Step-7: repo wise stats
+'''
+analyzed_so_far=0
+statRepoDict= getRepoWiseStats(idMappingOfMessages)
+for keys, values in statRepoDict.iteritems():
+   analyzed_so_far = analyzed_so_far + len(values)
+   print "Repo name: {}, count of messages: {}".format(keys, len(values))
+print "So far analyzed {} unique messages, from {} repos".format(analyzed_so_far, len(statRepoDict))
+print "#"*100
+'''
+Step-8:
+Summarize Phase 1 work
+'''
+file2save='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/StudentStudy/P1_Category_Summary.csv'
+fileStatus = summarizePhaseOneResults(student_categorization_of_messages, idMappingOfMessages, file2save)
+print "Dumped a file of {} bytes. The file is for phase one summary.".format(fileStatus)
 print "#"*100
