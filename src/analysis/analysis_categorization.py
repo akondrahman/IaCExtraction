@@ -67,7 +67,7 @@ def getRepoInfo(repoKey):
               'M2':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/mozila-relabs-puppet/',
               'W1':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-cdh/',
               'W2':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-cdh4/',
-              'W3':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-kafka',
+              'W3':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-kafka/',
               'W4':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-kraken/',
               'W5':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-mariadb/',
               'W6':'/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/MyStudy/wikimedia-mesos/',
@@ -261,6 +261,20 @@ def doPerStudentInterRaterReliability(studentDirParam, msgMappingDictParam):
       kap= performOverallRelaibility(indiStudentDict, idMappingOfMessages, my_categorization_of_messages)
       print "For {}, the kappa score is:{}".format(file_, kap)
       print "="*75
+
+def getRepoWiseStats(dict_):
+  statDict={}
+  for key_, val_ in idMappingOfMessages.iteritems():
+    #print "k:{}, v:{}".format(key_, val_)
+    repo_ = val_[1]
+    id_   = val_[0]
+    #if len(id_) > 0 :
+    if repo_ not in statDict:
+          statDict[repo_] = [id_]
+    else:
+           tmp_ = statDict[repo_]
+           statDict[repo_] = tmp_ +  [id_]
+  return statDict
 '''
 Step-1: First get the categorization of students
 '''
@@ -286,17 +300,41 @@ print "#"*100
 '''
 Step-4: Next get my mapping of the messages , that are categorized by students
 '''
-my_categorization_of_messages = getMyCategorization(idMappingOfMessages)
-print "Length of messages that me and students have categorized:", len(my_categorization_of_messages)
-print "#"*100
+# my_categorization_of_messages = getMyCategorization(idMappingOfMessages)
+# print "Length of messages that me and students have categorized:", len(my_categorization_of_messages)
+# print "#"*100
 '''
 Step-5: Compare my and student's categories: overall inter rater reilability
 '''
-kapap= performOverallRelaibility(student_categorization_of_messages, idMappingOfMessages, my_categorization_of_messages)
-print "The overal inter rater relaibiliy is:", kapap
-print "#"*100
+# kapap= performOverallRelaibility(student_categorization_of_messages, idMappingOfMessages, my_categorization_of_messages)
+# print "The overal inter rater relaibiliy is:", kapap
+# print "#"*100
 '''
 Step-6: per student inter rater reliability
 '''
-doPerStudentInterRaterReliability(dirName, msgMappingDict)
+# doPerStudentInterRaterReliability(dirName, msgMappingDict)
+# print "#"*100
+'''
+Step-7: repo wise stats
+'''
+analyzed_so_far=0
+statRepoDict= getRepoWiseStats(idMappingOfMessages)
+for keys, values in statRepoDict.iteritems():
+   analyzed_so_far = analyzed_so_far + len(values)
+   print "Repo name: {}, count of messages: {}".format(keys, len(values))
+print "So far analyzed {} unique messages, from {} repos".format(analyzed_so_far, len(statRepoDict))
+print "#"*100
+print "=====The complete categories of messages====="
+one_count = 0
+mul_count = 0
+for k_, v_ in student_categorization_of_messages.iteritems():
+   print k_
+   print v_
+   if (len(v_) > 1):
+       mul_count = mul_count + 1
+   else:
+       one_count = one_count + 1
+   print "-"*50
+print "#"*100
+print "Messages with one rating: {}, messages with multiple rating: {}".format(one_count, mul_count)
 print "#"*100
