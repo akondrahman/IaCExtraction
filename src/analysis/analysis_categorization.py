@@ -283,6 +283,8 @@ def getRepoWiseStats(dict_):
 
 def summarizePhaseOneResults(student_categorization_, idMapping_, fileNameP):
   phaseOneSummaryStr= ""
+  agreementCnt = 0
+  disAgreementCnt = 0
   for k_, v_ in student_categorization_.iteritems():
     if k_ in idMapping_:
       agreementFlag = False
@@ -293,9 +295,11 @@ def summarizePhaseOneResults(student_categorization_, idMapping_, fileNameP):
       countOfCategories = len(distOfCatego)
       if (countOfCategories == 1):
         agreementFlag = True
+        agreementCnt = agreementCnt + 1
         mostAgreedCategory = distOfCatego.most_common(1)[0][0]
       else:
         agreementFlag = False
+        disAgreementCnt = disAgreementCnt + 1
         # lets get the category with the highest count ,
         # output of distOfCatego.most_common(1) is Dist:[('C', 1)]
         mostAgreedCategory = distOfCatego.most_common(1)[0][0]
@@ -309,6 +313,7 @@ def summarizePhaseOneResults(student_categorization_, idMapping_, fileNameP):
       phaseOneSummaryStr = phaseOneSummaryStr + RepoOfMessage + ',' + str(IDOfMessage) + ',' + str(agreementFlag) + ',' + elm + ',' + mostAgreedCategory + ',' + ','  + '\n'
   #print phaseOneSummaryStr
   outputStatus = dumpContentIntoFile(phaseOneSummaryStr, fileNameP)
+  print "Agreements:{}, disagreements:{}".format(agreementCnt, disAgreementCnt)
   return outputStatus
 '''
 Step-1: First get the categorization of students
@@ -368,6 +373,7 @@ Step-7: repo wise stats
 '''
 analyzed_so_far=0
 statRepoDict= getRepoWiseStats(idMappingOfMessages)
+sorted(statRepoDict)
 for keys, values in statRepoDict.iteritems():
    analyzed_so_far = analyzed_so_far + len(values)
    print "Repo name: {}, count of messages: {}".format(keys, len(values))
