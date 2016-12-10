@@ -49,6 +49,38 @@ def readFile(dirNameParam):
                messageDict[message_] = tmp_
   return messageDict
 
+
+
+
+def getResovledCategorization(resolvedFileName):
+          IDHolder = {}
+          catHolder = {}
+          workbook2read = xlrd.open_workbook(file2read)
+          sheet2read = workbook2read.sheet_by_index(1)
+          cells2read = sheet2read.row_slice(rowx=row2read, start_colx=0, end_colx=5) # we have 5 columns, starting with an index of 0
+          categorization=''
+          repoName = cells2read[0]
+          id_ = cells2read[1]
+          cate_ = cells2read[5]
+          if repoName not in IDHolder:
+            IDHolder[repoName] = [id_]
+          else:
+            tmp_ID_List = IDHolder[repoName]
+            IDHolder[repoName] = tmp_ID_List +  [id_]
+          if repoName not in catHolder:
+            catHolder[repoName] = [cate_]
+          else:
+            tmp_ = catHolder[repoName]
+            catHolder[repoName] = tmp_ +  [cate_]
+
+          print "The IDs of messages ..."
+          print "-"*50
+          for k_, v_ in IDHolder.iteritems():
+            print "Repo name:", k_
+            print "IDs:", v_
+          print "-"*50
+
+
 def getRepoInfo(repoKey):
     repoPathToRet=''
     # repoDict={
@@ -366,8 +398,8 @@ for k_, v_ in student_categorization_of_messages.iteritems():
        one_count = one_count + 1
    print "-"*50
 print "#"*100
-print "Messages with one rating: {}, messages with multiple rating: {}".format(one_count, mul_count)
-print "#"*100
+# print "Messages with one rating: {}, messages with multiple rating: {}".format(one_count, mul_count)
+# print "#"*100
 '''
 Step-7: repo wise stats
 '''
@@ -376,7 +408,7 @@ statRepoDict= getRepoWiseStats(idMappingOfMessages)
 sorted(statRepoDict)
 for keys, values in statRepoDict.iteritems():
    analyzed_so_far = analyzed_so_far + len(values)
-   print "Repo name: {}, count of messages: {}".format(keys, len(values))
+   #print "Repo name: {}, count of messages: {}".format(keys, len(values))
 print "So far analyzed {} unique messages, from {} repos".format(analyzed_so_far, len(statRepoDict))
 print "#"*100
 '''
@@ -384,6 +416,9 @@ Step-8:
 Summarize Phase 1 work
 '''
 file2save='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/StudentStudy/P1_Category_Summary.csv'
-fileStatus = summarizePhaseOneResults(student_categorization_of_messages, idMappingOfMessages, file2save)
-print "Dumped a file of {} bytes. The file is for phase one summary.".format(fileStatus)
+# fileStatus = summarizePhaseOneResults(student_categorization_of_messages, idMappingOfMessages, file2save)
+# print "Dumped a file of {} bytes. The file is for phase one summary.".format(fileStatus)
+print "#"*100
+phaseOneResolvedFile='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/StudentStudy/Analysis_P1_Category_Summary.xls'
+getResovledCategorization(phaseOneResolvedFile)
 print "#"*100
