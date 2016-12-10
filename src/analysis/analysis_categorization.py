@@ -55,29 +55,33 @@ def readFile(dirNameParam):
 def getResovledCategorization(resolvedFileName):
           IDHolder = {}
           catHolder = {}
-          workbook2read = xlrd.open_workbook(file2read)
+          workbook2read = xlrd.open_workbook(resolvedFileName)
           sheet2read = workbook2read.sheet_by_index(1)
-          cells2read = sheet2read.row_slice(rowx=row2read, start_colx=0, end_colx=5) # we have 5 columns, starting with an index of 0
-          categorization=''
-          repoName = cells2read[0]
-          id_ = cells2read[1]
-          cate_ = cells2read[5]
-          if repoName not in IDHolder:
-            IDHolder[repoName] = [id_]
-          else:
-            tmp_ID_List = IDHolder[repoName]
-            IDHolder[repoName] = tmp_ID_List +  [id_]
-          if repoName not in catHolder:
-            catHolder[repoName] = [cate_]
-          else:
-            tmp_ = catHolder[repoName]
-            catHolder[repoName] = tmp_ +  [cate_]
+          number_of_rows = sheet2read.nrows
+          for row2read in xrange(number_of_rows):
+            cells2read = sheet2read.row_slice(rowx=row2read, start_colx=0, end_colx=5) # we have 5 columns, starting with an index of 0
+            print cells2read
+            repoName = cells2read[0].value
+            if (repoName!='REPO' and repoName!='WTF'):
+                id_ = int(cells2read[1].value)    ## the ID
+                cate_ = cells2read[4].value   ## the final category is the fifth index
+                if repoName not in IDHolder:
+                  IDHolder[repoName] = [id_]
+                else:
+                  tmp_ID_List = IDHolder[repoName]
+                  IDHolder[repoName] = tmp_ID_List +  [id_]
+                if repoName not in catHolder:
+                  catHolder[repoName] = [cate_]
+                else:
+                  tmp_ = catHolder[repoName]
+                  catHolder[repoName] = tmp_ +  [cate_]
 
           print "The IDs of messages ..."
           print "-"*50
+
           for k_, v_ in IDHolder.iteritems():
-            print "Repo name:", k_
-            print "IDs:", v_
+                  print "Repo name:", k_
+                  print "IDs:", v_
           print "-"*50
 
 
