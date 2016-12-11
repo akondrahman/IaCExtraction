@@ -81,7 +81,7 @@ def getResovledCategorization(resolvedFileName):
 
           for k_, v_ in IDHolder.iteritems():
                   print "Repo name:", k_
-                  print "IDs:", v_
+                  print "IDs:\n", v_
                   print "*"*25
           print "-"*50
           print "The distribution of categories ..."
@@ -89,7 +89,7 @@ def getResovledCategorization(resolvedFileName):
           for k_, v_ in catHolder.iteritems():
                   print "Repo name:", k_
                   print "Category distribution:", collections.Counter(v_)
-                  print "*"*25                  
+                  print "*"*25
           print "-"*50
 
 def getRepoInfo(repoKey):
@@ -401,13 +401,13 @@ print "=====The complete categories of messages====="
 one_count = 0
 mul_count = 0
 for k_, v_ in student_categorization_of_messages.iteritems():
-   print k_
-   print v_
+   #print k_
+   #print v_
    if (len(v_) > 1):
        mul_count = mul_count + 1
    else:
        one_count = one_count + 1
-   print "-"*50
+   #print "-"*50
 print "#"*100
 # print "Messages with one rating: {}, messages with multiple rating: {}".format(one_count, mul_count)
 # print "#"*100
