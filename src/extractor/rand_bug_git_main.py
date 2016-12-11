@@ -8,7 +8,7 @@ Created on Fri Oct 21 2016
 
 
 import numpy as np
-import bug_git_util
+import bug_git_util, dict_holder as dh
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
@@ -181,15 +181,12 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   Dec 06, 2016 : preparation for phase 2 qualitative coding
   '''
   partial_content_file_ = repo_path + "/" + "phase_two_qual_coding.csv"
-  excludeDict = {  '/Users/akond/PUPP_REPOS/wikimedia-downloads/puppet':  [5, 50, 12, 45, 100],
-                    '/Users/akond/PUPP_REPOS/wikimedia-downloads/vagrant':  [5, 50, 12, 45, 100],
-                    '/Users/akond/PUPP_REPOS/wikimedia-downloads/cdh':  [5, 50, 12, 45, 100],
-                    '/Users/akond/PUPP_REPOS/wikimedia-downloads/cdh4':  [5, 50, 12, 45, 100],
-                    '/Users/akond/PUPP_REPOS/wikimedia-downloads/translatewiki':  [5, 50, 12, 45, 100],
-                    '/Users/akond/PUPP_REPOS/wikimedia-downloads/kafka':  [5, 50, 12, 45, 100]
-                  }
+  '''
+  Chnage this line (line no 187) accordingly for organizations
+  '''
+  excludeDict = dh.excludeDictForWikimedia
   excludeIDList = excludeDict[repo_path]
-  bug_git_util.performCleanUp(partial_content_file_)  
+  bug_git_util.performCleanUp(partial_content_file_)
   bug_git_util.dumpPhaseTwoBugMessageAsStr(unique_pupp_msg, partial_content_file_, pupp_to_msgs_dict, excludeIDList, repo_path)
 
 
