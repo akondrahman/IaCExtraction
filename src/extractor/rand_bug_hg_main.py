@@ -8,7 +8,7 @@ Created on Oct 21, 2016
 
 
 import hglib , subprocess, os, time, datetime, re, numpy as np
-import bug_hg_developer
+import bug_hg_developer, , dict_holder as dh
 
 
 
@@ -281,9 +281,7 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     Dec 06, 2016 : preparation for phase 2 qualitative coding
     '''
     partial_content_file_ = repo_path + "/" + "phase_two_qual_coding.csv"
-    excludeDict = {  '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet':  [5, 50, 12, 45, 100],
-                    '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet':  [5, 50, 12, 45, 100]
-                  }
+    excludeDict= dh.excludeDictForMozilla
     excludeIDList = excludeDict[repo_path]
     bug_hg_developer.performCleanUp(partial_content_file_)
     bug_hg_developer.dumpPhaseTwoBugMessageAsStr(unique_pupp_msg, partial_content_file_, pupp_to_msgs_dict, excludeIDList, repo_path)
