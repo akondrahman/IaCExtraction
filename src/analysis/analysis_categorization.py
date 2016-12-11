@@ -60,7 +60,7 @@ def getResovledCategorization(resolvedFileName):
           number_of_rows = sheet2read.nrows
           for row2read in xrange(number_of_rows):
             cells2read = sheet2read.row_slice(rowx=row2read, start_colx=0, end_colx=5) # we have 5 columns, starting with an index of 0
-            print cells2read
+            #print cells2read
             repoName = cells2read[0].value
             if (repoName!='REPO' and repoName!='WTF'):
                 id_ = int(cells2read[1].value)    ## the ID
@@ -82,8 +82,15 @@ def getResovledCategorization(resolvedFileName):
           for k_, v_ in IDHolder.iteritems():
                   print "Repo name:", k_
                   print "IDs:", v_
+                  print "*"*25
           print "-"*50
-
+          print "The distribution of categories ..."
+          print "-"*50
+          for k_, v_ in catHolder.iteritems():
+                  print "Repo name:", k_
+                  print "Category distribution:", collections.Counter(v_)
+                  print "*"*25                  
+          print "-"*50
 
 def getRepoInfo(repoKey):
     repoPathToRet=''
@@ -423,6 +430,10 @@ file2save='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorizati
 # fileStatus = summarizePhaseOneResults(student_categorization_of_messages, idMappingOfMessages, file2save)
 # print "Dumped a file of {} bytes. The file is for phase one summary.".format(fileStatus)
 print "#"*100
+'''
+Step-9:
+Summarize Resolved Phase 1 work
+'''
 phaseOneResolvedFile='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/StudentStudy/Analysis_P1_Category_Summary.xls'
 getResovledCategorization(phaseOneResolvedFile)
 print "#"*100
