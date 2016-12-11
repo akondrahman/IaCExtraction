@@ -57,3 +57,67 @@ excludeDictForMozilla = {  '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/pup
                                                                                         1192, 1605, 137, 1416, 1006, 1341, 1189, 1625, 1104, 1074, 185, 1420, 1120, 1406, 1546, 1044, 136, 1166, 1566, 1332, 1549, 1000, 1585, 167, 1522,
                                                                                         1299, 18, 1611, 1113, 103, 1556, 159, 1022, 130, 158, 174, 1199, 1087, 1173, 244, 1077, 23, 1067, 198, 160, 1096, 1101, 1555, 10]
                   }
+excludeDictForOpenstack = {
+                       '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-tripleo
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-openstack-integration
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/packstack
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-ci
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-monasca
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-cisco-aci
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-library
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-cinder
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-manila
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-rally
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-pacemaker
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-manila
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-opendaylight
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-contrail
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-nsx-t
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-swift
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-vitrage
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-watcher
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-nova
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-octavia
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-barbican
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-designate
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-lma-collector
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-ceph
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-glance
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-ironic
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-ironic
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-oslo
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-onos
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-magnum
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-ceilometer
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-congress
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-zaqar
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-openstack-cookiecutter
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-plumgrid
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-heat': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-lma-infrastructure-alerting': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-gnocchi': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-bigswitch': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-neutron': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-aodh': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-mistral': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-ec2api': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-keystone': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-external-zabbix': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-midonet': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/solar-resources': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-midonet': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-murano': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-mellanox': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-scaleio': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-trove': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-6wind-virtual-accelerator': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-influxdb-grafana': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-sahara': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-murano': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-datera-cinder': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-elasticsearch-kibana': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-purestorage-cinder': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/fuel-plugin-ceilometer-redis': [-999999]
+'/Users/akond/PUPP_REPOS/mozilla-releng-downloads/puppet-qdr': [-999999]
+
+                  }

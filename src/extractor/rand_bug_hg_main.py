@@ -8,7 +8,7 @@ Created on Oct 21, 2016
 
 
 import hglib , subprocess, os, time, datetime, re, numpy as np
-import bug_hg_developer, , dict_holder as dh
+import bug_hg_developer, dict_holder as dh
 
 
 
