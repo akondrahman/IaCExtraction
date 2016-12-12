@@ -193,7 +193,7 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
 '''
 get the whole list of eligible projects
 '''
-orgName='wikimedia-downloads'
+orgName='openstack-downloads'
 fileName="/Users/akond/PUPP_REPOS/"+orgName+'/'+'eligible_repos.csv'
 elgibleProjects=bug_git_util.getEligibleProjectsFromCSVForRandAnalysis(fileName)
 
