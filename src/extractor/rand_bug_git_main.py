@@ -184,7 +184,7 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   '''
   Chnage this line (line no 187) accordingly for organizations
   '''
-  excludeDict = dh.excludeDictForOpenstack
+  excludeDict = dh.excludeDictForWikimedia
   excludeIDList = excludeDict[repo_path]
   bug_git_util.performCleanUp(partial_content_file_)
   bug_git_util.dumpPhaseTwoBugMessageAsStr(unique_pupp_msg, partial_content_file_, pupp_to_msgs_dict, excludeIDList, repo_path)
@@ -193,7 +193,7 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
 '''
 get the whole list of eligible projects
 '''
-orgName='openstack-downloads'
+orgName='wikimedia-downloads'
 fileName="/Users/akond/PUPP_REPOS/"+orgName+'/'+'eligible_repos.csv'
 elgibleProjects=bug_git_util.getEligibleProjectsFromCSVForRandAnalysis(fileName)
 
