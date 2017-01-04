@@ -3,10 +3,10 @@ Akond, Jan 04, 2016
 Extract reviews for mozilla releng repos
 '''
 
-import requests, time
+import requests, time, bug_git_util
 infoToExtract = [ 'summary', 'bugs_closed', 'reviews', 'target_groups', 'absolute_url', 'approved', 'issue_open_count', 'time_added',
                     'testing_done', 'target_people', 'description', 'status',
-                    'id', 'ship_it_count', 'depends_on', 'last_updated', 'submitter' ]
+                    'id', 'ship_it_count', 'depends_on', 'last_updated', 'submitter', 'changes' ]
 
 
 def giveValidIDs(f_):
@@ -37,6 +37,12 @@ def processIndiReq(revReqObjParam):
     temp_key=''
     if k_ in revReqObjParam:
         temp_key = revReqObjParam[k_]
+        if ((k_=='target_groups') or (k_=='target_people') or (k_=='depends_on') or (k_=='reviews') or (k_=='changes')):
+          temp_key = len(temp_key)
+        if (type(temp_key) is str):
+          temp_key = temp_key
+        else:
+          temp_key = str(temp_key)
     else:
         temp_key = 'NA'
     indiHolder = indiHolder +',' + temp_key
@@ -44,12 +50,12 @@ def processIndiReq(revReqObjParam):
 def getRelevantRevReq(fP):
   holderStr=''
   validIDList = giveValidIDs(fP)
-
-  urlextractorList = [x_ for x_ in xrange(200, 22000, 150)]
+  incre_ = 150 # at what values hsould I increment ?
+  urlextractorList = [x_ for x_ in xrange(incre_, 22000, incre_)]
   #print urlextractorList
-  #urlextractorList = [12000, 15000, 16000]
+  urlextractorList = [21000, 20000, 100550]
   for index_ in urlextractorList:
-    start_ = index_ - 200
+    start_ = index_ - incre_
     last_ =  index_
     if start_ <= 0:
         start_ = start_ + 1 #handling the corner case
@@ -59,7 +65,7 @@ def getRelevantRevReq(fP):
     allRevReqP  = getAllReviewRequests(theUrl)
     allReqs = allRevReqP['review_requests']
     for indiReq in allReqs:
-      #print indiReq
+
       id_ = indiReq['id']
       if id_ in validIDList:
         print "*"*25
@@ -68,14 +74,24 @@ def getRelevantRevReq(fP):
         holderStr = holderStr + validIndiContent + '\n'
         print holderStr
         print "*"*25
+        print indiReq
+        print "*"*25
       #print "="*50
-    print "total review_requests:", len(allReqs)
+    print "total review_requests (this batch):", len(allReqs)
+    print "="*50
+    print "total review_requests (so far):", last_
     print "="*50
     print "Time for a power nap ..."
     print "="*50
     time.sleep(120)
-
-
-validIDFileName='/Users/akond/Desktop/code-review-raw/mozilla/build-puppet/changeID.txt'
-getRelevantRevReq(validIDFileName)
+  return holderStr
+print "Started at:", bug_git_util.giveTimeStamp()
 print "="*100
+validIDFileName='/Users/akond/Desktop/code-review-raw/mozilla/build-puppet/changeID.txt'
+outputFileName ='/Users/akond/Desktop/code-review-raw/mozilla/build-puppet/fullContent.csv'
+fullContent = getRelevantRevReq(validIDFileName)
+print "="*100
+st = bug_git_util.dumpContentIntoFile(fullContent, outputFileName)
+print "Dumped a file of {} bytes".format(st)
+print "="*100
+print "Ended at:", bug_git_util.giveTimeStamp()
