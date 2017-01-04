@@ -39,6 +39,8 @@ def processIndiReq(revReqObjParam):
         temp_key = revReqObjParam[k_]
         if ((k_=='target_groups') or (k_=='target_people') or (k_=='depends_on') or (k_=='reviews') or (k_=='changes')):
           temp_key = len(temp_key)
+        if ((k_=='description') or (k_=='summary')):
+          temp_key = temp_key.replace('\n', ' ')
         if (type(temp_key) is str):
           temp_key = temp_key
         else:
@@ -51,9 +53,11 @@ def getRelevantRevReq(fP):
   holderStr=''
   validIDList = giveValidIDs(fP)
   incre_ = 150 # at what values hsould I increment ?
-  urlextractorList = [x_ for x_ in xrange(incre_, 22000, incre_)]
+  #urlextractorList = [x_ for x_ in xrange(incre_, 22000, incre_)]
+  #urlextractorList = [x_ for x_ in xrange(7800, 22000, incre_)]
+  urlextractorList = [x_ for x_ in xrange(12400, 22000, incre_)]    
   #print urlextractorList
-  urlextractorList = [21000, 20000, 100550]
+  #urlextractorList = [21000, 20000, 100550]
   for index_ in urlextractorList:
     start_ = index_ - incre_
     last_ =  index_
@@ -93,5 +97,8 @@ fullContent = getRelevantRevReq(validIDFileName)
 print "="*100
 st = bug_git_util.dumpContentIntoFile(fullContent, outputFileName)
 print "Dumped a file of {} bytes".format(st)
+print "="*100
+print "For headers"
+print infoToExtract
 print "="*100
 print "Ended at:", bug_git_util.giveTimeStamp()
