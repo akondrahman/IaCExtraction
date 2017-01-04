@@ -16,6 +16,7 @@ def giveValidIDs(f_):
     if (len(id_) > 0):
         list_.append(int(id_))
   print "Total valid Ids", list_
+  print "="*50
   return list_
 def getAllReviewRequests(urlParam):
   #r = requests.get('https://reviewboard.mozilla.org/api/review-requests/')
@@ -44,28 +45,30 @@ def getRelevantRevReq(fP):
   holderStr=''
   validIDList = giveValidIDs(fP)
 
-  urlextractorList = [x_+200 for x_ in xrange(200, 22000, 150)]
-  print urlextractorList
-  urlextractorList = [200, 400]
+  urlextractorList = [x_ for x_ in xrange(200, 22000, 150)]
+  #print urlextractorList
+  #urlextractorList = [12000, 15000, 16000]
   for index_ in urlextractorList:
     start_ = index_ - 200
     last_ =  index_
     if start_ <= 0:
-        start_ = start_ + 1
+        start_ = start_ + 1 #handling the corner case
     theUrl =  'https://reviewboard.mozilla.org/api/review-requests/?start='+str(start_)+'&max-results='+str(last_)
-    print "The url we will use: ", theUrl
+    print "The url we will use:", theUrl
     print "="*50
     allRevReqP  = getAllReviewRequests(theUrl)
     allReqs = allRevReqP['review_requests']
     for indiReq in allReqs:
-      print indiReq
+      #print indiReq
       id_ = indiReq['id']
       if id_ in validIDList:
+        print "*"*25
         print "Found relevant rev-req#", id_
         validIndiContent  = processIndiReq(indiReq)
         holderStr = holderStr + validIndiContent + '\n'
         print holderStr
-      print "="*50
+        print "*"*25
+      #print "="*50
     print "total review_requests:", len(allReqs)
     print "="*50
     print "Time for a power nap ..."
