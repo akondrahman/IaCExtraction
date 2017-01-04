@@ -3,8 +3,10 @@ Akond, Jan 04, 2016
 Extract reviews for mozilla releng repos
 '''
 
-import requests
-
+import requests, time
+infoToExtract = [ 'summary', 'bugs_closed', 'reviews', 'target_groups', 'absolute_url', 'approved', 'issue_open_count', 'time_added',
+                    'testing_done', 'target_people', 'description', 'status',
+                    'id', 'ship_it_count', 'depends_on', 'last_updated', 'submitter' ]
 
 
 def giveValidIDs(f_):
@@ -15,43 +17,62 @@ def giveValidIDs(f_):
         list_.append(int(id_))
   print "Total valid Ids", list_
   return list_
-def getAllReviewRequests():
+def getAllReviewRequests(urlParam):
   #r = requests.get('https://reviewboard.mozilla.org/api/review-requests/')
-  allStuff = 'https://reviewboard.mozilla.org/api/review-requests/?start=21800&max-results=22000'
+  #allStuff = 'https://reviewboard.mozilla.org/api/review-requests/?start=21800&max-results=22000'
   #allStuff = 'https://reviewboard.mozilla.org/api/review-requests/?sort=repository%2C-last_updated&datagrid-id=datagrid-0&columns=star%2Csummary%2Csubmitter%2Ctime_added%2Clast_updated_since%2Crepository&page=5'
+  allStuff = urlParam
   r = requests.get(allStuff)
   revAsJSON = r.json()
   return revAsJSON
 
-def getRelevantRevReq(allRevReqP, fP):
+
+
+
+def processIndiReq(revReqObjParam):
+  infoToExtract.sort()
+  indiHolder=''
+  for k_ in infoToExtract:
+    temp_key=''
+    if k_ in revReqObjParam:
+        temp_key = revReqObjParam[k_]
+    else:
+        temp_key = 'NA'
+    indiHolder = indiHolder +',' + temp_key
+  return indiHolder
+def getRelevantRevReq(fP):
   holderStr=''
   validIDList = giveValidIDs(fP)
-  infoToExtract = [ 'summary', 'bugs_closed', 'reviews', 'target_groups', 'absolute_url', 'approved', 'issue_open_count', 'time_added',
-                    'testing_done', 'target_people', 'description', 'status',
-                    'id', 'ship_it_count', 'depends_on', 'last_updated', 'submitter' ]
-  infoToExtract.sort()
-  # for validID in validIDList:
-  #   for key_ in infoToExtract:
-  #     url_ = 'https://reviewboard.mozilla.org/api/review-requests/' + str(8) + '/' + 'changes'
-  #     r_ = requests.get(url_)
-  #     revAsJSON = r_.json()
-  #     print revAsJSON
-  #     print "="*50
-  # print "Info pieces to extract:", infoToExtract
-  # print "="*50
-  allReqs = allRevReqP['review_requests']
 
-  for indiReq in allReqs:
-    print indiReq
+  urlextractorList = [x_+200 for x_ in xrange(200, 22000, 150)]
+  print urlextractorList
+  urlextractorList = [200, 400]
+  for index_ in urlextractorList:
+    start_ = index_ - 200
+    last_ =  index_
+    if start_ <= 0:
+        start_ = start_ + 1
+    theUrl =  'https://reviewboard.mozilla.org/api/review-requests/?start='+str(start_)+'&max-results='+str(last_)
+    print "The url we will use: ", theUrl
     print "="*50
-  print "total review_requests:", len(allReqs)
-  print "="*50
+    allRevReqP  = getAllReviewRequests(theUrl)
+    allReqs = allRevReqP['review_requests']
+    for indiReq in allReqs:
+      print indiReq
+      id_ = indiReq['id']
+      if id_ in validIDList:
+        print "Found relevant rev-req#", id_
+        validIndiContent  = processIndiReq(indiReq)
+        holderStr = holderStr + validIndiContent + '\n'
+        print holderStr
+      print "="*50
+    print "total review_requests:", len(allReqs)
+    print "="*50
+    print "Time for a power nap ..."
+    print "="*50
+    time.sleep(120)
 
 
-allRevReq = getAllReviewRequests()
-#print allRevReq
-print "Done loading all requests"
-print "="*100
 validIDFileName='/Users/akond/Desktop/code-review-raw/mozilla/build-puppet/changeID.txt'
-getRelevantRevReq(allRevReq, validIDFileName)
+getRelevantRevReq(validIDFileName)
 print "="*100
