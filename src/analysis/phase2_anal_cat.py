@@ -12,7 +12,7 @@ def dumpContentIntoFile(strP, fileP):
   fileToWrite.write(strP );
   fileToWrite.close()
   return str(os.stat(fileP).st_size)
-def phase2Anal(rater1F, rater2F):
+def phase1Anal(rater1F, rater2F):
     agreementCnt=0
     disAgreementCnt=0
     with open(rater1F, 'rU') as f1:
@@ -66,7 +66,7 @@ def transformCate(catego_):
 
 
 
-def phase1Anal(rater1F, rater2F):
+def phase2Anal(rater1F, rater2F):
     agreementCnt=0
     disAgreementCnt=0
     disAgreeStr=''
@@ -94,11 +94,11 @@ def phase1Anal(rater1F, rater2F):
                #print "msg:{}, cat1:{}, cat2:{}".format(msg1, categ1, categ2)
                if (categ1==categ2):
                  agreementCnt = agreementCnt + 1
-                 agreeStr = agreeStr + msg1 + ',' + categ1 + ',' + categ2 + ',' + '\n'
+                 agreeStr = agreeStr + id1 + ',' + repo1 + ',' +  msg1 + ',' + categ1 + ',' + categ2 + ',' + '\n'
                else:
                  disAgreementCnt = disAgreementCnt + 1
-                 disAgreeStr = disAgreeStr + msg1 + ',' + categ1 + ',' + categ2 + ',' + '\n'
-        #print "reader1: {}, reader2: {}".format(len(reader1), len(reader2))
+                 disAgreeStr = disAgreeStr + id1 + ',' + repo1 + ',' +  msg1 + ',' + categ1 + ',' + categ2 + ',' + '\n'
+
     print "Agremments:{}, diagreements: {}".format(agreementCnt, disAgreementCnt)
     dumpContentIntoFile(disAgreeStr, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/Phase-2/disagee.csv')
     dumpContentIntoFile(agreeStr, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/Phase-2/agee.csv')
@@ -106,11 +106,12 @@ def phase1Anal(rater1F, rater2F):
 
 
 
+
 # rater1File='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/Phase-2/rater1/ForAnalBatchTwo.csv'
 # rater2File='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/Phase-2/rater2/ForAnalBatchTwo.csv'
-#phase2Anal(rater1File, rater2File)
+#phase1Anal(rater1File, rater2File)
 
 
 rater1File='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/Phase-2/rater1/ForAnalBatchOne.csv'
 rater2File='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC_Mining/Categorization/Phase-2/rater2/ForAnalBatchOne.csv'
-phase1Anal(rater1File, rater2File)
+phase2Anal(rater1File, rater2File)
