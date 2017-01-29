@@ -81,6 +81,7 @@ def getResovledCategorization(resolvedFileName):
 
           for k_, v_ in IDHolder.iteritems():
                   print "Repo name:", k_
+                  print "Message count", len(v_)
                   print "IDs:\n", v_
                   print "*"*25
           print "-"*50
