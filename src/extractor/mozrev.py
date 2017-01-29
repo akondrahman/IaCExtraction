@@ -55,7 +55,7 @@ def getRelevantRevReq(fP):
   incre_ = 150 # at what values hsould I increment ?
   #urlextractorList = [x_ for x_ in xrange(incre_, 22000, incre_)]
   #urlextractorList = [x_ for x_ in xrange(7800, 22000, incre_)]
-  urlextractorList = [x_ for x_ in xrange(12400, 22000, incre_)]    
+  urlextractorList = [x_ for x_ in xrange(16300, 22000, incre_)]    
   #print urlextractorList
   #urlextractorList = [21000, 20000, 100550]
   for index_ in urlextractorList:
