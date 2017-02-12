@@ -17,7 +17,12 @@ def splitBugMapping(bug_map_param):
   y_bug_list = []
   n_bug_list = []
   for elem in bug_map_param:
-    status_ = elem[2]  # the lst element, index 3, has bug ID, the 2nd last elem has bug flag
+    #status_ = elem[2]
+    '''
+    changed for including timestamp_commit
+    '''
+    status_ = elem[3]
+    #print "line 111", status_
     if status_=='y':
       y_bug_list.append(elem)
     else:

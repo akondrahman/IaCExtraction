@@ -39,6 +39,7 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   print "#"*75
   y_n_bug_mapiing = bug_git_util.splitBugMapping(pupp_bug_info_repo)
   print "Yes and no classification based on bug evidence"
+  print "="*50
   yes_bug_mapping = y_n_bug_mapiing[0]
   no_bug_mapping  = y_n_bug_mapiing[1]
   files_that_have_defects = bug_git_util.getFilesFromMappingInfo(yes_bug_mapping)
@@ -84,12 +85,12 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   else:
     print "Didn't find non-defected files! WOW!!"
   print "#"*75
-  print "Count fo files was:", len(all_files)
-  print "="*75
   print "The puppet to all file ratio was:", pp_to_all_file_ratio
   print "#"*75
   print "REPO:", repo_path
   print "#"*75
+  print "Count of all files was:{}, only PP files were:{}".format( len(all_files), len(all_pp_files_in_repo))
+  print "="*75
   print "defected file count:{}, no-defected files:{}".format(len(files_that_have_defects), len(no_deftect_files))
   print "#"*75
 

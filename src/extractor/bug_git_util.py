@@ -108,11 +108,12 @@ def splitBugMapping(bug_map_param):
     changed for including timestamp_commit
     '''
     status_ = elem[3]
+    #print "line 111", status_
     if status_=='y':
       y_bug_list.append(elem)
     else:
       n_bug_list.append(elem)
-  print "len-y:{}, len-n:{}".format(len(y_bug_list), len(n_bug_list))
+  print "Commits: len-y:{}, len-n:{}".format(len(y_bug_list), len(n_bug_list))
   tupToRet=(y_bug_list, n_bug_list)
   return tupToRet
 
