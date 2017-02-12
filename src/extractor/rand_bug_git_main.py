@@ -63,6 +63,7 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   bug_git_util.performCleanUp(y_file_to_save)
   y_dump_status = bug_git_util.dumpContentIntoFile(y_str_to_dump, y_file_to_save)
   print "Dumped a CSV file of {} bytes".format(y_dump_status)
+  print "*"*75
   if len(no_deftect_files) > 0:
     #print no_bug_mapping
     n_file2bug= repo_path + "/" + "randFile_n_bug_msg.csv"
@@ -84,6 +85,7 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
     print "Didn't find non-defected files! WOW!!"
   print "#"*75
   print "Count fo files was:", len(all_files)
+  print "="*75
   print "The puppet to all file ratio was:", pp_to_all_file_ratio
   print "#"*75
   print "REPO:", repo_path
@@ -135,6 +137,11 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   get randomly selected bug messages for qual. coding
   '''
   all_pupp_msgs, pupp_to_msgs_dict = bug_git_util.getPuppMessages(yes_bug_mapping, no_bug_mapping)
+  '''
+  for itme handling
+  '''
+  time2messagDict = bug_git_util.getPuppTimestamps(yes_bug_mapping, no_bug_mapping)
+  #print pupp_to_msgs_dict
   unique_pupp_msg = np.unique(all_pupp_msgs)
   print "Count of all unique Puppet messages (both yes and no):", len(unique_pupp_msg)
   print "#"*75
@@ -168,26 +175,27 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   ## for dumping messages
   all_msg_file_pupp_param =   repo_path + "/" + "fullThrottle_msgs.txt"
   bug_git_util.performCleanUp(full_qual_fileP)
-  # '''
-  # Dec 01, 2016
-  # '''
-  # id2msg_file_ =   repo_path + "/" + "fullThrottle_id_msg_map.csv"
-  # ## call the method
-  # bug_git_util.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path, id2msg_file_)
-  # print "Ended at:", bug_git_util.giveTimeStamp()
-  # print "#"*75
+  '''
+  Dec 01, 2016
+  '''
+  id2msg_file_ =   repo_path + "/" + "fullThrottle_id_msg_map.csv"
+  bug_git_util.performCleanUp(id2msg_file_)
+  ## call the method
+  bug_git_util.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path, id2msg_file_, time2messagDict)
+  print "Ended at:", bug_git_util.giveTimeStamp()
+  print "#"*75
 
-  '''
-  Dec 06, 2016 : preparation for phase 2 qualitative coding
-  '''
-  partial_content_file_ = repo_path + "/" + "phase_two_qual_coding.csv"
-  '''
-  Chnage this line (line no 187) accordingly for organizations
-  '''
-  excludeDict = dh.excludeDictForWikimedia
-  excludeIDList = excludeDict[repo_path]
-  bug_git_util.performCleanUp(partial_content_file_)
-  bug_git_util.dumpPhaseTwoBugMessageAsStr(unique_pupp_msg, partial_content_file_, pupp_to_msgs_dict, excludeIDList, repo_path)
+  # '''
+  # Dec 06, 2016 : preparation for phase 2 qualitative coding
+  # '''
+  # partial_content_file_ = repo_path + "/" + "phase_two_qual_coding.csv"
+  # '''
+  # Chnage this line (line no 187) accordingly for organizations
+  # '''
+  # excludeDict = dh.excludeDictForWikimedia
+  # excludeIDList = excludeDict[repo_path]
+  # bug_git_util.performCleanUp(partial_content_file_)
+  # bug_git_util.dumpPhaseTwoBugMessageAsStr(unique_pupp_msg, partial_content_file_, pupp_to_msgs_dict, excludeIDList, repo_path)
 
 
 '''
@@ -210,5 +218,4 @@ for proj_ in elgibleProjects:
 '''
 Seperate function for one project only
 '''
-# rand_bug_git_main(orgName, 'puppet', 'master', 74, 8085)
-# print "="*75
+# rand_bug_git_main(orgName, 'mariadb', 'master', 49, 56)

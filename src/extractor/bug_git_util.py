@@ -72,17 +72,28 @@ def getPuppRelatedBugInfo(repo_path_param, repo_branch_param, pupp_commits_mappi
     file_ = tuple_[0]
     commit_ = tuple_[1]
     msg_commit =  commit_.message.lower()
+    '''
+    we also need timestamp now!
+    ater MSR submission, Feb 10, 2017
+    '''
+    timestamp_commit = commit_.committed_datetime
+    #print "committed time:",timestamp_commit
+    '''
+    '''
     #if (('fix' in msg_commit)or ('bug' in msg_commit)or ('patch' in msg_commit)):
     if ('merg' in msg_commit) or ('no bug' in msg_commit) or ('debug' in msg_commit) or ('out' in msg_commit) or ('revert' in msg_commit):
-        tup_ = (file_, msg_commit, 'n', msg_commit)
+        #tup_ = (file_, msg_commit, 'n', msg_commit)
+        tup_ = (file_, timestamp_commit, msg_commit, 'n', msg_commit)
     else:
       #if (  ('bug' in msg_commit) or ('fix' in msg_commit) ):
       #if ( getBugIDMatch(msg_commit)or ('fix' in msg_commit) ):
       if ('bug' in msg_commit) :
         #print "$$ Defect detected @", msg_commit
-        tup_ = (file_, msg_commit, 'y', msg_commit)
+        #tup_ = (file_, msg_commit, 'y', msg_commit)
+        tup_ = (file_, timestamp_commit, msg_commit, 'n', msg_commit)
       else:
-        tup_ = (file_, msg_commit, 'n', msg_commit)
+        #tup_ = (file_, msg_commit, 'n', msg_commit)
+        tup_ = (file_, timestamp_commit, msg_commit, 'n', msg_commit)
     pupp_bug_list.append(tup_)
   #print pupp_bug_list
   return pupp_bug_list
@@ -92,7 +103,11 @@ def splitBugMapping(bug_map_param):
   y_bug_list = []
   n_bug_list = []
   for elem in bug_map_param:
-    status_ = elem[2]
+    #status_ = elem[2]
+    '''
+    changed for including timestamp_commit
+    '''
+    status_ = elem[3]
     if status_=='y':
       y_bug_list.append(elem)
     else:
@@ -370,7 +385,6 @@ def dumpBugMessageAsStr( bugListParam, fileParam):
 '''
 Oct 19, 2016
 This method grabs all the messages for both yes and no defected files
-and dumps them in a aseperate file
 '''
 def getPuppMessages(yesBugMappingParam, noBugMappingParam):
   list_ =[]
@@ -403,6 +417,30 @@ def getPuppMessages(yesBugMappingParam, noBugMappingParam):
        dict2ret[fileName] = tmpList
        tmpList = []
   return list_, dict2ret
+
+'''
+for timestamp
+'''
+def getPuppTimestamps(yesBugMappingParam, noBugMappingParam):
+  dict2ret={}
+  bug_msg_=""
+  for tup_ in yesBugMappingParam:
+    bug_msg_ = tup_[-1]
+    '''
+    get timestamp
+    '''
+    times_ = tup_[1]
+    if times_ not in dict2ret:
+        dict2ret[times_] = bug_msg_
+  for tup_ in noBugMappingParam:
+    bug_msg_ = tup_[-1]
+    '''
+    get timestamp
+    '''
+    times_ = tup_[1]
+    if times_ not in dict2ret:
+        dict2ret[times_] = bug_msg_
+  return  dict2ret
 '''
 Oct 21, 2016
 '''
@@ -417,7 +455,7 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
   '''
   msg_to_id_mapping_str=""
   ''' ID to message mapping for better data crucnhing
-      CCERP End Oct 29
+      CCERP En Oct 29
   '''
   #print bugListParam
   matchedFileName=""
@@ -459,7 +497,7 @@ def dumpRandBugMessageAsStr(unique_pupp_msg_papram, rand_msg_file_pupp_param, qu
 '''
 Added Nov 01, 2016
 '''
-def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qual_coding_file_param, pupp_to_msgs_dict_param, msg_to_id_file_param, repo_path_param, id2msg_file_param):
+def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qual_coding_file_param, pupp_to_msgs_dict_param, msg_to_id_file_param, repo_path_param, id2msg_file_param, time2msgDictP):
   '''
   This method creates three files: one for bug messages, one for file mapping, one for qual. coding
   '''
@@ -479,14 +517,16 @@ def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qua
           myfile_.write(tmpStr)
           qual_mapping_str = qual_mapping_str + str(indexCount) + "," + "\n"
           if checkIfMsgInDict(elm, pupp_to_msgs_dict_param):
-            matchedFileName =  getMatchingFileNameForMsg(elm, pupp_to_msgs_dict_param) # need the indexing to get the name of the list
-            msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + ',' + matchedFileName + ',' + '\n'
+            matchedFileName  =  getMatchingFileNameForMsg(elm, pupp_to_msgs_dict_param) # need the indexing to get the name of the list
+            matchedTimeStamp =  getMatchingTimeFromDict(elm, time2msgDictP)
+            matchedTimeStamp =  str(matchedTimeStamp)
+            msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + ',' + matchedFileName + ',' + matchedTimeStamp + ',' + '\n'
             '''
             Dec 01, 2016
             '''
             elm = elm.replace('\n', ' ')
             elm = elm.replace(',', ';')
-            id2msg_mapping_str = id2msg_mapping_str + str(indexCount) + ',' + repo_path_param + ',' + elm + ',' + '\n'
+            id2msg_mapping_str = id2msg_mapping_str + str(indexCount) + ',' + repo_path_param + ',' + elm + ',' + matchedTimeStamp + ',' + '\n'
           '''
           Added on Nov 07, 2016
           '''
@@ -547,6 +587,7 @@ def getEligibleProjectsFromCSVForRandAnalysis(fileNameParam):
   return repo_list
 
 
+
 def checkIfMsgInDict(elemParam, dictToSearchParam):
    returnVal = False
    for k_, v_ in dictToSearchParam.items():
@@ -561,9 +602,10 @@ def getMatchingFileNameForMsg(msgParam, dictToSearchParam):
     fileToRet='None'
     for k_, v_ in dictToSearchParam.items():
       if msgParam in v_:
-        fileToRet=k_
+          fileToRet=k_
         #print "msg:{}, listOfMsgs:{}".format(msgParam, v_)
     return fileToRet
+
 
 
 def performCleanUp(fileParam):
@@ -573,3 +615,13 @@ def performCleanUp(fileParam):
   '''
   if os.path.isfile(fileParam):
     os.remove(fileParam)
+
+
+
+def getMatchingTimeFromDict(msgParam, dictToSearchParam):
+    time2ret='0000-00-00'
+    for k_, v_ in dictToSearchParam.items():
+      if msgParam in v_:
+          time2ret=k_
+        #print "msg:{}, listOfMsgs:{}".format(msgParam, v_)
+    return time2ret
