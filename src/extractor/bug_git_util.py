@@ -617,7 +617,6 @@ def performCleanUp(fileParam):
     os.remove(fileParam)
 
 
-
 def getMatchingTimeFromDict(msgParam, dictToSearchParam):
     time2ret='0000-00-00'
     for k_, v_ in dictToSearchParam.items():

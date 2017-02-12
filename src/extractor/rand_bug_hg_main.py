@@ -237,6 +237,10 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     get randomly selected bug messages for qual. coding
     '''
     all_pupp_msgs, pupp_to_msgs_dict = bug_hg_developer.getPuppMessages(yes_bug_mapping, no_bug_mapping)
+    '''
+    for itme handling
+    '''
+    time2messagDict = bug_git_util.getPuppTimestamps(yes_bug_mapping, no_bug_mapping)
     unique_pupp_msg = np.unique(all_pupp_msgs)
     print "Count of all unique Puppet messages (both yes and no):", len(unique_pupp_msg)
     print "#"*75
@@ -272,7 +276,7 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     all_msg_file_pupp_param =   repo_path + "/" + "fullThrottle_msgs.txt"
     bug_hg_developer.performCleanUp(full_qual_fileP)
     ## call the method
-    #bug_hg_developer.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path, full_map_IDP)
+    bug_hg_developer.dumpFullBugMessageAsStr(unique_pupp_msg, all_msg_file_pupp_param, full_qual_fileP, pupp_to_msgs_dict, full_map_fileP, repo_path, full_map_IDP, time2messagDict)
 
 
 
@@ -280,11 +284,11 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     '''
     Dec 06, 2016 : preparation for phase 2 qualitative coding
     '''
-    partial_content_file_ = repo_path + "/" + "phase_two_qual_coding.csv"
-    excludeDict= dh.excludeDictForMozilla
-    excludeIDList = excludeDict[repo_path]
-    bug_hg_developer.performCleanUp(partial_content_file_)
-    bug_hg_developer.dumpPhaseTwoBugMessageAsStr(unique_pupp_msg, partial_content_file_, pupp_to_msgs_dict, excludeIDList, repo_path)
+    # partial_content_file_ = repo_path + "/" + "phase_two_qual_coding.csv"
+    # excludeDict= dh.excludeDictForMozilla
+    # excludeIDList = excludeDict[repo_path]
+    # bug_hg_developer.performCleanUp(partial_content_file_)
+    # bug_hg_developer.dumpPhaseTwoBugMessageAsStr(unique_pupp_msg, partial_content_file_, pupp_to_msgs_dict, excludeIDList, repo_path)
     print "Ended at:", giveTimeStamp()
     print "#"*75
 

@@ -185,9 +185,9 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
   print "Ended at:", bug_git_util.giveTimeStamp()
   print "#"*75
 
-  # '''
-  # Dec 06, 2016 : preparation for phase 2 qualitative coding
-  # '''
+  '''
+  Dec 06, 2016 : preparation for phase 2 qualitative coding
+  '''
   # partial_content_file_ = repo_path + "/" + "phase_two_qual_coding.csv"
   # '''
   # Chnage this line (line no 187) accordingly for organizations
@@ -211,9 +211,11 @@ Call the function
 for proj_ in elgibleProjects:
   # 0. org name: 1. project name  2. branch name  3.  95% sample  4. all messages
   #rand_bug_git_main('puppet-oslo', 'master', 31, 34)
+  print "="*75
   print "Processing ", proj_
   rand_bug_git_main(orgName, proj_[0], 'master', proj_[1], proj_[2])
   print "="*75
+
 
 '''
 Seperate function for one project only

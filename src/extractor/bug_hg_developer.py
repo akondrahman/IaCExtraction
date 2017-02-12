@@ -426,7 +426,7 @@ def performCleanUp(fileParam):
 '''
 Added Nov 01, 2016
 '''
-def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qual_coding_file_param, pupp_to_msgs_dict_param, msg_to_id_file_param, repo_path_param, id2msg_file_param):
+def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qual_coding_file_param, pupp_to_msgs_dict_param, msg_to_id_file_param, repo_path_param, id2msg_file_param, time2msgDictP):
   '''
   This method creates three files: one for bug messages, one for file mapping, one for qual. coding
   '''
@@ -444,13 +444,16 @@ def dumpFullBugMessageAsStr(unique_pupp_msg_papram, all_msg_file_pupp_param, qua
           qual_mapping_str = qual_mapping_str + str(indexCount) + "," + "\n"
           if checkIfMsgInDict(elm, pupp_to_msgs_dict_param):
             matchedFileName =  getMatchingFileNameForMsg(elm, pupp_to_msgs_dict_param) # need the indexing to get the name of the list
-            msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + ',' + matchedFileName + ',' + '\n'
+            #timestamp
+            matchedTimeStamp =  getMatchingTimeFromDict(elm, time2msgDictP)
+            matchedTimeStamp =  str(matchedTimeStamp)
+            msg_to_id_mapping_str = msg_to_id_mapping_str + str(indexCount) + ',' + matchedFileName + ',' + matchedTimeStamp + ',' + '\n'
             '''
             Dec 01, 2016
             '''
             elm = elm.replace('\n', ' ')
             elm = elm.replace(',', ';')
-            id2msg_mapping_str = id2msg_mapping_str + str(indexCount) + ',' + repo_path_param + ',' + elm + ',' + '\n'
+            id2msg_mapping_str = id2msg_mapping_str + str(indexCount) + ',' + repo_path_param + ',' + elm + ',' + matchedTimeStamp + ',' +  '\n'
           '''
           Added on Nov 07, 2016
           '''
@@ -493,3 +496,37 @@ def dumpPhaseTwoBugMessageAsStr(unique_pupp_msg_papram, partial_content_file_par
 '''
 End
 '''
+
+def getMatchingTimeFromDict(msgParam, dictToSearchParam):
+    time2ret='0000-00-00'
+    for k_, v_ in dictToSearchParam.items():
+      if msgParam in v_:
+          time2ret=k_
+        #print "msg:{}, listOfMsgs:{}".format(msgParam, v_)
+    return time2ret
+
+
+
+'''
+for timestamp
+'''
+def getPuppTimestamps(yesBugMappingParam, noBugMappingParam):
+  dict2ret={}
+  bug_msg_=""
+  for tup_ in yesBugMappingParam:
+    bug_msg_ = tup_[-1]
+    '''
+    get timestamp
+    '''
+    times_ = tup_[1]
+    if times_ not in dict2ret:
+        dict2ret[times_] = bug_msg_
+  for tup_ in noBugMappingParam:
+    bug_msg_ = tup_[-1]
+    '''
+    get timestamp
+    '''
+    times_ = tup_[1]
+    if times_ not in dict2ret:
+        dict2ret[times_] = bug_msg_
+  return  dict2ret
