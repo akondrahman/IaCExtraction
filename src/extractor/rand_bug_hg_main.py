@@ -17,11 +17,8 @@ def splitBugMapping(bug_map_param):
   y_bug_list = []
   n_bug_list = []
   for elem in bug_map_param:
-    #status_ = elem[2]
-    '''
-    changed for including timestamp_commit
-    '''
-    status_ = elem[3]
+    #print "el", elem
+    status_ = elem[2]
     #print "line 111", status_
     if status_=='y':
       y_bug_list.append(elem)
@@ -51,7 +48,10 @@ def getPuppetCommitMapping(all_commits_param, legit_files_param, bashCommand, pp
   listToRet = []
   cnt_ = 0
   for e in  all_commits_param:
+    #print "hg:Commit desc:", e
     commit_hash = e[1]
+    ## for timestamp
+    timestamp = e[-1]
     cnt_ = cnt_ + 1
     #print "Total {} commits analyzed ".format(cnt_)
     #print commit_hash
@@ -61,7 +61,7 @@ def getPuppetCommitMapping(all_commits_param, legit_files_param, bashCommand, pp
     for legitFile in pp_files:
       if(legitFile in diff_output):
         #print "Mapping found !!!"
-        tmp_tup = (legitFile, commit_hash)
+        tmp_tup = (legitFile, commit_hash, timestamp)
         listToRet.append(tmp_tup)
     #returnDirCommand= " cd /Users/akond/Documents/AkondOneDrive/OneDrive/Fall16-ThesisTopic/Puppeteer/"
     returnDirCommand= " cd ."
@@ -83,6 +83,8 @@ def getPuppetBugMappingList(mappingListParam, repo_abs_path, bashCommand, pp_fil
   for tuple_elem in mappingListParam:
     file_ = tuple_elem[0]
     commit_hash = tuple_elem[1]
+    ###timestamp
+    time_ = tuple_elem[-1]
     cnt_ = cnt_ + 1
     #print "Total {} commits analyzed ".format(cnt_)
     #print commit_hash
@@ -93,14 +95,14 @@ def getPuppetBugMappingList(mappingListParam, repo_abs_path, bashCommand, pp_fil
     #if ( ('bug' in diff_output)or ('fix' in diff_output)or ('patch' in diff_output))
     file_to_save = os.path.join(repo_abs_path, file_)
     if ('merg' in diff_output) or ('no bug' in diff_output) or ('debug' in diff_output) or ('out' in diff_output) or ('revert' in diff_output) or ('minor' in diff_output) or ('nobug' in diff_output):
-        tup_ = (file_to_save, commit_hash, 'n', diff_output)
+        tup_ = (file_to_save, commit_hash, 'n', diff_output, time_)
     else:
       #if (('bug' in diff_output) or ('fix' in diff_output)):
       if ('bug' in diff_output):
         #print "$$ Bug detected @", diff_output
-        tup_ = (file_to_save, commit_hash, 'y', diff_output)
+        tup_ = (file_to_save, commit_hash, 'y', diff_output, time_)
       else:
-        tup_ = (file_to_save, commit_hash, 'n', diff_output)
+        tup_ = (file_to_save, commit_hash, 'n', diff_output, time_)
     listToRet.append(tup_)
     #returnDirCommand= " cd /Users/akond/Documents/AkondOneDrive/OneDrive/Fall16-ThesisTopic/Puppeteer/"
     returnDirCommand= " cd ."
@@ -195,7 +197,7 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     #print "#"*75
     print "REPO:", repo_path
     print "#"*75
-    print "defected file count:{}, no-defected files:{}".format(len(files_that_have_defects), len(no_deftect_files))
+    print "total puppet files:{}, defected file count:{}, no-defected files:{}".format(len(pp_files), len(files_that_have_defects), len(no_deftect_files))
     print "#"*75
 
 
@@ -311,7 +313,6 @@ Call the function
 '''
 for proj_ in elgibleProjects:
   # 0. org name: 1. project name  2. branch name  3.  95% sample  4. all messages
-  #rand_bug_hg_main('puppet-oslo', 'master', 31, 34)
   print "Processing ", proj_
   rand_bug_hg_main(orgName, proj_[0], 'master', proj_[1], proj_[2])
   print "="*75

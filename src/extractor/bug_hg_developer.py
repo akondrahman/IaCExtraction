@@ -77,7 +77,8 @@ def getBugMessageForFile(file_abs_path, allBugMapping):
   for tuple_ in allBugMapping:
       file_ = tuple_[0]
       if file_==file_abs_path:
-        msg2ret= msg2ret  + tuple_[-1]  + '|'
+        #msg2ret= msg2ret  + tuple_[-1]  + '|'
+        msg2ret= msg2ret  + tuple_[3]  + '|'      # 3 gives messages, 4 gives timestamp, the last elemnt of tiemstamp
   return msg2ret
 
 def getAllDevelopmentMetricList(uniqueFileList, repo_abs_path, allBugMapping, msgfile_, bugFlag=True):

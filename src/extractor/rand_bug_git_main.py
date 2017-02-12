@@ -202,7 +202,8 @@ def rand_bug_git_main(orgParamName, repo_name_param, branchParam, randRangeParam
 '''
 get the whole list of eligible projects
 '''
-orgName='wikimedia-downloads'
+#orgName='wikimedia-downloads'
+orgName='openstack-downloads'
 fileName="/Users/akond/PUPP_REPOS/"+orgName+'/'+'eligible_repos.csv'
 elgibleProjects=bug_git_util.getEligibleProjectsFromCSVForRandAnalysis(fileName)
 
@@ -216,7 +217,6 @@ for proj_ in elgibleProjects:
   print "Processing ", proj_
   rand_bug_git_main(orgName, proj_[0], 'master', proj_[1], proj_[2])
   print "="*75
-
 
 '''
 Seperate function for one project only
