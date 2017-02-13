@@ -266,7 +266,11 @@ def getBugMessages(bugMappingParam):
   list_ =[]
   bug_msg_=""
   for tup_ in bugMappingParam:
-    bug_msg_ = tup_[-1]
+    #bug_msg_ = tup_[-1]
+    '''
+    change for timestamp
+    '''
+    bug_msg_ = tup_[3]
     list_.append(bug_msg_)
   return list_
 
@@ -279,11 +283,23 @@ This method grabs all the messages for both yes and no defected files
 and dumps them ina aseperate file
 '''
 def getPuppMessages(yesBugMappingParam, noBugMappingParam):
+  '''
+  This is a sample tuple with timestamp:
+  (  '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet/modules/packages/manifests/mozilla/py27_mercurial.pp',
+     'a3ed2be84073d5d73cb8543d59d5d95570eb868d',
+     'y',
+     'summary:     bug 758842: refactor packages::mozilla-tools into individual packages; r=kmoir\n+# from http://pkgs.fedoraproject.org/gitweb/?p=python.git;a=summary\n',
+     datetime.datetime(2012, 5, 25, 19, 39, 42))
+  '''
   list_ =[]
   dict2ret={}
   bug_msg_=""
   for tup_ in yesBugMappingParam:
-    bug_msg_ = tup_[-1]
+    #bug_msg_ = tup_[-1]
+    '''
+    change for timestamp
+    '''
+    bug_msg_ = tup_[3]
     list_.append(bug_msg_)
     fileName = tup_[0]
     if fileName in dict2ret:
@@ -296,7 +312,11 @@ def getPuppMessages(yesBugMappingParam, noBugMappingParam):
        dict2ret[fileName] = tmpList
        tmpList = []
   for tup_ in noBugMappingParam:
-    bug_msg_ = tup_[-1]
+    #bug_msg_ = tup_[-1]
+    '''
+    change for timestamp
+    '''
+    bug_msg_ = tup_[3]
     list_.append(bug_msg_)
     fileName = tup_[0]
     if fileName in dict2ret:
@@ -503,7 +523,7 @@ def getMatchingTimeFromDict(msgParam, dictToSearchParam):
     for k_, v_ in dictToSearchParam.items():
       if msgParam in v_:
           time2ret=k_
-        #print "msg:{}, listOfMsgs:{}".format(msgParam, v_)
+          #print "msg:{}, time of message:{}".format(msgParam, time2ret)
     return time2ret
 
 
@@ -512,22 +532,30 @@ def getMatchingTimeFromDict(msgParam, dictToSearchParam):
 for timestamp
 '''
 def getPuppTimestamps(yesBugMappingParam, noBugMappingParam):
+  '''
+  This is a sample tuple with timestamp:
+  (  '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet/modules/packages/manifests/mozilla/py27_mercurial.pp',
+     'a3ed2be84073d5d73cb8543d59d5d95570eb868d',
+     'y',
+     'summary:     bug 758842: refactor packages::mozilla-tools into individual packages; r=kmoir\n+# from http://pkgs.fedoraproject.org/gitweb/?p=python.git;a=summary\n',
+     datetime.datetime(2012, 5, 25, 19, 39, 42))
+  '''
   dict2ret={}
   bug_msg_=""
   for tup_ in yesBugMappingParam:
-    bug_msg_ = tup_[-1]
+    bug_msg_ = tup_[3]
     '''
     get timestamp
     '''
-    times_ = tup_[1]
+    times_ = tup_[-1]
     if times_ not in dict2ret:
         dict2ret[times_] = bug_msg_
   for tup_ in noBugMappingParam:
-    bug_msg_ = tup_[-1]
+    bug_msg_ = tup_[3]
     '''
     get timestamp
     '''
-    times_ = tup_[1]
+    times_ = tup_[-1]
     if times_ not in dict2ret:
         dict2ret[times_] = bug_msg_
   return  dict2ret

@@ -203,15 +203,15 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
 
 
     #### For bug message project ::: start ::::
-    all_bug_msgs = bug_hg_developer.getBugMessages(yes_bug_mapping)
-    print "Count of all bug messages:", len(all_bug_msgs)
-    print "#"*75
-    unique_bug_msg = np.unique(all_bug_msgs)
-    print "Count of unique bug messages:", len(unique_bug_msg)
-    print "#"*75
-    msg_file_to_save = repo_path + "/" + "randFile_bug_msgs.txt"
+    # all_bug_msgs = bug_hg_developer.getBugMessages(yes_bug_mapping)
+    # print "Count of all bug messages:", len(all_bug_msgs)
+    # print "#"*75
+    # unique_bug_msg = np.unique(all_bug_msgs)
+    # print "Count of unique bug messages:", len(unique_bug_msg)
+    # print "#"*75
+    #msg_file_to_save = repo_path + "/" + "randFile_bug_msgs.txt"
     # doing cleanup tp prevent false appendig
-    bug_hg_developer.performCleanUp(msg_file_to_save)
+    #bug_hg_developer.performCleanUp(msg_file_to_save)
     #msgs_as_str=bug_hg_developer.dumpBugMessageAsStr(unique_bug_msg, msg_file_to_save)
 
     #### For bug message project ::: end ::::
@@ -247,7 +247,7 @@ def rand_bug_hg_main(orgParamName, repo_name_param, branchParam, randRangeParam,
     '''
     for itme handling
     '''
-    time2messagDict = bug_git_util.getPuppTimestamps(yes_bug_mapping, no_bug_mapping)
+    time2messagDict = bug_hg_developer.getPuppTimestamps(yes_bug_mapping, no_bug_mapping)
     unique_pupp_msg = np.unique(all_pupp_msgs)
     print "Count of all unique Puppet messages (both yes and no):", len(unique_pupp_msg)
     print "#"*75
