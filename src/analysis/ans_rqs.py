@@ -75,7 +75,8 @@ def getMappedTimestamp(id_Param, repo_Param):
 def constructDataset(ParamFiles, output_file_param):
   str2dump=''
   for file_ in ParamFiles:
-    #print"file:", file_
+    print "="*100  
+    print"Started processing:", file_
     with open(file_, 'rU') as categ_file:
       categ_reader = csv.reader(categ_file)
       next(categ_reader, None)
@@ -91,10 +92,10 @@ def constructDataset(ParamFiles, output_file_param):
           size_file       = os.stat(file_message).st_size
           lines_for_file  = sum(1 for line in open(file_message))
           time_message    = getMappedTimestamp(id_of_message, repo_of_message).split(THE_SPACE)[0]
-          print "ID:{}, repo:{}, message:{}, category:{}, file:{}, time:{}, size:{}, lines:{}".format(id_of_message, repo_of_message,
-                                                                                                      the_message,   categ_message,
-                                                                                                      file_message,  time_message,
-                                                                                                      size_file,     lines_for_file)
+        #   print "ID:{}, repo:{}, message:{}, category:{}, file:{}, time:{}, size:{}, lines:{}".format(id_of_message, repo_of_message,
+        #                                                                                               the_message,   categ_message,
+        #                                                                                               file_message,  time_message,
+        #                                                                                               size_file,     lines_for_file)
 
           str2dump = str2dump + id_of_message + ',' + repo_of_message + ',' + the_message + ',' + categ_message + ',' + file_message + ',' + time_message + ',' + str(size_file) + ',' + str(lines_for_file) + ',' + '\n'
   stat_ = dumpContentIntoFile(str2dump, output_file_param)
