@@ -8,7 +8,8 @@ CategSizeFileOut <-"/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Cat
 mydb = dbConnect(MySQL(), user='root', password='SrcML#2016', dbname='IaC_DB', host='localhost')
 #dbListTables(mydb)
 fullContent <- c()
-categs      <-c('AL', 'AS', 'B', 'C', 'D', 'F', 'I', 'N', 'O', 'T')
+#categs      <-c('AL', 'AS', 'B', 'C', 'D', 'F', 'I', 'N', 'O', 'T')
+categs      <-c('AL', 'AS', 'B', 'C', 'D', 'F', 'I', 'O', 'T')
 len_categ   <-length(categs)
 tot_def_cnt <-0
 tot_lin_cnt <-0
@@ -42,15 +43,17 @@ for(index_ in 1:len_categ)
   medi_txt          <- paste0("median is:", med_size_per_cat, sep="")  
   print(mean_txt)  
   print(medi_txt)    
+  
   lin_per_def_cat   <- sum_loc_per_cat/def_cnt_per_cat
   lin_per_def_txt   <- paste0("Line per defect categ. is:", lin_per_def_cat, sep="") 
   print(lin_per_def_txt)
+  
   print("========================================")
 }
 print("**************************************************")
 overall_lin_per_def_cat   <- tot_lin_cnt/tot_def_cnt
 overall_lin_per_def_txt   <- paste0("Overall line per defect categ. is:", overall_lin_per_def_cat, sep="") 
-print(overall_lin_per_def_cat)
+print(overall_lin_per_def_txt)
 print("**************************************************")
 
 t2 <- Sys.time()
