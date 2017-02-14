@@ -3,7 +3,7 @@ options(max.print=1000000)
 t1 <- Sys.time()
 
 library(RMySQL)
-library(ggplot2)
+
 
 CategSizeFileOut <-"/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Categ-Project/output/size_per_categ/"
 mydb = dbConnect(MySQL(), user='root', password='SrcML#2016', dbname='IaC_DB', host='localhost')
