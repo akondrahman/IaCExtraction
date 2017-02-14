@@ -69,14 +69,16 @@ def constructDataset(ParamFiles):
         categ_message   = categ_row[3]
         if((repo_of_message!=WHAT_THE_FUCK) and (len(repo_of_message)>0)):
           file_message    = getMappedFile(id_of_message, repo_of_message)
+          size_file       = os.stat(file_message).st_size
+          lines_for_file  = sum(1 for line in open(file_message))
           time_message    = getMappedTimestamp(id_of_message, repo_of_message)
-          print "ID:{}, repo:{}, message:{}, category:{}, file:{}, time:{}".format(id_of_message, repo_of_message, the_message,
-                                                                                 categ_message,
-                                                                                 file_message,
-                                                                                 time_message)
+          print "ID:{}, repo:{}, message:{}, category:{}, file:{}, time:{}, size:{}, lines:{}".format(id_of_message, repo_of_message,
+                                                                                                      the_message,   categ_message,
+                                                                                                      file_message,  time_message,
+                                                                                                      size_file,     lines_for_file)
 
 
 file1='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Categ-Project/output/Phase1_Final_Cat_Locked.csv'
 file2='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Categ-Project/output/Phase2_Final_Cat_Locked.csv'
-listOfFiles=[file2]
+listOfFiles=[file1]
 constructDataset(listOfFiles)
