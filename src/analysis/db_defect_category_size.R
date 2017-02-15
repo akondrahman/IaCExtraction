@@ -9,8 +9,8 @@ CategSizeFileOut <-"/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Cat
 mydb = dbConnect(MySQL(), user='root', password='SrcML#2016', dbname='IaC_DB', host='localhost')
 #dbListTables(mydb)
 fullContent <- c()
-#categs      <-c('AL', 'AS', 'B', 'C', 'D', 'F', 'I', 'N', 'O', 'T')
-categs      <-c('AL', 'AS', 'B', 'C', 'D', 'F', 'I', 'O', 'T')
+categs      <-c('AL', 'AS', 'B', 'C', 'D', 'F', 'I', 'N', 'O', 'T')
+#categs      <-c('AL', 'AS', 'B', 'C', 'D', 'F', 'I', 'O', 'T')
 len_categ   <-length(categs)
 tot_def_cnt <- 0
 tot_siz_cnt <- 0  
@@ -31,8 +31,8 @@ for(index_ in 1:len_categ)
   #print(uni_q_per_categ) 
   
   ##Dump content to file 
-  #file2dump <- paste0(CategSizeFileOut, thecateg, sep="_.csv")
-  #write.csv(uni_q_per_categ, file=file2dump, row.names=FALSE) 
+  file2dump <- paste0(CategSizeFileOut, thecateg, sep="_.csv")
+  write.csv(uni_q_per_categ, file=file2dump, row.names=FALSE) 
 
   uni_q_per_categ   <- as.numeric(unlist(uni_q_per_categ))
   med_size_per_cat  <- median(uni_q_per_categ, na.rm=TRUE)
