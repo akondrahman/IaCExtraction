@@ -26,6 +26,7 @@ for(index_ in 1:len_categ)
   
   res_q_per_categ   <- dbSendQuery(mydb, query_part_three)
   out_q_per_categ   <- fetch(res_q_per_categ, n=-1)
+  def_cnt_per_cat   <- length(unlist(out_q_per_categ))
   uni_q_per_categ   <- unique(out_q_per_categ)
   #print(uni_q_per_categ) 
   
@@ -38,7 +39,6 @@ for(index_ in 1:len_categ)
   mean_size_per_cat <- mean(uni_q_per_categ, na.rm=TRUE)
   
   sum_siz_per_cat   <- sum(uni_q_per_categ, na.rm=TRUE)
-  def_cnt_per_cat   <- length(uni_q_per_categ)
   tot_def_cnt       <- tot_def_cnt + def_cnt_per_cat
   tot_siz_cnt       <- tot_siz_cnt + sum_siz_per_cat  
   

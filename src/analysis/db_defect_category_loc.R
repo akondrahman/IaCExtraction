@@ -33,14 +33,14 @@ for(index_ in 1:len_categ)
   #write.csv(uni_q_per_categ, file=file2dump, row.names=FALSE) 
   
   uni_q_per_categ   <- as.numeric(unlist(uni_q_per_categ))
-  med_size_per_cat  <- median(uni_q_per_categ, na.rm=TRUE)
-  mean_size_per_cat <- mean(uni_q_per_categ, na.rm=TRUE)
+  med_loc_per_cat   <- median(uni_q_per_categ, na.rm=TRUE)
+  mean_loc_per_cat  <- mean(uni_q_per_categ, na.rm=TRUE)
   sum_loc_per_cat   <- sum(uni_q_per_categ, na.rm=TRUE)
   def_cnt_per_cat   <- length(uni_q_per_categ)
   tot_def_cnt       <- tot_def_cnt + def_cnt_per_cat
   tot_lin_cnt       <- tot_lin_cnt + sum_loc_per_cat
-  mean_txt          <- paste0("Mean is:", mean_size_per_cat, sep="")
-  medi_txt          <- paste0("median is:", med_size_per_cat, sep="")  
+  mean_txt          <- paste0("Mean is:", mean_loc_per_cat, sep="")
+  medi_txt          <- paste0("median is:", med_loc_per_cat, sep="")  
   print(mean_txt)  
   print(medi_txt)    
   
