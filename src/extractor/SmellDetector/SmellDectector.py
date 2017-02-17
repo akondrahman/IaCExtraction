@@ -121,9 +121,6 @@ def extractFileMetrics(folderToLook):
 
 
   return str2ret
-
-
-
 def getMetricsForFile(fully_qualaified_path_to_file):
         str2ret = ""
         metric_str_for_file=""
@@ -659,11 +656,6 @@ def getMetricsForFile(fully_qualaified_path_to_file):
         total_reso_cnt_per_blocks = 0
 
         return str2ret
-
-
-
-
-
 def hogarbal():
   fileName='paikhana1.pp'
   fileObj = SourceModel.SM_File.SM_File(fileName)
@@ -713,3 +705,39 @@ def hogarbal():
   reff_cnt =  fileObj.getReffCount()
   print "=> cnt:", reff_cnt
   print "*"*50
+
+
+def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
+        str2ret = ""
+        metric_str_for_file=""
+        fileObj = SourceModel.SM_File.SM_File(fully_qualaified_path_to_file)
+        #metric_str_for_file = fileObj.fileName + ","
+        # direct metrics
+
+        # Metric-1
+        max_nest_depth_for_file  = fileObj.getMaxNestingDepth()
+        metric_str_for_file = metric_str_for_file + str(max_nest_depth_for_file) + ","
+
+
+        # Metric-2
+        no_class_dec_for_file    = fileObj.getNoOfClassDeclarations()
+        metric_str_for_file = metric_str_for_file + str(no_class_dec_for_file) + ","
+
+        # Metric-3
+        no_def_dec_for_file      = fileObj.getNoOfDefineDeclarations()
+        metric_str_for_file = metric_str_for_file + str(no_def_dec_for_file) + ","
+
+
+        '''
+           Append everyhting !!!
+        '''
+        str2ret = str2ret + metric_str_for_file
+        '''
+        reset values
+        '''
+        max_nest_depth_for_file = 0
+        no_class_dec_for_file = 0
+        no_def_dec_for_file = 0
+
+
+        return str2ret
