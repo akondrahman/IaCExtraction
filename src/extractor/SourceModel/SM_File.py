@@ -771,6 +771,41 @@ class SM_File:
         #for match in (compiledIncludeRE.findall(self.fileText)):
         # print match
         return cnt_
+
+##Added Feb 17, 2017
+    def getURLUsages(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.URL_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_
+
+    def getOnlyUnlessCount(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.UNLESS_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_
+
+    def getCondCount(self):
+        cnt_ = 0
+
+        compiledIncludeRE1 = re.compile(SMCONSTS.COND1_REGEX)
+        cnt_1 = len(compiledIncludeRE1.findall(self.fileText))
+
+        compiledIncludeRE2 = re.compile(SMCONSTS.COND2_REGEX)
+        cnt_2 = len(compiledIncludeRE2.findall(self.fileText))
+
+        compiledIncludeRE3 = re.compile(SMCONSTS.COND3_REGEX)
+        cnt_3 = len(compiledIncludeRE3.findall(self.fileText))
+
+        cnt_ = cnt_1 + cnt_2 + cnt_3
+        return cnt_
+
+    def getOnlyNamenodeCount(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.NAMENODE_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_
+
 class ExElement(object):
     def __init__(self, elementObj, startIndex, endIndex):
             self.elementObj = elementObj

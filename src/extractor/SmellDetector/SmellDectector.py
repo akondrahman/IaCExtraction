@@ -88,6 +88,39 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
         dependency_per_sloc   = float(dependency_for_file)/float(lines_for_file)
         metric_str_for_file   = metric_str_for_file + str(dependency_for_file) + ","
 
+        # Metric-14: get define usages
+        define_usg_for_file   = fileObj.getNoOfDefineDeclarations()
+        metric_str_for_file   = metric_str_for_file + str(define_usg_for_file) + ","
+
+        # Metric-15: get reff aka '=>' usages
+        reff_usg_for_file   = fileObj.getReffCount()
+        metric_str_for_file = metric_str_for_file + str(reff_usg_for_file) + ","
+
+        # Metric-16: get compar aka '>=, ==, <=' usages
+        cond_usg_for_file   = fileObj.getCondCount()
+        metric_str_for_file = metric_str_for_file + str(cond_usg_for_file) + ","
+
+        # Metric-17: get namenode_hosts usages
+        namenode_usg_for_file   = fileObj.getOnlyNamenodeCount()
+        metric_str_for_file     = metric_str_for_file + str(namenode_usg_for_file) + ","
+
+        # Metric-18: get cron usages
+        cron_usg_for_file       = fileObj.getCronCount()
+        metric_str_for_file     = metric_str_for_file + str(cron_usg_for_file) + ","
+
+        # Metric-19: get parameter usages
+        param_usg_for_file       = fileObj.getClassParamCount() ## give a tuple of 4 vlaues
+        param_usg_for_file       = param_usg_for_file[0] ## taking the median
+        metric_str_for_file      = metric_str_for_file + str(param_usg_for_file) + ","
+
+        # Metric-20: get hard coded strings
+        hard_code_for_file       = len(fileObj.getHardCodedStatments())
+        metric_str_for_file      = metric_str_for_file + str(hard_code_for_file) + ","
+
+        # Metric-21: get hard coded strings
+        hard_code_per_sloc       = float(hard_code_for_file)/float(lines_for_file)
+        hard_code_per_sloc       = round(hard_code_per_sloc, 5)
+        metric_str_for_file      = metric_str_for_file + str(hard_code_per_sloc) + ","
         '''
            Append everyhting !!!
         '''
@@ -96,8 +129,9 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
         reset values
         '''
         pkg_usg_for_file, location_usg_for_file, file_usg_for_file, url_usg_for_file = 0, 0, 0, 0
-        lines_for_file, loca_per_sloc, dependency_per_sloc = 0, 0, 0
+        lines_for_file, loca_per_sloc, dependency_per_sloc, hard_code_per_sloc = 0, 0, 0, 0
         dependency_for_file, incl_usg_for_file, req_usg_for_file, ens_usg_for_file, unless_usg_for_file = 0, 0, 0, 0, 0
-        before_usg_for_file = 0
+        before_usg_for_file, define_usg_for_file, reff_usg_for_file, cond_usg_for_file, namenode_usg_for_file = 0, 0, 0, 0, 0
+        cron_usg_for_file, param_usg_for_file, hard_code_for_file = 0, 0, 0
 
         return str2ret

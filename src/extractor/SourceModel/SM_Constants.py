@@ -98,3 +98,10 @@ ONLY_REFF_REGEX       = r'\w+\s*\=\>\s*.+'  ### gives the count of '=>' s
 ##### Added Oct 17, 2016
 INVALID_CLASS_REGEX   = r'\s*\#+.+class [\w\d\:\-_\']+(?:\:\:[\w\d\:\-_\']+)*\s*(?:\(.+\)\s*)*{*'
 INVALID_DEFINE_REGEX  = r'\s*\#+.+define\s*\w*'
+## Added Feb 17, 2017
+URL_REGEX             = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+UNLESS_REGEX          = r'\s*unless\s*\=\>\s*'
+COND1_REGEX           = r'\w+\s*\>\=\s*.+'  ### gives the count of '>=' s
+COND2_REGEX           = r'\w+\s*\<\=\s*.+'  ### gives the count of '<=' s
+COND3_REGEX           = r'\w+\s*\=\=\s*.+'  ### gives the count of '==' s
+NAMENODE_REGEX        = r'\s*namenode_hosts\s*\=\>\s*'  
