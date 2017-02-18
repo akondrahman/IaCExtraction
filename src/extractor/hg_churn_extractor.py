@@ -12,7 +12,23 @@ def getRelativeChurnMetrics(param_file_path, repo_path):
   #print "Churn:add={}, churn:del={}, churn:total={}".format(churn_added_lines, churn_delet_lines, churn_total_lines)
   lines_for_file      = sum(1 for line in open(param_file_path))
   churn_total_days    = getDaysOfChurn(param_file_path, repo_path)
+  churn_count_of_file = getCountOfChurn(param_file_path, repo_path)
 
+  rel_churn_1 = float(churn_total_lines) / float(lines_for_file)
+  rel_churn_1 = round(rel_churn_1, 5)
+
+  rel_churn_2 = float(churn_delet_lines) / float(lines_for_file)
+  rel_churn_2 = round(rel_churn_2, 5)
+
+  rel_churn_3 = float(churn_total_lines) / float(churn_delet_lines)
+  rel_churn_3 = round(rel_churn_3, 5)
+
+  rel_churn_4 = float(churn_total_days) / float(lines_for_file)
+  rel_churn_4 = round(rel_churn_4, 5)
+
+  churn_str_for_file = str(churn_total_lines) + "," + str(rel_churn_1) + "," + str(rel_churn_2) + "," + str(rel_churn_3) + "," + str(rel_churn_4) + "," + str(churn_count_of_file) + ","
+
+  return churn_str_for_file
 
 
 def getAddedChurnMetrics(param_file_path, repo_path):
@@ -68,3 +84,21 @@ def getDaysOfChurn(param_file_path, repo_path):
    totalDaysForChurn = len(dt_churn_output)
    #print totalDaysForChurn
    return totalDaysForChurn
+
+
+
+def getCountOfChurn(param_file_path, repo_path):
+   totalCountForChurn = 0
+
+   cdCommand            = "cd " + repo_path + " ; "
+   theFile              = os.path.relpath(param_file_path, repo_path)
+   churnDateTimeCommand = " hg churn --dateformat '%Y-%m-%d' " + theFile + " | awk '{ print $1 }' | sed -e 's/ /,/g'"
+   command2Run          = cdCommand + churnDateTimeCommand
+
+   dt_churn_output = subprocess.check_output(['bash','-c', command2Run])
+   print dt_churn_output
+   dt_churn_output = dt_churn_output.split('\n')
+   dt_churn_output = [x_ for x_ in dt_churn_output if x_!='']
+   totalCountForChurn = len(dt_churn_output)
+   print totalCountForChurn
+   return totalCountForChurn
