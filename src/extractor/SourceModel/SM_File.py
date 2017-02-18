@@ -4,7 +4,6 @@ import SourceModel.SM_CaseStmt
 import SourceModel.SM_Class
 import SourceModel.SM_Constants as SMCONSTS
 import SourceModel.SM_Define
-#import SourceModel.SM_Define
 import SourceModel.SM_Element
 import SourceModel.SM_Exec
 import SourceModel.SM_FileResource
@@ -510,12 +509,7 @@ class SM_File:
                 declareClassList.append(declareResourceObj)
 
         return cnt_of_requires
-    def getOnlyNotifyCount(self):
-        cnt_of_notifies = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_NOTIFY_REGEX)
-        for match in (compiledIncludeRE.findall(self.fileText)):
-            cnt_of_notifies = cnt_of_notifies + 1
-        return cnt_of_notifies
+
 
     def getOnlyEnsureCount(self):
         cnt_of_ensures = 0
@@ -525,56 +519,16 @@ class SM_File:
         return cnt_of_ensures
 
 
-    def getOnlyAliasCount(self):
-        cnt_of_alias = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_ALIAS_REGEX)
-        cnt_of_alias = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_of_alias
-    def getOnlySubscribeCount(self):
-        cnt_of_subs = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_SUBSCRIBE_REGEX)
-        cnt_of_subs = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_of_subs
-    def getOnlyConsumeCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_CONSUME_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_
-    def getOnlyExportCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_EXPORT_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_
-    def getOnlyScheduleCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_SCHEDULE_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_
-    def getOnlyStageCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_STAGE_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_
-    def getOnlyTagCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_TAG_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_
-    def getOnlyNoopCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_NOOP_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_
     def getOnlyBeforeCount(self):
         cnt_ = 0
         compiledIncludeRE = re.compile(SMCONSTS.ONLY_BEFORE_REGEX)
         cnt_ = len(compiledIncludeRE.findall(self.fileText))
         return cnt_
-    def getOnlyAuditCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_AUDIT_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_
+    # def getOnlyAuditCount(self):
+    #     cnt_ = 0
+    #     compiledIncludeRE = re.compile(SMCONSTS.ONLY_AUDIT_REGEX)
+    #     cnt_ = len(compiledIncludeRE.findall(self.fileText))
+    #     return cnt_
     def getOnlyInheritanceUsageCount(self):
         cnt_ = 0
         compiledIncludeRE = re.compile(SMCONSTS.CLASS_INH_REGEX)
@@ -584,96 +538,6 @@ class SM_File:
         return cnt_
 
 
-
-    def getOnlySQLUsageCount(self):
-        cnt_ = 0
-        compiledIncludeRE1 = re.compile(SMCONSTS.ONLY_SQL_REGEX)
-        cnt_1 = len(compiledIncludeRE1.findall(self.fileText))
-
-        compiledIncludeRE2 = re.compile(SMCONSTS.POSTGRES_REGEX)
-        cnt_2 = len(compiledIncludeRE2.findall(self.fileText))
-
-        #for match in (compiledIncludeRE2.findall(self.fileText)):
-        #   print match
-        cnt_ = cnt_1 + cnt_2
-        return cnt_
-
-    def getNonPuppetUsageCount(self):
-        cnt_ = 0
-        usage_type1 = re.compile(SMCONSTS.ONLY_TYPEDEF_REGEX)
-        cnt_1       = len(usage_type1.findall(self.fileText))
-        #usage_type3 = re.compile(SMCONSTS.ONLY_CHAR_REGEX)
-        #cnt_3       = len(usage_type3.findall(self.fileText))
-        #usage_type4 = re.compile(SMCONSTS.ONLY_INT_REGEX)
-        #cnt_4       = len(usage_type4.findall(self.fileText))
-        usage_type5 = re.compile(SMCONSTS.ONLY_VOID_REGEX)
-        cnt_5       = len(usage_type5.findall(self.fileText))
-        usage_type6 = re.compile(SMCONSTS.ONLY_UNSIGN_REGEX)
-        cnt_6       = len(usage_type6.findall(self.fileText))
-        usage_type7 = re.compile(SMCONSTS.ONLY_CMODE_REGEX)
-        cnt_7       = len(usage_type7.findall(self.fileText))
-
-        #for match in (compiledIncludeRE.findall(self.fileText)):
-        #   print match
-        #cnt_ = cnt_1  + cnt_3 + cnt_4 + cnt_5 + cnt_6 + cnt_7
-        cnt_ = cnt_1  + cnt_5 + cnt_6 + cnt_7
-        ###print "1:{}, 2:{}, 3:{}, 4:{}, 5:{}, 6:{}, 7:{}".format(cnt_1, cnt_2, cnt_3, cnt_4, cnt_5, cnt_6, cnt_7)
-        return cnt_
-
-    def getMCXCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_MCX_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        #for match in (compiledIncludeRE.findall(self.fileText)):
-        #   print match
-        return cnt_
-
-
-
-    def getRSysLogCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_RSYSLOG_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        #for match in (compiledIncludeRE.findall(self.fileText)):
-        #   print match
-        return cnt_
-    def getValidateHashCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.VALIDATE_HASH_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        #for match in (compiledIncludeRE.findall(self.fileText)):
-        #   print match
-        return cnt_
-
-    def getRequirePackageCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.REQUIRE_PACK_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        #for match in (compiledIncludeRE.findall(self.fileText)):
-        #   print match
-        return cnt_
-
-    def getHieraIncludeCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.HIERA_INCL_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        #for match in (compiledIncludeRE.findall(self.fileText)):
-        #   print match
-        return cnt_
-    def getIncludePacksCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.INCL_PACK_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        #for match in (compiledIncludeRE.findall(self.fileText)):
-        #  print match
-        return cnt_
-    def getEnsurePacksCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ENSU_PACK_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        #for match in (compiledIncludeRE.findall(self.fileText)):
-        #  print match
-        return cnt_
 
     def getClassParamCount(self):
         import numpy as np
@@ -703,33 +567,6 @@ class SM_File:
         else:
           stats_ = (float(0), float(0), float(0), float(0))
         return stats_
-    def getIfElseCount(self):
-        cnt_ = 0
-        elemList = self.getElementList(SMCONSTS.IF_REGEX)
-        cnt_ = len(elemList)
-        return cnt_
-
-
-
-    def getUndefCount(self):
-        cnt_ = 0
-        compiledIncludeRE = re.compile(SMCONSTS.ONLY_UNDEF_REGEX)
-        cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_
-    def getNoOfGitUsages(self):
-        cnt_ = 0
-        compiledIncludeRE1 = re.compile(SMCONSTS.ONLY_GIT_REGEX)
-        cnt_1 = len(compiledIncludeRE1.findall(self.fileText))
-
-        compiledIncludeRE2 = re.compile(SMCONSTS.INAVLID_GIT_REGEX)
-        cnt_2 = len(compiledIncludeRE2.findall(self.fileText))
-
-        if cnt_2 > cnt_1:
-          cnt_ = 0
-        else:
-          cnt_ = cnt_1 - cnt_2
-        return cnt_
-
 
 
     def getVarAssiCount(self):
@@ -740,19 +577,6 @@ class SM_File:
         #  print match
         return cnt_
 
-
-
-
-    def getCaseStmtCount(self):
-        cnt_ = 0
-        elemList = self.getElementList(SMCONSTS.CASE_REGEX)
-        cnt_ = len(elemList)
-        return cnt_
-    # def getColonizedReqCount(self):
-    #     cnt_ = 0
-    #     compiledIncludeRE = re.compile(SMCONSTS.COLON_REQI_REGEX)
-    #     cnt_ = len(compiledIncludeRE.findall(self.fileText))
-    #     return cnt_
     def getEnvCount(self):
         cnt_ = 0
         compiledIncludeRE = re.compile(SMCONSTS.ONLY_ENV_REGEX)
