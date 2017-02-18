@@ -9,7 +9,7 @@ def getRelativeChurnMetrics(param_file_path, repo_path):
   churn_added_lines = getAddedChurnMetrics(param_file_path, repo_path)
   churn_delet_lines = getDeletedChurnMetrics(param_file_path, repo_path)
   churn_total_lines = churn_added_lines + churn_delet_lines
-  print "Churn:add={}, churn:del={}, churn:total={}".format(churn_added_lines, churn_delet_lines, churn_total_lines)
+  #print "Churn:add={}, churn:del={}, churn:total={}".format(churn_added_lines, churn_delet_lines, churn_total_lines)
   lines_for_file      = sum(1 for line in open(param_file_path))
   churn_total_days    = getDaysOfChurn(param_file_path, repo_path)
   churn_count_of_file = getCountOfChurn(param_file_path, repo_path)
@@ -105,5 +105,5 @@ def getCountOfChurn(param_file_path, repo_path):
    dt_churn_output = dt_churn_output.split('\n')
    dt_churn_output = [x_ for x_ in dt_churn_output if x_!='']
    totalCountForChurn = len(dt_churn_output)
-   print totalCountForChurn
+   #print totalCountForChurn
    return totalCountForChurn

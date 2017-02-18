@@ -9,14 +9,22 @@ MOZFLAG='moz'
 
 def getAllStaticMetric(full_path_param, repo_path_param):
   puppet_specific_metric_for_file = SmellDectector.getQualGenratedMetricForFile(full_path_param)
-  #print puppet_specific_metric_for_file
+  print puppet_specific_metric_for_file
+  print "Generated the Puppet specific metrics ... "
+  print "-"*100
   lint_specific_metric_for_file     = lint_metric_extractor.getLintMetrics(full_path_param)
-  #print lint_specific_metric_for_file
+  print lint_specific_metric_for_file
+  print "Generated the Puppet lint metrics ... "
+  print "-"*100
   if(MOZFLAG in full_path_param):
    relative_churn_metrics = hg_churn_extractor.getRelativeChurnMetrics(full_path_param, repo_path_param)
   else:
    relative_churn_metrics = git_churn_extractor.getRelativeChurnMetrics(full_path_param, repo_path_param)
   print relative_churn_metrics
+  print "Generated the relative churn metrics ... "
+  print "-"*100
+
+
 
 
 test_hg_file  = '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet/manifests/site.pp'

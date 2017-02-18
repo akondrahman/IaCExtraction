@@ -96,9 +96,9 @@ def getCountOfChurn(param_file_path, repo_path):
    command2Run          = cdCommand + churnDateTimeCommand
 
    dt_churn_output = subprocess.check_output(['bash','-c', command2Run])
-   print dt_churn_output
+   #print dt_churn_output
    dt_churn_output = dt_churn_output.split('\n')
    dt_churn_output = [x_ for x_ in dt_churn_output if x_!='']
    totalCountForChurn = len(dt_churn_output)
-   print totalCountForChurn
+   #print totalCountForChurn
    return totalCountForChurn
