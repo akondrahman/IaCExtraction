@@ -836,7 +836,22 @@ class SM_File:
         cnt_ = 0
         compiledIncludeRE = re.compile(SMCONSTS.ROLE_REGEX)
         cnt_ = len(compiledIncludeRE.findall(self.fileText))
-        return cnt_        
+        return cnt_
+    def getNameServerCount(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.NAMESERVER_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_
+    def getIPAddressCount(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.IPADDRESS_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_
+    def getVirtualCount(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.VIRTUAL_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_
 class ExElement(object):
     def __init__(self, elementObj, startIndex, endIndex):
             self.elementObj = elementObj

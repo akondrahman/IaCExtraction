@@ -165,7 +165,30 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
         secu_count_per_SLOC      = round(secu_count_per_SLOC, 5)
         metric_str_for_file      = metric_str_for_file + str(secu_count_per_SLOC) + ","
 
+        # Metric-32: get service counts
+        svc_count_for_file           = fileObj.getNoOfServiceDeclarations()
+        metric_str_for_file          = metric_str_for_file + str(svc_count_for_file) + ","
 
+        # Metric-33: get nameserver counts
+        nameserver_count_for_file    = fileObj.getNameServerCount()
+        metric_str_for_file          = metric_str_for_file + str(nameserver_count_for_file) + ","
+
+        # Metric-34: get ipaddress counts
+        ipaddress_count_for_file     = fileObj.getIPAddressCount()
+        metric_str_for_file          = metric_str_for_file + str(ipaddress_count_for_file) + ","
+
+        # Metric-35: get virtual counts
+        virt_count_for_file          = fileObj.getVirtualCount()
+        metric_str_for_file          = metric_str_for_file + str(virt_count_for_file) + ","
+
+        # Metric-36: get network issue
+        net_count_for_file           = nameserver_count_for_file + ipaddress_count_for_file + virt_count_for_file
+        metric_str_for_file           = metric_str_for_file + str(net_count_for_file) + ","
+
+        # Metric-37: get network  counts per LOC
+        net_count_per_SLOC       = float(net_count_for_file)/float(lines_for_file)
+        net_count_per_SLOC       = round(net_count_per_SLOC, 5)
+        metric_str_for_file      = metric_str_for_file + str(net_count_per_SLOC) + ","
 
         '''
            Append everyhting !!!
@@ -178,7 +201,8 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
         lines_for_file, loca_per_sloc, dependency_per_sloc, hard_code_per_sloc, comm_count_per_SLOC = 0, 0, 0, 0, 0
         dependency_for_file, incl_usg_for_file, req_usg_for_file, ens_usg_for_file, unless_usg_for_file = 0, 0, 0, 0, 0
         before_usg_for_file, define_usg_for_file, reff_usg_for_file, cond_usg_for_file, namenode_usg_for_file = 0, 0, 0, 0, 0
-        cron_usg_for_file, param_usg_for_file, hard_code_for_file = 0, 0, 0
+        cron_usg_for_file, param_usg_for_file, hard_code_for_file, svc_count_for_file = 0, 0, 0, 0
         comm_count_for_file, run_int_for_file, command_count_for_file, path_count_for_file  = 0, 0, 0, 0
-        secu_count_per_SLOC, secu_count_for_file = 0, 0
+        secu_count_per_SLOC, secu_count_for_file, net_count_per_SLOC = 0, 0, 0
+        net_count_for_file, nameserver_count_for_file, ipaddress_count_for_file, virt_count_for_file = 0, 0, 0, 0
         return str2ret
