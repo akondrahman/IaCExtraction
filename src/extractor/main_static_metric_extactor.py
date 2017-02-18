@@ -23,4 +23,4 @@ test_hg_file  = '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet/
 test_git_file = '/Users/akond/PUPP_REPOS/wikimedia-downloads/cdh4/manifests/pig.pp'
 git_repo_path = '/Users/akond/PUPP_REPOS/wikimedia-downloads/cdh4/'
 hg_repo_path  = '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet/'
-getAllStaticMetric(test_git_file, git_repo_path)
+getAllStaticMetric(test_hg_file, hg_repo_path)
