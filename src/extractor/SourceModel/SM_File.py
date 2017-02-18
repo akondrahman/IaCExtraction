@@ -806,6 +806,37 @@ class SM_File:
         cnt_ = len(compiledIncludeRE.findall(self.fileText))
         return cnt_
 
+    def getRunIntervalCount(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.RUNINTERVAL_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_
+
+    def getCommandCount(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.COMMAND_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_
+    def getPathCount(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.PATH_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_
+    def getSSHAuthCount(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.SSH_AUTH_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_
+    def getFileModeCount(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.MODE_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_
+    def getRoleCount(self):
+        cnt_ = 0
+        compiledIncludeRE = re.compile(SMCONSTS.ROLE_REGEX)
+        cnt_ = len(compiledIncludeRE.findall(self.fileText))
+        return cnt_        
 class ExElement(object):
     def __init__(self, elementObj, startIndex, endIndex):
             self.elementObj = elementObj

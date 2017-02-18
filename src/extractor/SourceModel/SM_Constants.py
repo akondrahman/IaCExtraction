@@ -104,4 +104,10 @@ UNLESS_REGEX          = r'\s*unless\s*\=\>\s*'
 COND1_REGEX           = r'\w+\s*\>\=\s*.+'  ### gives the count of '>=' s
 COND2_REGEX           = r'\w+\s*\<\=\s*.+'  ### gives the count of '<=' s
 COND3_REGEX           = r'\w+\s*\=\=\s*.+'  ### gives the count of '==' s
-NAMENODE_REGEX        = r'\s*namenode_hosts\s*\=\>\s*'  
+NAMENODE_REGEX        = r'\s*namenode_hosts\s*\=\>\s*'
+RUNINTERVAL_REGEX     = r'\s*runinterval\s*'
+COMMAND_REGEX         = r'\s*command\s*\=\>\s*'
+PATH_REGEX            = r'\s*path\s*\=\>\s*'
+SSH_AUTH_REGEX        = r'ssh_authorized_key\W*\{\W*\'.+\'\W*:|ssh_authorized_key\W*\{\W*\".+\"\W*:|ssh_authorized_key\W*{\W*\$.+\W*:'
+MODE_REGEX            = r'\s*mode\s*\=\>\s*'
+ROLE_REGEX            = r'\s*role\s*\=\>\s*'

@@ -121,6 +121,52 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
         hard_code_per_sloc       = float(hard_code_for_file)/float(lines_for_file)
         hard_code_per_sloc       = round(hard_code_per_sloc, 5)
         metric_str_for_file      = metric_str_for_file + str(hard_code_per_sloc) + ","
+
+        # Metric-22: get comment counts
+        comm_count_for_file      = fileObj.getLinesOfComments()
+        metric_str_for_file      = metric_str_for_file + str(comm_count_for_file) + ","
+
+        # Metric-23: get comment counts per LOC
+        comm_count_per_SLOC      = float(comm_count_for_file)/float(lines_for_file)
+        comm_count_per_SLOC      = round(comm_count_per_SLOC, 5)
+        metric_str_for_file      = metric_str_for_file + str(comm_count_per_SLOC) + ","
+
+        # Metric-24: get runinterval counts
+        run_int_for_file         = fileObj.getRunIntervalCount()
+        metric_str_for_file      = metric_str_for_file + str(run_int_for_file) + ","
+
+        # Metric-25: get command counts
+        command_count_for_file      = fileObj.getCommandCount()
+        metric_str_for_file         = metric_str_for_file + str(command_count_for_file) + ","
+
+        # Metric-26: get path counts
+        path_count_for_file      = fileObj.getPathCount()
+        metric_str_for_file      = metric_str_for_file + str(path_count_for_file) + ","
+
+        # Metric-27: get ssh auth counts
+        ssh_auth_count_for_file      = fileObj.getSSHAuthCount()
+        metric_str_for_file          = metric_str_for_file + str(ssh_auth_count_for_file) + ","
+
+        # Metric-28: get file mode counts
+        file_mode_count_for_file      = fileObj.getFileModeCount()
+        metric_str_for_file           = metric_str_for_file + str(file_mode_count_for_file) + ","
+
+
+        # Metric-29: get role counts
+        role_count_for_file           = fileObj.getRoleCount()
+        metric_str_for_file           = metric_str_for_file + str(role_count_for_file) + ","
+
+        # Metric-30: get secuirty issue
+        secu_count_for_file           = ssh_auth_count_for_file + file_mode_count_for_file + role_count_for_file
+        metric_str_for_file           = metric_str_for_file + str(secu_count_for_file) + ","
+
+        # Metric-31: get secuirty  counts per LOC
+        secu_count_per_SLOC      = float(secu_count_for_file)/float(lines_for_file)
+        secu_count_per_SLOC      = round(secu_count_per_SLOC, 5)
+        metric_str_for_file      = metric_str_for_file + str(secu_count_per_SLOC) + ","
+
+
+
         '''
            Append everyhting !!!
         '''
@@ -129,9 +175,10 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
         reset values
         '''
         pkg_usg_for_file, location_usg_for_file, file_usg_for_file, url_usg_for_file = 0, 0, 0, 0
-        lines_for_file, loca_per_sloc, dependency_per_sloc, hard_code_per_sloc = 0, 0, 0, 0
+        lines_for_file, loca_per_sloc, dependency_per_sloc, hard_code_per_sloc, comm_count_per_SLOC = 0, 0, 0, 0, 0
         dependency_for_file, incl_usg_for_file, req_usg_for_file, ens_usg_for_file, unless_usg_for_file = 0, 0, 0, 0, 0
         before_usg_for_file, define_usg_for_file, reff_usg_for_file, cond_usg_for_file, namenode_usg_for_file = 0, 0, 0, 0, 0
         cron_usg_for_file, param_usg_for_file, hard_code_for_file = 0, 0, 0
-
+        comm_count_for_file, run_int_for_file, command_count_for_file, path_count_for_file  = 0, 0, 0, 0
+        secu_count_per_SLOC, secu_count_for_file = 0, 0
         return str2ret
