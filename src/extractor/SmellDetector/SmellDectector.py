@@ -47,6 +47,46 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
         file_usg_for_file      = fileObj.getNoOfFileDeclarations()
         metric_str_for_file = metric_str_for_file + str(file_usg_for_file) + ","
 
+        # Metric-4: local and remote location usgaes
+        location_usg_for_file  = file_usg_for_file + url_usg_for_file
+        metric_str_for_file    = metric_str_for_file + str(location_usg_for_file) + ","
+
+        # Metric-5: SLOC
+        lines_for_file  = sum(1 for line in open(fully_qualaified_path_to_file))
+        metric_str_for_file = metric_str_for_file + str(lines_for_file) + ","
+
+        # Metric-6: location reff per SLOC
+        loca_per_sloc    = float(location_usg_for_file)/float(lines_for_file)
+        loca_per_sloc    = round(loca_per_sloc, 5)
+        metric_str_for_file = metric_str_for_file + str(loca_per_sloc) + ","
+
+        # Metric-7: get include usages
+        incl_usg_for_file      = fileObj.getOnlyIncludeClassesCount()
+        metric_str_for_file = metric_str_for_file + str(incl_usg_for_file) + ","
+
+        # Metric-8: get require usages
+        req_usg_for_file      = fileObj.getOnlyRequireCount()
+        metric_str_for_file = metric_str_for_file + str(req_usg_for_file) + ","
+
+        # Metric-9: get ensure usages
+        ens_usg_for_file      = fileObj.getOnlyEnsureCount()
+        metric_str_for_file = metric_str_for_file + str(ens_usg_for_file) + ","
+
+        # Metric-10: get unless usages
+        unless_usg_for_file   = fileObj.getOnlyUnlessCount()
+        metric_str_for_file = metric_str_for_file + str(unless_usg_for_file) + ","
+
+        # Metric-11: get before usages
+        before_usg_for_file   = fileObj.getOnlyBeforeCount()
+        metric_str_for_file   = metric_str_for_file + str(before_usg_for_file) + ","
+
+        # Metric-12: get dependencies
+        dependency_for_file   = incl_usg_for_file + req_usg_for_file + ens_usg_for_file + unless_usg_for_file + before_usg_for_file
+        metric_str_for_file   = metric_str_for_file + str(dependency_for_file) + ","
+
+        # Metric-13: get dependencies per SLOC
+        dependency_per_sloc   = float(dependency_for_file)/float(lines_for_file)
+        metric_str_for_file   = metric_str_for_file + str(dependency_for_file) + ","
 
         '''
            Append everyhting !!!
@@ -55,9 +95,9 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
         '''
         reset values
         '''
-        max_nest_depth_for_file = 0
-        no_class_dec_for_file = 0
-        no_def_dec_for_file = 0
-
+        pkg_usg_for_file, location_usg_for_file, file_usg_for_file, url_usg_for_file = 0, 0, 0, 0
+        lines_for_file, loca_per_sloc, dependency_per_sloc = 0, 0, 0
+        dependency_for_file, incl_usg_for_file, req_usg_for_file, ens_usg_for_file, unless_usg_for_file = 0, 0, 0, 0, 0
+        before_usg_for_file = 0
 
         return str2ret

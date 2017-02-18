@@ -5,7 +5,7 @@ Placeholder for all metric extraction: static, process, chrun
 from SmellDetector import SmellDectector
 def getAllStaticMetric(full_path_param):
   puppet_specific_metric_for_file = SmellDectector.getQualGenratedMetricForFile(full_path_param)
-
+  print puppet_specific_metric_for_file
 
 
 
