@@ -47,8 +47,9 @@ def createDataset(str2Dump, datasetNameParam):
    headerOfFile4='role_cnt,secu_cnt,secu_cnt_per_SLOC,svc_cnt,nameserver_cnt,ip_cnt,virt_cnt,net_cnt,net_cnt_per_SLOC,'
    headerOfFile5='LINT_ERR_CNT,LINT_ERR_RATE,LINT_WARN_CNT,LINT_WARN_RATE,'
    headerOfFile6='tot_churn_SLOC,churn_per_SLOC,churn_del_per_SLOC,tot_churn_per_del_churn,churnday_per_SLOC,tot_churn_cnt,'
+   headerOfFile7='defect_status'
 
-   headerStr = headerOfFile0 + headerOfFile1 + headerOfFile2 + headerOfFile3 + headerOfFile4 + headerOfFile5 + headerOfFile6
+   headerStr = headerOfFile0 + headerOfFile1 + headerOfFile2 + headerOfFile3 + headerOfFile4 + headerOfFile5 + headerOfFile6 + headerOfFile7
 
    str2Write = headerStr + '\n' + str2Dump
    return dumpStrToFile(str2Write, datasetNameParam)

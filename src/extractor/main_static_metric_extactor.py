@@ -46,7 +46,7 @@ def getAllStaticMatricForAllFiles(pupp_map_dict_param):
      defect_status            = details_[0]
      print "Analyzing ... \nfile#{}\ndefect status:{}\nfile:{}\nrepo:{}".format(fileCount, defect_status, file_, repo_)
      all_metric_for_this_file = getAllStaticMetricForSingleFile(file_, repo_)
-     str2ret = str2ret + all_metric_for_this_file + '\n'
+     str2ret = str2ret + all_metric_for_this_file + defect_status + '\n'
      print "="*100
    static_metric_utility.createDataset(str2ret, datasetFile2Save)
    return str2ret
