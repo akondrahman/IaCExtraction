@@ -37,11 +37,14 @@ def getAllStaticMetricForSingleFile(full_path_param, repo_path_param):
 
 def getAllStaticMatricForAllFiles(pupp_map_dict_param):
    str2ret=''
+   fileCount = 0
    for file_, details_ in pupp_map_dict_param.items():
+     fileCount = fileCount + 1
      repo_                    = details_[1]
      defect_status            = details_[0]
-     print "Analyzing ... file:{}, repo:{}, defect:{}".format(file_, repo_, defect_status)
+     print "Analyzing ... \n file#{}, defect status:{}, file:{}, repo:{}".format(fileCount, defect_status, file_, repo_)
      all_metric_for_this_file = getAllStaticMetricForSingleFile(file_, repo_)
+     str2ret = str2ret + all_metric_for_this_file + '\n'
      print "="*100
    return str2ret
 
