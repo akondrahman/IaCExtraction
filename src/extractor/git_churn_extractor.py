@@ -24,7 +24,7 @@ def getRelativeChurnMetrics(param_file_path, repo_path):
     rel_churn_3 = float(churn_total_lines) / float(churn_delet_lines)
     rel_churn_3 = round(rel_churn_3, 5)
   else:
-    rel_churn_3 = float(0)      
+    rel_churn_3 = float(0)
 
   rel_churn_4 = float(churn_total_days) / float(lines_for_file)
   rel_churn_4 = round(rel_churn_4, 5)
@@ -42,7 +42,7 @@ def getAddedChurnMetrics(param_file_path, repo_path):
    cdCommand         = "cd " + repo_path + " ; "
    theFile           = os.path.relpath(param_file_path, repo_path)
    #print "full path: {}, repo path:{}, theFile:{}".format(param_file_path, repo_path, theFile)
-   churnAddedCommand = "git log --numstat --oneline " + theFile + " |  awk '!(NR%2)' | awk '{ print $1 }' | sed -e  's/ /,/g'"
+   churnAddedCommand = "git log --numstat --oneline " + theFile + " | grep -F '"+ theFile +"' |  awk '{ print $1 }' | sed -e  's/ /,/g'"
    command2Run = cdCommand + churnAddedCommand
 
    add_churn_output = subprocess.check_output(['bash','-c', command2Run])
@@ -62,7 +62,7 @@ def getDeletedChurnMetrics(param_file_path, repo_path):
    cdCommand         = "cd " + repo_path + " ; "
    theFile           = os.path.relpath(param_file_path, repo_path)
    #print "full path: {}, repo path:{}, theFile:{}".format(param_file_path, repo_path, theFile)
-   churnDeletedCommand = "git log --numstat --oneline " + theFile + " |  awk '!(NR%2)' | awk '{ print $2 }' | sed -e  's/ /,/g'"
+   churnDeletedCommand = "git log --numstat --oneline " + theFile + " | grep -F '"+ theFile +"' |  awk '{ print $2 }' | sed -e  's/ /,/g'"
    command2Run = cdCommand + churnDeletedCommand
 
    del_churn_output = subprocess.check_output(['bash','-c', command2Run])

@@ -24,7 +24,7 @@ def getRelativeChurnMetrics(param_file_path, repo_path):
     rel_churn_3 = float(churn_total_lines) / float(churn_delet_lines)
     rel_churn_3 = round(rel_churn_3, 5)
   else:
-    rel_churn_3 = float(0)      
+    rel_churn_3 = float(0)
 
   rel_churn_4 = float(churn_total_days) / float(lines_for_file)
   rel_churn_4 = round(rel_churn_4, 5)
@@ -46,7 +46,7 @@ def getAddedChurnMetrics(param_file_path, repo_path):
    add_churn_output = subprocess.check_output(['bash','-c', command2Run])
    add_churn_output = add_churn_output.split('\n')
    add_churn_output = [x_ for x_ in add_churn_output if x_!='']
-   add_churn_output = [int(y_) for y_ in add_churn_output ]
+   add_churn_output = [int(y_) for y_ in add_churn_output if (y_.isdigit())==True]
    #print add_churn_output
    totalAddedLinesForChurn = sum(add_churn_output)
    #print totalAddedLinesForChurn
@@ -66,7 +66,7 @@ def getDeletedChurnMetrics(param_file_path, repo_path):
    add_churn_output = subprocess.check_output(['bash','-c', command2Run])
    add_churn_output = add_churn_output.split('\n')
    add_churn_output = [x_ for x_ in add_churn_output if x_!='']
-   add_churn_output = [int(y_) for y_ in add_churn_output ]
+   add_churn_output = [int(y_) for y_ in add_churn_output if (y_.isdigit())==True]
    #print add_churn_output
    totalAddedLinesForChurn = sum(add_churn_output)
    #print totalAddedLinesForChurn

@@ -56,7 +56,7 @@ print "-"*100
 '''
 testing purpose
 '''
-###getAllStaticMetricForSingleFile(test_git_file, git_repo_path)
+###getAllStaticMetricForSingleFile(test_hg_file, hg_repo_path)
 '''
 for dataset geenration
 '''

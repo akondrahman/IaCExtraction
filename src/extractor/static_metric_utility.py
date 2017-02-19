@@ -26,5 +26,5 @@ def getPuppetFileDetails():
        if ((len(uniq)==1) and (uniq[0]=='N')):
          dict2Ret[k_] = ('0', v_[1])
        else:
-         dict2Ret[k_] = ('0', v_[1])
+         dict2Ret[k_] = ('1', v_[1])
     return dict2Ret
