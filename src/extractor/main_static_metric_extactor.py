@@ -53,8 +53,8 @@ test_git_file = '/Users/akond/PUPP_REPOS/wikimedia-downloads/mariadb/manifests/h
 git_repo_path = '/Users/akond/PUPP_REPOS/wikimedia-downloads/mariadb'
 hg_repo_path  = '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet/'
 fullPuppMap   = static_metric_utility.getPuppetFileDetails()
-#print fullPuppMap
 print "Loaded the mapping of files ... "
+print "We will be analyzing {} Puppet files".format(len(fullPuppMap))
 print "-"*100
 '''
 testing purpose
