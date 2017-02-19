@@ -28,3 +28,27 @@ def getPuppetFileDetails():
        else:
          dict2Ret[k_] = ('1', v_[1])
     return dict2Ret
+
+
+
+
+def dumpContentIntoFile(strP, fileP):
+  fileToWrite = open( fileP, 'w');
+  fileToWrite.write(strP );
+  fileToWrite.close()
+  return str(os.stat(fileP).st_size)
+
+
+def createDataset(str2Dump, datasetNameParam):
+   headerOfFile0='org,'
+   headerOfFile1='pkg_usg,url_usg,file_usg,location_usg,SLOC,location_per_sloc,incl_usg,req_usg,ens_usg,unless_usg,before_usg,'
+   headerOfFile2='dependency,dependency_per_sloc,define_usg,reff_usg,cond_usg,namenode_usg,cron_usg,param_usg,hard_code,'
+   headerOfFile3='hard_code_per_sloc,comment_cnt,comm_cnt_per_SLOC,run_int,command_cnt,path_cnt,ssh_auth_cnt,file_mode_cnt,'
+   headerOfFile4='role_cnt,secu_cnt,secu_cnt_per_SLOC,svc_cnt,nameserver_cnt,ip_cnt,virt_cnt,net_cnt,net_cnt_per_SLOC,'
+   headerOfFile5='LINT_ERR_CNT,LINT_ERR_RATE,LINT_WARN_CNT,LINT_WARN_RATE,'
+   headerOfFile6='tot_churn_SLOC,churn_per_SLOC,churn_del_per_SLOC,tot_churn_per_del_churn,churnday_per_SLOC,tot_churn_cnt,'
+
+   headerStr = headerOfFile0 + headerOfFile1 + headerOfFile2 + headerOfFile3 + headerOfFile4 + headerOfFile5 + headerOfFile6
+
+   str2Write = headerStr + '\n' + str2Dump
+   return dumpStrToFile(str2Write, datasetNameParam)
