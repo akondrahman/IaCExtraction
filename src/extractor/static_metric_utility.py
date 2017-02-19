@@ -52,4 +52,4 @@ def createDataset(str2Dump, datasetNameParam):
    headerStr = headerOfFile0 + headerOfFile1 + headerOfFile2 + headerOfFile3 + headerOfFile4 + headerOfFile5 + headerOfFile6 + headerOfFile7
 
    str2Write = headerStr + '\n' + str2Dump
-   return dumpStrToFile(str2Write, datasetNameParam)
+   return dumpContentIntoFile(str2Write, datasetNameParam)
