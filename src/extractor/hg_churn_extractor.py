@@ -20,8 +20,11 @@ def getRelativeChurnMetrics(param_file_path, repo_path):
   rel_churn_2 = float(churn_delet_lines) / float(lines_for_file)
   rel_churn_2 = round(rel_churn_2, 5)
 
-  rel_churn_3 = float(churn_total_lines) / float(churn_delet_lines)
-  rel_churn_3 = round(rel_churn_3, 5)
+  if (churn_delet_lines > 0):
+    rel_churn_3 = float(churn_total_lines) / float(churn_delet_lines)
+    rel_churn_3 = round(rel_churn_3, 5)
+  else:
+    rel_churn_3 = float(0)      
 
   rel_churn_4 = float(churn_total_days) / float(lines_for_file)
   rel_churn_4 = round(rel_churn_4, 5)
