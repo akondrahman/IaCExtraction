@@ -29,8 +29,8 @@ def getRelativeChurnMetrics(param_file_path, repo_path):
   rel_churn_4 = float(churn_total_days) / float(lines_for_file)
   rel_churn_4 = round(rel_churn_4, 5)
 
-  churn_str_for_file = str(churn_total_lines) + "," + str(rel_churn_1) + "," + str(rel_churn_2) + "," + str(rel_churn_3) + "," + str(rel_churn_4) + "," + str(churn_count_of_file) + ","
-
+  #churn_str_for_file = str(churn_total_lines) + "," + str(rel_churn_1) + "," + str(rel_churn_2) + "," + str(rel_churn_3) + "," + str(rel_churn_4) + "," + str(churn_count_of_file) + ","
+  churn_str_for_file = str(churn_total_lines) + "," + str(rel_churn_1) + "," + str(rel_churn_2) + "," + str(rel_churn_4) + "," + str(churn_count_of_file) + ","
   return churn_str_for_file
 
 
