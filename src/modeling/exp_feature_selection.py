@@ -31,29 +31,30 @@ print "Started at:", Utility.giveTimeStamp()
 '''
 Deprecating warnings will be suppressed
 '''
-dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/ONLY_WIKIMEDIA_FULL_DATASET.csv"
+#dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/REDACTED_WIKI_DATASET.csv"
+dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/REDACTED_MOZ_DATASET.csv"
 full_dataset_from_csv = Utility.getDatasetFromCSV(dataset_file)
 full_rows, full_cols = np.shape(full_dataset_from_csv)
 print "Total number of columns", full_cols
 ## we will skip the first column, as it has file names
 feature_cols = full_cols - 1  ## the last column is defect status, so one column to skip
-all_features = full_dataset_from_csv[:, 1:feature_cols]
+all_features = full_dataset_from_csv[:, 2:feature_cols]
 print "Glimpse at features (11th entry in dataset): \n", all_features[glimpseIndex]
 print "-"*50
-only_churn_features = full_dataset_from_csv[:, 42:feature_cols]
-print "Glimpse at churn features (11th entry in dataset): \n", only_churn_features[glimpseIndex]
-print "-"*50
-only_lint_features = full_dataset_from_csv[:, 38:42]
-print "Glimpse at lint features (11th entry in dataset): \n", only_lint_features[glimpseIndex]
-print "-"*50
+# only_churn_features = full_dataset_from_csv[:, 38:feature_cols]
+# print "Glimpse at churn features (11th entry in dataset): \n", only_churn_features[glimpseIndex]
+# print "-"*50
+# only_lint_features = full_dataset_from_csv[:, 38:42]
+# print "Glimpse at lint features (11th entry in dataset): \n", only_lint_features[glimpseIndex]
+# print "-"*50
 dataset_for_labels = Utility.getDatasetFromCSV(dataset_file)  ## unlike phase-1, the labels are '1' and '0', so need to take input as str
 label_cols = full_cols - 1
 all_labels  =  dataset_for_labels[:, label_cols]
 print "Glimpse at  labels (11th entry in dataset):", all_labels[glimpseIndex]
 print "-"*50
-only_pupp_features = full_dataset_from_csv[:, 1:38]
-print "Glimpse at Puppet-specific features (11th entry in dataset): \n", only_pupp_features[glimpseIndex]
-print "-"*50
+# only_pupp_features = full_dataset_from_csv[:, 1:38]
+# print "Glimpse at Puppet-specific features (11th entry in dataset): \n", only_pupp_features[glimpseIndex]
+# print "-"*50
 defected_file_count     = len([x_ for x_ in all_labels if x_==1.0])
 non_defected_file_count = len([x_ for x_ in all_labels if x_==0.0])
 print "No of. defects={}, non-defects={}".format(defected_file_count, non_defected_file_count)
@@ -63,7 +64,7 @@ Which experiment would you conduct? 1 for PCA
 '''
 exp_flag = 1
 feature_input_for_pca = all_features
-pca_comp              = 25
+pca_comp              = 20
 selected_features = None
 if exp_flag==1:
     '''
@@ -92,8 +93,8 @@ if exp_flag==1:
     selected_features = pcaObj.fit_transform(feature_input_for_pca)
     print "Selected feature dataset size:", np.shape(selected_features)
     print "-"*50
-    #pca_insight = getPCAInsights(pcaObj, no_features_to_use)
-    #print  pca_insight
+    pca_insight = getPCAInsights(pcaObj, 1)
+    print  pca_insight
     print "-"*50
 
 print "-"*50
