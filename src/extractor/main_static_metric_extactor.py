@@ -3,7 +3,7 @@ Akond , Feb 17, 2017
 Placeholder for all metric extraction: static, process, chrun
 '''
 from SmellDetector import SmellDectector
-import lint_metric_extractor, git_churn_extractor, hg_churn_extractor, static_metric_utility
+import lint_metric_extractor, git_churn_extractor, hg_churn_extractor, static_metric_utility, bug_git_util
 MOZFLAG='moz'
 WIKIFLAG='wikimedia'
 
@@ -51,6 +51,8 @@ def getAllStaticMatricForAllFiles(pupp_map_dict_param):
    static_metric_utility.createDataset(str2ret, datasetFile2Save)
    return str2ret
 
+
+print "Started at:", bug_git_util.giveTimeStamp()
 test_hg_file  = '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet/manifests/site.pp'
 test_git_file = '/Users/akond/PUPP_REPOS/wikimedia-downloads/mariadb/manifests/heartbeat.pp'
 git_repo_path = '/Users/akond/PUPP_REPOS/wikimedia-downloads/mariadb'
@@ -68,3 +70,4 @@ for dataset geenration
 getAllStaticMatricForAllFiles(fullPuppMap)
 print "We analyzed {} Puppet files".format(len(fullPuppMap))
 print "-"*100
+print "Ended at:", bug_git_util.giveTimeStamp()
