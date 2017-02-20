@@ -18,7 +18,7 @@ def getLintMetrics(full_file_path_param_):
   cmd = 'puppet-lint ' + full_file_path_param_ + ' > ' + tmp_log_holder
   os.system(cmd)
   print "A temp file for the lint log is created of {} bytes".format(os.stat(tmp_log_holder).st_size)
-  print "-"*100
+  print "-"*50
   # get values from the temp log
   with open(tmp_log_holder, 'rU') as myfile:
     linesInFile = myfile.readlines()
@@ -31,5 +31,6 @@ def getLintMetrics(full_file_path_param_):
   error_rate   = float(errorCount)/float(SLOC_for_file)
   warning_rate = round(warning_rate, 5)
   error_rate   = round(error_rate,   5)
-  str2ret = str2ret + str(errorCount) + ',' + str(error_rate) + ',' + str(warnCount) + ',' + str (warning_rate) + ','
+  #str2ret = str2ret + str(errorCount) + ',' + str(error_rate) + ',' + str(warnCount) + ',' + str (warning_rate) + ','
+  str2ret = str2ret + str (warning_rate) + ','  
   return str2ret
