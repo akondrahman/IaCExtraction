@@ -36,7 +36,7 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
 
         # Metric-1: package usages
         pkg_usg_for_file  = fileObj.getNoOfPackageDeclarations()
-        metric_str_for_file = metric_str_for_file + str(pkg_usg_for_file) + ","
+        #metric_str_for_file = metric_str_for_file + str(pkg_usg_for_file) + ","
 
 
         # Metric-2: url usages
@@ -58,11 +58,11 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
         # Metric-6: location reff per SLOC
         loca_per_sloc    = float(location_usg_for_file)/float(lines_for_file)
         loca_per_sloc    = round(loca_per_sloc, 5)
-        metric_str_for_file = metric_str_for_file + str(loca_per_sloc) + ","
+        #metric_str_for_file = metric_str_for_file + str(loca_per_sloc) + ","
 
         # Metric-7: get include usages
         incl_usg_for_file      = fileObj.getOnlyIncludeClassesCount()
-        metric_str_for_file = metric_str_for_file + str(incl_usg_for_file) + ","
+        #metric_str_for_file = metric_str_for_file + str(incl_usg_for_file) + ","
 
         # Metric-8: get require usages
         req_usg_for_file      = fileObj.getOnlyRequireCount()
@@ -74,11 +74,11 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
 
         # Metric-10: get unless usages
         unless_usg_for_file   = fileObj.getOnlyUnlessCount()
-        metric_str_for_file = metric_str_for_file + str(unless_usg_for_file) + ","
+        #metric_str_for_file = metric_str_for_file + str(unless_usg_for_file) + ","
 
         # Metric-11: get before usages
         before_usg_for_file   = fileObj.getOnlyBeforeCount()
-        metric_str_for_file   = metric_str_for_file + str(before_usg_for_file) + ","
+        #metric_str_for_file   = metric_str_for_file + str(before_usg_for_file) + ","
 
         # Metric-12: get dependencies
         dependency_for_file   = incl_usg_for_file + req_usg_for_file + ens_usg_for_file + unless_usg_for_file + before_usg_for_file
@@ -86,11 +86,11 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
 
         # Metric-13: get dependencies per SLOC
         dependency_per_sloc   = float(dependency_for_file)/float(lines_for_file)
-        metric_str_for_file   = metric_str_for_file + str(dependency_for_file) + ","
+        metric_str_for_file   = metric_str_for_file + str(dependency_per_sloc) + ","
 
         # Metric-14: get define usages
         define_usg_for_file   = fileObj.getNoOfDefineDeclarations()
-        metric_str_for_file   = metric_str_for_file + str(define_usg_for_file) + ","
+        #metric_str_for_file   = metric_str_for_file + str(define_usg_for_file) + ","
 
         # Metric-15: get reff aka '=>' usages
         reff_usg_for_file   = fileObj.getReffCount()
@@ -98,20 +98,20 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
 
         # Metric-16: get compar aka '>=, ==, <=' usages
         cond_usg_for_file   = fileObj.getCondCount()
-        metric_str_for_file = metric_str_for_file + str(cond_usg_for_file) + ","
+        #metric_str_for_file = metric_str_for_file + str(cond_usg_for_file) + ","
 
         # Metric-17: get namenode_hosts usages
         namenode_usg_for_file   = fileObj.getOnlyNamenodeCount()
-        metric_str_for_file     = metric_str_for_file + str(namenode_usg_for_file) + ","
+        #metric_str_for_file     = metric_str_for_file + str(namenode_usg_for_file) + ","
 
         # Metric-18: get cron usages
         cron_usg_for_file       = fileObj.getCronCount()
-        metric_str_for_file     = metric_str_for_file + str(cron_usg_for_file) + ","
+        #metric_str_for_file     = metric_str_for_file + str(cron_usg_for_file) + ","
 
         # Metric-19: get parameter usages
         param_usg_for_file       = fileObj.getClassParamCount() ## give a tuple of 4 vlaues
         param_usg_for_file       = param_usg_for_file[0] ## taking the median
-        metric_str_for_file      = metric_str_for_file + str(param_usg_for_file) + ","
+        #metric_str_for_file      = metric_str_for_file + str(param_usg_for_file) + ","
 
         # Metric-20: get hard coded strings
         hard_code_for_file       = len(fileObj.getHardCodedStatments())
@@ -129,11 +129,11 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
         # Metric-23: get comment counts per LOC
         comm_count_per_SLOC      = float(comm_count_for_file)/float(lines_for_file)
         comm_count_per_SLOC      = round(comm_count_per_SLOC, 5)
-        metric_str_for_file      = metric_str_for_file + str(comm_count_per_SLOC) + ","
+        #metric_str_for_file      = metric_str_for_file + str(comm_count_per_SLOC) + ","
 
         # Metric-24: get runinterval counts
         run_int_for_file         = fileObj.getRunIntervalCount()
-        metric_str_for_file      = metric_str_for_file + str(run_int_for_file) + ","
+        #metric_str_for_file      = metric_str_for_file + str(run_int_for_file) + ","
 
         # Metric-25: get command counts
         command_count_for_file      = fileObj.getCommandCount()
@@ -141,11 +141,11 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
 
         # Metric-26: get path counts
         path_count_for_file      = fileObj.getPathCount()
-        metric_str_for_file      = metric_str_for_file + str(path_count_for_file) + ","
+        #metric_str_for_file      = metric_str_for_file + str(path_count_for_file) + ","
 
         # Metric-27: get ssh auth counts
         ssh_auth_count_for_file      = fileObj.getSSHAuthCount()
-        metric_str_for_file          = metric_str_for_file + str(ssh_auth_count_for_file) + ","
+        #metric_str_for_file          = metric_str_for_file + str(ssh_auth_count_for_file) + ","
 
         # Metric-28: get file mode counts
         file_mode_count_for_file      = fileObj.getFileModeCount()
@@ -154,7 +154,7 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
 
         # Metric-29: get role counts
         role_count_for_file           = fileObj.getRoleCount()
-        metric_str_for_file           = metric_str_for_file + str(role_count_for_file) + ","
+        #metric_str_for_file           = metric_str_for_file + str(role_count_for_file) + ","
 
         # Metric-30: get secuirty issue
         secu_count_for_file           = ssh_auth_count_for_file + file_mode_count_for_file + role_count_for_file
@@ -167,28 +167,28 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
 
         # Metric-32: get service counts
         svc_count_for_file           = fileObj.getNoOfServiceDeclarations()
-        metric_str_for_file          = metric_str_for_file + str(svc_count_for_file) + ","
+        #metric_str_for_file          = metric_str_for_file + str(svc_count_for_file) + ","
 
         # Metric-33: get nameserver counts
         nameserver_count_for_file    = fileObj.getNameServerCount()
-        metric_str_for_file          = metric_str_for_file + str(nameserver_count_for_file) + ","
+        #metric_str_for_file          = metric_str_for_file + str(nameserver_count_for_file) + ","
 
         # Metric-34: get ipaddress counts
         ipaddress_count_for_file     = fileObj.getIPAddressCount()
-        metric_str_for_file          = metric_str_for_file + str(ipaddress_count_for_file) + ","
+        #metric_str_for_file          = metric_str_for_file + str(ipaddress_count_for_file) + ","
 
         # Metric-35: get virtual counts
         virt_count_for_file          = fileObj.getVirtualCount()
-        metric_str_for_file          = metric_str_for_file + str(virt_count_for_file) + ","
+        #metric_str_for_file          = metric_str_for_file + str(virt_count_for_file) + ","
 
         # Metric-36: get network issue
         net_count_for_file           = nameserver_count_for_file + ipaddress_count_for_file + virt_count_for_file
-        metric_str_for_file           = metric_str_for_file + str(net_count_for_file) + ","
+        #metric_str_for_file           = metric_str_for_file + str(net_count_for_file) + ","
 
         # Metric-37: get network  counts per LOC
         net_count_per_SLOC       = float(net_count_for_file)/float(lines_for_file)
         net_count_per_SLOC       = round(net_count_per_SLOC, 5)
-        metric_str_for_file      = metric_str_for_file + str(net_count_per_SLOC) + ","
+        #metric_str_for_file      = metric_str_for_file + str(net_count_per_SLOC) + ","
 
         '''
            Append everyhting !!!

@@ -30,7 +30,7 @@ def getAllStaticMetricForSingleFile(full_path_param, repo_path_param):
   print "Generated the relative churn metrics ... "
   print "-"*50
   all_metric_as_str_for_file      = puppet_specific_metric_for_file + lint_specific_metric_for_file + relative_churn_metrics
-  all_metric_as_str_for_file      = org_of_file + ',' + all_metric_as_str_for_file
+  all_metric_as_str_for_file      = org_of_file + ',' + full_path_param + ',' + all_metric_as_str_for_file
   return all_metric_as_str_for_file
 
 
