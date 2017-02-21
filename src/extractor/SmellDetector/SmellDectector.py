@@ -86,7 +86,7 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
 
         # Metric-13: get dependencies per SLOC
         dependency_per_sloc   = float(dependency_for_file)/float(lines_for_file)
-        metric_str_for_file   = metric_str_for_file + str(dependency_per_sloc) + ","
+        #metric_str_for_file   = metric_str_for_file + str(dependency_per_sloc) + ","
 
         # Metric-14: get define usages
         define_usg_for_file   = fileObj.getNoOfDefineDeclarations()
@@ -163,7 +163,7 @@ def getQualGenratedMetricForFile(fully_qualaified_path_to_file):
         # Metric-31: get secuirty  counts per LOC
         secu_count_per_SLOC      = float(secu_count_for_file)/float(lines_for_file)
         secu_count_per_SLOC      = round(secu_count_per_SLOC, 5)
-        metric_str_for_file      = metric_str_for_file + str(secu_count_per_SLOC) + ","
+        #metric_str_for_file      = metric_str_for_file + str(secu_count_per_SLOC) + ","
 
         # Metric-32: get service counts
         svc_count_for_file           = fileObj.getNoOfServiceDeclarations()

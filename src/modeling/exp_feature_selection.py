@@ -32,7 +32,7 @@ print "Started at:", Utility.giveTimeStamp()
 Deprecating warnings will be suppressed
 '''
 #dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/REDACTED_WIKI_DATASET.csv"
-dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/REDACTED_MOZ_DATASET.csv"
+dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_DATASET.csv"
 full_dataset_from_csv = Utility.getDatasetFromCSV(dataset_file)
 full_rows, full_cols = np.shape(full_dataset_from_csv)
 print "Total number of columns", full_cols
@@ -103,3 +103,5 @@ print "Shape of transformed data:", selected_features.shape
 print "-"*50
 sklearn_models.performModeling(selected_features, all_labels, 10)
 print "-"*50
+# sklearn_models.performModeling(selected_features, all_labels, 10)
+# print "-"*50

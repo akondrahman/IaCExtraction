@@ -11,11 +11,11 @@ def getAllStaticMetricForSingleFile(full_path_param, repo_path_param):
   org_of_file                     = ''
   puppet_specific_metric_for_file =  SmellDectector.getQualGenratedMetricForFile(full_path_param)
   #print puppet_specific_metric_for_file
-  print "Generated the Puppet specific metrics ... "
+  print "Generated the Puppet specific metrics, 14 will be used ... "
   print "-"*50
   lint_specific_metric_for_file   =  lint_metric_extractor.getLintMetrics(full_path_param)
   #print lint_specific_metric_for_file
-  print "Generated the Puppet lint metrics ... "
+  print "Generated the Puppet lint metrics, even though will not be added ... "
   print "-"*50
   if(MOZFLAG in full_path_param):
    relative_churn_metrics         =  hg_churn_extractor.getRelativeChurnMetrics(full_path_param, repo_path_param)
@@ -27,9 +27,10 @@ def getAllStaticMetricForSingleFile(full_path_param, repo_path_param):
    relative_churn_metrics         =  git_churn_extractor.getRelativeChurnMetrics(full_path_param, repo_path_param)
    org_of_file                    =  'OPENSTACK'
   #print relative_churn_metrics
-  print "Generated the relative churn metrics ... "
+  print "Generated the relative churn metrics, 4 will be used ... "
   print "-"*50
-  all_metric_as_str_for_file      = puppet_specific_metric_for_file + lint_specific_metric_for_file + relative_churn_metrics
+  #all_metric_as_str_for_file      = puppet_specific_metric_for_file + lint_specific_metric_for_file + relative_churn_metrics
+  all_metric_as_str_for_file      = puppet_specific_metric_for_file  + relative_churn_metrics
   all_metric_as_str_for_file      = org_of_file + ',' + full_path_param + ',' + all_metric_as_str_for_file
   return all_metric_as_str_for_file
 
@@ -51,8 +52,8 @@ def getAllStaticMatricForAllFiles(pupp_map_dict_param):
    static_metric_utility.createDataset(str2ret, datasetFile2Save)
    return str2ret
 
-
 print "Started at:", bug_git_util.giveTimeStamp()
+print "-"*100
 test_hg_file  = '/Users/akond/PUPP_REPOS/mozilla-releng-downloads/relabs-puppet/manifests/site.pp'
 test_git_file = '/Users/akond/PUPP_REPOS/wikimedia-downloads/mariadb/manifests/heartbeat.pp'
 git_repo_path = '/Users/akond/PUPP_REPOS/wikimedia-downloads/mariadb'
