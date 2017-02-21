@@ -32,7 +32,8 @@ print "Started at:", Utility.giveTimeStamp()
 Deprecating warnings will be suppressed
 '''
 #dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/REDACTED_WIKI_DATASET.csv"
-dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_DATASET.csv"
+dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_FULL_DATASET.csv"
+print "The dataset is:", dataset_file
 full_dataset_from_csv = Utility.getDatasetFromCSV(dataset_file)
 full_rows, full_cols = np.shape(full_dataset_from_csv)
 print "Total number of columns", full_cols
@@ -64,7 +65,7 @@ Which experiment would you conduct? 1 for PCA
 '''
 exp_flag = 1
 feature_input_for_pca = all_features
-pca_comp              = 20
+pca_comp              = 15
 selected_features = None
 if exp_flag==1:
     '''
@@ -101,7 +102,7 @@ print "-"*50
 print "Shape of transformed data:", selected_features.shape
 #print "Transformed features: \n", selected_features
 print "-"*50
-sklearn_models.performModeling(selected_features, all_labels, 10)
-print "-"*50
 # sklearn_models.performModeling(selected_features, all_labels, 10)
 # print "-"*50
+sklearn_models.performIterativeModeling(selected_features, all_labels, 10, 100)
+print "-"*50

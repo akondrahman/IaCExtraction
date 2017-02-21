@@ -7,7 +7,7 @@ Created on Thu Oct  6 15:53:19 2016
 
 
 
-import math
+import math, os
 import numpy as np
 def getDatasetFromCSV(fileParam, dataTypeFlag=True):
   if dataTypeFlag:
@@ -123,3 +123,12 @@ def printNinetyMetricFeatureName(indicesParam):
      for selIndex in indicesParam:
        featureNameToRet.append(headers[selIndex])
      return featureNameToRet
+
+
+
+
+def dumpContentIntoFile(strP, fileP):
+  fileToWrite = open( fileP, 'w');
+  fileToWrite.write(strP );
+  fileToWrite.close()
+  return str(os.stat(fileP).st_size)

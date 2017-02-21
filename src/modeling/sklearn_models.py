@@ -14,7 +14,17 @@ from sklearn.linear_model import RandomizedLogisticRegression, LogisticRegressio
 from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_error, accuracy_score, confusion_matrix
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-from sklearn import linear_model 
+from sklearn import linear_model
+import Utility
+
+def dumpAUCValuesToFile(aucVector, fileName):
+   str2write=''
+   for auc_ in aucVector:
+     str2write = str2write + str(auc_) + ',' + '\n'
+   bytes_ = Utility.dumpContentIntoFile(str2write, fileName)
+   print "Created {} of {} bytes".format(fileName, bytes_)
+
+
 
 
 def evalClassifier(actualLabels, predictedLabels):
@@ -69,6 +79,7 @@ def evalClassifier(actualLabels, predictedLabels):
     for D.E. and repated measurements
   '''
   return area_roc_output
+
 
 
 def getElgiibleFeatures(allFeatureParam, allLabelParam):
@@ -161,6 +172,7 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
   holder_knn  = []
   holder_rf   = []
   holder_svc  = []
+  holder_logi = []
   for ind_ in xrange(iterationP):
     ## iterative modeling for CART
     cart_area_roc = performCART(featureParam, labelParam, foldParam, "CART")
@@ -183,27 +195,40 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
     holder_svc.append(svc_area_roc)
     svc_area_roc = float(0)
 
+    ## iterative modeling for logistic regression
+    logi_reg_area_roc = performLogiReg(featureParam, labelParam, foldParam, "Logi. Regression Classi.")
+    holder_logi.append(logi_reg_area_roc)
+    logi_reg_area_roc = float(0)
+
   print "-"*50
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("CART", np.mean(holder_cart),
                                                                           np.median(holder_cart), max(holder_cart),
                                                                           min(holder_cart))
+  dumpAUCValuesToFile(holder_cart, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/AUC_CART.csv')
   print "-"*50
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("K-NN", np.mean(holder_knn),
                                                                           np.median(holder_knn), max(holder_knn),
                                                                           min(holder_knn))
+  dumpAUCValuesToFile(holder_knn, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/AUC_KNN.csv')
   print "-"*50
 
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Rand. Forest", np.mean(holder_rf),
                                                                           np.median(holder_rf), max(holder_rf),
                                                                           min(holder_rf))
+  dumpAUCValuesToFile(holder_rf, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/AUC_RF.csv')
   print "-"*50
 
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("S. Vec. Class.", np.mean(holder_svc),
                                                                           np.median(holder_svc), max(holder_svc),
                                                                           min(holder_svc))
+  dumpAUCValuesToFile(holder_svc, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/AUC_SVC.csv')
   print "-"*50
 
-
+  print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Logi. Regression", np.mean(holder_logi),
+                                                                          np.median(holder_logi), max(holder_logi),
+                                                                          min(holder_logi))
+  dumpAUCValuesToFile(holder_logi, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/AUC_LOGIREG.csv')
+  print "-"*50
 
 def performPenalizedLogiRegression(allFeatureParam, allLabelParam):
   feat_index_to_ret = []
