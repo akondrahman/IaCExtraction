@@ -19,7 +19,7 @@ import Utility
 
 def dumpPredPerfValuesToFile(iterations, predPerfVector, fileName):
    str2write=''
-   for cnt in xrange(len(iterations)):
+   for cnt in xrange(iterations):
      auc_   = predPerfVector[0][cnt]
      prec_  = predPerfVector[1][cnt]
      recal  = predPerfVector[2][cnt]
