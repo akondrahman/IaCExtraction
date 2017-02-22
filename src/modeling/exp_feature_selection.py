@@ -31,9 +31,10 @@ print "Started at:", Utility.giveTimeStamp()
 '''
 Deprecating warnings will be suppressed
 '''
-#dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/REDACTED_WIKI_DATASET.csv"
-dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_WIKI_FULL_DATASET.csv"
+#dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_FULL_DATASET.csv"
+#dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_WIKI_FULL_DATASET.csv"
 print "The dataset is:", dataset_file
+print "-"*50
 full_dataset_from_csv = Utility.getDatasetFromCSV(dataset_file)
 full_rows, full_cols = np.shape(full_dataset_from_csv)
 print "Total number of columns", full_cols
@@ -42,8 +43,8 @@ feature_cols = full_cols - 1  ## the last column is defect status, so one column
 all_features = full_dataset_from_csv[:, 2:feature_cols]
 print "Glimpse at features (11th entry in dataset): \n", all_features[glimpseIndex]
 print "-"*50
-# only_churn_features = full_dataset_from_csv[:, 38:feature_cols]
-# print "Glimpse at churn features (11th entry in dataset): \n", only_churn_features[glimpseIndex]
+# only_general_features    = full_dataset_from_csv[:, 14:feature_cols]
+# print "Glimpse at general features (11th entry in dataset): \n", only_general_features[glimpseIndex]
 # print "-"*50
 # only_lint_features = full_dataset_from_csv[:, 38:42]
 # print "Glimpse at lint features (11th entry in dataset): \n", only_lint_features[glimpseIndex]
@@ -53,7 +54,7 @@ label_cols = full_cols - 1
 all_labels  =  dataset_for_labels[:, label_cols]
 print "Glimpse at  labels (11th entry in dataset):", all_labels[glimpseIndex]
 print "-"*50
-# only_pupp_features = full_dataset_from_csv[:, 1:38]
+# only_pupp_features = full_dataset_from_csv[:, 2:14]
 # print "Glimpse at Puppet-specific features (11th entry in dataset): \n", only_pupp_features[glimpseIndex]
 # print "-"*50
 defected_file_count     = len([x_ for x_ in all_labels if x_==1.0])
@@ -101,8 +102,9 @@ if exp_flag==1:
 print "-"*50
 #####print "Shape of transformed data:", selected_features.shape
 #print "Transformed features: \n", selected_features
-# print "-"*50
+print "-"*50
 # sklearn_models.performModeling(selected_features, all_labels, 10)
 # print "-"*50
-sklearn_models.performIterativeModeling(selected_features, all_labels, 10, 10)
+sklearn_models.performIterativeModeling(selected_features, all_labels, 10, 100)
 print "-"*50
+# print "Ended at:", Utility.giveTimeStamp()
