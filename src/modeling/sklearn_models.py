@@ -17,10 +17,13 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn import linear_model
 import Utility
 
-def dumpAUCValuesToFile(aucVector, fileName):
+def dumpPredPerfValuesToFile(iterations, predPerfVector, fileName):
    str2write=''
-   for auc_ in aucVector:
-     str2write = str2write + str(auc_) + ',' + '\n'
+   for cnt in iterations:
+     auc_   = predPerfVector[0][cnt]
+     prec_  = predPerfVector[1][cnt]
+     recal  = predPerfVector[2][cnt]
+     str2write = str2write + str(auc_) + ',' + str(prec_) + ',' + str(recal) + ',' + '\n'
    bytes_ = Utility.dumpContentIntoFile(str2write, fileName)
    print "Created {} of {} bytes".format(fileName, bytes_)
 
@@ -254,7 +257,8 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
                                                                           np.median(cart_recall_holder), max(cart_recall_holder),
                                                                           min(cart_recall_holder))
   print "*"*25
-  dumpAUCValuesToFile(holder_cart, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/AUC_CART.csv')
+  cart_all_pred_perf_values = (holder_cart, cart_prec_holder, cart_recall_holder)
+  dumpPredPerfValuesToFile(iterationP, cart_all_pred_perf_values, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/PRED_PERF_CART.csv')
   print "-"*50
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("K-NN", np.mean(holder_knn),
                                                                           np.median(holder_knn), max(holder_knn),
@@ -268,7 +272,8 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
                                                                           np.median(knn_recall_holder), max(knn_recall_holder),
                                                                           min(knn_recall_holder))
   print "*"*25
-  dumpAUCValuesToFile(holder_knn, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/AUC_KNN.csv')
+  knn_all_pred_perf_values = (holder_knn, knn_prec_holder, knn_recall_holder)
+  dumpPredPerfValuesToFile(iterationP, knn_all_pred_perf_values, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/PRED_PERF_KNN.csv')
   print "-"*50
 
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Rand. Forest", np.mean(holder_rf),
@@ -283,7 +288,8 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
                                                                           np.median(rf_recall_holder), max(rf_recall_holder),
                                                                           min(rf_recall_holder))
   print "*"*25
-  dumpAUCValuesToFile(holder_rf, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/AUC_RF.csv')
+  rf_all_pred_perf_values = (holder_rf, rf_prec_holder, rf_recall_holder)
+  dumpPredPerfValuesToFile(iterationP, rf_all_pred_perf_values, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/PRED_PERF_RF.csv')
   print "-"*50
 
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("S. Vec. Class.", np.mean(holder_svc),
@@ -298,7 +304,8 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
                                                                             np.median(svc_recall_holder), max(svc_recall_holder),
                                                                             min(svc_recall_holder))
   print "*"*25
-  dumpAUCValuesToFile(holder_svc, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/AUC_SVC.csv')
+  svc_all_pred_perf_values = (holder_svc, svc_prec_holder, svc_recall_holder)
+  dumpPredPerfValuesToFile(iterationP, svc_all_pred_perf_values, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/PRED_PERF_SVC.csv')
   print "-"*50
 
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Logi. Regression", np.mean(holder_logi),
@@ -313,27 +320,28 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
                                                                             np.median(logi_recall_holder), max(logi_recall_holder),
                                                                             min(logi_recall_holder))
   print "*"*25
-  dumpAUCValuesToFile(holder_logi, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/AUC_LOGIREG.csv')
+  logireg_all_pred_perf_values = (holder_logi, logi_prec_holder, logi_recall_holder)
+  dumpPredPerfValuesToFile(iterationP, logireg_all_pred_perf_values, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/PRED_PERF_LOGIREG.csv')
   print "-"*50
 
-def performPenalizedLogiRegression(allFeatureParam, allLabelParam):
-  feat_index_to_ret = []
-  index_ = 0
-  '''
-    See Hoa MSR 2015 paper for reference
-  '''
-  print "<------------ Performing Logistic Regression ------------->"
-
-  logisticRModel = linear_model.LogisticRegression(C=1e5,  penalty='l1')
-  ### if you dont fit , you will get an error
-  logisticRModel.fit(allFeatureParam, allLabelParam)
-  print "Output of score (mean accuracy) "
-  print logisticRModel.score(allFeatureParam, allLabelParam)
-  feature_coeffs = logisticRModel.coef_[0]  ## output from logi. reg is list of lists
-  print "Output of co-efficients ={}".format(feature_coeffs)
-  for x_ in np.nditer(feature_coeffs):
-    if (x_ != float(0)):
-      feat_index_to_ret.append(index_)
-    index_ = index_ + 1
-  #print "Output of intercept ={}, n_iter_ = {} ".format(logisticRModel.intercept_, logisticRModel.n_iter_)
-  return feat_index_to_ret
+# def performPenalizedLogiRegression(allFeatureParam, allLabelParam):
+#   feat_index_to_ret = []
+#   index_ = 0
+#   '''
+#     See Hoa MSR 2015 paper for reference
+#   '''
+#   print "<------------ Performing Logistic Regression ------------->"
+#
+#   logisticRModel = linear_model.LogisticRegression(C=1e5,  penalty='l1')
+#   ### if you dont fit , you will get an error
+#   logisticRModel.fit(allFeatureParam, allLabelParam)
+#   print "Output of score (mean accuracy) "
+#   print logisticRModel.score(allFeatureParam, allLabelParam)
+#   feature_coeffs = logisticRModel.coef_[0]  ## output from logi. reg is list of lists
+#   print "Output of co-efficients ={}".format(feature_coeffs)
+#   for x_ in np.nditer(feature_coeffs):
+#     if (x_ != float(0)):
+#       feat_index_to_ret.append(index_)
+#     index_ = index_ + 1
+#   #print "Output of intercept ={}, n_iter_ = {} ".format(logisticRModel.intercept_, logisticRModel.n_iter_)
+#   return feat_index_to_ret
