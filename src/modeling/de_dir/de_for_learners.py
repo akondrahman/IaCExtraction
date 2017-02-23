@@ -10,6 +10,7 @@ dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Predictio
 folds=10
 no_features_to_use=5
 prev_cart_auc = float(0)
+prev_rf_auc   = float(0)
 
 def evaluateCART(paramsForTuning):
   global prev_cart_auc
@@ -46,11 +47,34 @@ def evaluateCART(paramsForTuning):
   #print "current pointer to AUC:", cart_area_under_roc
   return cart_area_under_roc
 
-
+def evaluateCART(paramsForTuning):
+  global prev_rf_auc
+  # 1. read dataset from file
+  full_dataset_from_csv = de_utility.getDatasetFromCSV(dataset_file)
+  full_rows, full_cols = np.shape(full_dataset_from_csv)
+  ## 2. we will skip the first column, as it has file names
+  feature_cols = full_cols - 1  ## the last column is defect status, so one column to skip
+  all_features = full_dataset_from_csv[:, 2:feature_cols]
+  # 3. get labels
+  dataset_for_labels = de_utility.getDatasetFromCSV(dataset_file)  ## unlike phase-1, the labels are '1' and '0', so need to take input as str
+  label_cols = full_cols - 1
+  all_labels  =  dataset_for_labels[:, label_cols]
+  ## 4. do PCA, take all features for PCA
+  feature_input_for_pca = all_features
+  pcaObj = decomposition.PCA(n_components=15)
+  pcaObj.fit(feature_input_for_pca)
+  ## 5. trabsform daatset based on PCA
+  pcaObj.n_components=no_features_to_use
+  selected_features = pcaObj.fit_transform(feature_input_for_pca)
+  ## 6. plugin model parameters
+  #print "lol", paramsForTuning[0]  
+  return rf_area_under_auc
 
 def giveMeFuncNameOfThisLearner(learnerNameP):
    if learnerNameP=='CART':
     func2ret = evaluateCART
+   elif learnerNameP=='RF':
+    func2ret = evaluateRF
    return func2ret
 
 def evaluateLearners(learnerName):
