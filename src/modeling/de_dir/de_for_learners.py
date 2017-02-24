@@ -6,6 +6,7 @@ import de_utility, numpy as np
 from DiffEvolOptimizer import DiffEvolOptimizer
 from sklearn import decomposition
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_FULL_DATASET.csv"
 folds=10
 no_features_to_use=5
@@ -47,7 +48,7 @@ def evaluateCART(paramsForTuning):
   #print "current pointer to AUC:", cart_area_under_roc
   return cart_area_under_roc
 
-def evaluateCART(paramsForTuning):
+def evaluateRF(paramsForTuning):
   global prev_rf_auc
   # 1. read dataset from file
   full_dataset_from_csv = de_utility.getDatasetFromCSV(dataset_file)
@@ -73,9 +74,9 @@ def evaluateCART(paramsForTuning):
   elif((paramsForTuning[0] > de_utility.learnerDict['RF'][0][1] ) or (paramsForTuning[1] > de_utility.learnerDict['RF'][1][1]) or (paramsForTuning[2] > de_utility.learnerDict['RF'][2][1]) or (paramsForTuning[3] > de_utility.learnerDict['RF'][3][1])  or (paramsForTuning[4] > de_utility.learnerDict['RF'][4][1])):
     rf_area_under_roc = prev_rf_auc
   else:
-    the_RF_Model = DecisionTreeClassifier(max_features = paramsForTuning[0],    max_leaf_nodes = paramsForTuning[1],
+    the_RF_Model = RandomForestClassifier(max_features = paramsForTuning[0],    max_leaf_nodes = paramsForTuning[1],
                                           min_samples_split=paramsForTuning[2], min_samples_leaf=paramsForTuning[3],
-                                          n_estimators=paramsForTuning[4]
+                                          n_estimators=int(paramsForTuning[4])
                                          )
     rf_area_under_roc = de_utility.perform_cross_validation(the_RF_Model, selected_features, all_labels, folds, 'RF')
     print "asi mama:", rf_area_under_roc
