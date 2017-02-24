@@ -67,7 +67,12 @@ def evaluateCART(paramsForTuning):
   pcaObj.n_components=no_features_to_use
   selected_features = pcaObj.fit_transform(feature_input_for_pca)
   ## 6. plugin model parameters
-  #print "lol", paramsForTuning[0]  
+  #print "lol", paramsForTuning[0]
+  if((paramsForTuning[0] <= de_utility.learnerDict['RF'][0][0] ) or (paramsForTuning[1] <= de_utility.learnerDict['RF'][1][0]) or (paramsForTuning[2] <= de_utility.learnerDict['RF'][2][0]) or (paramsForTuning[3] <= de_utility.learnerDict['RF'][3][0]) or (paramsForTuning[4] <= de_utility.learnerDict['RF'][4][0])):
+    rf_area_under_roc = prev_rf_auc
+  elif((paramsForTuning[0] > de_utility.learnerDict['RF'][0][1] ) or (paramsForTuning[1] > de_utility.learnerDict['RF'][1][1]) or (paramsForTuning[2] > de_utility.learnerDict['RF'][2][1]) or (paramsForTuning[3] > de_utility.learnerDict['RF'][3][1])  or (paramsForTuning[4] > de_utility.learnerDict['RF'][4][1])):
+    rf_area_under_roc = prev_rf_auc
+  else:
   return rf_area_under_auc
 
 def giveMeFuncNameOfThisLearner(learnerNameP):
