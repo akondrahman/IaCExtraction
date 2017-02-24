@@ -50,7 +50,7 @@ def evaluateCART(paramsForTuning):
   return cart_area_under_roc
 
 def evaluateRF(paramsForTuning):
-  #reff: http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html    
+  #reff: http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
   global prev_rf_auc
   # 1. read dataset from file
   full_dataset_from_csv = de_utility.getDatasetFromCSV(dataset_file)
@@ -81,7 +81,7 @@ def evaluateRF(paramsForTuning):
                                           n_estimators=int(paramsForTuning[4])
                                          )
     rf_area_under_roc = de_utility.perform_cross_validation(the_RF_Model, selected_features, all_labels, folds, 'RF')
-    print "asi mama:", rf_area_under_roc
+    #print "asi mama:", rf_area_under_roc
     prev_rf_auc = rf_area_under_roc
   print "current pointer to AUC:", rf_area_under_roc
   return rf_area_under_roc
@@ -108,7 +108,7 @@ def evaluateLearners(learnerName):
     #print limits_of_params
     pop = np.zeros([ngen, npop, ndim])
     loc = np.zeros([ngen, ndim])
-    de = DiffEvolOptimizer(fn_name_of_learner, limits_of_params, npop, maximize=True)
+    de = DiffEvolOptimizer(fn_name_of_learner, limits_of_params, npop, maximize=False)
     for i, res in enumerate(de(ngen)):
       pop[i,:,:] = de.population.copy()
       loc[i,:] = de.location.copy()
