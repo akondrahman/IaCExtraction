@@ -8,7 +8,7 @@ from sklearn import cross_validation
 
 
 learnerDict = {'CART': [[0.01, 1.00], [2, 20], [1, 20], [1, 50]],
-               'RF'  : [[]],
+               'RF'  : [[0.01, 1.00], [1, 50], [2, 20], [1, 20], [50, 150]],
                'SVC' : [[]]}
 
 
