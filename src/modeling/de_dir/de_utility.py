@@ -103,3 +103,12 @@ def perform_cross_validation(classiferP, featuresP, labelsP, cross_vali_param, i
   area_roc_to_ret = evalClassifier(labelsP, predicted_labels)
   #print "-----Cross Validation#{}(End)-----".format(infoP)
   return area_roc_to_ret
+
+
+
+
+def giveTimeStamp():
+  import time, datetime
+  tsObj = time.time()
+  strToret = datetime.datetime.fromtimestamp(tsObj).strftime('%Y-%m-%d %H:%M:%S')
+  return strToret

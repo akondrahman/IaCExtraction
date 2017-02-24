@@ -14,6 +14,7 @@ prev_cart_auc = float(0)
 prev_rf_auc   = float(0)
 
 def evaluateCART(paramsForTuning):
+  # reff: http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html
   global prev_cart_auc
   # 1. read dataset from file
   full_dataset_from_csv = de_utility.getDatasetFromCSV(dataset_file)
@@ -49,6 +50,7 @@ def evaluateCART(paramsForTuning):
   return cart_area_under_roc
 
 def evaluateRF(paramsForTuning):
+  #reff: http://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html    
   global prev_rf_auc
   # 1. read dataset from file
   full_dataset_from_csv = de_utility.getDatasetFromCSV(dataset_file)
@@ -74,7 +76,7 @@ def evaluateRF(paramsForTuning):
   elif((paramsForTuning[0] > de_utility.learnerDict['RF'][0][1] ) or (paramsForTuning[1] > de_utility.learnerDict['RF'][1][1]) or (paramsForTuning[2] > de_utility.learnerDict['RF'][2][1]) or (paramsForTuning[3] > de_utility.learnerDict['RF'][3][1])  or (paramsForTuning[4] > de_utility.learnerDict['RF'][4][1])):
     rf_area_under_roc = prev_rf_auc
   else:
-    the_RF_Model = RandomForestClassifier(max_features = paramsForTuning[0],    max_leaf_nodes = paramsForTuning[1],
+    the_RF_Model = RandomForestClassifier(max_features = paramsForTuning[0],    max_leaf_nodes = int(paramsForTuning[1]),
                                           min_samples_split=paramsForTuning[2], min_samples_leaf=paramsForTuning[3],
                                           n_estimators=int(paramsForTuning[4])
                                          )
@@ -82,7 +84,7 @@ def evaluateRF(paramsForTuning):
     print "asi mama:", rf_area_under_roc
     prev_rf_auc = rf_area_under_roc
   print "current pointer to AUC:", rf_area_under_roc
-  return rf_area_under_auc
+  return rf_area_under_roc
 
 def giveMeFuncNameOfThisLearner(learnerNameP):
    if learnerNameP=='CART':
