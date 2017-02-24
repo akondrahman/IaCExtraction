@@ -73,6 +73,14 @@ def evaluateCART(paramsForTuning):
   elif((paramsForTuning[0] > de_utility.learnerDict['RF'][0][1] ) or (paramsForTuning[1] > de_utility.learnerDict['RF'][1][1]) or (paramsForTuning[2] > de_utility.learnerDict['RF'][2][1]) or (paramsForTuning[3] > de_utility.learnerDict['RF'][3][1])  or (paramsForTuning[4] > de_utility.learnerDict['RF'][4][1])):
     rf_area_under_roc = prev_rf_auc
   else:
+    the_RF_Model = DecisionTreeClassifier(max_features = paramsForTuning[0],    max_leaf_nodes = paramsForTuning[1],
+                                          min_samples_split=paramsForTuning[2], min_samples_leaf=paramsForTuning[3],
+                                          n_estimators=paramsForTuning[4]
+                                         )
+    rf_area_under_roc = de_utility.perform_cross_validation(the_RF_Model, selected_features, all_labels, folds, 'RF')
+    print "asi mama:", rf_area_under_roc
+    prev_rf_auc = rf_area_under_roc
+  print "current pointer to AUC:", rf_area_under_roc
   return rf_area_under_auc
 
 def giveMeFuncNameOfThisLearner(learnerNameP):
@@ -97,7 +105,7 @@ def evaluateLearners(learnerName):
     #print limits_of_params
     pop = np.zeros([ngen, npop, ndim])
     loc = np.zeros([ngen, ndim])
-    de = DiffEvolOptimizer(fn_name_of_learner, limits_of_params, npop, maximize=False)
+    de = DiffEvolOptimizer(fn_name_of_learner, limits_of_params, npop, maximize=True)
     for i, res in enumerate(de(ngen)):
       pop[i,:,:] = de.population.copy()
       loc[i,:] = de.location.copy()
