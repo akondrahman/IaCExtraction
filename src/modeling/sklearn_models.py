@@ -19,11 +19,13 @@ import Utility
 
 def dumpPredPerfValuesToFile(iterations, predPerfVector, fileName):
    str2write=''
+   headerStr='AUC,PRECISION,RECALL,'
    for cnt in xrange(iterations):
      auc_   = predPerfVector[0][cnt]
      prec_  = predPerfVector[1][cnt]
      recal  = predPerfVector[2][cnt]
      str2write = str2write + str(auc_) + ',' + str(prec_) + ',' + str(recal) + ',' + '\n'
+   str2write = headerStr + '\n' + str2write
    bytes_ = Utility.dumpContentIntoFile(str2write, fileName)
    print "Created {} of {} bytes".format(fileName, bytes_)
 

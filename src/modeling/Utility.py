@@ -47,7 +47,6 @@ def createSelectedFeatures(allFeatureParam, selectedIndicies):
 
 
 
-
 def giveTimeStamp():
   import time, datetime
   tsObj = time.time()
