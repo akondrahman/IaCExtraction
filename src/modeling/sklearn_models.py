@@ -114,6 +114,10 @@ def evalClassifier(actualLabels, predictedLabels):
 
 
 def perform_cross_validation(classiferP, featuresP, labelsP, cross_vali_param, infoP):
+  '''
+  note: cross_val_predict already uses staritifed k fold :
+  reff: http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_val_predict.html
+  '''
   #print "-----Cross Validation#{}(Start)-----".format(infoP)
   predicted_labels = cross_validation.cross_val_predict(classiferP, featuresP , labelsP, cv=cross_vali_param)
   area_roc_to_ret = evalClassifier(labelsP, predicted_labels)
@@ -170,9 +174,9 @@ def performModeling(features, labels, foldsParam):
   ### lets do CART (decision tree)
   performCART(features, labels, foldsParam, "CART")
   print "="*100
-  ### lets do knn (nearest neighbor)
-  performKNN(features, labels, foldsParam, "KNN")
-  print "="*100
+  # ### lets do knn (nearest neighbor)
+  # performKNN(features, labels, foldsParam, "KNN")
+  # print "="*100
   ### lets do RF (ensemble method: random forest)
   performRF(features, labels, foldsParam, "RF")
   print "="*100
@@ -185,7 +189,7 @@ def performModeling(features, labels, foldsParam):
 
 def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
   cart_prec_holder, cart_recall_holder, holder_cart = [], [], []
-  knn_prec_holder,  knn_recall_holder,  holder_knn  = [], [], []
+  # knn_prec_holder,  knn_recall_holder,  holder_knn  = [], [], []
   rf_prec_holder,   rf_recall_holder,   holder_rf   = [], [], []
   svc_prec_holder,  svc_recall_holder,  holder_svc  = [], [], []
   logi_prec_holder, logi_recall_holder, holder_logi = [], [], []
@@ -202,15 +206,15 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
     cart_recall_  = float(0)
 
     ## iterative modeling for KNN
-    knn_area_roc = performKNN(featureParam, labelParam, foldParam, "K-NN")[0]
-    knn_prec_    = performKNN(featureParam, labelParam, foldParam, "K-NN")[1]
-    knn_recall_  = performKNN(featureParam, labelParam, foldParam, "K-NN")[2]
-    holder_knn.append(knn_area_roc)
-    knn_prec_holder.append(knn_prec_)
-    knn_recall_holder.append(knn_recall_)
-    knn_area_roc = float(0)
-    knn_prec_    = float(0)
-    knn_recall_  = float(0)
+    # knn_area_roc = performKNN(featureParam, labelParam, foldParam, "K-NN")[0]
+    # knn_prec_    = performKNN(featureParam, labelParam, foldParam, "K-NN")[1]
+    # knn_recall_  = performKNN(featureParam, labelParam, foldParam, "K-NN")[2]
+    # holder_knn.append(knn_area_roc)
+    # knn_prec_holder.append(knn_prec_)
+    # knn_recall_holder.append(knn_recall_)
+    # knn_area_roc = float(0)
+    # knn_prec_    = float(0)
+    # knn_recall_  = float(0)
 
 
     ## iterative modeling for RF
@@ -262,21 +266,21 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
   cart_all_pred_perf_values = (holder_cart, cart_prec_holder, cart_recall_holder)
   dumpPredPerfValuesToFile(iterationP, cart_all_pred_perf_values, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/PRED_PERF_CART.csv')
   print "-"*50
-  print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("K-NN", np.mean(holder_knn),
-                                                                          np.median(holder_knn), max(holder_knn),
-                                                                          min(holder_knn))
-  print "*"*25
-  print "Summary: Precision, for:{}, mean:{}, median:{}, max:{}, min:{}".format("K-NN", np.mean(knn_prec_holder),
-                                                                          np.median(knn_prec_holder), max(knn_prec_holder),
-                                                                          min(knn_prec_holder))
-  print "*"*25
-  print "Summary: Recall, for:{}, mean:{}, median:{}, max:{}, min:{}".format("K-NN", np.mean(knn_recall_holder),
-                                                                          np.median(knn_recall_holder), max(knn_recall_holder),
-                                                                          min(knn_recall_holder))
-  print "*"*25
-  knn_all_pred_perf_values = (holder_knn, knn_prec_holder, knn_recall_holder)
-  dumpPredPerfValuesToFile(iterationP, knn_all_pred_perf_values, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/PRED_PERF_KNN.csv')
-  print "-"*50
+  # print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("K-NN", np.mean(holder_knn),
+  #                                                                         np.median(holder_knn), max(holder_knn),
+  #                                                                         min(holder_knn))
+  # print "*"*25
+  # print "Summary: Precision, for:{}, mean:{}, median:{}, max:{}, min:{}".format("K-NN", np.mean(knn_prec_holder),
+  #                                                                         np.median(knn_prec_holder), max(knn_prec_holder),
+  #                                                                         min(knn_prec_holder))
+  # print "*"*25
+  # print "Summary: Recall, for:{}, mean:{}, median:{}, max:{}, min:{}".format("K-NN", np.mean(knn_recall_holder),
+  #                                                                         np.median(knn_recall_holder), max(knn_recall_holder),
+  #                                                                         min(knn_recall_holder))
+  # print "*"*25
+  # knn_all_pred_perf_values = (holder_knn, knn_prec_holder, knn_recall_holder)
+  # dumpPredPerfValuesToFile(iterationP, knn_all_pred_perf_values, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/PRED_PERF_KNN.csv')
+  # print "-"*50
 
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Rand. Forest", np.mean(holder_rf),
                                                                           np.median(holder_rf), max(holder_rf),
