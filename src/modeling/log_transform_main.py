@@ -11,7 +11,7 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn import decomposition
 import Utility , numpy as np , sklearn_models, pandas as pd
 glimpseIndex        = 10
-topFeaturesinPCA    = 5
+topFeaturesinPCA    = 3
 pca_comp_to_analyze = 10
 
 def getPCAInsights(pcaParamObj, no_of_pca_comp_to_see):
@@ -47,7 +47,14 @@ print "No of. defects={}, non-defects={}".format(defected_file_count, non_defect
 print "-"*50
 
 
-
+'''
+lets transform all the features via log transformation
+'''
+selected_features = Utility.createLogTransformedFeatures(all_features)
+print "Selected (log-transformed) feature dataset size:", np.shape(selected_features)
+print "Glimpse at (log-transformed) selected features(10th entry in label list): \n", selected_features[glimpseIndex]
+print "-"*50
+feature_input_for_pca = all_features
 pcaObj = decomposition.PCA(n_components=pca_comp_to_analyze)
 pcaObj.fit(feature_input_for_pca)
 # how much variance is explained each component
