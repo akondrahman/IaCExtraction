@@ -139,7 +139,7 @@ def createLogTransformedFeatures(allFeatureParam):
   print "Dataset rows:",dataset_rows
   print "-"*50
   for ind_ in xrange(dataset_rows):
-    features_for_this_index = allFeatureParam[:, ind_]
+    features_for_this_index = allFeatureParam[ind_, :]
     ## do the log tranform on the extracted index
     ## the following code handles the issue for zero values
     log_transformed_features_for_index = [math.log1p(x_) for x_ in features_for_this_index]
