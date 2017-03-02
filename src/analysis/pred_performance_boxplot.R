@@ -3,9 +3,9 @@ cat("\014")
 options(max.print=1000000)
 
 t1 <- Sys.time()
-dirPrefix <- "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/"
+dirPrefix <- "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/Feb22/"
 orgPrefix <- "MOZ_"
-filPrefix <- "PRED_PERF_"
+filPrefix <- "ONLY_PUPP_PRED_PERF_"
 p1Prefix  <- paste0(dirPrefix, orgPrefix, sep="")
 p2Prefix  <- paste0(p1Prefix, filPrefix, sep="")
 
@@ -45,7 +45,7 @@ precision_of_learners               <- rbind(cart_precision, knn_precision,
                                              rf_precision, svc_precision, 
                                              logi_precision)
 #print(precision_of_learners)
-plotBabyPlot(precision_of_learners, "Statistical Learners", "Precision", c(0.50, 0.80))
+plotBabyPlot(precision_of_learners, "Statistical Learners", "Precision", c(0.65, 0.75))
 ########## Precision Zone End ##############
 
 ########## AUC Zone Start ##############
@@ -58,7 +58,7 @@ logi_auc <- data.frame(group = "LOGI", value  = LOGI_PERF$AUC)
 auc_of_learners               <- rbind(cart_auc, knn_auc, 
                                        rf_auc, svc_auc, 
                                        logi_auc)
-plotBabyPlot(auc_of_learners, "Statistical Learners", "AUC", c(0.50, 0.80))
+plotBabyPlot(auc_of_learners, "Statistical Learners", "AUC", c(0.65, 0.80))
 ########## AUC Zone End ##############
 
 ########## RECALL Zone Start ##############
@@ -66,12 +66,13 @@ cart_recall <- data.frame(group = "CART", value = CART_PERF$RECALL)
 knn_recall  <- data.frame(group = "KNN", value  = KNN_PERF$RECALL)
 rf_recall   <- data.frame(group = "RF", value = RF_PERF$RECALL)
 svc_recall  <- data.frame(group = "SVC", value  = SVC_PERF$RECALL)
+#print(summary(svc_recall))
 logi_recall <- data.frame(group = "LOGI", value  = LOGI_PERF$RECALL)
 
-auc_of_learners               <- rbind(cart_recall, knn_recall, 
+recall_of_learners               <- rbind(cart_recall, knn_recall, 
                                        rf_recall, svc_recall, 
                                        logi_recall)
-plotBabyPlot(auc_of_learners, "Statistical Learners", "Recall", c(0.50, 0.90))
+plotBabyPlot(recall_of_learners, "Statistical Learners", "Recall", c(0.50, 0.75))
 ########## RECALL Zone End ##############
 
 
