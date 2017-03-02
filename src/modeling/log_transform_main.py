@@ -10,18 +10,19 @@ with ln(x+1)
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn import decomposition
 import Utility , numpy as np , sklearn_models, pandas as pd
-glimpseIndex=10
-topFeaturesinPCA = 5
+glimpseIndex        = 10
+topFeaturesinPCA    = 5
+pca_comp_to_analyze = 10
 
-def getPCAInsights(pcaParamObj, no_feat_param):
-    top_components_index = np.abs(pcaParamObj.components_[no_feat_param]).argsort()[::-1][:topFeaturesinPCA]
+def getPCAInsights(pcaParamObj, no_of_pca_comp_to_see):
+    top_components_index = np.abs(pcaParamObj.components_[no_of_pca_comp_to_see]).argsort()[::-1][:topFeaturesinPCA]
     print top_components_index
 
 print "Started at:", Utility.giveTimeStamp()
 '''
 Deprecating warnings will be suppressed
 '''
-# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_FULL_DATASET.csv"
+dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_FULL_DATASET.csv"
 # dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_WIKI_FULL_DATASET.csv"
 print "The dataset is:", dataset_file
 print "-"*50
@@ -43,4 +44,24 @@ print "-"*50
 defected_file_count     = len([x_ for x_ in all_labels if x_==1.0])
 non_defected_file_count = len([x_ for x_ in all_labels if x_==0.0])
 print "No of. defects={}, non-defects={}".format(defected_file_count, non_defected_file_count)
+print "-"*50
+
+
+
+pcaObj = decomposition.PCA(n_components=pca_comp_to_analyze)
+pcaObj.fit(feature_input_for_pca)
+# how much variance is explained each component
+variance_ratio_of_features = pcaObj.explained_variance_ratio_
+for index_ in xrange(len(variance_ratio_of_features)):
+    print "Principal component#{}, explained variance:{}".format(index_+1, variance_ratio_of_features[index_])
+print "-"*50
+# see how much explained variance is covered by the number of compoenents , and set the number
+no_features_to_use = 5 #using one PCA you get lesser accuracy
+print "Of all the features, we will use:", no_features_to_use
+print "-"*50
+pcaObj.n_components=no_features_to_use
+selected_features = pcaObj.fit_transform(all_features)
+print "Selected feature dataset size:", np.shape(selected_features)
+print "-"*50
+getPCAInsights(pcaObj, 1)
 print "-"*50
