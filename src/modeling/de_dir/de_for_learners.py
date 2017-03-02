@@ -58,12 +58,14 @@ def evaluateRF(paramsForTuning):
   ## 2. we will skip the first column, as it has file names
   feature_cols = full_cols - 1  ## the last column is defect status, so one column to skip
   all_features = full_dataset_from_csv[:, 2:feature_cols]
+  only_pupp_features = full_dataset_from_csv[:, 2:14]
   # 3. get labels
   dataset_for_labels = de_utility.getDatasetFromCSV(dataset_file)  ## unlike phase-1, the labels are '1' and '0', so need to take input as str
   label_cols = full_cols - 1
   all_labels  =  dataset_for_labels[:, label_cols]
   ## 4. do PCA, take all features for PCA
   feature_input_for_pca = all_features
+  #feature_input_for_pca  = only_pupp_features
   pcaObj = decomposition.PCA(n_components=15)
   pcaObj.fit(feature_input_for_pca)
   ## 5. trabsform daatset based on PCA
@@ -108,7 +110,7 @@ def evaluateLearners(learnerName):
     #print limits_of_params
     pop = np.zeros([ngen, npop, ndim])
     loc = np.zeros([ngen, ndim])
-    de = DiffEvolOptimizer(fn_name_of_learner, limits_of_params, npop, maximize=False)
+    de = DiffEvolOptimizer(fn_name_of_learner, limits_of_params, npop, maximize=True)
     for i, res in enumerate(de(ngen)):
       pop[i,:,:] = de.population.copy()
       loc[i,:] = de.location.copy()
