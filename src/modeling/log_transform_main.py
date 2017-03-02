@@ -33,3 +33,14 @@ feature_cols = full_cols - 1  ## the last column is defect status, so one column
 all_features = full_dataset_from_csv[:, 2:feature_cols]
 print "Glimpse at features (11th entry in dataset): \n", all_features[glimpseIndex]
 print "-"*50
+
+dataset_for_labels = Utility.getDatasetFromCSV(dataset_file)  ## unlike phase-1, the labels are '1' and '0', so need to take input as str
+label_cols = full_cols - 1
+all_labels  =  dataset_for_labels[:, label_cols]
+print "Glimpse at  labels (11th entry in dataset):", all_labels[glimpseIndex]
+print "-"*50
+
+defected_file_count     = len([x_ for x_ in all_labels if x_==1.0])
+non_defected_file_count = len([x_ for x_ in all_labels if x_==0.0])
+print "No of. defects={}, non-defects={}".format(defected_file_count, non_defected_file_count)
+print "-"*50
