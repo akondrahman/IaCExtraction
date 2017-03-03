@@ -7,9 +7,11 @@ import numpy as np
 from sklearn import cross_validation
 
 
-learnerDict = {'CART': [[0.01, 1.00], [2, 20], [1, 20], [1, 50]],
-               'RF'  : [[0.01, 1.00], [2, 50], [2, 20], [1, 20], [50, 150]],
-               'SVC' : [[]]}
+learnerDict = {'CART': [[0.01, 1.00], [2, 20], [1, 20], [1, 50]],  ###max_features, min_samples_split, min_samples_leaf, max_depth
+               'RF'  : [[0.01, 1.00], [2, 50], [2, 20], [1, 20], [10, 150]], ###max_features, max_leaf_nodes, min_samples_split,min_samples_leaf,n_estimators
+               'SVC' : [[0.25, 0.50, 1.00, 2.00, 4.00], ['linear', 'poly', 'rbf', 'sigmoid'], [0.1, 0.3, 0.5, 0.7, 0.9]],
+               'Logi' : [[]]
+               }
 
 
 # def giveMeFuncNameOfThisLearner(learnerName):
