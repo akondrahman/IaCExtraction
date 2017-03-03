@@ -4,7 +4,7 @@ Akond Rahman, Feb 23, 2017
 '''
 import de_utility, numpy as np
 from DiffEvolOptimizer import DiffEvolOptimizer
-from sklearn import decomposition
+from sklearn import decomposition, svm
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_FULL_DATASET.csv"
@@ -94,7 +94,7 @@ def evaluateSVM(paramsForTuning):
   need some adjustements for handling string values
   start
   '''
-  the_kernels_for_svm = ['linear', 'poly', 'rbf', 'sigmoid']
+  the_kernels_for_svm = ['linear', 'poly', 'rbf']
   '''
   end
   '''
@@ -125,11 +125,11 @@ def evaluateSVM(paramsForTuning):
   elif((paramsForTuning[0] > de_utility.learnerDict['SVM'][0][1] ) or (paramsForTuning[1] > de_utility.learnerDict['SVM'][1][1]) or (paramsForTuning[2] > de_utility.learnerDict['SVM'][2][1]) ):
     svm_area_under_roc = prev_svm_auc
   else:
-    selected_kernel = the_kernels_for_svm[int(paramsForTuning[1])]
+    ###selected_kernel = the_kernels_for_svm[int(paramsForTuning[1])]
     ## get the kernel first , then build the model
-    the_SVM_Model      = svm.SVC(C = paramsForTuning[0], kernel = selected_kernel, gamma = paramsForTuning[2] )
+    the_SVM_Model      = svm.SVC(C = paramsForTuning[0], kernel = 'rbf', gamma = paramsForTuning[1] )
     svm_area_under_roc = de_utility.perform_cross_validation(the_SVM_Model, selected_features, all_labels, folds, 'SVM')
-    #print "asi mama:", rf_area_under_roc
+    #print "asi mama:", svm_area_under_roc
     prev_svm_auc = svm_area_under_roc
   print "current pointer to AUC:", svm_area_under_roc
   return svm_area_under_roc
