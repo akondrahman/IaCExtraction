@@ -85,14 +85,62 @@ def evaluateRF(paramsForTuning):
     rf_area_under_roc = de_utility.perform_cross_validation(the_RF_Model, selected_features, all_labels, folds, 'RF')
     #print "asi mama:", rf_area_under_roc
     prev_rf_auc = rf_area_under_roc
-  print "current pointer to AUC:", rf_area_under_roc
+  #print "current pointer to AUC:", rf_area_under_roc
   return rf_area_under_roc
+
+def evaluateSVM(paramsForTuning):
+  #reff: http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html#sklearn.svm.SVC
+  '''
+  need some adjustements for handling string values
+  start
+  '''
+  the_kernels_for_svm = ['linear', 'poly', 'rbf', 'sigmoid']
+  '''
+  end
+  '''
+  global prev_svm_auc
+  # 1. read dataset from file
+  full_dataset_from_csv = de_utility.getDatasetFromCSV(dataset_file)
+  full_rows, full_cols = np.shape(full_dataset_from_csv)
+  ## 2. we will skip the first column, as it has file names
+  feature_cols = full_cols - 1  ## the last column is defect status, so one column to skip
+  all_features = full_dataset_from_csv[:, 2:feature_cols]
+  only_pupp_features = full_dataset_from_csv[:, 2:14]
+  # 3. get labels
+  dataset_for_labels = de_utility.getDatasetFromCSV(dataset_file)  ## unlike phase-1, the labels are '1' and '0', so need to take input as str
+  label_cols = full_cols - 1
+  all_labels  =  dataset_for_labels[:, label_cols]
+  ## 4. do PCA, take all features for PCA
+  feature_input_for_pca = all_features
+  #feature_input_for_pca  = only_pupp_features
+  pcaObj = decomposition.PCA(n_components=15)
+  pcaObj.fit(feature_input_for_pca)
+  ## 5. trabsform daatset based on PCA
+  pcaObj.n_components=no_features_to_use
+  selected_features = pcaObj.fit_transform(feature_input_for_pca)
+  ## 6. plugin model parameters
+  #print "lol", paramsForTuning[0]
+  if((paramsForTuning[0] <= de_utility.learnerDict['SVM'][0][0] ) or (paramsForTuning[1] <= de_utility.learnerDict['SVM'][1][0]) or (paramsForTuning[2] <= de_utility.learnerDict['SVM'][2][0]) ):
+    svm_area_under_roc = prev_svm_auc
+  elif((paramsForTuning[0] > de_utility.learnerDict['SVM'][0][1] ) or (paramsForTuning[1] > de_utility.learnerDict['SVM'][1][1]) or (paramsForTuning[2] > de_utility.learnerDict['SVM'][2][1]) ):
+    svm_area_under_roc = prev_svm_auc
+  else:
+    selected_kernel = the_kernels_for_svm[int(paramsForTuning[1])]
+    ## get the kernel first , then build the model
+    the_SVM_Model      = svm.SVC(C = paramsForTuning[0], kernel = selected_kernel, gamma = paramsForTuning[2] )
+    svm_area_under_roc = de_utility.perform_cross_validation(the_SVM_Model, selected_features, all_labels, folds, 'SVM')
+    #print "asi mama:", rf_area_under_roc
+    prev_svm_auc = svm_area_under_roc
+  print "current pointer to AUC:", svm_area_under_roc
+  return svm_area_under_roc
 
 def giveMeFuncNameOfThisLearner(learnerNameP):
    if learnerNameP=='CART':
     func2ret = evaluateCART
    elif learnerNameP=='RF':
     func2ret = evaluateRF
+   elif learnerNameP=='SVM':
+    func2ret = evaluateSVM
    return func2ret
 
 def evaluateLearners(learnerName):
