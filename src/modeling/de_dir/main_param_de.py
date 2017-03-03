@@ -14,7 +14,9 @@ print "*"*100
 # de_for_learners.evaluateLearners('CART')
 # 2. run DE for tuning RF
 # de_for_learners.evaluateLearners('RF')
-###3. run DE for tuning SVM
-de_for_learners.evaluateLearners('SVM')
+# ###3. run DE for tuning SVM
+# de_for_learners.evaluateLearners('SVM')
+###4. run DE for tuning Logistic Regression
+de_for_learners.evaluateLearners('LOGI')
 print "Ended at:", de_utility.giveTimeStamp()
 print "*"*100

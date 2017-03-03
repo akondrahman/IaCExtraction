@@ -7,11 +7,14 @@ from DiffEvolOptimizer import DiffEvolOptimizer
 from sklearn import decomposition, svm
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import RandomizedLogisticRegression, LogisticRegression
 dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_FULL_DATASET.csv"
 folds=10
 no_features_to_use=5
-prev_cart_auc = float(0)
-prev_rf_auc   = float(0)
+prev_cart_auc   = float(0)
+prev_rf_auc     = float(0)
+prev_svm_auc    = float(0)
+prev_logi_auc   = float(0)
 
 def evaluateCART(paramsForTuning):
   # reff: http://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html
@@ -94,7 +97,7 @@ def evaluateSVM(paramsForTuning):
   need some adjustements for handling string values
   start
   '''
-  the_kernels_for_svm = ['linear', 'poly', 'rbf']
+  the_kernels_for_svm = ['linear', 'poly', 'rbf', 'sigmoid']
   '''
   end
   '''
@@ -120,19 +123,65 @@ def evaluateSVM(paramsForTuning):
   selected_features = pcaObj.fit_transform(feature_input_for_pca)
   ## 6. plugin model parameters
   #print "lol", paramsForTuning[0]
-  if((paramsForTuning[0] <= de_utility.learnerDict['SVM'][0][0] ) or (paramsForTuning[1] <= de_utility.learnerDict['SVM'][1][0]) or (paramsForTuning[2] <= de_utility.learnerDict['SVM'][2][0]) ):
+  if((paramsForTuning[0] <= de_utility.learnerDict['SVM'][0][0] ) or (paramsForTuning[1] <= de_utility.learnerDict['SVM'][1][0]) ):
     svm_area_under_roc = prev_svm_auc
-  elif((paramsForTuning[0] > de_utility.learnerDict['SVM'][0][1] ) or (paramsForTuning[1] > de_utility.learnerDict['SVM'][1][1]) or (paramsForTuning[2] > de_utility.learnerDict['SVM'][2][1]) ):
+  elif((paramsForTuning[0] > de_utility.learnerDict['SVM'][0][1] ) or (paramsForTuning[1] > de_utility.learnerDict['SVM'][1][1]) ):
     svm_area_under_roc = prev_svm_auc
   else:
     ###selected_kernel = the_kernels_for_svm[int(paramsForTuning[1])]
     ## get the kernel first , then build the model
-    the_SVM_Model      = svm.SVC(C = paramsForTuning[0], kernel = 'rbf', gamma = paramsForTuning[1] )
+    the_SVM_Model      = svm.SVC(C = paramsForTuning[0], kernel = 'linear', gamma = paramsForTuning[1] )
     svm_area_under_roc = de_utility.perform_cross_validation(the_SVM_Model, selected_features, all_labels, folds, 'SVM')
     #print "asi mama:", svm_area_under_roc
     prev_svm_auc = svm_area_under_roc
   print "current pointer to AUC:", svm_area_under_roc
   return svm_area_under_roc
+
+
+def evaluateLOGI(paramsForTuning):
+  #reff: http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html
+  '''
+  need some adjustements for handling string values
+  start
+  '''
+  the_penalty_for_logi = ['l1', 'l2']
+  '''
+  end
+  '''
+  global prev_logi_auc
+  # 1. read dataset from file
+  full_dataset_from_csv = de_utility.getDatasetFromCSV(dataset_file)
+  full_rows, full_cols = np.shape(full_dataset_from_csv)
+  ## 2. we will skip the first column, as it has file names
+  feature_cols = full_cols - 1  ## the last column is defect status, so one column to skip
+  all_features = full_dataset_from_csv[:, 2:feature_cols]
+  only_pupp_features = full_dataset_from_csv[:, 2:14]
+  # 3. get labels
+  dataset_for_labels = de_utility.getDatasetFromCSV(dataset_file)  ## unlike phase-1, the labels are '1' and '0', so need to take input as str
+  label_cols = full_cols - 1
+  all_labels  =  dataset_for_labels[:, label_cols]
+  ## 4. do PCA, take all features for PCA
+  feature_input_for_pca = all_features
+  #feature_input_for_pca  = only_pupp_features
+  pcaObj = decomposition.PCA(n_components=15)
+  pcaObj.fit(feature_input_for_pca)
+  ## 5. trabsform daatset based on PCA
+  pcaObj.n_components=no_features_to_use
+  selected_features = pcaObj.fit_transform(feature_input_for_pca)
+  ## 6. plugin model parameters
+  #print "lol", paramsForTuning[0]
+  if( (paramsForTuning[0] <= de_utility.learnerDict['LOGI'][0][0] ) ):
+    logi_area_under_roc = prev_logi_auc
+  elif( (paramsForTuning[0] > de_utility.learnerDict['LOGI'][0][1] ) ):
+    logi_area_under_roc = prev_logi_auc
+  else:
+    the_LOGI_Model      = LogisticRegression( C = paramsForTuning[0], penalty = 'l1' )
+    logi_area_under_roc = de_utility.perform_cross_validation(the_LOGI_Model, selected_features, all_labels, folds, 'LOGI')
+    #print "asi mama:", logi_area_under_roc
+    prev_logi_auc = logi_area_under_roc
+  print "current pointer to AUC:", logi_area_under_roc
+  return logi_area_under_roc
+
 
 def giveMeFuncNameOfThisLearner(learnerNameP):
    if learnerNameP=='CART':
@@ -141,7 +190,13 @@ def giveMeFuncNameOfThisLearner(learnerNameP):
     func2ret = evaluateRF
    elif learnerNameP=='SVM':
     func2ret = evaluateSVM
+   elif learnerNameP=='LOGI':
+    func2ret = evaluateLOGI
    return func2ret
+
+
+
+
 
 def evaluateLearners(learnerName):
     '''
