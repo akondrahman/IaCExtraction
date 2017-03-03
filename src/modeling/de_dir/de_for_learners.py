@@ -175,7 +175,7 @@ def evaluateLOGI(paramsForTuning):
   elif( (paramsForTuning[0] > de_utility.learnerDict['LOGI'][0][1] ) ):
     logi_area_under_roc = prev_logi_auc
   else:
-    the_LOGI_Model      = LogisticRegression( C = paramsForTuning[0], penalty = 'l1' )
+    the_LOGI_Model      = LogisticRegression( C = paramsForTuning[0], penalty = 'l2' )
     logi_area_under_roc = de_utility.perform_cross_validation(the_LOGI_Model, selected_features, all_labels, folds, 'LOGI')
     #print "asi mama:", logi_area_under_roc
     prev_logi_auc = logi_area_under_roc
@@ -219,3 +219,4 @@ def evaluateLearners(learnerName):
       loc[i,:] = de.location.copy()
     print "Learner: {}, solution:{}, optimized AUC:{}".format(learnerName, de.location, abs(de.value))
     print "="*100
+    return abs(de.value)

@@ -12,8 +12,6 @@ learnerDict = {'CART': [[0.01, 1.00], [2, 20], [1, 20], [1, 50]],  ###max_featur
                'SVM' : [[0.25, 4.00], [0.1, 0.9]],  ### C (Penalty), gamma (aka width of kernel)
                'LOGI' : [[0.1, 1.00]]
                }
-
-#    'SVM' : [[0.25, 4.00], [0, 2], [0.1, 0.9]],  ### C (Penalty), kernel index (list of kernels in de_for_learners), gamma (aka width of kernel)
 # def giveMeFuncNameOfThisLearner(learnerName):
 #   return learnerDict[learnerName][0]
 
@@ -114,3 +112,13 @@ def giveTimeStamp():
   tsObj = time.time()
   strToret = datetime.datetime.fromtimestamp(tsObj).strftime('%Y-%m-%d %H:%M:%S')
   return strToret
+
+
+
+
+
+def dumpContentIntoFile(strP, fileP):
+  fileToWrite = open( fileP, 'w');
+  fileToWrite.write(strP );
+  fileToWrite.close()
+  return str(os.stat(fileP).st_size)
