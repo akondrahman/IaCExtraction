@@ -3,7 +3,7 @@ Akond Rahman, Feb 27, 2017
 Utility file for running DE
 '''
 from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_error, accuracy_score, confusion_matrix
-import numpy as np
+import numpy as np, os
 from sklearn import cross_validation
 
 
