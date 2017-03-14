@@ -393,7 +393,7 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
   print "-"*50
 
   '''
-  added later
+  added later: March 14, 2017: 12:01 AM 
   '''
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Naive Bayes", np.mean(holder_nb),
                                                                           np.median(holder_nb), max(holder_nb),
