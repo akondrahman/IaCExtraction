@@ -5,7 +5,7 @@ Created on Thu Oct  6 17:06:45 2016
 @author: akond
 """
 
-
+from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn.metrics import precision_score, recall_score
 import numpy as np, pandas as pd
 from sklearn.tree import DecisionTreeClassifier
@@ -203,13 +203,15 @@ def performLogiReg(featureParam, labelParam, foldParam, infoP):
 
 
 def performNaiveBayes(featureParam, labelParam, foldParam, infoP):
-  theGNBModel = GaussianNB()
+  theNBModel = GaussianNB()
+  #theNBModel = MultinomialNB()
+  #theNBModel = BernoulliNB()
   '''
   with optimized parameters
   first is mozilla then wiki
   '''
-  theGNBModel.fit(featureParam, labelParam)
-  gnb_area_under_roc = perform_cross_validation(theGNBModel, featureParam, labelParam, foldParam, infoP)
+  theNBModel.fit(featureParam, labelParam)
+  gnb_area_under_roc = perform_cross_validation(theNBModel, featureParam, labelParam, foldParam, infoP)
   print "For {} area under ROC is: {}".format(infoP, gnb_area_under_roc[0])
   return gnb_area_under_roc
 
@@ -232,7 +234,7 @@ def performModeling(features, labels, foldsParam):
   performLogiReg(features, labels, foldsParam, "LogiRegr")
   print "="*100
   ### lets do naive bayes
-  performNaiveBayes(features, labels, foldsParam, "Gaussian-Naive-Bayes")
+  performNaiveBayes(features, labels, foldsParam, "Naive-Bayes")
   print "="*100
 
 def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
@@ -241,6 +243,7 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
   rf_prec_holder,   rf_recall_holder,   holder_rf   = [], [], []
   svc_prec_holder,  svc_recall_holder,  holder_svc  = [], [], []
   logi_prec_holder, logi_recall_holder, holder_logi = [], [], []
+  nb_prec_holder,   nb_recall_holder,   holder_nb   = [], [], []
   for ind_ in xrange(iterationP):
     ## iterative modeling for CART
     cart_area_roc      = performCART(featureParam, labelParam, foldParam, "CART")[0]
@@ -297,6 +300,17 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
     logi_reg_area_roc = float(0)
     logi_reg_preci_   = float(0)
     logi_reg_recall   = float(0)
+
+    ## iterative modeling for naiev bayes
+    nb_area_roc = performNaiveBayes(featureParam, labelParam, foldParam, "Naive Bayes")[0]
+    nb_preci_   = performNaiveBayes(featureParam, labelParam, foldParam, "Naive Bayes")[1]
+    nb_recall   = performNaiveBayes(featureParam, labelParam, foldParam, "Naive Bayes")[2]
+    holder_nb.append(nb_area_roc)
+    nb_prec_holder.append(nb_preci_)
+    nb_recall_holder.append(nb_recall)
+    nb_area_roc = float(0)
+    nb_preci_   = float(0)
+    nb_recall   = float(0)
 
   print "-"*50
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("CART", np.mean(holder_cart),
@@ -374,8 +388,27 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
                                                                             np.median(logi_recall_holder), max(logi_recall_holder),
                                                                             min(logi_recall_holder))
   print "*"*25
-  logireg_all_pred_perf_values = (holder_logi, logi_prec_holder, logi_recall_holder)
+  nb_all_pred_perf_values = (holder_logi, logi_prec_holder, logi_recall_holder)
   dumpPredPerfValuesToFile(iterationP, logireg_all_pred_perf_values, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/PRED_PERF_LOGIREG.csv')
+  print "-"*50
+
+  '''
+  added later
+  '''
+  print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Naive Bayes", np.mean(holder_nb),
+                                                                          np.median(holder_nb), max(holder_nb),
+                                                                          min(holder_nb))
+  print "*"*25
+  print "Summary: Precision, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Naive Bayes", np.mean(nb_prec_holder),
+                                                                            np.median(nb_prec_holder), max(nb_prec_holder),
+                                                                            min(nb_prec_holder))
+  print "*"*25
+  print "Summary: Recall, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Naive Bayes", np.mean(nb_recall_holder),
+                                                                            np.median(nb_recall_holder), max(nb_recall_holder),
+                                                                            min(nb_recall_holder))
+  print "*"*25
+  nb_all_pred_perf_values = (holder_nb, nb_prec_holder, nb_recall_holder)
+  dumpPredPerfValuesToFile(iterationP, nb_all_pred_perf_values, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/PRED_PERF_NB.csv')
   print "-"*50
 
 # def performPenalizedLogiRegression(allFeatureParam, allLabelParam):
