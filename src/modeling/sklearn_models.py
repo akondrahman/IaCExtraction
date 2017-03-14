@@ -202,6 +202,18 @@ def performLogiReg(featureParam, labelParam, foldParam, infoP):
 
 
 
+def performNaiveBayes(featureParam, labelParam, foldParam, infoP):
+  theGNBModel = GaussianNB()
+  '''
+  with optimized parameters
+  first is mozilla then wiki
+  '''
+  theGNBModel.fit(featureParam, labelParam)
+  gnb_area_under_roc = perform_cross_validation(theGNBModel, featureParam, labelParam, foldParam, infoP)
+  print "For {} area under ROC is: {}".format(infoP, gnb_area_under_roc[0])
+  return gnb_area_under_roc
+
+
 def performModeling(features, labels, foldsParam):
   #r_, c_ = np.shape(features)
   ### lets do CART (decision tree)
@@ -218,6 +230,9 @@ def performModeling(features, labels, foldsParam):
   print "="*100
   ### lets do Logistic regession
   performLogiReg(features, labels, foldsParam, "LogiRegr")
+  print "="*100
+  ### lets do naive bayes
+  performNaiveBayes(features, labels, foldsParam, "Gaussian-Naive-Bayes")
   print "="*100
 
 def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
