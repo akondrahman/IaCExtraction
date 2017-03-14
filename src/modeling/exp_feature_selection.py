@@ -106,6 +106,6 @@ print "-"*50
 print "-"*50
 # sklearn_models.performModeling(selected_features, all_labels, 10)
 print "-"*50
-sklearn_models.performIterativeModeling(selected_features, all_labels, 10, 500)
+sklearn_models.performIterativeModeling(selected_features, all_labels, 10, 100)
 print "-"*50
 print "Ended at:", Utility.giveTimeStamp()

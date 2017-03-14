@@ -133,8 +133,8 @@ def performCART(featureParam, labelParam, foldParam, infoP):
   with optimized parameters
   first mozilla, then wikimedia
   '''
-  ###theCARTModel = DecisionTreeClassifier(max_features=0.55, min_samples_split=7.08, min_samples_leaf=19.25, max_depth=17.32)
-  theCARTModel = DecisionTreeClassifier(max_features=0.55, min_samples_split=19.37, min_samples_leaf=6.80, max_depth=22.10)
+  theCARTModel = DecisionTreeClassifier(max_features=0.55, min_samples_split=7.08, min_samples_leaf=19.25, max_depth=17.32)
+  ###theCARTModel = DecisionTreeClassifier(max_features=0.55, min_samples_split=19.37, min_samples_leaf=6.80, max_depth=22.10)
 
   cart_area_under_roc = perform_cross_validation(theCARTModel, featureParam, labelParam, foldParam, infoP)
   print "For {}, area under ROC is: {}".format(infoP, cart_area_under_roc[0])
@@ -163,13 +163,13 @@ def performRF(featureParam, labelParam, foldParam, infoP):
   with optimized parameters
   first mozilla then wiki
   '''
-  # theRndForestModel = RandomForestClassifier(max_features = int(1.65),    max_leaf_nodes = int(44.10),
-  #                                         min_samples_split=16.44, min_samples_leaf=8.35,
-  #                                         n_estimators=int(17.85))
+  theRndForestModel = RandomForestClassifier(max_features = int(1.65),    max_leaf_nodes = int(44.10),
+                                          min_samples_split=16.44, min_samples_leaf=8.35,
+                                          n_estimators=int(17.85))
 
-  theRndForestModel = RandomForestClassifier(max_features = 1,    max_leaf_nodes = int(3.75),
-                                          min_samples_split=14.55, min_samples_leaf=12.78,
-                                          n_estimators=int(97.58))
+  # theRndForestModel = RandomForestClassifier(max_features = 1,    max_leaf_nodes = int(3.75),
+  #                                         min_samples_split=14.55, min_samples_leaf=12.78,
+  #                                         n_estimators=int(97.58))
   rf_area_under_roc = perform_cross_validation(theRndForestModel, featureParam, labelParam, foldParam, infoP)
   print "For {} area under ROC is: {}".format(infoP, rf_area_under_roc[0])
   return rf_area_under_roc
@@ -180,8 +180,8 @@ def performSVC(featureParam, labelParam, foldParam, infoP):
   with optimized parameters
   first mozilla then wiki
   '''
-  ###theSVMModel = svm.SVC(C = 0.59, kernel = 'rbf', gamma = 0.12).fit(featureParam, labelParam)
-  theSVMModel = svm.SVC((C = 0.38, kernel = 'rbf', gamma = 0.50).fit(featureParam, labelParam)
+  theSVMModel = svm.SVC(C = 0.59, kernel = 'rbf', gamma = 0.12).fit(featureParam, labelParam)
+  ###theSVMModel = svm.SVC(C = 0.38, kernel = 'rbf', gamma = 0.50).fit(featureParam, labelParam)
   svc_area_under_roc = perform_cross_validation(theSVMModel, featureParam, labelParam, foldParam, infoP)
   print "For {} area under ROC is: {}".format(infoP, svc_area_under_roc[0])
   return svc_area_under_roc
@@ -193,8 +193,8 @@ def performLogiReg(featureParam, labelParam, foldParam, infoP):
   with optimized parameters
   first is mozilla then wiki
   '''
-  ###theLogisticModel = LogisticRegression( C = 0.60, penalty = 'l1' )
-  theLogisticModel = LogisticRegression( C = 0.11, penalty = 'l1' )
+  theLogisticModel = LogisticRegression( C = 0.60, penalty = 'l1' )
+  ###theLogisticModel = LogisticRegression( C = 0.11, penalty = 'l1' )
   theLogisticModel.fit(featureParam, labelParam)
   logireg_area_under_roc = perform_cross_validation(theLogisticModel, featureParam, labelParam, foldParam, infoP)
   print "For {} area under ROC is: {}".format(infoP, logireg_area_under_roc[0])
