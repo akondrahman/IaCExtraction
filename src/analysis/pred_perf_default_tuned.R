@@ -1,11 +1,14 @@
 library(ggplot2)
 library(effsize)
 library(stats)
+library(lsr)
 cat("\014") 
 options(max.print=1000000)
 
 t1 <- Sys.time()
 dir2save="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/"
+dir2save="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Semantics/results/"
+
 
 getWilcoxonTest<- function(highParam, lowParam, infoParam) 
 {
@@ -24,6 +27,7 @@ getWilcoxonTest<- function(highParam, lowParam, infoParam)
   print(t_test_output )
   print("-------------------------")  
   getCohen(highParam, lowParam)
+
 }
 
 getCohen<- function(cohen_amount_high, cohen_amount_low) 
@@ -45,8 +49,11 @@ getCohen<- function(cohen_amount_high, cohen_amount_low)
   cohen_numerator = mean_high - mean_low 
   cohen_denominator = sqrt(( sd_high ^ 2 + sd_low ^ 2 ) / 2 )
   cohen_ = cohen_numerator / cohen_denominator 
+  lib_cohen <-   cohensD(cohen_amount_high, cohen_amount_low)
   print("Finally:::Cohen's D:::")
-  print(cohen_)
+  ###print(cohen_)
+  ###print("---------------")    
+  print(lib_cohen)
   print("---------------")  
 }
 
@@ -79,60 +86,76 @@ getPerfValues <- function(dirParam, orgParam)
   LOGI_FILE   <- paste0(p2Prefix, "LOGIREG.csv")
   LOGI_PERF   <- read.csv(LOGI_FILE)  
   
-  cart_precision <- data.frame(group = "CART", value = CART_PERF$PRECISION)
-  rf_precision   <- data.frame(group = "RF", value = RF_PERF$PRECISION)
-  svc_precision  <- data.frame(group = "SVC", value  = SVC_PERF$PRECISION)
+  NB_FILE   <- paste0(p2Prefix, "NB.csv")
+  NB_PERF   <- read.csv(NB_FILE)    
+  
+  cart_precision <- data.frame(group = "CART", value  = CART_PERF$PRECISION)
+  rf_precision   <- data.frame(group = "RF", value    = RF_PERF$PRECISION)
+  svc_precision  <- data.frame(group = "SVC", value   = SVC_PERF$PRECISION)
   logi_precision <- data.frame(group = "LOGI", value  = LOGI_PERF$PRECISION)
+  nb_precision   <- data.frame(group = "NB", value    = NB_PERF$PRECISION)  
   
   precision_of_learners               <- rbind(cart_precision, rf_precision, svc_precision, 
-                                               logi_precision)  
+                                               logi_precision, nb_precision)  
   
-  plotBabyPlot(precision_of_learners, "Statistical Learners", "Precision", c(0.50, 0.75))    
+  plotBabyPlot(precision_of_learners, "Statistical Learners", "Precision", c(0.00, 1.00))    
   
-  cart_recall <- data.frame(group = "CART", value = CART_PERF$RECALL)
-  rf_recall   <- data.frame(group = "RF", value = RF_PERF$RECALL)
-  svc_recall  <- data.frame(group = "SVC", value  = SVC_PERF$RECALL)
+  cart_recall <- data.frame(group = "CART", value  = CART_PERF$RECALL)
+  rf_recall   <- data.frame(group = "RF", value    = RF_PERF$RECALL)
+  svc_recall  <- data.frame(group = "SVC", value   = SVC_PERF$RECALL)
   logi_recall <- data.frame(group = "LOGI", value  = LOGI_PERF$RECALL)
+  nb_recall   <- data.frame(group = "NB", value    = NB_PERF$RECALL)    
   
   recall_of_learners               <- rbind(cart_recall, rf_recall, svc_recall, 
-                                            logi_recall)  
+                                            logi_recall, nb_recall)  
   
-  plotBabyPlot(recall_of_learners, "Statistical Learners", "Recall", c(0.50, 0.90))  
+  plotBabyPlot(recall_of_learners, "Statistical Learners", "Recall", c(0.00, 1.05))  
   
-  cart_auc <- data.frame(group = "CART", value = CART_PERF$AUC)
-  rf_auc   <- data.frame(group = "RF", value = RF_PERF$AUC)
-  svc_auc  <- data.frame(group = "SVC", value  = SVC_PERF$AUC)
+  cart_auc <- data.frame(group = "CART", value  = CART_PERF$AUC)
+  rf_auc   <- data.frame(group = "RF", value    = RF_PERF$AUC)
+  svc_auc  <- data.frame(group = "SVC", value   = SVC_PERF$AUC)
   logi_auc <- data.frame(group = "LOGI", value  = LOGI_PERF$AUC)
+  nb_auc   <- data.frame(group = "NB", value    = NB_PERF$AUC)    
   
   auc_of_learners               <- rbind(cart_auc, rf_auc, svc_auc, 
-                                         logi_auc)  
-  plotBabyPlot(auc_of_learners, "Statistical Learners", "AUC", c(0.50, 0.80))  
+                                         logi_auc, nb_auc)  
+  plotBabyPlot(auc_of_learners, "Statistical Learners", "AUC", c(0.40, 0.85))  
   
   ### finally returning 
-  auc_per_values_to_ret <-c(CART_PERF$AUC, RF_PERF$AUC, SVC_PERF$AUC, LOGI_PERF$AUC)
+  auc_per_values_to_ret <-data.frame(CART_PERF$AUC, RF_PERF$AUC, SVC_PERF$AUC, LOGI_PERF$AUC, NB_PERF$AUC)
   
   return (auc_per_values_to_ret)
 }
+orgPrefix <-"WIKI_"
 ### get before  tranformation data 
 dirPrefix <- "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/March01/"
-orgPrefix <-"MOZ_"
+###dirPrefix <- "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Semantics/results/tokenization/"
 before_all_pred_perf_values <- getPerfValues(dirPrefix, orgPrefix)
 ### get after tranformation data 
-# dirPrefix <- "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/March13-Log-Tuning/"
-# orgPrefix <-"WIKI_"
-# after_all_pred_perf_values  <- getPerfValues(dirPrefix, orgPrefix)
+dirPrefix <- "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/March13-Log-And-Tuning/"
+###dirPrefix <- "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Semantics/results/tf-idf/"
+after_all_pred_perf_values  <- getPerfValues(dirPrefix, orgPrefix)
 ### compare 
-learners <-c("CART", "RF", "SVC", "AUC")
-# for(index_ in 1: length(before_all_pred_perf_values))
-# {
-#      learner <- learners[index_]
-#      print(learner)
-#      before_ <- before_all_pred_perf_values[index_]
-#      after_  <- after_all_pred_perf_values[index_]
-#      ### comparison 
-#      getWilcoxonTest(after_, before_, learner)
-#      
-# }
+learners <-c("CART", "RF", "SVC", "LOGI.REGR", "NB")
+# learners <-c("CART")
+for(index_ in 1: length(learners))
+{
+      learner <- learners[index_]
+      print(learner)
+      before_   <- before_all_pred_perf_values[, index_]
+      sd_before <- sd(before_, na.rm = TRUE)
+      ###print(sd_before)
+      after_  <- after_all_pred_perf_values[, index_]
+      sd_after <- sd(after_, na.rm = TRUE)
+      ###print(sd_after)      
+      ### comparison 
+      stability_ratio <- sd_after / sd_before 
+      stab_ratio_out  <- paste0("The stability ratio is:", stability_ratio, sep="")
+      print(stab_ratio_out)
+      ### comparison 
+      getWilcoxonTest(after_, before_, learner)
+      
+}
 
 
 
