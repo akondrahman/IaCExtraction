@@ -3,16 +3,17 @@ options(max.print=1000000)
 library(vioplot)
 t1 <- Sys.time()
 #y_limit  <- 13000 ### for size of bytes
-y_limit  <- 600  ### for sloc
+#y_limit  <- 600  ### for sloc
+y_limit  <- 30  ### for authroship 
 
 
 #y_label   <- "Size(Bytes)"
-y_label  <- "LOC"
-
+#y_label  <- "LOC"
+y_label  <- "Count of Programmers"
 
 #dir_name  <- "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Categ-Project/output/size_per_categ/"
-dir_name  <- "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Categ-Project/output/loc_per_categ/"
-
+#dir_name  <- "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Categ-Project/output/loc_per_categ/"
+dir_name  <- "/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Categ-Project/output/author_per_categ/"
 
 T_file  <- paste0(dir_name, "T_.csv", sep="")
 T_data  <- read.csv(T_file, stringsAsFactors=F)

@@ -39,21 +39,21 @@ for(index_ in 1:len_categ)
   def_cnt_per_cat   <- length(uni_q_per_categ)
   tot_def_cnt       <- tot_def_cnt + def_cnt_per_cat
   tot_aut_cnt       <- tot_lin_cnt + sum_aut_per_cat
-  mean_txt          <- paste0("Mean is:", mean_loc_per_cat, sep="")
-  medi_txt          <- paste0("median is:", med_loc_per_cat, sep="")  
+  mean_txt          <- paste0("Mean is:", mean_aut_per_cat, sep="")
+  medi_txt          <- paste0("median is:", med_aut_per_cat, sep="")  
   print(mean_txt)  
   print(medi_txt)    
   
   aut_per_def_cat   <- sum_aut_per_cat/def_cnt_per_cat
-  aut_per_def_txt   <- paste0("Line per defect categ. is:", aut_per_def_cat, sep="") 
+  aut_per_def_txt   <- paste0("Author per defect categ. is:", aut_per_def_cat, sep="") 
   print(aut_per_def_txt)
   
   print("========================================")
 }
 print("**************************************************")
-overall_lin_per_def_cat   <- tot_lin_cnt/tot_def_cnt
-overall_lin_per_def_txt   <- paste0("Overall line per defect categ. is:", overall_lin_per_def_cat, sep="") 
-print(overall_lin_per_def_txt)
+overall_aut_per_def_cat   <- tot_aut_cnt/tot_def_cnt
+overall_aut_per_def_txt   <- paste0("Overall author per defect categ. is:", overall_aut_per_def_cat, sep="") 
+print(overall_aut_per_def_txt)
 print("**************************************************")
 
 
