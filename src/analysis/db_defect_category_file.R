@@ -3,7 +3,7 @@ options(max.print=1000000)
 t1 <- Sys.time()
 
 library(RMySQL)
-
+FileOut <-"/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Categ-Project/output/file_per_categ/"
 
 
 mydb = dbConnect(MySQL(), user='root', password='SrcML#2016', dbname='IaC_DB', host='localhost')
@@ -30,6 +30,7 @@ for(index_ in 1:len_categ)
   #print(uni_q_per_categ) 
 
   uni_q_per_categ     <- unique(out_q_per_categ)    
+  
   fil_cnt_per_categ   <- length(unlist(uni_q_per_categ))
   tot_fil_cnt         <- tot_fil_cnt + fil_cnt_per_categ
 
