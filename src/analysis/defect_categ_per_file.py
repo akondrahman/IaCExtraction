@@ -74,4 +74,10 @@ wikiDict = getFileToDefectCateg(theFile, 'wikimedia')
 # print moziDict
 # print "="*100
 # print wikiDict
+print "="*100
+print "THE MOZILLA DATASET"
 processFileToCategMapping(moziDict)
+print "="*100
+print "THE WIKIMEDIA DATASET"
+processFileToCategMapping(wikiDict)
+print "="*100
