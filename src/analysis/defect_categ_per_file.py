@@ -58,6 +58,15 @@ def processFileToCategMapping(dictP):
         elif((len(unique_defect_categ)==9) ):
             atLeastNineDefectList.append(k_)
     print "Count of files with no defects:", len(theZeroDefectList)
+    print "Count of files with at least 1 types of defects:", len(atLeastOneDefectList)
+    print "Count of files with at least 2 types of defects:", len(atLeastTwoDefectList)
+    print "Count of files with at least 3 types of defects:", len(atLeastThreeDefectList)
+    print "Count of files with at least 4 types of defects:", len(atLeastFourDefectList)
+    print "Count of files with at least 5 types of defects:", len(atLeastFiveDefectList)
+    print "Count of files with at least 6 types of defects:", len(atLeastSixDefectList)
+    print "Count of files with at least 7 types of defects:", len(atLeastSevenDefectList)
+    print "Count of files with at least 8 types of defects:", len(atLeastEightDefectList)
+    print "Count of files with at least 9 types of defects:", len(atLeastNineDefectList)
 
 theFile='/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Categ-Project/output/New.Categ.csv'
 moziDict = getFileToDefectCateg(theFile, 'mozilla')
