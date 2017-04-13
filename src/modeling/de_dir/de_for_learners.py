@@ -8,7 +8,8 @@ from sklearn import decomposition, svm
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import RandomizedLogisticRegression, LogisticRegression
-dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_FULL_DATASET.csv"
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_FULL_DATASET.csv"
+dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_WIKI_FULL_DATASET.csv"
 folds=10
 no_features_to_use=5
 prev_cart_auc   = float(0)
@@ -30,7 +31,13 @@ def evaluateCART(paramsForTuning):
   label_cols = full_cols - 1
   all_labels  =  dataset_for_labels[:, label_cols]
   ## 4. do PCA, take all features for PCA
-  feature_input_for_pca = all_features
+  '''
+  lets transform all the features via log transformation
+  '''
+  log_transformed_features = Utility.createLogTransformedFeatures(all_features)
+  print "-"*50
+  feature_input_for_pca = log_transformed_features
+  #feature_input_for_pca = all_features
   pcaObj = decomposition.PCA(n_components=15)
   pcaObj.fit(feature_input_for_pca)
   ## 5. trabsform daatset based on PCA
@@ -67,8 +74,13 @@ def evaluateRF(paramsForTuning):
   label_cols = full_cols - 1
   all_labels  =  dataset_for_labels[:, label_cols]
   ## 4. do PCA, take all features for PCA
-  feature_input_for_pca = all_features
-  #feature_input_for_pca  = only_pupp_features
+  '''
+  lets transform all the features via log transformation
+  '''
+  log_transformed_features = Utility.createLogTransformedFeatures(all_features)
+  print "-"*50
+  feature_input_for_pca = log_transformed_features
+  #feature_input_for_pca = all_features
   pcaObj = decomposition.PCA(n_components=15)
   pcaObj.fit(feature_input_for_pca)
   ## 5. trabsform daatset based on PCA
@@ -114,8 +126,13 @@ def evaluateSVM(paramsForTuning):
   label_cols = full_cols - 1
   all_labels  =  dataset_for_labels[:, label_cols]
   ## 4. do PCA, take all features for PCA
-  feature_input_for_pca = all_features
-  #feature_input_for_pca  = only_pupp_features
+  '''
+  lets transform all the features via log transformation
+  '''
+  log_transformed_features = Utility.createLogTransformedFeatures(all_features)
+  print "-"*50
+  feature_input_for_pca = log_transformed_features
+  #feature_input_for_pca = all_features
   pcaObj = decomposition.PCA(n_components=15)
   pcaObj.fit(feature_input_for_pca)
   ## 5. trabsform daatset based on PCA
@@ -134,7 +151,7 @@ def evaluateSVM(paramsForTuning):
     svm_area_under_roc = de_utility.perform_cross_validation(the_SVM_Model, selected_features, all_labels, folds, 'SVM')
     #print "asi mama:", svm_area_under_roc
     prev_svm_auc = svm_area_under_roc
-  print "current pointer to AUC:", svm_area_under_roc
+  #print "current pointer to AUC:", svm_area_under_roc
   return svm_area_under_roc
 
 
@@ -161,8 +178,13 @@ def evaluateLOGI(paramsForTuning):
   label_cols = full_cols - 1
   all_labels  =  dataset_for_labels[:, label_cols]
   ## 4. do PCA, take all features for PCA
-  feature_input_for_pca = all_features
-  #feature_input_for_pca  = only_pupp_features
+  '''
+  lets transform all the features via log transformation
+  '''
+  log_transformed_features = Utility.createLogTransformedFeatures(all_features)
+  print "-"*50
+  feature_input_for_pca = log_transformed_features
+  #feature_input_for_pca = all_features
   pcaObj = decomposition.PCA(n_components=15)
   pcaObj.fit(feature_input_for_pca)
   ## 5. trabsform daatset based on PCA
@@ -175,11 +197,11 @@ def evaluateLOGI(paramsForTuning):
   elif( (paramsForTuning[0] > de_utility.learnerDict['LOGI'][0][1] ) ):
     logi_area_under_roc = prev_logi_auc
   else:
-    the_LOGI_Model      = LogisticRegression( C = paramsForTuning[0], penalty = 'l2' )
+    the_LOGI_Model      = LogisticRegression( C = paramsForTuning[0], penalty = 'l1' )
     logi_area_under_roc = de_utility.perform_cross_validation(the_LOGI_Model, selected_features, all_labels, folds, 'LOGI')
     #print "asi mama:", logi_area_under_roc
     prev_logi_auc = logi_area_under_roc
-  print "current pointer to AUC:", logi_area_under_roc
+  #print "current pointer to AUC:", logi_area_under_roc
   return logi_area_under_roc
 
 
@@ -193,9 +215,6 @@ def giveMeFuncNameOfThisLearner(learnerNameP):
    elif learnerNameP=='LOGI':
     func2ret = evaluateLOGI
    return func2ret
-
-
-
 
 
 def evaluateLearners(learnerName):

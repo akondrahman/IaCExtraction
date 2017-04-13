@@ -23,14 +23,14 @@ for cnt in xrange(no_of_iterations):
 
   # 2. run DE for tuning RF
   # auc_ =  de_for_learners.evaluateLearners('RF')
-  #fileToSave = dir_ + 'rf' + '.csv'
+  # fileToSave = dir_ + 'rf' + '.csv'
 
   ###3. run DE for tuning SVM
-  #auc_ = de_for_learners.evaluateLearners('SVM')
-  #fileToSave = dir_ + 'svm' + '.csv'
+  # auc_ = de_for_learners.evaluateLearners('SVM')
+  # fileToSave = dir_ + 'svm' + '.csv'
 
   # ###4. run DE for tuning Logistic Regression
-  # auc_ = de_for_learners.evaluateLearners('LOGI')
+  #auc_ = de_for_learners.evaluateLearners('LOGI')
   #fileToSave = dir_ + 'logi' + '.csv'
 
   print "Ended at:", de_utility.giveTimeStamp()
