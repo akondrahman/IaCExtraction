@@ -227,13 +227,13 @@ def performUnsupervisedKMeans(featureParam, labelParam, infoP):
 
 
 
-def performUnsupervisedKMeans(featureParam, labelParam, infoP):
+def performSupervisedKMeans(featureParam, labelParam, foldParam, infoP):
     kmeans_model = KMeans(n_clusters=2)
-    kmeans_model.fit(featureParam)
-    modeled_labels = kmeans_model.labels_
-    knn_unsup_auc_output = evalClassifier(labelParam, modeled_labels)
-    print "For {} area under ROC is: {}".format(infoP, knn_unsup_auc_output[0])
-    return knn_unsup_auc_output
+    kmeans_model.fit(featureParam, labelParam)
+    knn_sup_auc_output = perform_cross_validation(kmeans_model, featureParam, labelParam, foldParam, infoP)
+    print "For {} area under ROC is: {}".format(infoP, knn_sup_auc_output[0])
+    return knn_sup_auc_output
+
 
 
 
@@ -258,11 +258,11 @@ def performModeling(features, labels, foldsParam):
   performNaiveBayes(features, labels, foldsParam, "Naive-Bayes")
   print "="*100
   ### lets do kmeans, unsupervised
-  performUnsupervisedKMeans(features, labels, "K-Means:Unsupervised")
-  print "="*100
+  #performUnsupervisedKMeans(features, labels, "K-Means:Unsupervised")
+  #print "="*100
   ### lets do kmeans, supervised
-  performSupervisedKMeans(features, labels, "K-Means:Supervised")
-  print "="*100
+  #performSupervisedKMeans(features, labels, foldsParam, "K-Means:Supervised")
+  #print "="*100
 
 
 
