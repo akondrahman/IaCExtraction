@@ -4,7 +4,7 @@ Created on Thu Oct  6 17:06:45 2016
 
 @author: akond
 """
-
+from sklearn.cluster import KMeans, DBSCAN
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn.metrics import precision_score, recall_score
 import numpy as np, pandas as pd
@@ -14,7 +14,7 @@ from sklearn.linear_model import RandomizedLogisticRegression, LogisticRegressio
 from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_error, accuracy_score, confusion_matrix
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
-from sklearn import linear_model
+from sklearn import linear_model, metrics
 import Utility
 
 def dumpPredPerfValuesToFile(iterations, predPerfVector, fileName):
@@ -203,9 +203,9 @@ def performLogiReg(featureParam, labelParam, foldParam, infoP):
 
 
 def performNaiveBayes(featureParam, labelParam, foldParam, infoP):
-  theNBModel = GaussianNB()
+  #theNBModel = GaussianNB()
   #theNBModel = MultinomialNB()
-  #theNBModel = BernoulliNB()
+  theNBModel = BernoulliNB()
   '''
   with optimized parameters
   first is mozilla then wiki
@@ -214,6 +214,27 @@ def performNaiveBayes(featureParam, labelParam, foldParam, infoP):
   gnb_area_under_roc = perform_cross_validation(theNBModel, featureParam, labelParam, foldParam, infoP)
   print "For {} area under ROC is: {}".format(infoP, gnb_area_under_roc[0])
   return gnb_area_under_roc
+
+
+
+def performUnsupervisedKMeans(featureParam, labelParam, infoP):
+    kmeans_model = KMeans(n_clusters=2)
+    kmeans_model.fit(featureParam)
+    modeled_labels = kmeans_model.labels_
+    knn_unsup_auc_output = evalClassifier(labelParam, modeled_labels)
+    print "For {} area under ROC is: {}".format(infoP, knn_unsup_auc_output[0])
+    return knn_unsup_auc_output
+
+
+
+def performUnsupervisedKMeans(featureParam, labelParam, infoP):
+    kmeans_model = KMeans(n_clusters=2)
+    kmeans_model.fit(featureParam)
+    modeled_labels = kmeans_model.labels_
+    knn_unsup_auc_output = evalClassifier(labelParam, modeled_labels)
+    print "For {} area under ROC is: {}".format(infoP, knn_unsup_auc_output[0])
+    return knn_unsup_auc_output
+
 
 
 def performModeling(features, labels, foldsParam):
@@ -236,6 +257,15 @@ def performModeling(features, labels, foldsParam):
   ### lets do naive bayes
   performNaiveBayes(features, labels, foldsParam, "Naive-Bayes")
   print "="*100
+  ### lets do kmeans, unsupervised
+  performUnsupervisedKMeans(features, labels, "K-Means:Unsupervised")
+  print "="*100
+  ### lets do kmeans, supervised
+  performSupervisedKMeans(features, labels, "K-Means:Supervised")
+  print "="*100
+
+
+
 
 def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
   cart_prec_holder, cart_recall_holder, holder_cart = [], [], []
@@ -388,12 +418,12 @@ def performIterativeModeling(featureParam, labelParam, foldParam, iterationP):
                                                                             np.median(logi_recall_holder), max(logi_recall_holder),
                                                                             min(logi_recall_holder))
   print "*"*25
-  nb_all_pred_perf_values = (holder_logi, logi_prec_holder, logi_recall_holder)
+  logireg_all_pred_perf_values = (holder_logi, logi_prec_holder, logi_recall_holder)
   dumpPredPerfValuesToFile(iterationP, logireg_all_pred_perf_values, '/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/results/PRED_PERF_LOGIREG.csv')
   print "-"*50
 
   '''
-  added later: March 14, 2017: 12:01 AM 
+  added later: March 14, 2017: 12:01 AM
   '''
   print "Summary: AUC, for:{}, mean:{}, median:{}, max:{}, min:{}".format("Naive Bayes", np.mean(holder_nb),
                                                                           np.median(holder_nb), max(holder_nb),
