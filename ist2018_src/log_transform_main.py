@@ -71,7 +71,7 @@ print "Selected feature dataset size:", np.shape(selected_features)
 print "-"*50
 getPCAInsights(pcaObj, 1)
 print "-"*50
-sklearn_models.performIterativeModeling(selected_features, all_labels, 10, 100)
+sklearn_models.performIterativeModeling(selected_features, all_labels, 10, 10)
 print "-"*50
 print "The dataset is:",dataset_file
 print "-"*50

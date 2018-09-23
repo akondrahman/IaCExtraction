@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 '''
-Akond Rahman
+Akond Rahman 
 Sep 23 2018 
-sklearn prediction 
+Sklearn for prediction 
 '''
 
 from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
@@ -14,7 +15,7 @@ from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn import linear_model
-import Utility
+import utility
 from sklearn.metrics import f1_score
 from sklearn.metrics import matthews_corrcoef
 import math 
@@ -32,7 +33,7 @@ def dumpPredPerfValuesToFile(iterations, predPerfVector, fileName):
        
        str2write = str2write + str(auc_) + ',' + str(prec_) + ',' + str(recal) + ',' + str(f1) + ',' + str(acc) + ',' + str(gmean) + ',' + '\n'
    str2write = headerStr + '\n' + str2write
-   bytes_ = Utility.dumpContentIntoFile(str2write, fileName)
+   bytes_ = utility.dumpContentIntoFile(str2write, fileName)
    print "Created {} of {} bytes".format(fileName, bytes_)
 
 def evalClassifier(actualLabels, predictedLabels):
@@ -97,7 +98,10 @@ def performNaiveBayes(featureParam, labelParam, foldParam, infoP):
   gnb_area_under_roc = perform_cross_validation(theNBModel, featureParam, labelParam, foldParam, infoP)
   return gnb_area_under_roc
 
-def performIterativeModeling(iterDumpDir, featureParam, labelParam, foldParam, iterationP=10):
+
+
+
+def performIterativeModeling(featureParam, labelParam, foldParam, iterationP=10):
   cart_prec_holder, cart_recall_holder, holder_cart, f1_holder_cart, acc_holder_cart, gmean_holder_cart = [], [], [], [], [], []
   knn_prec_holder,  knn_recall_holder,  holder_knn, f1_holder_knn, acc_holder_knn, gmean_holder_knn  = [], [], [], [], [], []
   rf_prec_holder,   rf_recall_holder,   holder_rf, f1_holder_rf, acc_holder_rf, gmean_holder_rf   = [], [], [], [], [], []
