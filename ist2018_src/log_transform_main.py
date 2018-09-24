@@ -8,8 +8,6 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn import decomposition
 import Utility , numpy as np , sklearn_models, pandas as pd
 glimpseIndex        = 10
-topFeaturesinPCA    = 3
-pca_comp_to_analyze = 10
 
 def getPCAInsights(pcaParamObj, no_of_pca_comp_to_see):
     top_components_index = np.abs(pcaParamObj.components_[no_of_pca_comp_to_see]).argsort()[::-1][:topFeaturesinPCA]
@@ -20,8 +18,32 @@ print "Started at:", Utility.giveTimeStamp()
 Deprecating warnings will be suppressed
 '''
 
-dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_MOZ_FULL_DATASET.csv"
-# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/SYNTHETIC_WIKI_FULL_DATASET.csv"
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/IST_MIR.csv"
+# no_features_to_use = 1
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/IST_MOZ.csv"
+# no_features_to_use = 1
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/IST_OST.csv"
+# no_features_to_use = 2
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/IST_WIK.csv"
+# no_features_to_use = 2
+
+topFeaturesinPCA    = 3
+pca_comp_to_analyze = 10
+
+
+'''
+For size-only prediction model
+
+dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/JUST_SIZE/MIR.csv"
+dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/JUST_SIZE/MOZ.csv"
+dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/JUST_SIZE/OST.csv"
+dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/JUST_SIZE/WIK.csv"
+
+topFeaturesinPCA    = 1
+pca_comp_to_analyze = 1
+no_features_to_use = 1
+
+'''
 
 print "The dataset is:", dataset_file
 print "-"*50
@@ -62,14 +84,11 @@ for index_ in xrange(len(variance_ratio_of_features)):
     print "Principal component#{}, explained variance:{}".format(index_+1, variance_ratio_of_features[index_])
 print "-"*50
 # see how much explained variance is covered by the number of compoenents , and set the number
-no_features_to_use = 5 #using one PCA you get lesser accuracy
 print "Of all the features, we will use:", no_features_to_use
 print "-"*50
 pcaObj.n_components=no_features_to_use
 selected_features = pcaObj.fit_transform(all_features)
 print "Selected feature dataset size:", np.shape(selected_features)
-print "-"*50
-getPCAInsights(pcaObj, 1)
 print "-"*50
 sklearn_models.performIterativeModeling(selected_features, all_labels, 10, 10)
 print "-"*50
