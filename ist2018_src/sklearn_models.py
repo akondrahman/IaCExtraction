@@ -9,7 +9,8 @@ from sklearn.naive_bayes import GaussianNB, MultinomialNB, BernoulliNB
 from sklearn.metrics import precision_score, recall_score
 import numpy as np, pandas as pd
 from sklearn.tree import DecisionTreeClassifier
-from sklearn import cross_validation, svm
+from sklearn  import svm
+from sklearn.model_selection import cross_val_predict
 from sklearn.linear_model import RandomizedLogisticRegression, LogisticRegression
 from sklearn.metrics import classification_report, roc_auc_score, mean_absolute_error, accuracy_score, confusion_matrix
 from sklearn.neighbors import KNeighborsClassifier
@@ -59,7 +60,7 @@ def evalClassifier(actualLabels, predictedLabels):
   return area_roc_output, prec_, recall_, fscore_output, accuracy_score_output, gmean_out
 
 def perform_cross_validation(classiferP, featuresP, labelsP, cross_vali_param, infoP):
-  predicted_labels = cross_validation.cross_val_predict(classiferP, featuresP , labelsP, cv=cross_vali_param)
+  predicted_labels = cross_val_predict(classiferP, featuresP , labelsP, cv=cross_vali_param)
   area_roc_to_ret = evalClassifier(labelsP, predicted_labels)
   return area_roc_to_ret
 

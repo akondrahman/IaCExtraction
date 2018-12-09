@@ -14,9 +14,6 @@ def getPCAInsights(pcaParamObj, no_of_pca_comp_to_see):
     print top_components_index
 
 print "Started at:", Utility.giveTimeStamp()
-'''
-Deprecating warnings will be suppressed
-'''
 
 # dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/IST_MIR.csv"
 # no_features_to_use = 1
@@ -44,6 +41,41 @@ pca_comp_to_analyze = 1
 no_features_to_use = 1
 
 '''
+
+'''
+Rebuttal Work 
+Sharma 
+'''
+
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/ist_jrl_ds/REBUTTAL_SHARMA_MIR.csv"
+# no_features_to_use = 2
+
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/ist_jrl_ds/REBUTTAL_SHARMA_MOZ.csv"
+# no_features_to_use = 2
+
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/ist_jrl_ds/REBUTTAL_SHARMA_OST.csv"
+# no_features_to_use = 3
+
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/ist_jrl_ds/REBUTTAL_SHARMA_WIK.csv"
+# no_features_to_use = 3
+
+'''
+Rebuttal Work 
+Process 
+'''
+pca_comp_to_analyze = 4
+
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/ist_jrl_ds/REBUTTAL_PROCESS_MIR.csv"
+# no_features_to_use = 2
+
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/ist_jrl_ds/REBUTTAL_PROCESS_MOZ.csv"
+# no_features_to_use = 2
+
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/ist_jrl_ds/REBUTTAL_PROCESS_OST.csv"
+# no_features_to_use = 3
+
+# dataset_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/ist_jrl_ds/REBUTTAL_PROCESS_WIK.csv"
+# no_features_to_use = 3
 
 print "The dataset is:", dataset_file
 print "-"*50

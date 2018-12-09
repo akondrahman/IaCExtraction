@@ -12,7 +12,7 @@ import cliffsDelta
 # all_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/IST_MIR.csv"
 # all_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/IST_MOZ.csv"
 # all_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/IST_OST.csv"
-# all_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/IST_WIK.csv"
+all_file="/Users/akond/Documents/AkondOneDrive/OneDrive/IaC-Defect-Prediction-Project/dataset/IST_WIK.csv"
 
 
 def giveTimeStamp():
@@ -47,8 +47,8 @@ for dataset_file in dataset_files:
            '''
            print 'THE FEATURE IS:', feature_
            print '='*25
-           print "Defective values [MEDIAN]:{}, [MEAN]:{}, [COUNT]:{}".format(np.median(list(defective_vals_for_feature)), np.mean(list(defective_vals_for_feature)), len(defective_vals_for_feature))
-           print "Non Defective values [MEDIAN]:{}, [MEAN]:{}, [COUNT]:{}".format(np.median(list(non_defective_vals_for_feature)), np.mean(list(non_defective_vals_for_feature)), len(non_defective_vals_for_feature))
+           print "Defective values [MEDIAN]:{}, [MEAN]:{}, [COUNT]:{}, [STD]:{}".format(np.median(list(defective_vals_for_feature)), np.mean(list(defective_vals_for_feature)), len(defective_vals_for_feature), np.std(defective_vals_for_feature))
+           print "Non Defective values [MEDIAN]:{}, [MEAN]:{}, [COUNT]:{}, [STD]:{}".format(np.median(list(non_defective_vals_for_feature)), np.mean(list(non_defective_vals_for_feature)), len(non_defective_vals_for_feature), np.std(non_defective_vals_for_feature))
            try:
               TS, p = stats.mannwhitneyu(list(defective_vals_for_feature), list(non_defective_vals_for_feature), alternative='greater')
            except ValueError:
